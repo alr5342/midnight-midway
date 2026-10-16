@@ -24,6 +24,7 @@
             <h1 id="start-title">The Midnight<br>Midway</h1>
             <p>Step inside. Some guests never left.</p>
             <button type="button" class="enter-button" id="enter" autofocus>Enter</button>
+            <p id="asset-notice" role="status" hidden></p>
             <p id="motion-note" hidden></p>
           </div>
         </section>
@@ -32,12 +33,24 @@
           <button type="button" id="bell" class="bell-target" aria-label="Ring the ticket booth bell" aria-describedby="ring-progress" hidden></button>
           <p id="ring-progress" class="ring-progress" role="status" hidden></p>
         </div>
-        <p class="hint-mockup" id="hint" hidden>Some guests never left the midway…</p>
+        <button type="button" id="credits-open" class="credits-open" aria-haspopup="dialog">Credits</button>
+        <p class="hint-mockup" id="hint" role="status" hidden>Some guests never left the midway…</p>
         <p class="audio-notice" id="audio-notice" role="status" hidden></p>
         <p class="story-notice" id="story-notice" role="status" hidden></p>
       </div>
     </div>
     <p class="visually-hidden" id="playback-status" role="status"></p>
+    <dialog id="credits-dialog" aria-labelledby="credits-title">
+      <button type="button" id="credits-close">Close</button>
+      <h2 id="credits-title">The Midnight Midway — credits</h2>
+      <p><strong>Developer:</strong> Alex Rosemann. Concept direction, design decisions, review and testing by Alex Rosemann; code and artwork preparation assisted by OpenAI Codex/ChatGPT.</p>
+      <p><strong>Visuals:</strong> Midnight Midway reference generated with ChatGPT, as confirmed by the Developer. Layer extractions, hidden-surface repairs, corrected gondola and spectral attendant prepared with OpenAI image generation. Bell, ticket, stamp, sparks, masks and ambient SVG effects are project-original code artwork. No external font or runtime code library is used.</p>
+      <p><strong>Wind:</strong> remaxim, <a href="https://opengameart.org/content/short-wind-sound" target="_blank" rel="noopener noreferrer">Short wind sound</a>. Filtered and crossfaded into the ambient loop.</p>
+      <p><strong>Bell:</strong> Julie Damsgaard / Spring Spring / Spring Enterprises, <a href="https://opengameart.org/content/pleasing-bell-sound-effect" target="_blank" rel="noopener noreferrer">Pleasing Bell Sound Effect</a>. Pitched and faded into three ring cues.</p>
+      <p><strong>Magic:</strong> JaggedStone, <a href="https://opengameart.org/content/magic-spell-sfx" target="_blank" rel="noopener noreferrer">Magic Spell SFX</a>. Trimmed, pitched and faded for arrival, stamp and departure.</p>
+      <p>All external sounds are <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0 1.0</a>. Full source URLs, preserved originals and processing details are recorded in the project’s CREDITS.md.</p>
+      <p>Closing credits keeps the scene paused. Choose Play to continue.</p>
+    </dialog>
   </main>
   <script src="artwork.js"></script>
   <script type="module" src="app.js"></script>

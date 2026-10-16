@@ -18,6 +18,14 @@ main.app {
 .app-ui button { pointer-events: auto; cursor: pointer; font-family: inherit; }
 .audio-notice { position: absolute; top: 64px; left: 12px; right: 12px; width: fit-content; max-width: calc(100% - 24px); margin: 0; padding: 8px 10px; background: #0c1021f2; color: #fff0d9; border-radius: 6px; font: 12px/1.4 system-ui, sans-serif; }
 .app-ui .pause-mockup { padding: 0; }
+.credits-open { position:absolute; top:12px; right:12px; min-height:44px; min-width:64px; padding:8px; border:1px solid #d9bd8580; border-radius:8px; background:#101323; color:#ffdda2; font-size:12px; }
+#credits-dialog { width:min(520px, calc(100vw - 24px)); max-height:calc(100dvh - 32px); padding:20px; overflow:auto; border:1px solid #b89154; border-radius:12px; background:#0c1021; color:#fff0d9; font:14px/1.55 system-ui,sans-serif; }
+#credits-dialog::backdrop { background:#050711c9; }
+#credits-dialog h2 { margin-top:12px; font:24px/1.25 Georgia,serif; }
+#credits-close { min-width:64px; min-height:44px; padding:8px 12px; border:1px solid #ffe0a7; border-radius:6px; background:#e6b66e; color:#21160d; font:inherit; }
+#credits-dialog a { color:#ffe0a7; }
+#credits-dialog :focus-visible { outline:3px solid #fff0c9; outline-offset:3px; }
+.enter-button:disabled { cursor:wait; opacity:.65; }
 .bell-target { position: absolute; left: 24.05%; top: 62.3%; transform: translate(-50%, -50%); min-width: 44px; min-height: 44px; padding: 0; border: 1px solid #ffe0ad45; border-radius: 50%; background: transparent; touch-action: manipulation; }
 .bell-target[aria-disabled="true"] { cursor: default; }
 .ring-progress { position: absolute; left: 6%; top: 66%; margin: 0; padding: 4px 7px; max-width: 55%; border-radius: 5px; background: #0c1021f2; color: #fff0d9; font: 12px/1.4 system-ui, sans-serif; }

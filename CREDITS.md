@@ -1,5 +1,15 @@
 # Midnight Midway credits
 
+## Developer and AI assistance
+
+**Alex Rosemann** — Developer; concept selection, direction, design decisions, evaluation and testing. Name confirmed by the Developer on 2026-10-16. OpenAI Codex/ChatGPT assisted with implementation and artwork preparation. HTML/CSS/JavaScript and SVG props/effects are project code; no external runtime code library or font is used. Playwright is a development-only browser testing dependency, not bundled into the app.
+
+## Reference and visual assets
+
+The Developer confirmed on 2026-10-16 that reference/midnight-midway-concept.png is **AI-generated with ChatGPT**. It is the supplied source for the approved scene, not an unidentified third-party illustration. This provenance is based on the Developer's confirmation; no claim of an exclusive copyright or CC0 license for generated imagery is made.
+
+OpenAI image generation prepared the booth extraction/clean plate, hidden-surface repairs, localized gondola correction and versioned ghost/window assets. Original scene pixels and masks are retained as described in assets/ARTWORK.md, assets/REVIEW.md and assets/GONDOLA.md; exact prompts and revisions are retained in assets/ and assets/story/PROMPTS.md. Ghost v3 and the complete visual design are approved. Bell/ticket/stamp/sparks, masks and ambient SVG effects are original project code artwork.
+
 ## Ambient sound
 
 “Short wind sound” by **remaxim**, OpenGameArt, released by its creator under **CC0 1.0**. Verified 2026-10-16.
@@ -26,14 +36,18 @@ Verified 2026-10-16 against each creator's OpenGameArt item/license listing duri
 
 License deed: https://creativecommons.org/publicdomain/zero/1.0/. Exact derivative duration/pitch/peak metadata: assets/story/audio-manifest.json. Reproducible edits: tools/prepare-story-audio.mjs. Human listening review remains pending; machine decode/signal checks do not replace it.
 
-## Ticket-booth story visuals — P1.6 candidates
+## Ticket-booth story visuals — approved P1.6
 
-Ghost attendant and empty-window plate: built-in image_gen, style/edit reference assets/ticket-booth.png; exact prompts in assets/story/PROMPTS.md. Both are new versioned files in assets/story/; approved originals remain unchanged. Bell, ticket, stamp, sparks and aperture mask are original code-native SVGs. Preparation/integration contract: assets/story/STORYBOARD.md. These candidates await Developer review.
+Ghost attendant and empty-window plate: built-in image_gen, style/edit reference assets/ticket-booth.png; exact prompts in assets/story/PROMPTS.md. Versioned files are retained in assets/story/; approved originals remain unchanged. Bell, ticket, stamp, sparks and aperture mask are original code-native SVGs. Preparation/integration contract: assets/story/STORYBOARD.md. Ghost v3 and staging are approved.
 
 ## Artwork and code
 
-Ghost revision: ghost-attendant-v2.png and ghost-attendant-v3.png were created with built-in image_gen edits using the previous version as the reference. v3 is the current staged candidate: obscured face, weathered uniform and narrow spectral silhouette. All prior sprites remain available; exact prompts are appended to assets/story/PROMPTS.md. The background, props and sounds were not regenerated.
+Ghost revision: ghost-attendant-v2.png and ghost-attendant-v3.png were created with built-in image_gen edits using the previous version as the reference. v3 is the approved runtime character: obscured face, weathered uniform and narrow spectral silhouette. All prior sprites remain available; exact prompts are appended to assets/story/PROMPTS.md. The background, props and sounds were not regenerated.
 
-Developer credit/name and the supplied visual reference's creator/origin/public-use permission still need to be recorded before submission. See research.md's source register. AI-assisted artwork preparation and original SVG effect code are documented there and in assets/. No artwork source files were changed for P1.5.
+Developer name and supplied-reference origin are now recorded above from the Developer's confirmation. AI-assisted artwork preparation and original SVG effect code are documented in research.md and assets/. No approved image or sound was changed during submission preparation.
 
-These project credits will be incorporated into the final in-app credits presentation during Phase 1 completion checks; this file is not a claim that the full credits requirement is already complete.
+The app now includes a keyboard-accessible Credits dialog with Developer, visual/code assistance and sound creator/source/license credits. It pauses the shared experience and requires explicit Play after closing. This source record includes detailed original/derivative processing beyond the concise in-app presentation.
+
+## Development tools
+
+Playwright 1.63.0, Microsoft contributors: https://github.com/microsoft/playwright, Apache-2.0 license (verified in the installed package metadata/LICENSE). Used only to automate Chromium/Firefox/WebKit tests. The app does not bundle Playwright or the downloaded test browsers. No other external runtime code or font is included.

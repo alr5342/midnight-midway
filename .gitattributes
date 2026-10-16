@@ -1,0 +1,10 @@
+*.js text eol=lf
+*.mjs text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.md text eol=lf
+# Preserve approved artwork byte hashes across Windows clones/checkouts.
+*.svg -text
+*.png binary
+*.wav binary
+*.ogg binary

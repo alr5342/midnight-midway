@@ -1,0 +1,44 @@
+{
+  "diagnostics": {
+    "clock": {
+      "state": "exploring",
+      "elapsedMs": 10008,
+      "canInteract": true,
+      "reducedMotion": true,
+      "scheduledFrames": 1
+    },
+    "ambient": {
+      "status": "unavailable",
+      "contextState": "not-created",
+      "activeSources": 0,
+      "duration": 0
+    },
+    "storyAudio": {
+      "status": "unavailable",
+      "activeSources": 0,
+      "startedSources": 0,
+      "decodedCues": 0,
+      "sharedContext": true
+    },
+    "story": {
+      "playing": false,
+      "rings": 0,
+      "beat": "idle",
+      "seconds": null,
+      "completed": 0,
+      "feedback": 0,
+      "hint": "The ticket booth is waiting for a visitor…",
+      "cues": [],
+      "ghostOpacity": 0,
+      "ghostY": 0,
+      "ticketOpacity": 0,
+      "ticketY": 0,
+      "stampY": 0,
+      "sparkOpacity": 0,
+      "sparkScale": 1,
+      "assetsReady": true,
+      "assetFailure": false
+    }
+  },
+  "errors": []
+}

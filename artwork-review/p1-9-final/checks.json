@@ -1,0 +1,407 @@
+{
+  "status": "passed-with-environment-limit",
+  "results": [
+    {
+      "browser": "chromium",
+      "status": "passed",
+      "audioCapability": {
+        "standard": "function",
+        "prefixed": "undefined"
+      },
+      "audioVerified": true,
+      "projectSubpath": true,
+      "caseSensitivePaths": true,
+      "resourceCount": 43,
+      "contrastRatios": {
+        "#hint": 13.87704310481596,
+        "#ring-progress": 15.078675105916625,
+        "#credits-open": 14.14392819220168,
+        "#credits-dialog": 16.837111997248407,
+        "#credits-close": 9.517833173798111,
+        "#audio-notice": 15.078675105916625,
+        "#story-notice": 15.078675105916625,
+        "#enter": 9.517833173798111
+      },
+      "layouts": [
+        {
+          "width": 390,
+          "height": 844,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            [
+              44,
+              44
+            ],
+            [
+              44,
+              44
+            ],
+            [
+              64,
+              44
+            ]
+          ]
+        },
+        {
+          "width": 375,
+          "height": 667,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            [
+              44,
+              44
+            ],
+            [
+              44,
+              44
+            ],
+            [
+              64,
+              44
+            ]
+          ]
+        },
+        {
+          "width": 320,
+          "height": 568,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            [
+              44,
+              44
+            ],
+            [
+              44,
+              44
+            ],
+            [
+              64,
+              44
+            ]
+          ]
+        },
+        {
+          "width": 844,
+          "height": 390,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            [
+              44,
+              44
+            ],
+            [
+              44,
+              44
+            ],
+            [
+              64,
+              44
+            ]
+          ]
+        },
+        {
+          "width": 280,
+          "height": 568,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            [
+              44,
+              44
+            ],
+            [
+              44,
+              44
+            ],
+            [
+              64,
+              44
+            ]
+          ]
+        }
+      ],
+      "creditsFocusTrapAndExplicitResume": true,
+      "reducedMotionStory": true,
+      "missingAssetsSafelyGated": [
+        "assets/midway-clean-plate.png",
+        "assets/horse-left-mask.svg",
+        "artwork.css"
+      ],
+      "errors": []
+    },
+    {
+      "browser": "firefox",
+      "status": "passed",
+      "audioCapability": {
+        "standard": "function",
+        "prefixed": "undefined"
+      },
+      "audioVerified": true,
+      "projectSubpath": true,
+      "caseSensitivePaths": true,
+      "resourceCount": 43,
+      "contrastRatios": {
+        "#hint": 13.87704310481596,
+        "#ring-progress": 15.078675105916625,
+        "#credits-open": 14.14392819220168,
+        "#credits-dialog": 16.837111997248407,
+        "#credits-close": 9.517833173798111,
+        "#audio-notice": 15.078675105916625,
+        "#story-notice": 15.078675105916625,
+        "#enter": 9.517833173798111
+      },
+      "layouts": [
+        {
+          "width": 390,
+          "height": 844,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            [
+              44,
+              44
+            ],
+            [
+              44,
+              44
+            ],
+            [
+              64,
+              44
+            ]
+          ]
+        },
+        {
+          "width": 375,
+          "height": 667,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            [
+              44,
+              44
+            ],
+            [
+              44,
+              44
+            ],
+            [
+              64,
+              44
+            ]
+          ]
+        },
+        {
+          "width": 320,
+          "height": 568,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            [
+              44,
+              44
+            ],
+            [
+              44,
+              44
+            ],
+            [
+              64,
+              44
+            ]
+          ]
+        },
+        {
+          "width": 844,
+          "height": 390,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            [
+              44,
+              44
+            ],
+            [
+              44,
+              44
+            ],
+            [
+              64,
+              44
+            ]
+          ]
+        },
+        {
+          "width": 280,
+          "height": 568,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            [
+              44,
+              44
+            ],
+            [
+              44,
+              44
+            ],
+            [
+              64,
+              44
+            ]
+          ]
+        }
+      ],
+      "creditsFocusTrapAndExplicitResume": true,
+      "reducedMotionStory": true,
+      "missingAssetsSafelyGated": [
+        "assets/midway-clean-plate.png",
+        "assets/horse-left-mask.svg",
+        "artwork.css"
+      ],
+      "errors": []
+    },
+    {
+      "browser": "webkit",
+      "status": "visual/accessibility/failure checks passed; audio API unavailable in this test build",
+      "audioCapability": {
+        "standard": "undefined",
+        "prefixed": "undefined"
+      },
+      "audioVerified": false,
+      "projectSubpath": true,
+      "caseSensitivePaths": true,
+      "resourceCount": 36,
+      "contrastRatios": {
+        "#hint": 13.87704310481596,
+        "#ring-progress": 15.078675105916625,
+        "#credits-open": 14.14392819220168,
+        "#credits-dialog": 16.837111997248407,
+        "#credits-close": 9.517833173798111,
+        "#audio-notice": 15.078675105916625,
+        "#story-notice": 15.078675105916625,
+        "#enter": 9.517833173798111
+      },
+      "layouts": [
+        {
+          "width": 390,
+          "height": 844,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            [
+              44,
+              44
+            ],
+            [
+              44,
+              44
+            ],
+            [
+              64,
+              44
+            ]
+          ]
+        },
+        {
+          "width": 375,
+          "height": 667,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            [
+              44,
+              44
+            ],
+            [
+              44,
+              44
+            ],
+            [
+              64,
+              44
+            ]
+          ]
+        },
+        {
+          "width": 320,
+          "height": 568,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            [
+              44,
+              44
+            ],
+            [
+              44,
+              44
+            ],
+            [
+              64,
+              44
+            ]
+          ]
+        },
+        {
+          "width": 844,
+          "height": 390,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            [
+              44,
+              44
+            ],
+            [
+              44,
+              44
+            ],
+            [
+              64,
+              44
+            ]
+          ]
+        },
+        {
+          "width": 280,
+          "height": 568,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            [
+              44,
+              44
+            ],
+            [
+              44,
+              44
+            ],
+            [
+              64,
+              44
+            ]
+          ]
+        }
+      ],
+      "creditsFocusTrapAndExplicitResume": true,
+      "reducedMotionStory": true,
+      "missingAssetsSafelyGated": [
+        "assets/midway-clean-plate.png",
+        "assets/horse-left-mask.svg",
+        "artwork.css"
+      ],
+      "errors": []
+    }
+  ],
+  "unchangedArtworkFiles": 18,
+  "limits": [
+    "Physical smartphone and public HTTPS not yet verified",
+    "Automated semantics/focus/contrast checks do not replace assistive-technology user testing",
+    "webkit: AudioContext API unavailable in this test build; no audio pass claimed"
+  ]
+}

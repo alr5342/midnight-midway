@@ -1,0 +1,65 @@
+{
+  "tests": "passed",
+  "errors": [],
+  "layouts": [
+    {
+      "width": 390,
+      "height": 844,
+      "overflow": false,
+      "sceneFits": true,
+      "target": [
+        44,
+        44
+      ]
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "overflow": false,
+      "sceneFits": true,
+      "target": [
+        44,
+        44
+      ]
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "overflow": false,
+      "sceneFits": true,
+      "target": [
+        44,
+        44
+      ]
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "overflow": false,
+      "sceneFits": true,
+      "target": [
+        44,
+        44
+      ]
+    }
+  ],
+  "artworkFilesUnchanged": 18,
+  "checks": [
+    "pre-Enter clock/input gate",
+    "keyboard Enter and focus",
+    "Space pause",
+    "paused active-time freeze",
+    "touch resume",
+    "reduced-motion initial/live preference",
+    "simulated hidden-tab pause and explicit return",
+    "rapid toggles retain one frame loop",
+    "viewport fit and target size",
+    "normal URL has no diagnostics"
+  ],
+  "limitations": [
+    "Shell regression only; story, audio and effects have separate integration checks",
+    "Visibility handler tested with synthetic events",
+    "Physical-device checks pending",
+    "Historical app-versus-review screenshot equality failed; see artwork-review/p1-1-final/ and plan.md"
+  ]
+}

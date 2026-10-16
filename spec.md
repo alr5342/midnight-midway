@@ -2,7 +2,7 @@
 
 > EDITING DIRECTIVE: DEVELOPER AND AGENT EDIT THIS FILE COLLABORATIVELY. THE DEVELOPER MUST REVIEW AND APPROVE ITS CONTENT.
 
-Updated 2026-10-16. **Active scope: Phase 1 submission only.** P1.6 and ghost v3 are approved. P1.7/P1.8 are implemented for Developer review: eight-second story, three-ring feedback/progress, hints, lockout/reset/replay and unified audiovisual pause. Remaining requirements and unverified items are in docs/PHASE-1-AUDIT.md. GitHub Pages, physical-phone verification and submission ZIP/current docs/Git log remain open gates. Phase 2 is deferred.
+Updated 2026-10-16. **Phase 1 only.** Developer approved the functional prototype and authorized submission preparation. P1.9 adds required in-app credits, recorded Developer/reference provenance, final accessibility/browser/path checks and startup failure handling. Local Git history and log export are being prepared. Stop before publishing or packaging. GitHub Pages/public-phone verification and the extraction-tested ZIP remain open gates; Phase 2 is deferred.
 
 ## Goal, scope and current state
 
@@ -73,7 +73,13 @@ TicketStory owns ring count, feedback time, sequence start, hint origin and comp
 
 Hints begin with the booth/visitor clue, then quiet-bell at 12 active seconds and persistence at 24. Ring feedback temporarily overrides the hint for 2.2 active seconds; partial progress never permanently suppresses later hints. Completion restarts discovery timing. Cues preload only after Enter on the existing context; initial loading blocks bell consumption. Late loads cannot sound while paused. Pause stops/disconnects all story sources; explicit Play recreates only currently active cues at their saved offsets. Repeated ticks cannot restart a cue.
 
-The shared context's interruption uses the established pause-until-Play policy for both ambience and story. Missing cues show retry guidance while visuals remain usable; missing story images disable the story target with reload guidance. Inspectors remain development tools. Final accessibility/credits/main-art failure checks and public-phone verification remain outside this checkpoint.
+The shared context's interruption uses the established pause-until-Play policy for both ambience and story. Missing cues show retry guidance while visuals remain usable; missing story images disable the story target with reload guidance. Inspectors remain development tools. P1.9 adds main-scene readiness checks: Enter is disabled until direct scene images decode and stylesheet/mask requests succeed. Failure keeps a readable reload notice and credits accessible; it cannot create audio or launch a broken scene.
+
+### P1.9 credits and delivery contract
+
+Credits is a native, titled modal inside the existing screen. It credits Alex Rosemann, Developer-confirmed ChatGPT-generated reference, image/code assistance and the three verified CC0 sound sources/derivatives. No new creative feature is added. Opening credits pauses the shared clock/context; closing/Escape restores focus to Credits and leaves playback paused until Play. Explicit forward/backward Tab order includes every control/link consistently across browsers. The modal may scroll internally, while the scene never scrolls or navigates away. Targets remain at least 44px and text contrast at least 4.5:1 in tested panels.
+
+The buildless app remains at repository root with relative URLs and .nojekyll. A separate local subpath server verifies GitHub project-site behavior, exact filename case, module/image/mask/audio requests and failure handling. Real local Git commits preserve the existing prototype and this preparation; no retrospective history is invented. Export GIT-LOG.txt after the last commit. Publishing and final ZIP creation explicitly require the Developer's later go-ahead. Public HTTPS and actual-phone evidence cannot be inferred from these desktop checks.
 
 ## Acceptance checks mapped to the brief
 
@@ -123,7 +129,7 @@ Phase 1 is complete only when all Phase 1 acceptance checks pass, one story is d
 
 No 3D, wheel rotation, full carousel rotation, multiple navigable scenes, specific park branding or extra attractions. No backend/framework is currently needed. New scope or consequential design changes require a reviewed spec/plan update.
 
-P1.6 is approved. P1.7/P1.8 runtime is implemented and held for review; no Phase 2 behavior exists. Evidence, delivery gaps and historical screenshot-comparison limitations are recorded in [plan.md](plan.md) and docs/PHASE-1-AUDIT.md.
+P1.6–P1.8 are approved. P1.9 submission preparation is held for review; no Phase 2 behavior exists. Full Chromium/Firefox audiovisual and WebKit visual/accessibility preflight results are recorded in docs/PHASE-1-AUDIT.md. This Windows WebKit build has no Web Audio API, so its audio remains unverified. Public URL, actual phone and final ZIP remain required gates. Historical screenshot-comparison limits remain in plan.md.
 
 ## Saving transcripts
 

@@ -5,6 +5,8 @@ import { connectBats } from './bats.js';
 import { connectAmbientAudio } from './ambient-audio.js';
 import { StoryAudio } from './story-audio.js';
 import { connectTicketStory } from './ticket-story.js';
+import { connectCredits } from './credits.js';
+import { connectAssetReadiness } from './asset-readiness.js';
 
 const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
 const playback = new Playback({ reducedMotion: motionPreference.matches });
@@ -38,6 +40,8 @@ const storyAudio = new StoryAudio(ambientAudio, { onStatus: value => {
 const ticketStory = connectTicketStory(document.querySelector('.scene'), playback, storyAudio, {
   bell: document.querySelector('#bell'), progress: document.querySelector('#ring-progress'), hint, notice: storyNotice
 });
+connectCredits(playback);
+const assets = connectAssetReadiness(document.querySelector('.scene'), enter, document.querySelector('#asset-notice'));
 
 function nextFrame() {
   frame = null;
@@ -71,6 +75,7 @@ playback.subscribe((snapshot) => {
 });
 
 enter.addEventListener('click', () => {
+  if (!assets.ready) return;
   playback.start();
   pause.focus({ preventScroll: true });
 });

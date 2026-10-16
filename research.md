@@ -2,7 +2,7 @@
 
 > EDITING DIRECTIVE: DEVELOPER AND AGENT EDIT THIS FILE COLLABORATIVELY. THE DEVELOPER MUST REVIEW AND APPROVE ITS CONTENT.
 
-Updated 2026-10-16. Phase 1 submission through GitHub Pages is the sole active scope. Developer approved P1.6 with revised ghost v3 and authorized P1.7/P1.8 together. The functional eight-second ticket story, three-ring feedback/progress, hints, reset/replay and shared pause are implemented for review. Original artwork, props and verified sounds are retained. Exact brief audit: docs/PHASE-1-AUDIT.md. Credits/provenance, final quality review, repository/log, public-phone verification and ZIP remain open; Phase 2 is deferred.
+Updated 2026-10-16. Phase 1 submission through GitHub Pages is the sole active scope. Developer approved the functional prototype and authorized credits/accessibility/browser/Git preparation, stopping before publishing or packaging. Alex Rosemann and ChatGPT-generated reference provenance are now confirmed by the Developer. Approved artwork, props and sounds are retained. Final preflight/audit: docs/PHASE-1-AUDIT.md; publishing handoff: docs/GITHUB-PAGES.md. Public-phone verification and ZIP remain later gates; Phase 2 is deferred.
 
 ## Goal and approved direction
 
@@ -58,11 +58,11 @@ The later Story 1 approval covers its narrative and three-ring trigger. Hint wor
 
 | Material | Source / method | Usage and credit status |
 | --- | --- | --- |
-| Original visual reference | Developer-supplied reference/midnight-midway-concept.png | Creator/origin and permission for public use not yet recorded. Confirm before public deployment. |
+| Original visual reference | Developer-supplied reference/midnight-midway-concept.png | Developer confirmed 2026-10-16: AI-generated with ChatGPT. Record this origin in in-app credits/CREDITS.md; no third-party illustration source is asserted. |
 | Booth extraction and repair plate | Built-in image_gen edits of supplied reference | Saved in assets/; exact prompts in [PROMPTS.md](assets/PROMPTS.md). Credit AI-assisted preparation; source-reference provenance remains relevant. |
 | Horse/prize backing | Built-in image_gen edit | [Exact prompt](assets/ATTRACTIONS-PROMPT.md); visible subject pixels and SVG masks described in assets/ARTWORK.md. |
 | Corrected gondola | Built-in image_gen edit, locally masked | [Exact prompt and saved output](assets/GONDOLA.md). |
-| App code and developer credit | Project HTML/CSS/JavaScript; Developer attribution to be supplied | Inventory external code/dependencies if introduced. No runtime framework or external font is currently used. |
+| App code and Developer credit | Alex Rosemann, confirmed 2026-10-16; project HTML/CSS/JavaScript/SVG with Codex assistance | In-app credits and CREDITS.md now present. No runtime framework/external font; Playwright is a development-only test dependency. |
 | Ambient wind | remaxim, [Short wind sound](https://opengameart.org/content/short-wind-sound), verified 2026-10-16; creator explicitly releases it under CC0 | [CC0 deed](https://creativecommons.org/publicdomain/zero/1.0/), exact download and processing/credit in [CREDITS.md](CREDITS.md). Original preserved; filtered/crossfaded local loop installed. Human audition pending. |
 | Story bell | Julie Damsgaard / Spring Spring / Spring Enterprises, [Pleasing Bell Sound Effect](https://opengameart.org/content/pleasing-bell-sound-effect), CC0 verified 2026-10-16 | Three pitched/faded mono PCM ring candidates. Original and processing details in CREDITS.md and assets/story/audio-manifest.json. Human audition pending. |
 | Story magic | JaggedStone, [Magic Spell SFX](https://opengameart.org/content/magic-spell-sfx), CC0 verified 2026-10-16 | magical_1_0.ogg supplies arrival/stamp/departure candidates; trimmed/pitched/faded mono PCM derivatives. URLs/edits in CREDITS.md; human audition pending. |
@@ -70,6 +70,12 @@ The later Story 1 approval covers its narrative and three-ring trigger. Hint wor
 P1.5 licensing research checked the selected item's creator/license statement and the CC0 deed. CC0 permits adaptation/redistribution without copyright attribution requirements; credit is nevertheless recorded for the assignment and creator recognition. Other sound assets still require independent verification. Source selection: short wind is lightweight and fits an empty nighttime midway; mild-wind recordings with bag rustling and high-pitched eerie-tone loops were not installed. No music, speech or startling cues were added. Human evaluation of mood, volume and repetition remains pending.
 
 ## Open questions and scope
+
+Current P1.9: credits use a modal inside the existing scene and participate in pause-until-Play. Readiness checks disable Enter if a main image, stylesheet or mask fails. Testing found that a failed stylesheet may still expose an empty CSSStyleSheet, so readiness verifies actual fetch status instead of sheet presence. Credits focus initially escaped under native Tab wrapping, then WebKit skipped links under its default navigation; explicit full dialog control order replaces boundary-only handling. These findings led to scoped fixes, not new creative features.
+
+GitHub's official publishing-source/creation documentation was checked 2026-10-16. For this static root app, the prepared route is main → /(root), with .nojekyll and relative project-site asset URLs. No Actions build/deployment pipeline or remote is needed locally; no publishing is performed. Real Git history begins at the approved existing prototype; earlier documentation/backups remain evidence. Git write/ownership restrictions required a command-only safe.directory exception for this known workspace; no global trust setting changed. Final browser evidence and limitations are in the audit. Next gates remain review, public deployment, actual phone and ZIP/log extraction testing.
+
+### Prior P1.7/P1.8 findings — pending labels superseded by P1.9
 
 Current P1.7/P1.8 result: TicketStory uses the existing active-time clock for story beats, feedback and hints. StoryAudio shares the ambience's user-activated context, derives desired cues/offsets from active time, and stops every source on pause. No independent story/hint timer, second context, development launch control or new external asset was added. Initial loading gates the bell to avoid silently consuming early rings. Missing cues are retryable through Pause/Play; missing story images disable the trigger with readable guidance. Partial progress does not suppress later hints.
 
