@@ -1,0 +1,39 @@
+html, body { width: 100%; height: 100%; overflow: hidden; }
+main.app {
+  width: 100%; max-width: none; margin: 0;
+  height: 100vh; height: 100dvh;
+  padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+  display: grid; place-items: center; background: #050711;
+}
+.app-stage {
+  position: relative;
+  width: min(100%, calc((100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) * 941 / 1672));
+  aspect-ratio: 941 / 1672;
+}
+.app-stage .scene { width: 100%; }
+.ambient-lighting { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; mix-blend-mode: screen; }
+.ambient-fog { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.ambient-bats { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.app-ui { position: absolute; inset: 0; pointer-events: none; }
+.app-ui button { pointer-events: auto; cursor: pointer; font-family: inherit; }
+.audio-notice { position: absolute; top: 64px; left: 12px; right: 12px; width: fit-content; max-width: calc(100% - 24px); margin: 0; padding: 8px 10px; background: #0c1021f2; color: #fff0d9; border-radius: 6px; font: 12px/1.4 system-ui, sans-serif; }
+.app-ui .pause-mockup { padding: 0; }
+.bell-target { position: absolute; left: 24.05%; top: 62.3%; transform: translate(-50%, -50%); min-width: 44px; min-height: 44px; padding: 0; border: 1px solid #ffe0ad45; border-radius: 50%; background: transparent; touch-action: manipulation; }
+.bell-target[aria-disabled="true"] { cursor: default; }
+.ring-progress { position: absolute; left: 6%; top: 66%; margin: 0; padding: 4px 7px; max-width: 55%; border-radius: 5px; background: #0c1021f2; color: #fff0d9; font: 12px/1.4 system-ui, sans-serif; }
+.story-notice { position: absolute; top: 108px; left: 12px; right: 12px; margin: 0; padding: 8px 10px; background: #0c1021f2; color: #fff0d9; border-radius: 6px; font: 12px/1.4 system-ui, sans-serif; }
+.app-ui button:focus-visible { outline: 3px solid #fff0c9; outline-offset: 4px; }
+.start-screen { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; background: linear-gradient(#070b1c70, #070b1c99); }
+.start-card { width: min(100%, 300px); text-align: center; background: #0c1021f2; border: 1px solid #b891545c; border-radius: 14px; padding: 28px 20px; box-shadow: 0 12px 48px #0008; }
+.start-card h1 { margin: 8px 0 14px; font-size: clamp(26px, 7vw, 36px); color: #ffe1ad; line-height: 1.15; }
+.start-card p { font-size: 14px; color: #e2d5c4; line-height: 1.5; }
+.start-card .eyebrow { color: #c4a577; font-size: 10px; }
+.enter-button { min-height: 48px; min-width: 120px; margin-top: 8px; padding: 12px 24px; border: 1px solid #ffe0a7; border-radius: 8px; background: #e6b66e; color: #21160d; font-size: 16px; font-weight: 650; }
+.start-card #motion-note { color: #cfc4b5; font-size: 12px; margin-bottom: 0; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+[hidden] { display: none !important; }
+/* Future scene input is gated by the shared state; Pause itself stays available. */
+.app-stage:not([data-state="exploring"]) .scene-actions { pointer-events: none; }
+@media (prefers-reduced-motion: reduce) {
+  .app-stage *, .app-stage *::before, .app-stage *::after { animation: none !important; transition: none !important; }
+}

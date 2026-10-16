@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 941 1672">
+  <!-- Fixed poles, front railing and shelf lip conceal joins during small lifts. -->
+  <g fill="white">
+    <rect x="333" y="880" width="4" height="185"/>
+    <rect x="448" y="880" width="4" height="185"/>
+    <rect x="583" y="880" width="4" height="185"/>
+    <rect x="258" y="1063" width="454" height="80"/>
+    <rect x="750" y="1086" width="191" height="22"/>
+  </g>
+</svg>

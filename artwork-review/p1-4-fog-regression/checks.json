@@ -1,0 +1,21 @@
+{
+  "tests": "passed",
+  "errors": [],
+  "combinedStateAndTransformsFrozen": true,
+  "strictTouchScreenshotCheck": "Unresolved after two failed byte comparisons; archived for review",
+  "checks": [
+    "no fog before Enter",
+    "fog and lights advance together",
+    "combined clock, light opacity and fog transforms freeze exactly",
+    "same-phase resume",
+    "initial/live reduced-motion static fog",
+    "hidden-tab freeze until Play",
+    "one overlay and one frame loop after repeated toggles",
+    "left/right drift screenshots"
+  ],
+  "limits": [
+    "Phone verification pending",
+    "Visibility tested with synthetic events",
+    "Only two ambient systems; bats/audio/story still pending"
+  ]
+}

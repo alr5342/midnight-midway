@@ -1,0 +1,15 @@
+# Local caches, credentials and runtime logs; project assets/evidence stay tracked.
+node_modules/
+.env
+.env.*
+!.env.example
+*.pem
+*.pfx
+*.key
+debug.log
+*.tmp
+.DS_Store
+Thumbs.db
+# Exported after commits; cannot contain its own final commit hash.
+GIT-LOG.txt
+submission*.zip

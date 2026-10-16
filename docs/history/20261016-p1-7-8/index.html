@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>The Midnight Midway</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="artwork.css">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <main class="app" aria-label="The Midnight Midway">
+    <div class="app-stage" id="stage" data-state="start">
+      <div class="scene" data-view="assembled" data-attractions role="img" aria-label="A moonlit Halloween midway. A Ferris wheel rises behind a ticket booth, carousel and prize stall.">
+        <img class="plate layer" src="assets/midway-clean-plate.png" alt="" fetchpriority="high">
+        <img class="booth layer" src="assets/ticket-booth.png" alt="">
+        <img class="foreground layer" src="reference/midnight-midway-concept.png" alt="">
+      </div>
+      <div class="app-ui">
+        <section class="start-screen" id="start-screen" aria-labelledby="start-title">
+          <div class="start-card">
+            <p class="eyebrow">After dark</p>
+            <h1 id="start-title">The Midnight<br>Midway</h1>
+            <p>Step inside. Some guests never left.</p>
+            <button type="button" class="enter-button" id="enter" autofocus>Enter</button>
+            <p id="motion-note" hidden></p>
+          </div>
+        </section>
+        <button type="button" class="pause-mockup" id="playback" aria-label="Pause scene" hidden><span aria-hidden="true">Ⅱ</span></button>
+        <p class="hint-mockup" id="hint" hidden>Some guests never left the midway…</p>
+        <p class="audio-notice" id="audio-notice" role="status" hidden></p>
+      </div>
+    </div>
+    <p class="visually-hidden" id="playback-status" role="status"></p>
+  </main>
+  <script src="artwork.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

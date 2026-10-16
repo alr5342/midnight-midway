@@ -1,0 +1,37 @@
+:root { color-scheme: dark; font-family: system-ui, sans-serif; background: #090c18; color: #eee6d9; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { max-width: 900px; margin: auto; padding: 24px 16px 36px; }
+header { text-align: center; }
+h1 { font-family: Georgia, serif; font-weight: 400; font-size: clamp(26px, 5vw, 38px); margin: 8px 0; }
+header p { color: #bdb7bd; margin: 8px 0; }
+.eyebrow { text-transform: uppercase; letter-spacing: .18em; font-size: 11px; }
+.review-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 20px; margin: 22px 0; }
+label { display: grid; gap: 6px; font-size: 12px; color: #c8c2cc; }
+select { font: inherit; font-size: 14px; color: #eee6d9; background: #171b2a; border: 1px solid #494354; border-radius: 6px; min-height: 44px; padding: 8px; max-width: 100%; }
+select:focus-visible, summary:focus-visible { outline: 2px solid #ffd18a; outline-offset: 3px; }
+.phone { width: min(100%, 390px); aspect-ratio: 941 / 1672; margin: auto; background: #050711; display: flex; align-items: center; border: 1px solid #443b41; overflow: hidden; }
+.phone[data-ratio="tall"] { aspect-ratio: 390 / 844; }
+.phone[data-ratio="short"] { aspect-ratio: 375 / 667; }
+.scene { position: relative; width: 100%; aspect-ratio: 941 / 1672; flex: none; overflow: hidden; }
+.layer { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; }
+.plate, .booth, .foreground { display: none; }
+/* Reuse original foreground pixels; soften only the join, leaving the pumpkin opaque.
+   Both masks use scene coordinates, so the foreground stays aligned at every size. */
+.foreground {
+  mask-image: linear-gradient(to bottom, transparent 66%, black 71.5%), linear-gradient(to right, black 33%, transparent 41%);
+  mask-composite: intersect;
+  pointer-events: none;
+}
+.scene[data-view="assembled"] .foreground { display: block; }
+.scene[data-view="before"] .original { display: none; }
+.scene[data-view="before"] .plate, .scene[data-view="before"] .booth { display: block; }
+a { color: #e8c08a; }
+.booth { transform-origin: top left; transform: translateY(13.5%) scale(.76); }
+.scene[data-view="assembled"] .original, .scene[data-view="plate"] .original, .scene[data-view="cutout"] .original, .scene[data-view="displaced"] .original { display: none; }
+.scene[data-view="assembled"] .plate, .scene[data-view="assembled"] .booth, .scene[data-view="plate"] .plate, .scene[data-view="cutout"] .booth, .scene[data-view="displaced"] .plate, .scene[data-view="displaced"] .booth { display: block; }
+.scene[data-view="cutout"] { background-color: #c7c4c0; background-image: conic-gradient(#8e8c8a 25%, transparent 0 50%, #8e8c8a 0 75%, transparent 0); background-size: 24px 24px; }
+.scene[data-view="displaced"] .booth { transform: translate(16%, 13.5%) scale(.76); }
+.caption, details { max-width: 560px; margin: 18px auto 0; color: #bdb7bd; font-size: 13px; line-height: 1.6; }
+summary { cursor: pointer; color: #e8c08a; }
+@media (max-width: 420px) { main { padding: 16px 10px 24px; } .review-controls { gap: 12px; } label { width: 100%; } }

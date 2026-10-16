@@ -1,0 +1,25 @@
+{
+  "tests": "passed",
+  "errors": [],
+  "pausedRenderedPixelsIdentical": true,
+  "visibleVariation": {
+    "wheelPixels": 3000,
+    "gondolaPixels": 429,
+    "channelDifferenceThreshold": 8
+  },
+  "checks": [
+    "hidden before Enter",
+    "both light groups advance",
+    "paused scene pixels unchanged after 500ms",
+    "resume retains phase",
+    "shared-clock phase after resume",
+    "initial and live reduced motion constant",
+    "hidden-tab lighting freeze until explicit Play",
+    "rapid toggles: one overlay and one loop"
+  ],
+  "limits": [
+    "No fog, bats, audio or story behavior",
+    "Physical-phone verification pending",
+    "Visibility simulated with events"
+  ]
+}

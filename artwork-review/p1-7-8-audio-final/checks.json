@@ -1,0 +1,24 @@
+{
+  "tests": "passed",
+  "errors": [],
+  "loopDuration": 3.2353125,
+  "measuredSignalRms": 0.02435781699137923,
+  "seamStep": 2.0656716356436517e-7,
+  "checks": [
+    "no context/audio before Enter",
+    "keyboard activation and measurable decoded signal",
+    "loop continues past buffer duration",
+    "touch Pause stops source and suspends context",
+    "shared visual clock freezes",
+    "resume and rapid toggles retain one source",
+    "native context suspension pauses experience",
+    "hidden-tab silence until Play",
+    "reduced motion preserves audio",
+    "missing asset notice and retry",
+    "late load cannot sound while paused"
+  ],
+  "limits": [
+    "Headless signal checks do not establish speaker volume or subjective loop quality",
+    "Actual phone/call interruption and listening review pending"
+  ]
+}

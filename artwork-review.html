@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Midnight Midway — artwork review</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="artwork.css">
+</head>
+<body>
+  <main>
+    <header><p class="eyebrow">Visual checkpoint 02</p><h1>The Midnight Midway</h1><p>Complete static artwork &amp; interface placement</p></header>
+    <section class="review-controls" aria-label="Artwork review controls">
+      <label>View <select id="view"><option value="original">Original reference</option><option value="assembled" selected>Full static assembly</option><option value="attraction-pieces">Horses &amp; prizes — isolated</option><option value="attraction-displaced">Horses &amp; prizes — lifted</option><option value="before">First booth assembly</option><option value="plate">Booth repair plate</option><option value="cutout">Booth on checkerboard</option><option value="displaced">Displaced booth</option></select></label>
+      <label>Phone proportions <select id="ratio"><option value="reference">Reference · full composition</option><option value="tall">Tall phone · 390 × 844</option><option value="short">Short phone · 375 × 667</option></select></label>
+      <label>Interface mockup <select id="ui"><option value="on">Show Play/Pause &amp; hint</option><option value="off">Artwork only</option></select></label>
+    </section>
+    <div class="phone" id="phone" data-ui="on">
+      <div class="scene" id="scene" data-view="assembled" data-attractions role="img" aria-label="Moonlit Halloween midway with a Ferris wheel, ticket booth, carousel and prize stall. Static Pause control and story hint placement shown.">
+        <img class="original layer" src="reference/midnight-midway-concept.png" alt="" fetchpriority="high">
+        <img class="plate layer" src="assets/midway-clean-plate.png" alt="">
+        <img class="booth layer" src="assets/ticket-booth.png" alt="">
+        <img class="foreground layer" src="reference/midnight-midway-concept.png" alt="">
+        <div class="scene-ui" aria-hidden="true"><span class="pause-mockup">Ⅱ</span><p class="hint-mockup">Some guests never left the midway…</p></div>
+      </div>
+    </div>
+    <p class="caption" id="caption" aria-live="polite">Full static assembly with original horse and prize pixels. Play/Pause and hint are nonfunctional placement mockups.</p>
+    <p class="caption"><a href="carriage-review.html">Carriage before / after</a> · <a href="scene-review.html">Full scene comparison</a> · <a href="comparison.html">Approved booth comparison</a></p>
+    <details><summary>What to inspect</summary><p>Compare the assembled artwork against the original, then inspect the isolated horses and prize pair. The lifted view uses small static offsets to reveal the repaired surfaces. There is no animation.</p><p>Play/Pause sits over the upper-left sky, away from the moon and attractions. A short hint sits over the bottom path. Both are static visual mockups. Hide them to review the artwork alone. Tall phones preserve the complete image with dark space above and below.</p></details>
+  </main>
+  <script src="artwork.js"></script>
+  <script src="preview.js"></script>
+</body>
+</html>

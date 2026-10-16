@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Ticket booth — P1.6 asset review</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="artwork.css">
+  <link rel="stylesheet" href="ticket-story-assets.css">
+</head>
+<body>
+  <main>
+    <header><p class="eyebrow">P1.6 · Story assets and storyboard</p><h1>A ticket after midnight</h1><p>Eight active seconds. Static staging only; no story playback or bell trigger.</p></header>
+    <section class="review-controls" aria-label="Storyboard inspection">
+      <label>Story beat<select id="beat"></select></label>
+      <label>Artwork<select id="art"><option value="show">Show staged assets</option><option value="hide">Approved scene only</option></select></label>
+    </section>
+    <div class="phone"><div class="scene" id="story-scene" data-view="assembled" data-attractions role="img" aria-label="Static ticket-booth story staging in the approved midway scene">
+      <img class="plate layer" src="assets/midway-clean-plate.png" alt="">
+      <img class="booth layer" src="assets/ticket-booth.png" alt="">
+      <img class="foreground layer" src="reference/midnight-midway-concept.png" alt="">
+    </div></div>
+    <p class="caption">Change beats manually to inspect placement and reset. The bell is decorative here. Pausable motion, sound scheduling and story lockout will be implemented in P1.7; three-ring interaction and hints in P1.8.</p>
+    <details><summary>Sound candidates — press Play to audition</summary><p>CC0 sources and edits: <a href="CREDITS.md">credits</a>. These independent audition controls belong only to this review page.</p><div id="sounds"></div></details>
+    <p class="caption"><a href="index.html">Return to current Phase 1 prototype</a> · <a href="assets/story/STORYBOARD.md">Storyboard and integration contract</a></p>
+  </main>
+  <script src="artwork.js"></script>
+  <script type="module">
+    import { ticketStoryboard, mountTicketArtwork } from './ticket-story-assets.js';
+    const artwork = mountTicketArtwork(document.querySelector('#story-scene'));
+    const select = document.querySelector('#beat');
+    for (const beat of ticketStoryboard) select.add(new Option(beat.label, beat.id));
+    select.addEventListener('change', () => artwork.setPhase(select.value));
+    document.querySelector('#art').addEventListener('change', event => { artwork.layer.hidden = event.target.value === 'hide'; });
+    for (const name of ['ring-1','ring-2','ring-3','arrival','stamp','departure']) {
+      const label = document.createElement('p'); label.textContent = name;
+      const audio = document.createElement('audio'); audio.controls = true; audio.preload = 'none'; audio.src = `assets/audio/story-${name}.wav`; audio.style.maxWidth = '100%';
+      audio.addEventListener('play', () => { document.querySelectorAll('#sounds audio').forEach(other => { if (other !== audio) other.pause(); }); });
+      document.querySelector('#sounds').append(label,audio);
+    }
+  </script>
+</body>
+</html>

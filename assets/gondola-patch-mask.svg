@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 941 1672">
+  <!-- Local carriage footprint; right rim and external wheel bulbs stay original. -->
+  <defs><filter id="join" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur stdDeviation=".6"/></filter></defs>
+  <path fill="white" filter="url(#join)" d="M655 389 L673 379 L696 371 L716 359 L735 366 L750 377 L761 384 L760 395 L758 423 L758 449 L751 465 L736 477 L715 480 L690 473 L673 465 L663 453 L662 424 L663 398 Z"/>
+</svg>

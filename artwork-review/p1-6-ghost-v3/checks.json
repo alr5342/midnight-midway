@@ -1,0 +1,49 @@
+{
+  "tests": "passed",
+  "eightSecondStoryboard": true,
+  "errors": [],
+  "metrics": {
+    "clips": [
+      {
+        "name": "ring-1",
+        "duration": 0.7286041666666667,
+        "peak": 0.5097846984863281
+      },
+      {
+        "name": "ring-2",
+        "duration": 0.6193125,
+        "peak": 0.49715492129325867
+      },
+      {
+        "name": "ring-3",
+        "duration": 0.5385416666666667,
+        "peak": 0.5133258700370789
+      },
+      {
+        "name": "arrival",
+        "duration": 1.2,
+        "peak": 0.3502308130264282
+      },
+      {
+        "name": "stamp",
+        "duration": 0.9,
+        "peak": 0.4499502182006836
+      },
+      {
+        "name": "departure",
+        "duration": 1.2,
+        "peak": 0.3015718460083008
+      }
+    ],
+    "ghost": {
+      "width": 1024,
+      "height": 1536,
+      "transparentPixels": 745293
+    }
+  },
+  "unchangedArtworkFiles": 18,
+  "limits": [
+    "Static staging only: runtime playback/lockout/pause in P1.7 and trigger/hints in P1.8",
+    "Sound listening and physical-phone review pending"
+  ]
+}

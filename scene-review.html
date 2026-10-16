@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Midnight Midway — full artwork review</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="artwork.css">
+  <style>
+    main { max-width: 1300px; }
+    .comparisons { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    figure { margin: 0; }
+    figcaption { text-align: center; margin: 14px 0; color: #c8c2cc; }
+    @media (max-width: 650px) { .comparisons { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header><p class="eyebrow">Visual checkpoint 02</p><h1>The full midway</h1><p>Original-pixel pieces, retained foreground, static interface mockups.</p></header>
+    <div class="comparisons">
+      <figure><figcaption>Full scene + interface placement</figcaption><div class="phone" data-ui="on"><div class="scene" data-view="assembled" data-attractions><img class="plate layer" src="assets/midway-clean-plate.png" alt=""><img class="booth layer" src="assets/ticket-booth.png" alt=""><img class="foreground layer" src="reference/midnight-midway-concept.png" alt=""><div class="scene-ui" aria-hidden="true"><span class="pause-mockup">Ⅱ</span><p class="hint-mockup">Some guests never left the midway…</p></div></div></div></figure>
+      <figure><figcaption>Artwork only</figcaption><div class="phone"><div class="scene" data-view="assembled" data-attractions><img class="plate layer" src="assets/midway-clean-plate.png" alt=""><img class="booth layer" src="assets/ticket-booth.png" alt=""><img class="foreground layer" src="reference/midnight-midway-concept.png" alt=""></div></div></figure>
+      <figure><figcaption>Lifted pieces — repair inspection</figcaption><div class="phone"><div class="scene" data-view="attraction-displaced" data-attractions><img class="plate layer" src="assets/midway-clean-plate.png" alt=""><img class="booth layer" src="assets/ticket-booth.png" alt=""><img class="foreground layer" src="reference/midnight-midway-concept.png" alt=""></div></div></figure>
+    </div>
+    <p class="caption">The third view uses fixed offsets, not animation. The ghost and cat remain a pair because they overlap in the reference. Alternate poses and individual prize separation are outside this checkpoint.</p>
+    <p class="caption"><a href="index.html">Phone-size preview and inspection controls</a></p>
+  </main>
+  <script src="artwork.js"></script>
+</body>
+</html>

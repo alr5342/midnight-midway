@@ -1,0 +1,10 @@
+{
+  "tests": "passed",
+  "alignment": {
+    "checkedBulbs": 55,
+    "misses": [],
+    "sourceTolerancePixels": 3
+  },
+  "brightnessAndTimingUnchanged": true,
+  "haloCountAndSizeUnchanged": true
+}

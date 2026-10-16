@@ -1,0 +1,31 @@
+{
+  "tests": "passed",
+  "completedCycles": 3,
+  "pauseBeats": [
+    "ring feedback",
+    "arrival",
+    "ticket",
+    "stamp",
+    "depart",
+    "reset"
+  ],
+  "touchAndKeyboard": true,
+  "distinctProgress": true,
+  "cueResumeOffset": true,
+  "cueEnergy": 0.1109966922832791,
+  "sharedContext": true,
+  "exactRestingOverlayReset": true,
+  "progressiveHints": [
+    "The ticket booth is waiting for a visitor…",
+    "A quiet bell rests on the old counter.",
+    "Perhaps the bell is waiting for a little persistence."
+  ],
+  "audioFailureRetry": true,
+  "artFailureSafe": true,
+  "lateLoadPaused": true,
+  "unchangedArtworkFiles": 18,
+  "errors": [],
+  "limits": [
+    "Desktop Chromium only; physical phone/audio listening/public deployment still pending"
+  ]
+}

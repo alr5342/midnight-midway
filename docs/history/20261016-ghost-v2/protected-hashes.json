@@ -1,0 +1,98 @@
+﻿[
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\index.html",
+        "Hash":  "7FABFCBBCBD1EAB6D12F5BE17B07C4CD194EFCD12DFF5F92F2EFE9A0E252608B"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\app.js",
+        "Hash":  "0C7FA998780E8251A2630A792E695838FEFE1749B3A4E6B816B46280C7E16D83"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\app.css",
+        "Hash":  "51A0459ACF2E4302615C1EE28F1A64E0B3BAC5264BA0F3FD9F8131AE70A22E97"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\artwork.js",
+        "Hash":  "4C35E524609BE1DAD617D815D4709A9EAC6AB30A4C6650A3C3B56B8FC4E3D14A"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\artwork.css",
+        "Hash":  "B9CD49BC4083D75027078CFE7FD07E53CC1E482F564F9B39371ED8B84039C366"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\styles.css",
+        "Hash":  "FA8DA8ADC707D8F016CCEC64E03FFDE8FC27055027DAB4E4C654E16ED8E0AB81"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\ticket-story-assets.css",
+        "Hash":  "21B39B5854E525E8E9C715D65ACDCA64683CDA461899EAB4E7336F74E3DF0D3B"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\assets\\story\\ghost-attendant-v1.png",
+        "Hash":  "7ADAE46DD39A6388446D175640CF499308FE3A3C52136CF4C6EE18DE47FFA3B7"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\assets\\story\\booth-empty-interior-v1.png",
+        "Hash":  "F0F82CE42CA6E629BE5E5BAD88322EA9ABAC011832AC8624B266D8A48C816D5C"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\assets\\story\\booth-window-mask.svg",
+        "Hash":  "55264A6706CFA353C797DE6EB18EDE6601E5D51BFDFA18F5A9BF0DFF81C496B4"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\assets\\story\\bell.svg",
+        "Hash":  "C2BA8FFD9956584E1ECD7DC241924F7752DCC72838A8B7D7987FA3C9A778477F"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\assets\\story\\ticket.svg",
+        "Hash":  "5E89F699ED75F542E79E356423828BED9BA1CA824458D2980F57A50A3EF2E205"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\assets\\story\\stamp.svg",
+        "Hash":  "6D7C1929098B9D8D0EEEC44BBA33E63F6C5691994FC4E05768B7B118ABF0C606"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\assets\\story\\sparks.svg",
+        "Hash":  "18268B2BFE35341ABB9207617B6CDD7241A99D132431D7839B4E7DBA3B39D50D"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\assets\\story\\audio-manifest.json",
+        "Hash":  "68752AFAD33AA5A9841A3700E6B16C885990E7DCF98D54E937D01BA080CAF3EE"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\assets\\audio\\midway-wind-loop.wav",
+        "Hash":  "AB2DDEA484CF4D6B5E0F966E39C0F4A8BD60A52336C678A47B6208400F12C5C0"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\assets\\audio\\processing.json",
+        "Hash":  "BC5392231343AC98C137718680F68B0EB26C056E2C5F0BABC92968A141337F6B"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\assets\\audio\\story-arrival.wav",
+        "Hash":  "DF5B24D1F8865E44513EF9969E4A797E2C7100FC1AE765E47E130BA8DB20CE71"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\assets\\audio\\story-bell.wav",
+        "Hash":  "3C851939CCF9146E49C1BE0272386FDCA1B1442BB034A5E6DCDFB3E0E144A411"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\assets\\audio\\story-departure.wav",
+        "Hash":  "3BC3110BD67A4934C884C7E758AD5D1679FFF2C551A72DBFEF7CD30D061DF394"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\assets\\audio\\story-ring-1.wav",
+        "Hash":  "6609BD0C9B19A09DB117A102DF15C87C0D478E23D724698A2F8A1F839B414EF9"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\assets\\audio\\story-ring-2.wav",
+        "Hash":  "7371F84C65B22357268B0840D5F20F873BD75B08391B1A200188D3A5BC94636A"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\assets\\audio\\story-ring-3.wav",
+        "Hash":  "32E11D2DD8A12247AD7D4E2A4A7AADA73443084B2F892F659AED6F0ABF95231B"
+    },
+    {
+        "Path":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\assets\\audio\\story-stamp.wav",
+        "Hash":  "DA9802CA772F36A65C9BBDE4EBEFC3420EE37487443D7D21078ADD745B14ACBC"
+    }
+]

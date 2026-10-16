@@ -1,0 +1,42 @@
+/* All masks and source images share the original 941 × 1672 scene coordinates.
+   Generated repairs are visible only where extracted subjects originally stood. */
+.attraction-patch, .attraction-piece, .attraction-occlusion { display: none; pointer-events: none; }
+.carriage-patch { display: none; pointer-events: none; mask-image: url('assets/gondola-patch-mask.svg'); mask-size: 100% 100%; mask-repeat: no-repeat; }
+.scene[data-view="assembled"] .carriage-patch,
+.scene[data-view="attraction-displaced"] .carriage-patch { display: block; }
+.horse-left { mask-image: url('assets/horse-left-mask.svg'); }
+.horse-center { mask-image: url('assets/horse-center-mask.svg'); }
+.horse-right { mask-image: url('assets/horse-right-mask.svg'); }
+.prize-pair { mask-image: url('assets/prize-pair-mask.svg'); }
+.attraction-patch, .attraction-piece { mask-size: 100% 100%; mask-repeat: no-repeat; }
+.attraction-patch { mask-image: url('assets/attraction-repair-mask.svg'); }
+.attraction-occlusion {
+  mask-image: url('assets/fixed-trim-mask.svg');
+  mask-size: 100% 100%;
+}
+.scene[data-view="assembled"] .attraction-patch,
+.scene[data-view="assembled"] .attraction-piece,
+.scene[data-view="assembled"] .attraction-occlusion,
+.scene[data-view="attraction-pieces"] .attraction-piece,
+.scene[data-view="attraction-displaced"] .attraction-patch,
+.scene[data-view="attraction-displaced"] .attraction-piece,
+.scene[data-view="attraction-displaced"] .attraction-occlusion { display: block; }
+.scene[data-view="attraction-pieces"] .original,
+.scene[data-view="attraction-pieces"] .plate,
+.scene[data-view="attraction-pieces"] .booth,
+.scene[data-view="attraction-pieces"] .foreground { display: none; }
+.scene[data-view="attraction-pieces"] { background: repeating-conic-gradient(#b6b0aa 0 25%, #777679 0 50%) 0 / 24px 24px; }
+.scene[data-view="attraction-displaced"] .original { display: none; }
+.scene[data-view="attraction-displaced"] .plate,
+.scene[data-view="attraction-displaced"] .booth,
+.scene[data-view="attraction-displaced"] .foreground { display: block; }
+.scene[data-view="attraction-displaced"] .horse-left.attraction-piece { transform: translateY(-.65%); }
+.scene[data-view="attraction-displaced"] .horse-center.attraction-piece { transform: translateY(-.9%); }
+.scene[data-view="attraction-displaced"] .horse-right.attraction-piece { transform: translateY(-.5%); }
+.scene[data-view="attraction-displaced"] .prize-pair.attraction-piece { transform: translateY(-.6%); }
+
+/* Visual mockups only: no playback state, timers, sound or story triggers. */
+.scene-ui { position: absolute; inset: 0; pointer-events: none; display: none; }
+.phone[data-ui="on"] .scene[data-view="assembled"] .scene-ui { display: block; }
+.pause-mockup { position: absolute; top: 12px; left: 12px; min-width: 44px; min-height: 44px; display: grid; place-items: center; border: 1px solid #d9bd8580; border-radius: 50%; background: #101323eb; color: #ffdda2; font-size: 18px; box-shadow: 0 2px 8px #0008; }
+.hint-mockup { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); width: max-content; max-width: calc(100% - 24px); margin: 0; padding: 10px 14px; border: 1px solid #d9bd8540; border-radius: 10px; background: #0c1021eb; color: #fff0d9; font: 13px/1.4 system-ui, sans-serif; text-align: center; text-wrap: balance; box-shadow: 0 3px 12px #0008; }

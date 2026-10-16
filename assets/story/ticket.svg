@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 84">
+  <defs><linearGradient id="paper" x2="0" y2="1"><stop stop-color="#ffe6ad"/><stop offset="1" stop-color="#d09b51"/></linearGradient></defs>
+  <path d="M8 8H152V28Q138 42 152 56V76H8V56Q22 42 8 28Z" fill="url(#paper)" stroke="#6d361e" stroke-width="4"/>
+  <rect x="27" y="17" width="104" height="50" rx="4" fill="none" stroke="#9a542a" stroke-width="2"/>
+  <path d="M36 25V59M124 25V59" stroke="#a56634" stroke-dasharray="3 3"/>
+  <text x="80" y="38" text-anchor="middle" font-family="Georgia,serif" font-size="14" font-weight="bold" fill="#582a23">ADMIT</text>
+  <text x="80" y="56" text-anchor="middle" font-family="Georgia,serif" font-size="16" font-weight="bold" fill="#582a23">ONE</text>
+</svg>

@@ -1,0 +1,44 @@
+[
+  {
+    "name": "story-ring-1",
+    "duration": 0.7285784313725491,
+    "pitch": 0.85,
+    "peak": 0.5,
+    "rate": 22050
+  },
+  {
+    "name": "story-ring-2",
+    "duration": 0.6192916666666667,
+    "pitch": 1,
+    "peak": 0.5,
+    "rate": 22050
+  },
+  {
+    "name": "story-ring-3",
+    "duration": 0.5385144927536233,
+    "pitch": 1.15,
+    "peak": 0.5,
+    "rate": 22050
+  },
+  {
+    "name": "story-arrival",
+    "duration": 1.2,
+    "pitch": 0.9,
+    "peak": 0.35,
+    "rate": 22050
+  },
+  {
+    "name": "story-stamp",
+    "duration": 0.9,
+    "pitch": 1.15,
+    "peak": 0.45,
+    "rate": 22050
+  },
+  {
+    "name": "story-departure",
+    "duration": 1.2,
+    "pitch": 0.8,
+    "peak": 0.3,
+    "rate": 22050
+  }
+]

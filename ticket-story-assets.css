@@ -1,0 +1,21 @@
+.ticket-story-art { position: absolute; inset: 0; pointer-events: none; }
+.ticket-story-art img { position: absolute; object-fit: contain; }
+.story-window { position: absolute; inset: 0; mask-image: url('assets/story/booth-window-mask.svg'); mask-size: 100% 100%; }
+.story-empty-window { inset: 0; width: 100%; height: 100%; object-fit: fill !important; transform-origin: top left; transform: translateY(13.5%) scale(.76); }
+.story-attendant { left: 8.8%; top: 48.5%; width: 12%; height: 14.2%; opacity: .82; }
+.story-ticket { left: 14.5%; top: 59.1%; width: 9.6%; height: 2.9%; filter: drop-shadow(0 0 3px #ffe0a080); }
+.story-stamp { left: 18.4%; top: 57.2%; width: 4.3%; height: 3%; }
+.story-sparks { left: 13.2%; top: 57.5%; width: 12.5%; height: 7%; }
+.story-bell { left: 21.4%; top: 61.1%; width: 5.3%; height: 2.4%; }
+.story-window, .story-ticket, .story-stamp, .story-sparks { display: none; }
+.ticket-story-art[data-phase="arrival"] .story-window,
+.ticket-story-art[data-phase="ticket"] .story-window,
+.ticket-story-art[data-phase="stamp"] .story-window,
+.ticket-story-art[data-phase="depart"] .story-window { display: block; }
+.ticket-story-art[data-phase="ticket"] .story-ticket,
+.ticket-story-art[data-phase="stamp"] .story-ticket,
+.ticket-story-art[data-phase="depart"] .story-ticket { display: block; }
+.ticket-story-art[data-phase="stamp"] .story-stamp,
+.ticket-story-art[data-phase="stamp"] .story-sparks { display: block; }
+.ticket-story-art[data-phase="depart"] .story-attendant { opacity: .25; }
+.ticket-story-art[data-phase="arrival"] .story-attendant { opacity: .65; }

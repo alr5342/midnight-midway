@@ -1,0 +1,18 @@
+{
+  "tests": "passed",
+  "errors": [],
+  "checks": [
+    "no bats before Enter",
+    "flight and wing movement",
+    "all three systems freeze together on touch Pause",
+    "same-phase resume",
+    "initial/live reduced motion hides flight",
+    "hidden-tab pause until Play",
+    "rapid toggles retain one overlay/loop"
+  ],
+  "limitations": [
+    "Physical-phone testing pending",
+    "Visibility simulated",
+    "Historical strict touch screenshot comparisons remain unresolved; this checks exact clock/DOM transforms"
+  ]
+}

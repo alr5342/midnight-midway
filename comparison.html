@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ticket booth — original, before and after</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    main { max-width: 1300px; }
+    .comparisons { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    figure { margin: 0; }
+    figcaption { text-align: center; margin: 14px 0; color: #c8c2cc; }
+    @media (max-width: 650px) { .comparisons { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header><p class="eyebrow">Ticket booth refinement</p><h1>Original / Before / After</h1><p>Same booth artwork, size and placement. Original foreground restored over its base.</p></header>
+    <div class="comparisons">
+      <figure><figcaption>Original reference</figcaption><div class="phone"><div class="scene" data-view="original"><img class="original layer" src="reference/midnight-midway-concept.png" alt="Original midway reference"></div></div></figure>
+      <figure><figcaption>Before — hard cutoff</figcaption><div class="phone"><div class="scene" data-view="before"><img class="plate layer" src="assets/midway-clean-plate.png" alt=""><img class="booth layer" src="assets/ticket-booth.png" alt="Previous booth assembly"></div></div></figure>
+      <figure><figcaption>After — restored foreground</figcaption><div class="phone"><div class="scene" data-view="assembled"><img class="plate layer" src="assets/midway-clean-plate.png" alt=""><img class="booth layer" src="assets/ticket-booth.png" alt="Refined booth assembly"><img class="foreground layer" src="reference/midnight-midway-concept.png" alt="Original pumpkin, plants and fog restored in front of booth"></div></div></figure>
+    </div>
+    <p class="caption"><a href="index.html">Return to phone preview</a></p>
+  </main>
+</body>
+</html>
