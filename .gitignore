@@ -13,3 +13,4 @@ Thumbs.db
 # Exported after commits; cannot contain its own final commit hash.
 GIT-LOG.txt
 submission*.zip
+/submissions/

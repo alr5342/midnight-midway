@@ -1,27 +1,19 @@
-# Phase 1 physical-phone verification — not yet performed
+# Phase 1 physical-phone verification — complete by Developer review
 
 Public HTTPS URL: https://alr5342.github.io/midnight-midway/
 
-Deployed application baseline: 96cd9d56555b57d40a6a18fe0d671b38a00f1d82; initial successful Pages deployment https://github.com/alr5342/midnight-midway/actions/runs/38980313295. Runtime unchanged by the follow-up documentation/evidence commit. Record the latest deployed tip from repository Actions when performing the phone check.
+Tester / date: Alex Rosemann, 2026-10-16.
 
-Tester / date: pending
+Device: **iPhone 17 Pro — iOS 26.5.1 — Safari**, supplied by the Developer.
 
-Phone model / OS / browser and version: pending
+Published revision at review: 834200ba34474fcd7ac7e858c0deb169d641696f. The runtime application is unchanged from the fully browser-verified application baseline 96cd9d56555b57d40a6a18fe0d671b38a00f1d82. Final packaging commits update documentation/tools/evidence only.
 
-| Actual-phone check | Observed result / defect / retested revision |
-| --- | --- |
-| Public HTTPS entry and reload; all artwork/modules/masks/audio load | Not tested |
-| Portrait viewport, browser chrome, safe areas and orientation; no scene scrolling/cropping | Not tested |
-| Start screen: no pre-entry sound/motion; Enter unlocks audio | Not tested |
-| Wheel lights/gondola glow, fog and occasional bats | Not tested |
-| Ambient loop balance/seam/repetition on phone speaker | Not tested |
-| Three bell rings: distinct sounds/glow/progress; touch targets reliable | Not tested |
-| Progressive hints; discoverability without explanation | Not tested |
-| Complete eight-active-second story and three replays without reload | Not tested |
-| Play/Pause during feedback, arrival, ticket, stamp, departure and settle; sounds/motion/time/input stop and resume | Not tested |
-| Switch tabs/lock phone or audio interruption; explicit Play required on return | Not tested |
-| Reduced motion enabled before load and changed during session | Not tested |
-| Credits readable; opening pauses, closing leaves paused; links correct | Not tested |
-| Text/readability/focus/accessibility tools as applicable | Not tested |
+## Reported result
 
-Do not mark these passed from desktop automation. Record failures and fixes; verify the final deployed revision before the submission ZIP is prepared.
+The Developer reported testing the live GitHub Pages site on their phone, said everything looked good, and explicitly instructed that the phone review be considered complete. No defect was reported. This is accepted as the brief's actual-smartphone verification and authorization to finalize the Phase 1 submission.
+
+The device details and general approval are user-reported evidence. No screenshots, per-beat pause log, separate OS-interruption results, screen-reader evaluation or individual reduced-motion notes were supplied; these are not invented or individually marked passed. Automated desktop checks remain separately documented in PHASE-1-AUDIT.md and artwork-review/.
+
+## Submission gate
+
+Public HTTPS plus physical-phone review: **satisfied**. No runtime, artwork, audio, story or creative change was made after this review. Final ZIP inventory/extraction/runtime checks are recorded separately; Phase 2 remains deferred.

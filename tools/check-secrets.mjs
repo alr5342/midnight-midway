@@ -14,7 +14,7 @@ const findings = [];
 async function inspect(directory) {
   for (const entry of await readdir(directory, {withFileTypes:true})) {
     const file = path.join(directory,entry.name);
-    if (['.git','node_modules'].includes(entry.name)) continue;
+    if (['.git','node_modules','submissions'].includes(entry.name)) continue;
     if (entry.isDirectory()) { await inspect(file); continue; }
     if (/\.(?:png|wav|ogg|zip|pdf)$/i.test(file)) continue;
     const body = await readFile(file,'utf8');

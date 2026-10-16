@@ -1,0 +1,19 @@
+﻿{
+    "status":  "passed-with-environment-limit",
+    "archive":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\submissions\\midnight-midway-phase1-20261016183328-candidate.zip",
+    "extractedProject":  "C:\\Users\\arose\\OneDrive\\Desktop\\project-4-template\\submissions\\midnight-midway-phase1-20261016183328-candidate-extracted\\midnight-midway-phase1",
+    "sourceCommit":  "834200ba34474fcd7ac7e858c0deb169d641696f",
+    "fileCount":  537,
+    "archiveBytes":  144957293,
+    "sha256":  "1ab75a1f061bffb00c03d4b8bef5b12e3172a1e1d0200b2b57abd6565316b289",
+    "allFilesAndHashesMatch":  true,
+    "hiddenFilesIncluded":  true,
+    "manifest":  "SUBMISSION-MANIFEST.json",
+    "publicURL":  "https://alr5342.github.io/midnight-midway/",
+    "unitTestsPassed":  17,
+    "runtimeEvidence":  "artwork-review/submission-candidate/checks.json",
+    "limits":  [
+                   "Windows WebKit has no Web Audio API; Chromium/Firefox audiovisual checks passed. Actual iPhone Safari review is separately approved.",
+                   "This is candidate evidence; final archive verification is a separate sidecar report."
+               ]
+}

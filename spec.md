@@ -2,7 +2,7 @@
 
 > EDITING DIRECTIVE: DEVELOPER AND AGENT EDIT THIS FILE COLLABORATIVELY. THE DEVELOPER MUST REVIEW AND APPROVE ITS CONTENT.
 
-Updated 2026-10-16. **Phase 1 only.** Developer approved submission preparation and authorized publishing. GitHub Pages is live at https://alr5342.github.io/midnight-midway/ from alr5342/midnight-midway, main / (root), with existing Git history preserved. Public browser/resource/story checks passed. Physical-phone verification and the extraction-tested ZIP remain open gates; Phase 2 is deferred.
+Updated 2026-10-16. **Phase 1 only.** Developer approved submission preparation and authorized publishing. GitHub Pages is live at https://alr5342.github.io/midnight-midway/ from alr5342/midnight-midway, main / (root), with existing Git history preserved. Public browser/resource/story checks passed, and Alex Rosemann approved actual iPhone 17 Pro / iOS 26.5.1 / Safari review. Archive candidate extraction/runtime checks passed; final ZIP acceptance is recorded in docs/SUBMISSION.md and the final verification sidecar. Phase 2 is deferred.
 
 ## Goal, scope and current state
 
@@ -10,9 +10,9 @@ Meet [brief.md](brief.md) through one portrait, browser-based Halloween scene th
 
 Phase 1 delivers the complete ambience, start screen, unified Play/Pause and **one complete discoverable story**, deployed over HTTPS and verified on a physical phone. Phase 2 adds peer-informed revisions, the remaining two stories and final polish/evidence/debrief. Phase 1 takes priority over expanding features.
 
-Current implementation is a buildless HTML/CSS/JavaScript **interactive prototype with lighting, fog, bats, looping wind and the complete ticket-booth story**. It is not yet submission-ready: credits/source confirmation, final review and delivery gates remain. Preview: `node serve.mjs`, then http://127.0.0.1:4173 in VS Code Simple Browser. No install/build is required. Preserved artwork and story inspectors are separate development pages.
+Current implementation is a buildless HTML/CSS/JavaScript **interactive prototype with lighting, fog, bats, looping wind and the complete ticket-booth story**. Developer/asset credits, source confirmation, public deployment and phone review are approved; final archive verification governs submission readiness. Preview: `node serve.mjs`, then http://127.0.0.1:4173 in VS Code Simple Browser. No install/build is required. Preserved artwork and story inspectors are separate development pages.
 
-Phase 1 submission has three mandatory gates: requirement-complete prototype with one story; shareable GitHub Pages HTTPS URL verified on the Developer's actual smartphone; clean, extraction-tested submission ZIP with project files, current documents and exported Git log. Record the deployed revision, phone/browser and observed results. No Phase 1 completion claim until all three are verified. Repository setup, hosting and archive preparation remain unfinished.
+Phase 1 submission has three mandatory gates: requirement-complete prototype with one story; shareable GitHub Pages HTTPS URL verified on the Developer's actual smartphone; clean, extraction-tested submission ZIP with project files, current documents and exported Git log. Record the deployed revision, phone/browser and observed results. No Phase 1 completion claim until all three are verified. Repository/history and hosting are complete; the extracted candidate passed, and the final artifact must have a passed inventory/runtime verification report.
 
 ## Approved visual contract
 
@@ -79,7 +79,7 @@ The shared context's interruption uses the established pause-until-Play policy f
 
 Credits is a native, titled modal inside the existing screen. It credits Alex Rosemann, Developer-confirmed ChatGPT-generated reference, image/code assistance and the three verified CC0 sound sources/derivatives. No new creative feature is added. Opening credits pauses the shared clock/context; closing/Escape restores focus to Credits and leaves playback paused until Play. Explicit forward/backward Tab order includes every control/link consistently across browsers. The modal may scroll internally, while the scene never scrolls or navigates away. Targets remain at least 44px and text contrast at least 4.5:1 in tested panels.
 
-The buildless app remains at repository root with relative URLs and .nojekyll. A separate local subpath server verifies GitHub project-site behavior, exact filename case, module/image/mask/audio requests and failure handling. Real local Git commits preserve the existing prototype and this preparation; no retrospective history is invented. Export GIT-LOG.txt after the last commit. Developer subsequently authorized publication; P1.10a is live with public HTTPS verification recorded in docs/DEPLOYMENT.md. Final ZIP creation remains later work after actual-phone verification; desktop checks do not satisfy the physical-phone gate.
+The buildless app remains at repository root with relative URLs and .nojekyll. A separate local subpath server verifies GitHub project-site behavior, exact filename case, module/image/mask/audio requests and failure handling. Real local Git commits preserve the existing prototype and this preparation; no retrospective history is invented. Export GIT-LOG.txt after the last commit. Developer subsequently authorized publication; P1.10a is live with public HTTPS verification recorded in docs/DEPLOYMENT.md. The Developer subsequently approved their actual iPhone Safari review and authorized final packaging. Candidate archive hash/runtime checks passed; the final ZIP must independently pass extraction/verification. Desktop checks are not substituted for the physical-phone report.
 
 ## Acceptance checks mapped to the brief
 
@@ -129,7 +129,7 @@ Phase 1 is complete only when all Phase 1 acceptance checks pass, one story is d
 
 No 3D, wheel rotation, full carousel rotation, multiple navigable scenes, specific park branding or extra attractions. No backend/framework is currently needed. New scope or consequential design changes require a reviewed spec/plan update.
 
-P1.6–P1.8 are approved. P1.9 submission preparation is held for review; no Phase 2 behavior exists. Full Chromium/Firefox audiovisual and WebKit visual/accessibility preflight results are recorded in docs/PHASE-1-AUDIT.md. This Windows WebKit build has no Web Audio API, so its audio remains unverified. Public URL, actual phone and final ZIP remain required gates. Historical screenshot-comparison limits remain in plan.md.
+P1.6–P1.8 are approved. P1.9 submission preparation is held for review; no Phase 2 behavior exists. Full Chromium/Firefox audiovisual and WebKit visual/accessibility preflight results are recorded in docs/PHASE-1-AUDIT.md. This Windows WebKit build has no Web Audio API, so its audio remains unverified. Public URL and actual-phone gates are satisfied; final ZIP acceptance is recorded in its verification sidecar. Historical screenshot-comparison limits remain in plan.md.
 
 ## Saving transcripts
 

@@ -1,6 +1,6 @@
 # GitHub Pages publishing handoff
 
-**Published with Developer authorization on 2026-10-16:** https://alr5342.github.io/midnight-midway/ from https://github.com/alr5342/midnight-midway, main / (root). Existing history preserved. Public-site checks passed; see DEPLOYMENT.md. Do not recreate the repository or rerun remote-add. Physical-phone verification and the submission ZIP remain pending; Phase 2 is deferred. The steps below are retained as the publishing/update handoff.
+**Published with Developer authorization on 2026-10-16:** https://alr5342.github.io/midnight-midway/ from https://github.com/alr5342/midnight-midway, main / (root). Existing history preserved. Public-site checks passed; see DEPLOYMENT.md. Do not recreate the repository or rerun remote-add. Actual-phone review is now approved (iPhone 17 Pro / iOS 26.5.1 / Safari); final archive acceptance is recorded in SUBMISSION.md and its verification sidecar. Phase 2 is deferred. The steps below are retained as the publishing/update handoff.
 
 ## What is prepared
 

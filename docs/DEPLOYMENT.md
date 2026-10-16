@@ -27,6 +27,6 @@ Anonymous Pages-metadata endpoints returned 404 even though the public deploymen
 
 ## Remaining gates
 
-Desktop verification is not physical-phone verification. Fill in PHONE-VERIFICATION.md using the public URL on the Developer's actual phone; record device/OS/browser and observed results, including audio, interruption, reduced motion, hints and replay. Fix/redeploy/retest any actual defect. The Windows WebKit test build's missing Web Audio API remains a test-environment limitation; it does not establish Safari/iPhone audio behavior.
+The Developer has now approved the actual-phone review: iPhone 17 Pro / iOS 26.5.1 / Safari, 2026-10-16. See PHONE-VERIFICATION.md for the scope of the reported evidence. No individual OS-interruption or per-beat logs were supplied or fabricated. The Windows WebKit test build's missing Web Audio API remains a test-environment limitation; it does not establish Safari/iPhone audio behavior.
 
-After the public-phone check passes, update project documents, export the final Git log and prepare/extract-test the complete submission ZIP. No ZIP was created here. Phase 1 remains incomplete until all three deliverables pass. Phase 2 remains deferred.
+The Developer authorized final ZIP preparation after phone approval. The extracted candidate passed inventory/hash and runtime checks; final artifact/Git-log acceptance is recorded in SUBMISSION.md and its verification sidecar. Phase 2 remains deferred.

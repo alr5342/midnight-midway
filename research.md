@@ -2,7 +2,7 @@
 
 > EDITING DIRECTIVE: DEVELOPER AND AGENT EDIT THIS FILE COLLABORATIVELY. THE DEVELOPER MUST REVIEW AND APPROVE ITS CONTENT.
 
-Updated 2026-10-16. Phase 1 only. Developer approved preparation and authorized publication under alr5342. Git Credential Manager confirmed that account; Git/REST created public midnight-midway, preserved main/history and configured Pages main / (root). Public HTTPS/browser/resource verification passed; evidence: docs/DEPLOYMENT.md. Artwork/audio/runtime are unchanged. Actual-phone verification and final ZIP remain later gates; Phase 2 is deferred.
+Updated 2026-10-16. Phase 1 only. Developer approved preparation and authorized publication under alr5342. Git Credential Manager confirmed that account; Git/REST created public midnight-midway, preserved main/history and configured Pages main / (root). Public HTTPS/browser/resource verification passed; evidence: docs/DEPLOYMENT.md. Artwork/audio/runtime are unchanged. The Developer subsequently approved actual iPhone 17 Pro / iOS 26.5.1 / Safari review and authorized final ZIP preparation. Candidate archive inventory/extracted-runtime checks passed. Final artifact acceptance is described in docs/SUBMISSION.md and its sidecar; Phase 2 is deferred.
 
 ## Goal and approved direction
 
