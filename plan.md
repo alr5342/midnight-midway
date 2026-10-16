@@ -246,4 +246,4 @@ Evidence and remaining gates: docs/DEPLOYMENT.md, artwork-review/pages-live/chec
 
 ## Saving transcripts
 
-Only when directed, save the entire current conversation as transcripts/plan-YYYY-MM-DD_HHMMSS.md or transcripts/build-YYYY-DD_HHMMSS.md, with messages labeled Developer and Agent, and confirm the path.
+Only when directed, save the entire current conversation as transcripts/plan-YYYY-MM-DD_HHMMSS.md or transcripts/build-YYYY-MM-DD_HHMMSS.md, with messages labeled Developer and Agent, and confirm the path.
