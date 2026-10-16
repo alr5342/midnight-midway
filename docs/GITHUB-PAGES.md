@@ -37,4 +37,12 @@ Test the public HTTPS link on the actual phone, not VS Code localhost. Fill in d
 
 Refresh the documents and Git log for the verified revision. Only then create the submission ZIP with sources, assets, brief/research/spec/plan/credits, deployment/phone evidence, relevant tests/history and GIT-LOG.txt. Exclude .git internals, caches, credentials/debug logs and recursive archives. Preserve all local work. Extract into a fresh folder, compare the inventory and run the extracted app. Record ZIP name, tested revision and results. No archive has been created at this checkpoint.
 
-If Git reports ownership differences between this sandbox and your Windows account, the agent used a command-scoped `-c safe.directory=C:/Users/arose/OneDrive/Desktop/project-4-template` for this exact workspace. No global trust setting was changed. Resolve an actual ownership warning specifically; do not disable Git's safety check globally.
+If Git reports ownership differences between this sandbox and your Windows account, use the following project-scoped versions of the commands above. This trusts only this known folder for that command and does not change global settings. Replace YOUR-USERNAME/repository as above; run the remote-add only once:
+
+```powershell
+git -c safe.directory=C:/Users/arose/OneDrive/Desktop/project-4-template status
+git -c safe.directory=C:/Users/arose/OneDrive/Desktop/project-4-template remote add origin https://github.com/YOUR-USERNAME/midnight-midway.git
+git -c safe.directory=C:/Users/arose/OneDrive/Desktop/project-4-template push -u origin main
+```
+
+The agent used this same scoped exception locally. No global trust setting was changed. Do not disable Git's safety check globally or force-push to resolve an ownership warning.
