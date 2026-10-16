@@ -2,14 +2,14 @@
 
 > EDITING DIRECTIVE: DEVELOPER AND AGENT EDIT THIS FILE COLLABORATIVELY. THE DEVELOPER MUST REVIEW AND APPROVE ITS CONTENT.
 
-Updated 2026-10-16. **Phase 1 only.** Developer approved the prototype and authorized P1.9/submission preparation. Developer/reference credits are confirmed, in-app credits and startup failure checks added, final browser/accessibility/project-path checks run, and local Git history/log prepared. Stop before publishing or packaging. GitHub Pages, actual-phone verification and the final extraction-tested ZIP remain open delivery gates. Phase 2 is deferred.
+Updated 2026-10-16. **Phase 1 only.** Developer approved submission preparation and explicitly authorized publication to alr5342/midnight-midway. Public repository/Pages main-root deployment and HTTPS browser verification are complete, preserving existing Git history. Live URL: https://alr5342.github.io/midnight-midway/. Actual-phone verification and the final extraction-tested ZIP remain open; do not package or begin Phase 2.
 
 ## Phase 1 submission gates — all must be verified
 
 | Required deliverable | Current state | Work still required |
 | --- | --- | --- |
 | Working prototype | Developer approved P1.7/P1.8; P1.9 submission preparation held for review. | Review required credits/startup/accessibility changes and final test evidence in docs/PHASE-1-AUDIT.md. |
-| Shareable URL verified on actual phone | Not deployed or physically verified. GitHub Pages is the selected host. | Confirm repository/account, deploy final candidate, test public HTTPS URL/assets and user’s actual phone, record device/browser/results, fix defects and retest the deployed revision. Desktop emulation is insufficient. |
+| Shareable URL verified on actual phone | GitHub Pages published; public HTTPS/resources/story/control checks passed. Actual phone unverified. | Developer tests the live URL on their actual phone; record device/browser/results, fix/redeploy/retest any defect. Desktop checks are insufficient for this gate. |
 | Project files, current docs and Git log | Local main Git history, files/docs and generated Git log prepared; no submission ZIP. | Refresh log/docs after deployed-phone verification, then create/extract-test the complete project ZIP matching that revision. |
 
 Phase 1 is not complete until every row passes. No public deployment or ZIP has been created in P1.3. Archive/readme/credits presentation must serve the assignment; no optional visual redesigns or extra story work in Phase 1.
@@ -62,7 +62,7 @@ These are sequential results, not permission to implement the entire table in on
 | P1.7 — approved | Complete audiovisual sequence driven by shared active time/context; paused cue offsets, normal/reduced-motion staging, cleanup/reset and replay. | Orphan effects/timers or incomplete return to rest. | Eight-second boundary unit checks; browser pauses at every beat, three replays, exact resting overlay reset and measurable story signal. Tested through the real bell because P1.7/P1.8 were authorized together; no development launch UI shipped. |
 | P1.8 — approved | Three bell activations, pitched sound/glow/text feedback, progressive hints at 12/24 active seconds, story lockout, reset and touch/keyboard controls. | Discovery confusion or concurrent actions. | Touch/Enter/Space, paused input rejection, excess-click lockout, frozen progress/hints, reduced motion and sound/art failure checks passed. Human discovery and phone listening remain unverified. |
 | P1.9 — prepared; review pending | In-app Developer/asset credits, confirmed ChatGPT reference origin, main image/stylesheet/mask startup checks, final accessibility/browser/subpath preflight and local Git/log. | Browser differences, broken hosted paths or incomplete credits. | Final evidence in docs/PHASE-1-AUDIT.md; stop before publishing/packaging. Real-phone/public URL remain separate gates. |
-| P1.10a — not started | Deploy the requirement-complete candidate through GitHub Pages using the agreed repository. | Incorrect repository/path or files missing from public build. | Record repository, deployed revision and public HTTPS URL; verify relative asset/module/audio paths, reload/direct entry and no missing resources. Stop for review. |
+| P1.10a — published; public browser checks passed | Deploy the requirement-complete candidate through GitHub Pages using the agreed repository. | Incorrect repository/path or files missing from public build. | Record repository, deployed revision and public HTTPS URL; verify relative asset/module/audio paths, reload/direct entry and no missing resources. Stop for review. |
 | P1.10b — not started | User verifies the public link on their actual smartphone. | Desktop automation misses phone touch/audio/interruption failures. | Record device/browser and observed start, all ambience/audio, pause/resume, bell/progress/hints, full story/replay, reduced motion and viewport behavior. Fix/redeploy/retest failures. No completion claim without this evidence. |
 | P1.10c — not started | Prepare the final submission ZIP after the deployed revision passes phone testing. | Stale build, absent Git log/docs, leaked secrets or unusable archive. | Export final Git log; include project sources, assets, current docs, credits and relevant tests/evidence. Exclude credentials/caches, Git internals and recursive submission archives; preserve all local work. Extract to a fresh workspace folder, verify file inventory and run the extracted app. Record ZIP filename, tested deployed revision and all three deliverable gates. |
 
@@ -124,7 +124,7 @@ Limits: physical-phone verification remains pending; visibility tests use synthe
 
 ## Next action after review
 
-Review the P1.9 local result and docs/PHASE-1-AUDIT.md. Publishing instructions are in docs/GITHUB-PAGES.md. After approval, create/select the intended GitHub repository, push main and enable Pages; verify the public link, then fill docs/PHONE-VERIFICATION.md on the actual phone. Only after the deployed revision passes, refresh docs/log and create/extract-test the submission ZIP. No publishing or packaging is performed here. Phase 2 is deferred.
+P1.10a is published and browser-verified; see docs/DEPLOYMENT.md. Next, fill docs/PHONE-VERIFICATION.md using the public URL on the actual phone. Only after that deployed revision passes, refresh docs/log and create/extract-test the submission ZIP. No archive or Phase 2 work is authorized here.
 
 ### P1.2 visibility revision — Developer review pending
 
@@ -236,6 +236,14 @@ Prepared .nojekyll, .gitattributes, .gitignore and tools/export-git-log.mjs. GIT
 
 Stop for review now. No remote, GitHub repository/upload, Pages deployment or submission ZIP was created. Next: approve local preparation, publish intended repository/main root, verify actual HTTPS assets/revision, test actual phone (including audio), then refresh docs/log and create/extract-test the complete submission ZIP. Phase 1 remains incomplete until all three deliverables pass. No Phase 2 work.
 
+## P1.10a publication — complete; P1.10b phone gate pending
+
+Developer explicitly authorized public alr5342/midnight-midway creation/push/Pages, with no different-account fallback. CLI was absent; existing Git Credential Manager login was verified as alr5342 through GitHub API. Created that exact public repository, attached credential-free origin and pushed existing main normally, preserving all three commits. Configured Pages main / (root), built successfully, HTTPS enforced. Repository: https://github.com/alr5342/midnight-midway; app: https://alr5342.github.io/midnight-midway/. No authentication/permissions failure or alternate account was used.
+
+Public verification: `node tests/check-live-pages.mjs https://alr5342.github.io/midnight-midway/ artwork-review/pages-live` passed. 42 deployed source/image/mask/audio files matched local bytes (normalized source text line endings), including all seven runtime WAVs; Enter/decode, Credits/pause, touch progress/lockout, full story, frozen stamp pause/resume, keyboard reduced-motion replay, reset, viewport fit and normal-URL reload passed with no page/HTTP errors. Full app-tested commit 96cd9d56555b57d40a6a18fe0d671b38a00f1d82; first successful workflow https://github.com/alr5342/midnight-midway/actions/runs/38980313295. Follow-up deployment record commit adds only docs/tests/evidence; runtime/artwork/audio unchanged.
+
+Evidence and remaining gates: docs/DEPLOYMENT.md, artwork-review/pages-live/checks.json, docs/PHONE-VERIFICATION.md. Anonymous Pages metadata returned 404; authenticated status confirmed built/main/root/HTTPS and preserved history. No secrets saved; focused scan before upload/commits. Refresh Git log after the record commit. Stop for Developer's actual-phone test, then prepare/extract-test complete ZIP only after that gate passes. Phase 1 remains incomplete; no ZIP or Phase 2 work.
+
 ## Saving transcripts
 
-Only when directed, save the entire current conversation as transcripts/plan-YYYY-MM-DD_HHMMSS.md or transcripts/build-YYYY-MM-DD_HHMMSS.md, with messages labeled Developer and Agent, and confirm the path.
+Only when directed, save the entire current conversation as transcripts/plan-YYYY-MM-DD_HHMMSS.md or transcripts/build-YYYY-DD_HHMMSS.md, with messages labeled Developer and Agent, and confirm the path.

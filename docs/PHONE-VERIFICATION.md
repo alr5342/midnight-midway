@@ -1,8 +1,8 @@
 # Phase 1 physical-phone verification — not yet performed
 
-Public HTTPS URL: pending
+Public HTTPS URL: https://alr5342.github.io/midnight-midway/
 
-Deployed commit / Pages deployment: pending
+Deployed application baseline: 96cd9d56555b57d40a6a18fe0d671b38a00f1d82; initial successful Pages deployment https://github.com/alr5342/midnight-midway/actions/runs/38980313295. Runtime unchanged by the follow-up documentation/evidence commit. Record the latest deployed tip from repository Actions when performing the phone check.
 
 Tester / date: pending
 

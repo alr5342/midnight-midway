@@ -2,7 +2,7 @@
 
 > EDITING DIRECTIVE: DEVELOPER AND AGENT EDIT THIS FILE COLLABORATIVELY. THE DEVELOPER MUST REVIEW AND APPROVE ITS CONTENT.
 
-Updated 2026-10-16. **Phase 1 only.** Developer approved the functional prototype and authorized submission preparation. P1.9 adds required in-app credits, recorded Developer/reference provenance, final accessibility/browser/path checks and startup failure handling. Local Git history and log export are being prepared. Stop before publishing or packaging. GitHub Pages/public-phone verification and the extraction-tested ZIP remain open gates; Phase 2 is deferred.
+Updated 2026-10-16. **Phase 1 only.** Developer approved submission preparation and authorized publishing. GitHub Pages is live at https://alr5342.github.io/midnight-midway/ from alr5342/midnight-midway, main / (root), with existing Git history preserved. Public browser/resource/story checks passed. Physical-phone verification and the extraction-tested ZIP remain open gates; Phase 2 is deferred.
 
 ## Goal, scope and current state
 
@@ -79,7 +79,7 @@ The shared context's interruption uses the established pause-until-Play policy f
 
 Credits is a native, titled modal inside the existing screen. It credits Alex Rosemann, Developer-confirmed ChatGPT-generated reference, image/code assistance and the three verified CC0 sound sources/derivatives. No new creative feature is added. Opening credits pauses the shared clock/context; closing/Escape restores focus to Credits and leaves playback paused until Play. Explicit forward/backward Tab order includes every control/link consistently across browsers. The modal may scroll internally, while the scene never scrolls or navigates away. Targets remain at least 44px and text contrast at least 4.5:1 in tested panels.
 
-The buildless app remains at repository root with relative URLs and .nojekyll. A separate local subpath server verifies GitHub project-site behavior, exact filename case, module/image/mask/audio requests and failure handling. Real local Git commits preserve the existing prototype and this preparation; no retrospective history is invented. Export GIT-LOG.txt after the last commit. Publishing and final ZIP creation explicitly require the Developer's later go-ahead. Public HTTPS and actual-phone evidence cannot be inferred from these desktop checks.
+The buildless app remains at repository root with relative URLs and .nojekyll. A separate local subpath server verifies GitHub project-site behavior, exact filename case, module/image/mask/audio requests and failure handling. Real local Git commits preserve the existing prototype and this preparation; no retrospective history is invented. Export GIT-LOG.txt after the last commit. Developer subsequently authorized publication; P1.10a is live with public HTTPS verification recorded in docs/DEPLOYMENT.md. Final ZIP creation remains later work after actual-phone verification; desktop checks do not satisfy the physical-phone gate.
 
 ## Acceptance checks mapped to the brief
 

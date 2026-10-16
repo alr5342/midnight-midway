@@ -1,0 +1,230 @@
+{
+  "status": "passed",
+  "url": "https://alr5342.github.io/midnight-midway/",
+  "verifiedAt": "2026-10-16T23:15:47.462Z",
+  "checks": [
+    "HTTPS entry, artwork/masks and all audio decoded",
+    "Credits, shared pause and explicit resume",
+    "Three-ring progress/lockout, full story and exact pause/resume",
+    "Keyboard replay and reduced-motion complete story",
+    "Deployed source/artwork/masks and seven audio assets match local bytes",
+    "Normal public URL/reload works, no diagnostics or missing resources"
+  ],
+  "verifiedResources": [
+    {
+      "path": "ticket-story-assets.css",
+      "status": 200,
+      "type": "text/css; charset=utf-8"
+    },
+    {
+      "path": "artwork.js",
+      "status": 200,
+      "type": "application/javascript; charset=utf-8"
+    },
+    {
+      "path": "app.js",
+      "status": 200,
+      "type": "application/javascript; charset=utf-8"
+    },
+    {
+      "path": "artwork.css",
+      "status": 200,
+      "type": "text/css; charset=utf-8"
+    },
+    {
+      "path": "app.css",
+      "status": 200,
+      "type": "text/css; charset=utf-8"
+    },
+    {
+      "path": "styles.css",
+      "status": 200,
+      "type": "text/css; charset=utf-8"
+    },
+    {
+      "path": "assets/midway-clean-plate.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "path": "assets/horse-left-mask.svg",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "path": "assets/prize-pair-mask.svg",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "path": "assets/fixed-trim-mask.svg",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "path": "assets/horse-center-mask.svg",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "path": "assets/gondola-patch-mask.svg",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "path": "assets/horse-right-mask.svg",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "path": "assets/attraction-repair-mask.svg",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "path": "ticket-story.js",
+      "status": 200,
+      "type": "application/javascript; charset=utf-8"
+    },
+    {
+      "path": "story-audio.js",
+      "status": 200,
+      "type": "application/javascript; charset=utf-8"
+    },
+    {
+      "path": "fog.js",
+      "status": 200,
+      "type": "application/javascript; charset=utf-8"
+    },
+    {
+      "path": "bats.js",
+      "status": 200,
+      "type": "application/javascript; charset=utf-8"
+    },
+    {
+      "path": "ambient-audio.js",
+      "status": 200,
+      "type": "application/javascript; charset=utf-8"
+    },
+    {
+      "path": "playback.js",
+      "status": 200,
+      "type": "application/javascript; charset=utf-8"
+    },
+    {
+      "path": "asset-readiness.js",
+      "status": 200,
+      "type": "application/javascript; charset=utf-8"
+    },
+    {
+      "path": "assets/ticket-booth.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "path": "reference/midnight-midway-concept.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "path": "lighting.js",
+      "status": 200,
+      "type": "application/javascript; charset=utf-8"
+    },
+    {
+      "path": "credits.js",
+      "status": 200,
+      "type": "application/javascript; charset=utf-8"
+    },
+    {
+      "path": "assets/attractions-hidden-plate-v1.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "path": "assets/gondola-style-v2.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "path": "ticket-story-assets.js",
+      "status": 200,
+      "type": "application/javascript; charset=utf-8"
+    },
+    {
+      "path": "assets/story/sparks.svg",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "path": "assets/story/bell.svg",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "path": "assets/story/stamp.svg",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "path": "assets/story/booth-empty-interior-v1.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "path": "assets/story/ticket.svg",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "path": "assets/story/booth-window-mask.svg",
+      "status": 200,
+      "type": "image/svg+xml"
+    },
+    {
+      "path": "assets/story/ghost-attendant-v3.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "path": "assets/audio/story-ring-2.wav",
+      "status": 200,
+      "type": "audio/wav"
+    },
+    {
+      "path": "assets/audio/story-stamp.wav",
+      "status": 200,
+      "type": "audio/wav"
+    },
+    {
+      "path": "assets/audio/story-ring-1.wav",
+      "status": 200,
+      "type": "audio/wav"
+    },
+    {
+      "path": "assets/audio/story-arrival.wav",
+      "status": 200,
+      "type": "audio/wav"
+    },
+    {
+      "path": "assets/audio/story-ring-3.wav",
+      "status": 200,
+      "type": "audio/wav"
+    },
+    {
+      "path": "assets/audio/story-departure.wav",
+      "status": 200,
+      "type": "audio/wav"
+    },
+    {
+      "path": "assets/audio/midway-wind-loop.wav",
+      "status": 200,
+      "type": "audio/wav"
+    }
+  ],
+  "errors": [],
+  "limits": [
+    "Desktop Chromium at phone viewports; actual-phone verification remains required",
+    "No submission ZIP created"
+  ]
+}

@@ -1,6 +1,6 @@
 # Phase 1 audit — submission preparation, 2026-10-16
 
-Authority: ../brief.md, especially **Phase 1: Playtest prototype (week 1)**. Developer approved P1.6–P1.8 and authorized final local credits/accessibility/browser/Git preparation. **Stop before publishing or packaging. No Phase 2 work.**
+Authority: ../brief.md, especially **Phase 1: Playtest prototype (week 1)**. Developer approved prototype/preparation and subsequently authorized publication. GitHub Pages is now live and public-browser verified; see DEPLOYMENT.md. **Actual-phone verification and final ZIP remain pending. No Phase 2 work.**
 
 ## Exact requirement checklist
 
@@ -23,7 +23,7 @@ Authority: ../brief.md, especially **Phase 1: Playtest prototype (week 1)**. Dev
 | Spooky/playful, ages 10+, no gore/realistic violence/suffering, no specific branding | Approved direction preserved; no new creative assets/features. Developer approved the revised ghost and complete prototype. |
 | Credit Developer and external code/visual/audio assets; allowed material | Complete source record/presentation: Alex Rosemann confirmed by Developer; reference confirmed ChatGPT-generated on 2026-10-16; AI/code-art assistance and all sound source/license credits in modal and CREDITS.md. Playwright development-only source/license credited. |
 | Cohesive/stable behavior and scoped failure handling | Automated story/shell regressions pass; missing cues retry through Pause/Play, missing story image disables trigger, and missing main image/mask/stylesheet blocks broken startup with guidance. Additional-engine results below; physical phone remains unverified. |
-| Shareable public HTTPS URL verified on physical smartphone | **Pending, not deployed:** GitHub Pages handoff prepared; no remote/push/Pages action. Must record actual URL, deployed commit, device/browser and observations in PHONE-VERIFICATION.md. |
+| Shareable public HTTPS URL verified on physical smartphone | **Published/browser-verified; actual phone pending:** https://alr5342.github.io/midnight-midway/. Pages main / (root), HTTPS enforced, public resources/story/controls passed. Deployment evidence: DEPLOYMENT.md. Actual phone/device/browser observations still required in PHONE-VERIFICATION.md. |
 | All project files, current documents and Git log | Local Git main history established from the existing approved state; source/docs/evidence retained, focused secret checks before commits, export via tools/export-git-log.mjs. **Final ZIP pending:** refresh log after deployed-phone verification, create complete archive, extract and test. |
 
 The full brief's three stories, peer-playtest revision evidence and completed debrief belong to Phase 2. Their absence is not a Phase 1 defect. No carousel/prize story, extra animation or creative addition was made.
@@ -43,8 +43,8 @@ The full brief's three stories, peer-playtest revision evidence and completed de
 ## Review and delivery gates
 
 1. Review the local prototype and submission preparation. The WebKit audio limitation is an unavailable API in this test build; verify audio on the actual target phone/browser instead of calling this desktop result an audio pass.
-2. After approval, follow GITHUB-PAGES.md to create the intended empty GitHub repository, push main and enable Pages from main / (root). .nojekyll and relative asset paths are prepared. Record the actual public HTTPS URL and deployed commit; verify public resources and full story.
+2. Publication completed with Developer authorization: https://github.com/alr5342/midnight-midway, main / (root), preserving original commits. Public verification passed for 42 runtime files including all seven audio files, full story/replay, reduced motion, controls and reload. Full app-tested commit: 96cd9d56555b57d40a6a18fe0d671b38a00f1d82; follow-up record commit changes only tests/docs/evidence.
 3. Verify that URL on the actual phone using PHONE-VERIFICATION.md, record observed results, and fix/redeploy/retest defects.
 4. Update documents and refresh GIT-LOG.txt for the verified revision. Only then create the complete submission ZIP, exclude secrets/caches/Git internals/debug output/recursive archives, extract into a fresh folder and test its inventory/app.
 
-**Phase 1 is not complete until all three deliverables pass.** No repository upload, public deployment or ZIP was performed during preparation.
+**Phase 1 is not complete until all three deliverables pass.** Public deployment and browser verification are complete. Actual-phone verification and the extraction-tested ZIP remain pending; no ZIP or Phase 2 work was performed.

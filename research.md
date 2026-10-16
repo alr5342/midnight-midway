@@ -2,7 +2,7 @@
 
 > EDITING DIRECTIVE: DEVELOPER AND AGENT EDIT THIS FILE COLLABORATIVELY. THE DEVELOPER MUST REVIEW AND APPROVE ITS CONTENT.
 
-Updated 2026-10-16. Phase 1 submission through GitHub Pages is the sole active scope. Developer approved the functional prototype and authorized credits/accessibility/browser/Git preparation, stopping before publishing or packaging. Alex Rosemann and ChatGPT-generated reference provenance are now confirmed by the Developer. Approved artwork, props and sounds are retained. Final preflight/audit: docs/PHASE-1-AUDIT.md; publishing handoff: docs/GITHUB-PAGES.md. Public-phone verification and ZIP remain later gates; Phase 2 is deferred.
+Updated 2026-10-16. Phase 1 only. Developer approved preparation and authorized publication under alr5342. Git Credential Manager confirmed that account; Git/REST created public midnight-midway, preserved main/history and configured Pages main / (root). Public HTTPS/browser/resource verification passed; evidence: docs/DEPLOYMENT.md. Artwork/audio/runtime are unchanged. Actual-phone verification and final ZIP remain later gates; Phase 2 is deferred.
 
 ## Goal and approved direction
 

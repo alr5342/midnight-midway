@@ -1,6 +1,6 @@
 # GitHub Pages publishing handoff
 
-Prepared locally only. **No GitHub repository, remote, push, Pages deployment or submission ZIP was created by the agent.** Review the app and preflight results before doing these steps. Keep Phase 2 deferred.
+**Published with Developer authorization on 2026-10-16:** https://alr5342.github.io/midnight-midway/ from https://github.com/alr5342/midnight-midway, main / (root). Existing history preserved. Public-site checks passed; see DEPLOYMENT.md. Do not recreate the repository or rerun remote-add. Physical-phone verification and the submission ZIP remain pending; Phase 2 is deferred. The steps below are retained as the publishing/update handoff.
 
 ## What is prepared
 
