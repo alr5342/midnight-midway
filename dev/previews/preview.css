@@ -1,0 +1,10 @@
+/* Review workspace only; never loaded by the app. */
+.preview-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 20px; padding: 14px 16px; font-size: 13px; }
+.preview-nav a[aria-current="page"] { color: #fff0d9; }
+body[data-preview="scene"] main, body[data-preview="booth"] main { max-width: 1300px; }
+.comparisons { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+body[data-preview="carriage"] .comparisons { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+figure { margin: 0; }
+figcaption { text-align: center; margin: 14px 0; color: #c8c2cc; }
+@media (max-width: 650px) { body:not([data-preview="carriage"]) .comparisons { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { body[data-preview="carriage"] .comparisons { grid-template-columns: 1fr; } }

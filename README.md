@@ -1,28 +1,39 @@
 # Midnight Midway
 
-Published Phase 1 app: https://alr5342.github.io/midnight-midway/ — repository: https://github.com/alr5342/midnight-midway. The approved prototype includes in-scene credits, startup asset checks and accessibility/browser/path verification. One eight-second ticket-booth story, ambience, progressive hints, replay and shared Play/Pause are implemented. No Phase 2 work is included.
+Published Phase 1 app: https://alr5342.github.io/midnight-midway/ — [GitHub repository](https://github.com/alr5342/midnight-midway).
 
-Run `node serve.mjs`, then open http://127.0.0.1:4173 in VS Code Simple Browser or a desktop browser. No installation/build is required. Enter enables lighting, fog, bats and CC0 wind. Explore the ticket-booth bell; three activations summon the attendant, floating ticket and magical stamp. Pause freezes/resumes all active-time effects, hints, progress and sound. Leaving the tab or interrupting audio pauses until explicit Play.
+One illustrated phone scene with lighting, fog, bats, looping wind, a start screen and one eight-second ticket-booth story. Three bell activations summon the spectral attendant, ticket and magical stamp. Progressive hints, replay, credits, touch/keyboard controls and initial/live reduced motion are implemented. One Play/Pause control coordinates all motion, sound, effects, timers and interaction. Tab/OS audio interruptions wait for explicit Play.
 
-Reduced motion is honored before Enter and live. Touch and keyboard are supported: Enter focuses Play/Pause, then Tab reaches the bell. Bell input waits for initially loading sounds and is locked during the story/pause. Cue failure shows Pause/Play retry guidance; missing story artwork disables the trigger with reload guidance.
+## Run locally
 
-**Phase 1 submission finalization:** the prototype and public HTTPS site are approved, including Alex Rosemann’s actual iPhone 17 Pro / iOS 26.5.1 / Safari review. The extracted archive candidate passed inventory/hash, 17 unit and browser checks. Final ZIP contents and acceptance results are described in [docs/SUBMISSION.md](docs/SUBMISSION.md); the final verification sidecar must have status passed before submission. Developer/asset credits and Git history/log are included. [Detailed audit](docs/PHASE-1-AUDIT.md), [plan](plan.md), [specification](spec.md), [research](research.md), [credits](CREDITS.md).
+Run `node serve.mjs`, then open http://127.0.0.1:4173/index.html in VS Code Simple Browser or a desktop browser. No installation, framework or build is needed to run the app.
 
-Tests use an existing local Playwright installation whose path is listed in browser scripts; update that path on another machine. It is not needed to run the app.
+The combined development workspace is http://127.0.0.1:4173/dev/previews/index.html. Its navigation retains the artwork inspector, booth/carriage comparisons, full scene and manual story staging with sound auditions. These previews are separate from the working app. Read-only runtime diagnostics remain available at `/?diagnostics`.
+
+## Organization
+
+Runtime JavaScript lives in `src/js/`; shared scene/artwork/story styles and app-only styles in `src/css/`. Artwork, masks, story props, processed sound and source originals have separate folders under `assets/`. Current documents stay at the root or in `docs/`. Older review evidence and superseded development entry points are preserved in `archive/`. [Folder responsibilities and consolidation details](docs/PROJECT-STRUCTURE.md), [old-to-new path index](docs/FILE-MAP.json).
+
+## Tests
+
+From the project root:
 
 ```powershell
-node --test tests/playback.test.mjs tests/lighting.test.mjs tests/fog.test.mjs tests/bats.test.mjs tests/ambient-audio.test.mjs tests/ticket-story.test.mjs
-node tests/check-ticket-story.mjs artwork-review/p1-7-8-review
-node tests/check-shell.mjs artwork-review/p1-7-8-shell-final
-node tests/check-audio.mjs artwork-review/p1-7-8-audio-final
-node tests/check-bats.mjs artwork-review/p1-7-8-bats
-node tests/check-submission-ready.mjs artwork-review/p1-9-final
+node --test tests/unit/*.test.mjs
+node tests/run-regressions.mjs
+node tests/browser/check-submission-ready.mjs tests/results/preflight
 node tools/check-secrets.mjs
 node tools/export-git-log.mjs
 ```
 
-Final preflight: Chromium/Firefox pass the full audiovisual flow; WebKit passes visual/accessibility/path checks but has no Web Audio API in this Windows test build. Its audio remains unverified. Results: artwork-review/p1-9-final/checks.json. Desktop checks do not establish human discovery, phone speaker balance or physical-phone behavior. The final preflight supports PLAYWRIGHT_MODULE for a different installed Playwright entry path. Historical strict screenshot comparisons remain unresolved; current checks verify frozen active time/DOM state and exact resting story-overlay reset. Evidence and limits are in the audit/plan.
+The browser runner starts a local server when needed and executes the existing shell, audio, lighting, fog, bats, wheel alignment, story/replay and preview regressions. Fresh captures/logs go into ignored `tests/results/`; earlier evidence stays unchanged in `archive/reviews/`. Browser checks need a separately installed Playwright package and browsers, which are not bundled or needed by the app. The scripts retain this machine's installed path. The preflight also supports `PLAYWRIGHT_MODULE` for a different Playwright entry path.
 
-Credits (upper right) is available before/after Enter. It pauses the scene; closing leaves it paused until Play. Startup image/stylesheet/mask failure keeps Enter disabled with reload guidance. [Deployment evidence](docs/DEPLOYMENT.md), [GitHub Pages handoff](docs/GITHUB-PAGES.md) and [physical-phone checklist](docs/PHONE-VERIFICATION.md) describe the current result and next steps. The archive includes source/assets/docs/Git log, existing transcript-folder materials, history and supporting tests/evidence; see docs/SUBMISSION.md.
+Preflight tests the project under `/midnight-midway-check/` and checks filename case for GitHub Pages compatibility. Chromium/Firefox support the full audiovisual checks. The installed Windows WebKit build has no Web Audio API; its visual/accessibility/path checks pass, but its audio is unverified. Historical strict touch screenshot comparisons remain unresolved; current regressions verify exact frozen active time/DOM state and resting story reset. See the [audit](docs/PHASE-1-AUDIT.md) for scope and limitations.
 
-Read-only development diagnostics: /?diagnostics. No diagnostic launch control appears in the app. Static inspectors: /artwork-review.html and /story-review.html. Comparison pages, source images, prompts, previous assets and audio processing records remain preserved. Pre-checkpoint source/docs: docs/history/20261016-p1-7-8/. For the extracted app, run node serve.mjs inside midnight-midway-phase1/. No install/build is needed for the app. Browser automation needs the separately installed Playwright package/browsers; they are not bundled.
+## Published Phase 1 and preserved submission
+
+The published prototype was approved on an actual iPhone 17 Pro / iOS 26.5.1 / Safari by Alex Rosemann. The finalized Phase 1 ZIP, extraction, checksum and verification sidecar remain unchanged in `submissions/`. They record revision `4f7ed1b` and retain the original folder structure. The organizational cleanup is confined to the separate `chore/project-structure` branch; it has not been merged, pushed or deployed. The physical-phone approval applies to the published Phase 1 version.
+
+The active Git-log exporter now writes `docs/git/GIT-LOG.txt`. The packager uses that location for future exports; it does not alter the existing submission. Run it only when a new package is authorized. [Submission record](docs/SUBMISSION.md), [deployment evidence](docs/DEPLOYMENT.md), [Pages instructions](docs/GITHUB-PAGES.md), [phone review](docs/PHONE-VERIFICATION.md).
+
+[Brief](brief.md) · [research](research.md) · [specification](spec.md) · [plan](plan.md) · [developer/asset credits](CREDITS.md). No narrative redesign or additional stories are implemented in this cleanup.

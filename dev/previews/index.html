@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Midnight Midway — development previews</title>
+  <link rel="stylesheet" href="../../src/css/scene.css">
+  <link rel="stylesheet" href="preview.css">
+</head>
+<body>
+  <nav class="preview-nav" aria-label="Development previews">
+    <a href="?view=artwork">Artwork inspector</a>
+    <a href="?view=carriage">Carriage comparison</a>
+    <a href="?view=booth">Booth comparison</a>
+    <a href="?view=scene">Full scene</a>
+    <a href="?view=story">Story staging</a>
+    <a href="../../index.html">Working prototype</a>
+  </nav>
+  <main id="preview-content"></main>
+  <template id="preview-artwork">
+    <header><p class="eyebrow">Visual checkpoint 02</p><h1>The Midnight Midway</h1><p>Complete static artwork &amp; interface placement</p></header>
+    <section class="review-controls" aria-label="Artwork review controls">
+      <label>View <select id="view"><option value="original">Original reference</option><option value="assembled" selected>Full static assembly</option><option value="attraction-pieces">Horses &amp; prizes — isolated</option><option value="attraction-displaced">Horses &amp; prizes — lifted</option><option value="before">First booth assembly</option><option value="plate">Booth repair plate</option><option value="cutout">Booth on checkerboard</option><option value="displaced">Displaced booth</option></select></label>
+      <label>Phone proportions <select id="ratio"><option value="reference">Reference · full composition</option><option value="tall">Tall phone · 390 × 844</option><option value="short">Short phone · 375 × 667</option></select></label>
+      <label>Interface mockup <select id="ui"><option value="on">Show Play/Pause &amp; hint</option><option value="off">Artwork only</option></select></label>
+    </section>
+    <div class="phone" id="phone" data-ui="on">
+      <div class="scene" id="scene" data-view="assembled" data-attractions role="img" aria-label="Moonlit Halloween midway with a Ferris wheel, ticket booth, carousel and prize stall. Static Pause control and story hint placement shown.">
+        <img class="original layer" src="../../assets/sources/artwork/midnight-midway-concept.png" alt="" fetchpriority="high">
+        <img class="plate layer" src="../../assets/artwork/midway-clean-plate.png" alt="">
+        <img class="booth layer" src="../../assets/artwork/ticket-booth.png" alt="">
+        <img class="foreground layer" src="../../assets/sources/artwork/midnight-midway-concept.png" alt="">
+        <div class="scene-ui" aria-hidden="true"><span class="pause-mockup">Ⅱ</span><p class="hint-mockup">Some guests never left the midway…</p></div>
+      </div>
+    </div>
+    <p class="caption" id="caption" aria-live="polite">Full static assembly with original horse and prize pixels. Play/Pause and hint are nonfunctional placement mockups.</p>
+    <p class="caption"><a href="?view=carriage">Carriage before / after</a> · <a href="?view=scene">Full scene comparison</a> · <a href="?view=booth">Approved booth comparison</a></p>
+    <details><summary>What to inspect</summary><p>Compare the assembled artwork against the original, then inspect the isolated horses and prize pair. The lifted view uses small static offsets to reveal the repaired surfaces. There is no animation.</p><p>Play/Pause sits over the upper-left sky, away from the moon and attractions. A short hint sits over the bottom path. Both are static visual mockups. Hide them to review the artwork alone. Tall phones preserve the complete image with dark space above and below.</p></details>
+
+  </template>
+  <template id="preview-carriage">
+    <header><p class="eyebrow">Focused artwork refinement</p><h1>The right-hand carriage</h1><p>Matching open structure, with a restrained mysterious glow.</p></header>
+    <div class="comparisons">
+      <figure><figcaption>Before</figcaption><div class="phone" data-ui="on"><div class="scene" data-view="assembled" data-attractions data-carriage="before"><img class="plate layer" src="../../assets/artwork/midway-clean-plate.png" alt=""><img class="booth layer" src="../../assets/artwork/ticket-booth.png" alt=""><img class="foreground layer" src="../../assets/sources/artwork/midnight-midway-concept.png" alt=""><div class="scene-ui" aria-hidden="true"><span class="pause-mockup">Ⅱ</span><p class="hint-mockup">Some guests never left the midway…</p></div></div></div></figure>
+      <figure><figcaption>After</figcaption><div class="phone" data-ui="on"><div class="scene" data-view="assembled" data-attractions><img class="plate layer" src="../../assets/artwork/midway-clean-plate.png" alt=""><img class="booth layer" src="../../assets/artwork/ticket-booth.png" alt=""><img class="foreground layer" src="../../assets/sources/artwork/midnight-midway-concept.png" alt=""><div class="scene-ui" aria-hidden="true"><span class="pause-mockup">Ⅱ</span><p class="hint-mockup">Some guests never left the midway…</p></div></div></div></figure>
+    </div>
+    <p class="caption"><a href="../../index.html">Return to full phone preview</a></p>
+
+  </template>
+  <template id="preview-booth">
+    <header><p class="eyebrow">Ticket booth refinement</p><h1>Original / Before / After</h1><p>Same booth artwork, size and placement. Original foreground restored over its base.</p></header>
+    <div class="comparisons">
+      <figure><figcaption>Original reference</figcaption><div class="phone"><div class="scene" data-view="original"><img class="original layer" src="../../assets/sources/artwork/midnight-midway-concept.png" alt="Original midway reference"></div></div></figure>
+      <figure><figcaption>Before — hard cutoff</figcaption><div class="phone"><div class="scene" data-view="before"><img class="plate layer" src="../../assets/artwork/midway-clean-plate.png" alt=""><img class="booth layer" src="../../assets/artwork/ticket-booth.png" alt="Previous booth assembly"></div></div></figure>
+      <figure><figcaption>After — restored foreground</figcaption><div class="phone"><div class="scene" data-view="assembled"><img class="plate layer" src="../../assets/artwork/midway-clean-plate.png" alt=""><img class="booth layer" src="../../assets/artwork/ticket-booth.png" alt="Refined booth assembly"><img class="foreground layer" src="../../assets/sources/artwork/midnight-midway-concept.png" alt="Original pumpkin, plants and fog restored in front of booth"></div></div></figure>
+    </div>
+    <p class="caption"><a href="../../index.html">Return to phone preview</a></p>
+
+  </template>
+  <template id="preview-scene">
+    <header><p class="eyebrow">Visual checkpoint 02</p><h1>The full midway</h1><p>Original-pixel pieces, retained foreground, static interface mockups.</p></header>
+    <div class="comparisons">
+      <figure><figcaption>Full scene + interface placement</figcaption><div class="phone" data-ui="on"><div class="scene" data-view="assembled" data-attractions><img class="plate layer" src="../../assets/artwork/midway-clean-plate.png" alt=""><img class="booth layer" src="../../assets/artwork/ticket-booth.png" alt=""><img class="foreground layer" src="../../assets/sources/artwork/midnight-midway-concept.png" alt=""><div class="scene-ui" aria-hidden="true"><span class="pause-mockup">Ⅱ</span><p class="hint-mockup">Some guests never left the midway…</p></div></div></div></figure>
+      <figure><figcaption>Artwork only</figcaption><div class="phone"><div class="scene" data-view="assembled" data-attractions><img class="plate layer" src="../../assets/artwork/midway-clean-plate.png" alt=""><img class="booth layer" src="../../assets/artwork/ticket-booth.png" alt=""><img class="foreground layer" src="../../assets/sources/artwork/midnight-midway-concept.png" alt=""></div></div></figure>
+      <figure><figcaption>Lifted pieces — repair inspection</figcaption><div class="phone"><div class="scene" data-view="attraction-displaced" data-attractions><img class="plate layer" src="../../assets/artwork/midway-clean-plate.png" alt=""><img class="booth layer" src="../../assets/artwork/ticket-booth.png" alt=""><img class="foreground layer" src="../../assets/sources/artwork/midnight-midway-concept.png" alt=""></div></div></figure>
+    </div>
+    <p class="caption">The third view uses fixed offsets, not animation. The ghost and cat remain a pair because they overlap in the reference. Alternate poses and individual prize separation are outside this checkpoint.</p>
+    <p class="caption"><a href="../../index.html">Phone-size preview and inspection controls</a></p>
+
+  </template>
+  <template id="preview-story">
+    <header><p class="eyebrow">P1.6 · Story assets and storyboard</p><h1>A ticket after midnight</h1><p>Eight active seconds. Static staging only; no story playback or bell trigger.</p></header>
+    <section class="review-controls" aria-label="Storyboard inspection">
+      <label>Story beat<select id="beat"></select></label>
+      <label>Artwork<select id="art"><option value="show">Show staged assets</option><option value="hide">Approved scene only</option></select></label>
+    </section>
+    <div class="phone"><div class="scene" id="story-scene" data-view="assembled" data-attractions role="img" aria-label="Static ticket-booth story staging in the approved midway scene">
+      <img class="plate layer" src="../../assets/artwork/midway-clean-plate.png" alt="">
+      <img class="booth layer" src="../../assets/artwork/ticket-booth.png" alt="">
+      <img class="foreground layer" src="../../assets/sources/artwork/midnight-midway-concept.png" alt="">
+    </div></div>
+    <p class="caption">Change beats manually to inspect placement and reset. The bell is decorative here. Pausable motion, sound scheduling and story lockout will be implemented in P1.7; three-ring interaction and hints in P1.8.</p>
+    <details><summary>Sound candidates — press Play to audition</summary><p>CC0 sources and edits: <a href="../../CREDITS.md">credits</a>. These independent audition controls belong only to this review page.</p><div id="sounds"></div></details>
+    <p class="caption"><a href="../../index.html">Return to current Phase 1 prototype</a> · <a href="../../docs/artwork/story/STORYBOARD.md">Storyboard and integration contract</a></p>
+
+  </template>
+  <script type="module" src="preview.js"></script>
+</body>
+</html>

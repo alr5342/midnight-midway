@@ -11,7 +11,7 @@ Authorized by the Developer after local prepublication review. No creative/runti
 
 ## Public-site verification
 
-`node tests/check-live-pages.mjs https://alr5342.github.io/midnight-midway/ artwork-review/pages-live` passed in Chromium using phone viewports. Evidence: ../artwork-review/pages-live/checks.json and start/stamp-paused/rest screenshots.
+`node tests/browser/check-live-pages.mjs https://alr5342.github.io/midnight-midway/ archive/reviews/pages-live` passed in Chromium using phone viewports. Evidence: ../archive/reviews/pages-live/checks.json and start/stamp-paused/rest screenshots.
 
 - HTTPS entry and reload work; normal URL does not expose diagnostics.
 - 42 deployed runtime resources loaded and matched local bytes (source text compared with normalized Git line endings); includes approved ghost/artwork/masks and all seven runtime WAV files.

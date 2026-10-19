@@ -7,8 +7,8 @@ await page.goto('http://127.0.0.1:4173');
 const results = await page.evaluate(async () => {
   const context = new AudioContext(), results = [];
   const decode = async path => { const response = await fetch(path); if (!response.ok) throw Error(path); return context.decodeAudioData(await response.arrayBuffer()); };
-  const bell = await decode('assets/audio/story-bell.wav');
-  const magic = await decode('reference/audio/jaggedstone-magical-original.ogg');
+  const bell = await decode('assets/sources/audio/story-bell.wav');
+  const magic = await decode('assets/sources/audio/jaggedstone-magical-original.ogg');
   const cues = [
     ['story-ring-1', bell, .85, 1, .5], ['story-ring-2', bell, 1, 1, .5], ['story-ring-3', bell, 1.15, 1, .5],
     ['story-arrival', magic, .9, 1.2, .35], ['story-stamp', magic, 1.15, .9, .45], ['story-departure', magic, .8, 1.2, .3]

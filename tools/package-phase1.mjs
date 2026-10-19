@@ -21,7 +21,7 @@ const extractedProject=path.join(extraction,projectName);
 const archive=path.join(output,`${name}.zip`);
 await mkdir(stageProject,{recursive:true});
 const files=git('ls-files','-z').split('\0').filter(Boolean);
-files.push('GIT-LOG.txt');files.sort();
+files.push('docs/git/GIT-LOG.txt');files.sort();
 const inventory=[];
 for(const file of files) {
   assert.ok(!file.startsWith('submissions/') && !file.startsWith('.git/') && !file.endsWith('.zip'),`Excluded generated/internal path tracked: ${file}`);
@@ -30,9 +30,9 @@ for(const file of files) {
   const destination=path.join(stageProject,file);await mkdir(path.dirname(destination),{recursive:true});await copyFile(file,destination);
   inventory.push({path:file,bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')});
 }
-for(const required of ['index.html','serve.mjs','brief.md','research.md','spec.md','plan.md','README.md','CREDITS.md','GIT-LOG.txt','.nojekyll','.gitignore','.gitattributes','docs/PHONE-VERIFICATION.md','docs/PHASE-1-AUDIT.md','docs/DEPLOYMENT.md']) assert.ok(files.includes(required),`Required file missing: ${required}`);
-assert.match(await readFile('GIT-LOG.txt','utf8'),new RegExp(revision),'Refresh Git log for this commit before packaging');
-const manifest={project:projectName,label,archiveFileName:`${name}.zip`,sourceCommit:revision,publicURL:'https://alr5342.github.io/midnight-midway/',createdAt:new Date().toISOString(),fileCount:inventory.length,files:inventory,exclusions:['.git internals','debug.log','credentials/caches','submissions and recursive archives'],transcripts:'brief.md does not require session transcripts for Phase 1; existing transcripts/ and historical evidence are included. No missing transcript text is fabricated.'};
+for(const required of ['index.html','serve.mjs','brief.md','research.md','spec.md','plan.md','README.md','CREDITS.md','docs/git/GIT-LOG.txt','.nojekyll','.gitignore','.gitattributes','docs/PHONE-VERIFICATION.md','docs/PHASE-1-AUDIT.md','docs/DEPLOYMENT.md']) assert.ok(files.includes(required),`Required file missing: ${required}`);
+assert.match(await readFile('docs/git/GIT-LOG.txt','utf8'),new RegExp(revision),'Refresh Git log for this commit before packaging');
+const manifest={project:projectName,label,archiveFileName:`${name}.zip`,sourceCommit:revision,publicURL:'https://alr5342.github.io/midnight-midway/',createdAt:new Date().toISOString(),fileCount:inventory.length,files:inventory,exclusions:['.git internals','archive/logs/debug.log','credentials/caches','submissions and recursive archives'],transcripts:'brief.md does not require session transcripts for Phase 1; existing transcripts/ and historical evidence are included. No missing transcript text is fabricated.'};
 await writeFile(path.join(stageProject,'SUBMISSION-MANIFEST.json'),JSON.stringify(manifest,null,2));
 execFileSync('powershell.exe',['-NoProfile','-ExecutionPolicy','Bypass','-File',path.join(root,'tools/package-phase1.ps1'),'-SourcePath',stage,'-ArchivePath',archive,'-ExtractPath',extraction],{stdio:'pipe'});
 async function list(directory,prefix='') {

@@ -1,0 +1,434 @@
+{
+  "status": "passed-with-webkit-audio-environment-limit",
+  "date": "2026-10-19",
+  "branch": "chore/project-structure",
+  "baseRevision": "4f7ed1bbcb8e08c9171002c49d8a80450350e252",
+  "scope": "Organizational cleanup only; no creative changes, merge, push, deployment or new submission package",
+  "activeFiles": {
+    "before": {
+      "html": 6,
+      "javascript": 13,
+      "css": 4,
+      "total": 23
+    },
+    "after": {
+      "html": 2,
+      "javascript": 10,
+      "css": 3,
+      "total": 15
+    },
+    "note": "Runtime and development previews only; excludes tools/tests and archived originals"
+  },
+  "unitTests": {
+    "passed": 17,
+    "failed": 0,
+    "command": "node --test tests/unit/*.test.mjs"
+  },
+  "browserRegressions": {
+    "status": "passed",
+    "results": [
+      {
+        "name": "check-shell",
+        "status": "passed"
+      },
+      {
+        "name": "check-audio",
+        "status": "passed"
+      },
+      {
+        "name": "check-lighting",
+        "status": "passed"
+      },
+      {
+        "name": "check-fog",
+        "status": "passed"
+      },
+      {
+        "name": "check-bats",
+        "status": "passed"
+      },
+      {
+        "name": "check-light-alignment",
+        "status": "passed"
+      },
+      {
+        "name": "check-story-assets",
+        "status": "passed"
+      },
+      {
+        "name": "check-ticket-story",
+        "status": "passed"
+      },
+      {
+        "name": "check-carriage",
+        "status": "passed"
+      },
+      {
+        "name": "visual-check",
+        "status": "passed"
+      }
+    ]
+  },
+  "preflight": {
+    "status": "passed-with-environment-limit",
+    "browsers": [
+      {
+        "browser": "chromium",
+        "status": "passed",
+        "audioVerified": true,
+        "projectSubpath": true,
+        "caseSensitivePaths": true,
+        "resourceCount": 38,
+        "missingAssetsSafelyGated": [
+          "assets/artwork/midway-clean-plate.png",
+          "assets/masks/horse-left-mask.svg",
+          "src/css/scene.css"
+        ]
+      },
+      {
+        "browser": "firefox",
+        "status": "passed",
+        "audioVerified": true,
+        "projectSubpath": true,
+        "caseSensitivePaths": true,
+        "resourceCount": 38,
+        "missingAssetsSafelyGated": [
+          "assets/artwork/midway-clean-plate.png",
+          "assets/masks/horse-left-mask.svg",
+          "src/css/scene.css"
+        ]
+      },
+      {
+        "browser": "webkit",
+        "status": "visual/accessibility/failure checks passed; audio API unavailable in this test build",
+        "audioVerified": false,
+        "projectSubpath": true,
+        "caseSensitivePaths": true,
+        "resourceCount": 31,
+        "missingAssetsSafelyGated": [
+          "assets/artwork/midway-clean-plate.png",
+          "assets/masks/horse-left-mask.svg",
+          "src/css/scene.css"
+        ]
+      }
+    ],
+    "protectedBaselineMedia": 12
+  },
+  "organization": {
+    "status": "passed",
+    "baseRevision": "4f7ed1bbcb8e08c9171002c49d8a80450350e252",
+    "preservedFiles": 2689,
+    "submissionFilesUnchanged": 2209,
+    "artworkAudioAndHistoryBytesUnchanged": true,
+    "cssCascadeUnchanged": true,
+    "coreLogicUnchangedExceptPaths": true,
+    "startGeometryUnchanged": true,
+    "comparisons": [
+      {
+        "name": "start",
+        "sameDimensions": true,
+        "changedPixels": 0
+      },
+      {
+        "name": "artwork",
+        "sameDimensions": true,
+        "changedPixels": 459
+      },
+      {
+        "name": "story",
+        "sameDimensions": true,
+        "changedPixels": 316
+      }
+    ],
+    "previews": [
+      {
+        "view": "artwork",
+        "linksAndImages": true
+      },
+      {
+        "view": "carriage",
+        "linksAndImages": true
+      },
+      {
+        "view": "booth",
+        "linksAndImages": true
+      },
+      {
+        "view": "scene",
+        "linksAndImages": true
+      },
+      {
+        "view": "story",
+        "linksAndImages": true
+      }
+    ],
+    "nestedPagesPath": true,
+    "documentationLinks": true,
+    "errors": [],
+    "publishedSite": "Not changed; branch was not pushed or deployed"
+  },
+  "publicSite": {
+    "status": "passed",
+    "url": "https://alr5342.github.io/midnight-midway/",
+    "verifiedAt": "2026-10-19T21:25:22.665Z",
+    "checks": [
+      "HTTPS entry, artwork/masks and all audio decoded",
+      "Credits, shared pause and explicit resume",
+      "Three-ring progress/lockout, full story and exact pause/resume",
+      "Keyboard replay and reduced-motion complete story",
+      "Deployed source/artwork/masks and seven audio assets match local bytes",
+      "Normal public URL/reload works, no diagnostics or missing resources"
+    ],
+    "verifiedResources": [
+      {
+        "path": "app.css",
+        "status": 200,
+        "type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "assets/ticket-booth.png",
+        "status": 200,
+        "type": "image/png"
+      },
+      {
+        "path": "artwork.js",
+        "status": 200,
+        "type": "application/javascript; charset=utf-8"
+      },
+      {
+        "path": "app.js",
+        "status": 200,
+        "type": "application/javascript; charset=utf-8"
+      },
+      {
+        "path": "styles.css",
+        "status": 200,
+        "type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "artwork.css",
+        "status": 200,
+        "type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "ticket-story-assets.css",
+        "status": 200,
+        "type": "text/css; charset=utf-8"
+      },
+      {
+        "path": "reference/midnight-midway-concept.png",
+        "status": 200,
+        "type": "image/png"
+      },
+      {
+        "path": "assets/gondola-patch-mask.svg",
+        "status": 200,
+        "type": "image/svg+xml"
+      },
+      {
+        "path": "assets/horse-center-mask.svg",
+        "status": 200,
+        "type": "image/svg+xml"
+      },
+      {
+        "path": "assets/prize-pair-mask.svg",
+        "status": 200,
+        "type": "image/svg+xml"
+      },
+      {
+        "path": "assets/horse-left-mask.svg",
+        "status": 200,
+        "type": "image/svg+xml"
+      },
+      {
+        "path": "assets/fixed-trim-mask.svg",
+        "status": 200,
+        "type": "image/svg+xml"
+      },
+      {
+        "path": "assets/horse-right-mask.svg",
+        "status": 200,
+        "type": "image/svg+xml"
+      },
+      {
+        "path": "assets/attraction-repair-mask.svg",
+        "status": 200,
+        "type": "image/svg+xml"
+      },
+      {
+        "path": "asset-readiness.js",
+        "status": 200,
+        "type": "application/javascript; charset=utf-8"
+      },
+      {
+        "path": "credits.js",
+        "status": 200,
+        "type": "application/javascript; charset=utf-8"
+      },
+      {
+        "path": "ticket-story.js",
+        "status": 200,
+        "type": "application/javascript; charset=utf-8"
+      },
+      {
+        "path": "story-audio.js",
+        "status": 200,
+        "type": "application/javascript; charset=utf-8"
+      },
+      {
+        "path": "lighting.js",
+        "status": 200,
+        "type": "application/javascript; charset=utf-8"
+      },
+      {
+        "path": "ambient-audio.js",
+        "status": 200,
+        "type": "application/javascript; charset=utf-8"
+      },
+      {
+        "path": "playback.js",
+        "status": 200,
+        "type": "application/javascript; charset=utf-8"
+      },
+      {
+        "path": "fog.js",
+        "status": 200,
+        "type": "application/javascript; charset=utf-8"
+      },
+      {
+        "path": "assets/midway-clean-plate.png",
+        "status": 200,
+        "type": "image/png"
+      },
+      {
+        "path": "assets/attractions-hidden-plate-v1.png",
+        "status": 200,
+        "type": "image/png"
+      },
+      {
+        "path": "ticket-story-assets.js",
+        "status": 200,
+        "type": "application/javascript; charset=utf-8"
+      },
+      {
+        "path": "bats.js",
+        "status": 200,
+        "type": "application/javascript; charset=utf-8"
+      },
+      {
+        "path": "assets/story/bell.svg",
+        "status": 200,
+        "type": "image/svg+xml"
+      },
+      {
+        "path": "assets/story/ticket.svg",
+        "status": 200,
+        "type": "image/svg+xml"
+      },
+      {
+        "path": "assets/story/sparks.svg",
+        "status": 200,
+        "type": "image/svg+xml"
+      },
+      {
+        "path": "assets/story/booth-window-mask.svg",
+        "status": 200,
+        "type": "image/svg+xml"
+      },
+      {
+        "path": "assets/story/stamp.svg",
+        "status": 200,
+        "type": "image/svg+xml"
+      },
+      {
+        "path": "assets/story/ghost-attendant-v3.png",
+        "status": 200,
+        "type": "image/png"
+      },
+      {
+        "path": "assets/story/booth-empty-interior-v1.png",
+        "status": 200,
+        "type": "image/png"
+      },
+      {
+        "path": "assets/gondola-style-v2.png",
+        "status": 200,
+        "type": "image/png"
+      },
+      {
+        "path": "assets/audio/story-departure.wav",
+        "status": 200,
+        "type": "audio/wav"
+      },
+      {
+        "path": "assets/audio/story-stamp.wav",
+        "status": 200,
+        "type": "audio/wav"
+      },
+      {
+        "path": "assets/audio/story-arrival.wav",
+        "status": 200,
+        "type": "audio/wav"
+      },
+      {
+        "path": "assets/audio/story-ring-2.wav",
+        "status": 200,
+        "type": "audio/wav"
+      },
+      {
+        "path": "assets/audio/story-ring-1.wav",
+        "status": 200,
+        "type": "audio/wav"
+      },
+      {
+        "path": "assets/audio/story-ring-3.wav",
+        "status": 200,
+        "type": "audio/wav"
+      },
+      {
+        "path": "assets/audio/midway-wind-loop.wav",
+        "status": 200,
+        "type": "audio/wav"
+      }
+    ],
+    "errors": [],
+    "limits": [
+      "Desktop Chromium at phone viewports; actual-phone verification remains required",
+      "No submission ZIP created"
+    ],
+    "comparedAgainst": "Preserved final Phase 1 extraction, original structure at 4f7ed1b; read-only check, output written only to active tests/results/",
+    "deployedCleanup": false
+  },
+  "phase1Submission": {
+    "archive": "submissions/midnight-midway-phase1-20261016184044-final.zip",
+    "sha256": "4c3d9bc0f40726dc2de73d8e2fbe9afe802a8dc8418f2d7b3f850edfdd1a6aa3",
+    "allExistingFilesUnchanged": 2209
+  },
+  "syntaxChecks": "All active JavaScript, test and tool files passed node --check",
+  "documentation": "Current local Markdown links and path/command references updated; frozen history, result JSON and submissions retain original paths",
+  "testMaintenance": [
+    "Resolve original baseline paths through docs/FILE-MAP.json without editing historical inventories",
+    "Distinguish 12 media hashes from five Markdown notes and one placeholder; independent preservation check still covers the placeholder/history",
+    "Audio keyboard test waits for existing Enter asset-readiness gate before focusing a disabled control"
+  ],
+  "evidence": {
+    "organization": "tests/results/organization/organization-checks.json",
+    "regressions": "tests/results/organization/regressions/summary.json",
+    "preflight": "tests/results/organization/final-preflight/checks.json",
+    "publicSite": "tests/results/organization/public-unchanged/checks.json",
+    "captures": [
+      "tests/results/organization/before-start.png",
+      "tests/results/organization/after-start.png",
+      "tests/results/organization/before-artwork.png",
+      "tests/results/organization/after-artwork.png",
+      "tests/results/organization/before-story.png",
+      "tests/results/organization/after-story.png"
+    ]
+  },
+  "limitations": [
+    "Windows WebKit test build exposes neither AudioContext nor webkitAudioContext; visual/accessibility/path/failure checks passed, no WebKit audio pass claimed",
+    "The actual iPhone approval applies to published Phase 1; this unmerged branch has not been tested on a physical phone",
+    "Preview artwork/staging captures show small subpixel-edge differences after workspace navigation changes placement; app start capture has zero changed pixels, CSS cascade/geometry and media hashes are preserved",
+    "Historical strict touch screenshot comparisons remain unresolved; current suites verify exact frozen active time/DOM state and story reset"
+  ]
+}

@@ -6,7 +6,7 @@ const page = await browser.newPage();
 await page.goto('http://127.0.0.1:4173');
 const result = await page.evaluate(async () => {
   const context = new AudioContext();
-  const response = await fetch('reference/audio/remaxim-short-wind-original.wav');
+  const response = await fetch('assets/sources/audio/remaxim-short-wind-original.wav');
   if (!response.ok) throw Error('Source audio unavailable');
   const source = await context.decodeAudioData(await response.arrayBuffer());
   const rate = 22050;

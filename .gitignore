@@ -14,3 +14,5 @@ Thumbs.db
 GIT-LOG.txt
 submission*.zip
 /submissions/
+# Fresh regression captures; historical evidence lives in archive/reviews/.
+/tests/results/

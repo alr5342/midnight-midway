@@ -1,5 +1,7 @@
 # Technical Specification
 
+Organizational checkpoint, 2026-10-19: active source is grouped under src/, with one combined development preview workspace and consolidated shared scene styles/artwork helpers. All approved behavior and media remain required. Root index.html/serve.mjs and GitHub Pages main / (root) compatibility are retained. Work is isolated on chore/project-structure; the public site and original Phase 1 submission are unchanged. See docs/PROJECT-STRUCTURE.md for the approved cleanup scope; this adds no story or creative requirement.
+
 > EDITING DIRECTIVE: DEVELOPER AND AGENT EDIT THIS FILE COLLABORATIVELY. THE DEVELOPER MUST REVIEW AND APPROVE ITS CONTENT.
 
 Updated 2026-10-16. **Phase 1 only.** Developer approved submission preparation and authorized publishing. GitHub Pages is live at https://alr5342.github.io/midnight-midway/ from alr5342/midnight-midway, main / (root), with existing Git history preserved. Public browser/resource/story checks passed, and Alex Rosemann approved actual iPhone 17 Pro / iOS 26.5.1 / Safari review. Archive candidate extraction/runtime checks passed; final ZIP acceptance is recorded in docs/SUBMISSION.md and the final verification sidecar. Phase 2 is deferred.
@@ -23,7 +25,7 @@ Phase 1 submission has three mandatory gates: requirement-complete prototype wit
 - Retain three independent horse masks, the paired ghost/cat mask, hidden-surface repairs, and fixed poles/railing/shelf trim. Keep repairs localized; use appropriate foreground overlap.
 - Retain approved upper-left Play/Pause and bottom-center hint placement. These are functioning runtime controls/text. The transparent bell target is centered on the separate bell asset, with a minimum 44 × 44 CSS-pixel hit area; brief progress text appears below the booth.
 - Add future effects in separate layers; do not bake motion into or regenerate the approved full background. Check small motion offsets against masks before accepting an effect.
-- Preserve original assets and version new candidates. Artwork references, prompts, source/credit status and known limits are in [research.md](research.md), [ARTWORK.md](assets/ARTWORK.md) and [GONDOLA.md](assets/GONDOLA.md).
+- Preserve original assets and version new candidates. Artwork references, prompts, source/credit status and known limits are in [research.md](research.md), [ARTWORK.md](docs/artwork/ARTWORK.md) and [GONDOLA.md](docs/artwork/GONDOLA.md).
 
 Acceptance: original/approved/current phone screenshots show no unintended crop, movement, missing pumpkin, rectangular cutoff, duplicate subject edge or visible repair gap. Compare both resting and maximum motion positions. Static artwork approval does not establish motion quality.
 
@@ -79,7 +81,7 @@ The shared context's interruption uses the established pause-until-Play policy f
 
 Credits is a native, titled modal inside the existing screen. It credits Alex Rosemann, Developer-confirmed ChatGPT-generated reference, image/code assistance and the three verified CC0 sound sources/derivatives. No new creative feature is added. Opening credits pauses the shared clock/context; closing/Escape restores focus to Credits and leaves playback paused until Play. Explicit forward/backward Tab order includes every control/link consistently across browsers. The modal may scroll internally, while the scene never scrolls or navigates away. Targets remain at least 44px and text contrast at least 4.5:1 in tested panels.
 
-The buildless app remains at repository root with relative URLs and .nojekyll. A separate local subpath server verifies GitHub project-site behavior, exact filename case, module/image/mask/audio requests and failure handling. Real local Git commits preserve the existing prototype and this preparation; no retrospective history is invented. Export GIT-LOG.txt after the last commit. Developer subsequently authorized publication; P1.10a is live with public HTTPS verification recorded in docs/DEPLOYMENT.md. The Developer subsequently approved their actual iPhone Safari review and authorized final packaging. Candidate archive hash/runtime checks passed; the final ZIP must independently pass extraction/verification. Desktop checks are not substituted for the physical-phone report.
+The buildless app remains at repository root with relative URLs and .nojekyll. A separate local subpath server verifies GitHub project-site behavior, exact filename case, module/image/mask/audio requests and failure handling. Real local Git commits preserve the existing prototype and this preparation; no retrospective history is invented. Export docs/git/GIT-LOG.txt after the last commit. Developer subsequently authorized publication; P1.10a is live with public HTTPS verification recorded in docs/DEPLOYMENT.md. The Developer subsequently approved their actual iPhone Safari review and authorized final packaging. Candidate archive hash/runtime checks passed; the final ZIP must independently pass extraction/verification. Desktop checks are not substituted for the physical-phone report.
 
 ## Acceptance checks mapped to the brief
 
@@ -101,7 +103,7 @@ The brief is authoritative; this table turns its sections into project checks wi
 
 ## Story scope
 
-Approved and implemented story: eight active seconds with contiguous beats 0–1.5 arrival, 1.5–3.5 floating ticket, 3.5–4.5 stamp/sparks, 4.5–6.5 disappearance and 6.5–8 settle/reset. Detailed assets, cue timing and reduced-motion alternatives: [STORYBOARD.md](assets/story/STORYBOARD.md). Static review remains at /story-review.html; the functional story is on the main app URL.
+Approved and implemented story: eight active seconds with contiguous beats 0–1.5 arrival, 1.5–3.5 floating ticket, 3.5–4.5 stamp/sparks, 4.5–6.5 disappearance and 6.5–8 settle/reset. Detailed assets, cue timing and reduced-motion alternatives: [STORYBOARD.md](docs/artwork/story/STORYBOARD.md). Static review remains at /dev/previews/index.html?view=story; the functional story is on the main app URL.
 
 Implemented layers: masked local empty-window plate and approved ghost v3 behind the existing frame/counter; separate original SVG bell/ticket/stamp/sparks. All use the existing source coordinate system/booth transform. Temporary window/character/props disappear at reset, preserving baseline pixels; bell remains as the live trigger. Reduced motion avoids travel, stamp movement and particle expansion, retaining opacity reveals and a steady glow. P1.7/P1.8 added no independent clock or timer.
 
@@ -119,7 +121,7 @@ Do not implement all three at once. Story 1 is selected, but its additional artw
 
 ## Test evidence and completion gates
 
-Existing evidence: static screenshots in artwork-review/booth-refinement-v2/, attractions-v3-final/ and carriage-v4/; carriage checks.json verifies zero rendered changes outside its edit area. Tests cover desktop-browser phone viewports, not physical devices or future runtime.
+Existing evidence: static screenshots in archive/reviews/booth-refinement-v2/, attractions-v3-final/ and carriage-v4/; carriage checks.json verifies zero rendered changes outside its edit area. Tests cover desktop-browser phone viewports, not physical devices or future runtime.
 
 Run current visual checks when implementation affects layout/layers; add focused behavior checks for shared playback and story timing as those systems exist. Test each new result with related working behavior, retain screenshots/logs/observations, then obtain Developer review before the next consequential checkpoint.
 

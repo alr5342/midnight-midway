@@ -4,18 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>The Midnight Midway</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="artwork.css">
-  <link rel="stylesheet" href="ticket-story-assets.css">
-  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="src/css/scene.css">
+  <link rel="stylesheet" href="src/css/app.css">
 </head>
 <body>
   <main class="app" aria-label="The Midnight Midway">
     <div class="app-stage" id="stage" data-state="start">
       <div class="scene" data-view="assembled" data-attractions role="img" aria-label="A moonlit Halloween midway. A Ferris wheel rises behind a ticket booth, carousel and prize stall.">
-        <img class="plate layer" src="assets/midway-clean-plate.png" alt="" fetchpriority="high">
-        <img class="booth layer" src="assets/ticket-booth.png" alt="">
-        <img class="foreground layer" src="reference/midnight-midway-concept.png" alt="">
+        <img class="plate layer" src="assets/artwork/midway-clean-plate.png" alt="" fetchpriority="high">
+        <img class="booth layer" src="assets/artwork/ticket-booth.png" alt="">
+        <img class="foreground layer" src="assets/sources/artwork/midnight-midway-concept.png" alt="">
       </div>
       <div class="app-ui">
         <section class="start-screen" id="start-screen" aria-labelledby="start-title">
@@ -52,7 +50,6 @@
       <p>Closing credits keeps the scene paused. Choose Play to continue.</p>
     </dialog>
   </main>
-  <script src="artwork.js"></script>
-  <script type="module" src="app.js"></script>
+  <script type="module" src="src/js/app.js"></script>
 </body>
 </html>

@@ -1,5 +1,7 @@
 # Phase 1 submission record
 
+Preservation note, 2026-10-19: the existing final ZIP, verification sidecar, staging and extracted projects remain unchanged at revision 4f7ed1b with their original folder structure. The separate chore/project-structure cleanup updates only the active checkout and future export/package paths. The live site was not replaced. The packaging description below uses current tool paths; frozen submission manifests retain their original paths.
+
 Live app: https://alr5342.github.io/midnight-midway/
 
 Repository: https://github.com/alr5342/midnight-midway
@@ -12,9 +14,9 @@ Repository: https://github.com/alr5342/midnight-midway
 
 ## Archive content and verification method
 
-The packager takes every Git-tracked project file plus the current generated GIT-LOG.txt, preserving paths in a single midnight-midway-phase1/ folder. It includes all HTML/CSS/JavaScript, artwork/masks and originals, processed/source audio, research/spec/plan/brief/credits, prompts, history backups, tests/tools, screenshots and existing transcripts/ materials. Hidden .nojekyll/.gitignore/.gitattributes files are retained. SUBMISSION-MANIFEST.json records every included source path, byte size, SHA-256, source commit and live URL; its own hash is intentionally outside that self-inventory.
+The packager takes every Git-tracked project file plus the current generated docs/git/GIT-LOG.txt, preserving paths in a single midnight-midway-phase1/ folder. It includes all HTML/CSS/JavaScript, artwork/masks and originals, processed/source audio, research/spec/plan/brief/credits, prompts, history backups, tests/tools, screenshots and existing transcripts/ materials. Hidden .nojekyll/.gitignore/.gitattributes files are retained. SUBMISSION-MANIFEST.json records every included source path, byte size, SHA-256, source commit and live URL; its own hash is intentionally outside that self-inventory.
 
-Excluded: .git object/index internals, local credentials/caches, debug.log, staging/extraction directories and recursive submission archives. Git history remains public in the repository and is exported in GIT-LOG.txt. No required project file is replaced by an empty placeholder.
+Excluded: .git object/index internals, local credentials/caches, archive/logs/debug.log, staging/extraction directories and recursive submission archives. Git history remains public in the repository and is exported in docs/git/GIT-LOG.txt. No required project file is replaced by an empty placeholder.
 
 brief.md does **not** require session transcript files for Phase 1. The existing transcripts/ folder contains only .gitkeep; it is included. No full transcript is fabricated or silently reconstructed. Development support is preserved through Git log, docs/history/, prompt/source records, test results and screenshots. Peer playtest findings and completed debrief are Phase 2 deliverables, not missing Phase 1 files.
 
@@ -22,6 +24,6 @@ Verification creates the ZIP, extracts it into a separate new folder, compares t
 
 ## Current packaging result
 
-Candidate ZIP: 537 entries, all paths/sizes/SHA-256 values matched after extraction into a separate folder. The extracted project passed all 17 unit tests and the Chromium/Firefox audiovisual preflight; WebKit visual/accessibility/failure checks passed with the already-documented missing Web Audio API in that Windows test build. All 18 approved artwork baseline hashes matched. Evidence: ARCHIVE-CANDIDATE-VERIFICATION.json and ../artwork-review/submission-candidate/checks.json.
+Candidate ZIP: 537 entries, all paths/sizes/SHA-256 values matched after extraction into a separate folder. The extracted project passed all 17 unit tests and the Chromium/Firefox audiovisual preflight; WebKit visual/accessibility/failure checks passed with the already-documented missing Web Audio API in that Windows test build. All 18 approved artwork baseline hashes matched. Evidence: ARCHIVE-CANDIDATE-VERIFICATION.json and ../archive/reviews/submission-candidate/checks.json.
 
 The final delivery ZIP is rebuilt with the completed records and current Git log, then independently extracted, inventoried and run again. Its exact filename is in ../SUBMISSION-MANIFEST.json inside the ZIP. The external final verification JSON records its observed final runtime result, file count, source commit, byte size and SHA-256. All three brief deliverables are satisfied when that final report's status is passed; an inventory-only status is not completion. No creative or Phase 2 change was made.

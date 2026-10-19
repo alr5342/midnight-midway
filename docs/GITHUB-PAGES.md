@@ -1,5 +1,7 @@
 # GitHub Pages publishing handoff
 
+Cleanup branch note, 2026-10-19: chore/project-structure has not been merged, pushed or deployed. Root index.html and .nojekyll still support main / (root), with src/ and assets/ URLs tested under a project subdirectory. The existing public Phase 1 site is preserved. Do not publish this branch before Developer review.
+
 **Published with Developer authorization on 2026-10-16:** https://alr5342.github.io/midnight-midway/ from https://github.com/alr5342/midnight-midway, main / (root). Existing history preserved. Public-site checks passed; see DEPLOYMENT.md. Do not recreate the repository or rerun remote-add. Actual-phone review is now approved (iPhone 17 Pro / iOS 26.5.1 / Safari); final archive acceptance is recorded in SUBMISSION.md and its verification sidecar. Phase 2 is deferred. The steps below are retained as the publishing/update handoff.
 
 ## What is prepared
@@ -9,7 +11,7 @@
 - Empty .nojekyll tells Pages to serve the static files without Jekyll processing.
 - Local main branch with real commits starting from the existing approved prototype. Earlier dates/commits have not been invented; docs/history/ retains prior development evidence.
 - .gitignore excludes credentials/caches/debug output/generated Git log/ZIPs. .gitattributes preserves approved binary/SVG artwork and normalizes source-code line endings.
-- GIT-LOG.txt is generated after commits with `node tools/export-git-log.mjs`. It is intentionally untracked so its own hash does not create a circular update; include the refreshed export in the eventual submission ZIP.
+- docs/git/GIT-LOG.txt is generated after commits with `node tools/export-git-log.mjs`. It is intentionally untracked so its own hash does not create a circular update; include the refreshed export in the eventual submission ZIP.
 
 ## Publish after approving the local result
 
@@ -35,7 +37,7 @@ Test the public HTTPS link on the actual phone, not VS Code localhost. Fill in d
 
 ## Final files and ZIP — after phone verification
 
-Refresh the documents and Git log for the verified revision. Only then create the submission ZIP with sources, assets, brief/research/spec/plan/credits, deployment/phone evidence, relevant tests/history and GIT-LOG.txt. Exclude .git internals, caches, credentials/debug logs and recursive archives. Preserve all local work. Extract into a fresh folder, compare the inventory and run the extracted app. Record ZIP name, tested revision and results. No archive has been created at this checkpoint.
+Refresh the documents and Git log for the verified revision. Only then create the submission ZIP with sources, assets, brief/research/spec/plan/credits, deployment/phone evidence, relevant tests/history and docs/git/GIT-LOG.txt. Exclude .git internals, caches, credentials/debug logs and recursive archives. Preserve all local work. Extract into a fresh folder, compare the inventory and run the extracted app. Record ZIP name, tested revision and results. No archive has been created at this checkpoint.
 
 If Git reports ownership differences between this sandbox and your Windows account, use the following project-scoped versions of the commands above. This trusts only this known folder for that command and does not change global settings. Replace YOUR-USERNAME/repository as above; run the remote-add only once:
 
