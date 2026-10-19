@@ -1,6 +1,6 @@
 # A night remembered — approved journey and visual staging
 
-Developer approval: 2026-10-19. This supersedes the independent-story proposals and wheel-light celebration ending. The shipped Phase 1 version and submission remain preserved. The Developer subsequently approved the field-preserving visual staging and authorized only the admission/progression checkpoint described below; full ending and later gameplay are not authorized yet.
+Developer approval: 2026-10-19. This supersedes the independent-story proposals and wheel-light celebration ending. The shipped Phase 1 version and submission remain preserved. The Developer subsequently approved the field-preserving visual staging, authorized admission/progression, then requested the four-note carousel puzzle from commit 0895f9c. The carousel story, full ending and later gameplay remain deferred.
 
 Approved visual correction: the midway structures disappear while moonlit land/field stays visible; the wheel disappears last, leaving token and empty land. The static preview uses an empty-field repair behind independently masked attraction layers. Token direction and Revisit placement are unchanged. This visual staging is now approved; ending playback remains deferred.
 
@@ -46,7 +46,7 @@ Feathered, original-coordinate masks isolate booth/carousel/stall/wheel from cop
 
 The staging checks above were recorded before the admission implementation. They are Chromium desktop verification, not physical-phone or ending playback tests. The field is approved in this visual staging, but remains preview-only until a separately authorized ending implementation. No ending asset is installed into the running app.
 
-## Admission checkpoint — implemented, runtime review pending
+## Admission checkpoint — retained baseline at 0895f9c
 
 Goal: finish the unchanged eight-second attendant story, receive one persistent admission ticket and unlock the carousel. Preserve three-ring feedback, ghost/prop animation, sound, replay, global Play/Pause and reduced motion. No carousel puzzle, additional wheel milestone, ending playback or deployment in this checkpoint.
 
@@ -57,3 +57,17 @@ The badge/progress remain during Pause, story replays, credits and tab/audio int
 Acceptance: no award before full completion, exactly one admission across three replays, unchanged resting story reset, preserved progress through pause/interruption/reduced motion, fresh reload, keyboard/touch bell operation and nonoverlapping ticket/controls in portrait and landscape. Run unit, full ticket/audio regression and browser/subpath preflight. Evidence: tests/results/admission-progress/. Stop for Developer review before the carousel puzzle.
 
 Observed verification: all 17 unit tests pass; three full story cycles preserve one admission ticket and unlocked state. Pause at every story beat, native audio suspension, tab-return handling, refresh reset, touch/keyboard and reduced motion pass. Badge/control bounds pass at 390×844, 375×667, 320×568, 280×568 and 844×390. Chromium/Firefox pass full audiovisual preflight; Windows WebKit passes admission/visual/accessibility/path checks but has no Web Audio API, so no audio pass is claimed there. Artwork/composition and audio engines/assets are unchanged; Phase 1 ZIP hash is unchanged. Detailed result: [ADMISSION-CHECKS.json](ADMISSION-CHECKS.json). Runtime approval is pending; no deployment occurred.
+
+## Carousel puzzle checkpoint — implemented for review
+
+Based on admission commit 0895f9c, on feature/carousel-puzzle. Three note buttons beneath the carousel correspond to left/center/right horses; a press plays the matching pitch and briefly brightens that horse and button. The exact order left → right → center → left solves the four-note attempt. Wrong input produces a lower accent, written feedback and zeroes only the attempt. Four matches show “Melody complete”; another note starts a new attempt while the learned-success flag remains. This does not complete the ride story or unlock the prize stall.
+
+The ♫ control opens an in-scene paper with staff notation, the four horse labels/arrows, and text explaining low/middle/high. Close/Escape restores focus to the paper control. The clue never auto-enters notes. While it is open, bell/note input is rejected. Play/Pause remains available; paused inspection cannot change clue/attempt state. Credits and native interruption rules retain the existing explicit-resume behavior.
+
+Hints start at admission: “Each horse remembers a different note”; after 12 active seconds, “A scrap of music rests beside the horses”; after 24, “The tune returns to the horse where it began.” Exact solution is confined to the inspectable clue. The initial ticket completion acknowledgement remains briefly before these hints. Partial input and solved state are retained during booth replay, Pause and reduced motion; refresh resets the visit.
+
+All note/clue cues use the existing licensed audio assets/context. StoryAudio keeps separate ticket/carousel cue channels and accounts for pitch rate when resuming offsets. Scene-input changes notify the shared coordinator synchronously so another activity cannot remain visually enabled for a frame. No independent timer, CSS animation, horse bob, full ride sequence, new external asset, ending playback or deployment is introduced.
+
+Relevant commands: `node --test tests/unit/carousel.test.mjs tests/unit/ticket-story.test.mjs tests/unit/playback.test.mjs`; `node tests/browser/check-carousel.mjs`; `node tests/browser/check-ticket-story.mjs tests/results/carousel-puzzle/ticket-regression`. Results/captures are under tests/results/carousel-puzzle/. Stop for Developer review before the carousel audiovisual story.
+
+Observed result: 13 relevant unit tests pass, including pitched buffer offsets and independent audio channels. Focused Chromium checks pass note matching, incorrect attempts, clue/focus and paused inspection, hint timing, native interruption, reduced motion, fresh reload, four portrait/landscape layouts and puzzle retention across booth replay. The existing three-cycle ticket regression also passes. Original artwork/audio assets match 0895f9c byte-for-byte. No unrelated ambience, full cross-browser, public-site or packaging suites were run for this checkpoint. Summary: [CAROUSEL-CHECKS.json](CAROUSEL-CHECKS.json).

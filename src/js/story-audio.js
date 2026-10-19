@@ -13,6 +13,7 @@ export class StoryAudio {
     this.snapshotState = null;
     this.cues = [];
     this.startedSources = 0;
+    this.channels = new Map();
   }
 
   report(status) { this.status = status; this.onStatus(status); }
@@ -49,7 +50,10 @@ export class StoryAudio {
 
   stopAll() { for (const id of this.sources.keys()) this.stop(id); }
 
-  sync(snapshot, cues) {
+  sync(snapshot, cues, channel = 'ticket') {
+    // Independent activities contribute cues to one shared clock/context.
+    this.channels.set(channel, cues);
+    cues = [...this.channels.values()].flat();
     const wasPlaying = this.snapshotState === 'exploring';
     this.snapshotState = snapshot.state;
     this.cues = cues;
@@ -60,10 +64,12 @@ export class StoryAudio {
     if (this.context?.state !== 'running') return;
     for (const cue of cues) {
       const buffer = this.buffers.get(cue.name);
-      const offset = (snapshot.elapsedMs - cue.at) / 1000;
+      const rate = cue.rate || 1;
+      const offset = (snapshot.elapsedMs - cue.at) / 1000 * rate;
       if (!buffer || this.sources.has(cue.id) || offset < 0 || offset >= buffer.duration) continue;
       const source = this.context.createBufferSource();
       source.buffer = buffer;
+      if (source.playbackRate) source.playbackRate.value = rate;
       source.connect(this.gain);
       source.start(0, offset);
       this.sources.set(cue.id, source);

@@ -64,7 +64,7 @@ export class TicketStory {
   }
 }
 
-export function connectTicketStory(scene, playback, cueAudio, { bell, progress, hint, notice, onComplete = () => {} }) {
+export function connectTicketStory(scene, playback, cueAudio, { bell, progress, hint, notice, onComplete = () => {}, canInteract = () => true, idleHint = () => null }) {
   const art = mountTicketArtwork(scene);
   art.layer.hidden = true;
   const model = new TicketStory();
@@ -105,20 +105,21 @@ export function connectTicketStory(scene, playback, cueAudio, { bell, progress, 
     part('bell').style.filter = `drop-shadow(0 0 ${2 + state.rings * 2}px rgba(255,217,125,${state.feedback * (.3 + .2 * state.rings)}))`;
     bell.hidden = snapshot.state === 'start';
     // Keep a stable keyboard focus target while rejecting paused/locked input.
-    bell.setAttribute('aria-disabled', String(!snapshot.canInteract || state.playing || !assetsReady || cueAudio.status === 'loading'));
+    bell.setAttribute('aria-disabled', String(!snapshot.canInteract || !canInteract() || state.playing || !assetsReady || cueAudio.status === 'loading'));
     bell.dataset.rings = state.rings;
     bell.dataset.story = state.playing ? 'playing' : 'idle';
     const text = state.playing ? 'The attendant is here…' : state.rings ? `${state.rings} ${state.rings === 1 ? 'chime' : 'chimes'}` : '';
     if (text !== lastProgress) { progress.textContent = text; lastProgress = text; }
     progress.hidden = !text || snapshot.state === 'start';
-    const hintText = snapshot.state === 'paused' ? 'Paused. Choose Play to continue.' : state.hint;
+    const explorationHint = !state.playing && !state.rings && state.completed > 0 && snapshot.elapsedMs - model.completedAt >= 2200 ? idleHint(snapshot) : null;
+    const hintText = snapshot.state === 'paused' ? 'Paused. Choose Play to continue.' : explorationHint || state.hint;
     if (hintText !== lastHint) { hint.textContent = hintText; lastHint = hintText; }
     cueAudio.sync(snapshot, state.cues);
   }
   playback.subscribe(render);
   bell.addEventListener('click', () => {
-    if (!playback.canInteract || !assetsReady || assetFailure || cueAudio.status === 'loading') return;
-    if (model.ring(playback.elapsedMs)) render(playback.snapshot());
+    if (!playback.canInteract || !canInteract() || !assetsReady || assetFailure || cueAudio.status === 'loading') return;
+    if (model.ring(playback.elapsedMs)) playback.notify();
   });
   return { snapshot: () => ({ ...model.snapshot(playback.elapsedMs, playback.reducedMotion), assetsReady, assetFailure }) };
 }

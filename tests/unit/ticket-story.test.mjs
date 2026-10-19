@@ -67,7 +67,7 @@ function audioHarness(load) {
     state: 'running', destination: {},
     createGain: () => ({gain: {value: 0},connect() {}}),
     decodeAudioData: async () => ({duration: 1.2}),
-    createBufferSource() { const source = {connect() {},disconnect() {},start(when,offset) { starts.push(offset); sources.add(source); },stop() { sources.delete(source); }}; return source; }
+    createBufferSource() { const source = {playbackRate:{value:1},connect() {},disconnect() {},start(when,offset) { starts.push(offset); sources.add(source); },stop() { sources.delete(source); }}; return source; }
   };
   const audio = new StoryAudio({context}, {load: load || (async () => ({ok:true,arrayBuffer:async () => new ArrayBuffer(0)}))});
   return {audio, context, starts, sources};
@@ -96,4 +96,21 @@ test('late loads cannot sound while paused; failures leave a retryable scheduler
   assert.equal(failed.audio.status,'unavailable');
   failed.audio.load = async () => ({ok:true,arrayBuffer:async () => new ArrayBuffer(0)});
   await failed.audio.prepare(); assert.equal(failed.audio.status,'ready');
+});
+
+test('carousel and booth channels coexist and pitched cues resume at the correct buffer offset',async()=>{
+  const {audio,starts,sources}=audioHarness();await audio.prepare();
+  const ticket=[{id:'ticket-arrival',name:'arrival',at:0,duration:1.2}];
+  const note=[{id:'carousel-note',name:'ring-2',at:0,duration:.4,rate:1.5}];
+  audio.sync({state:'exploring',elapsedMs:0},ticket);
+  audio.sync({state:'exploring',elapsedMs:200},note,'carousel');
+  assert.equal(starts.length,2);assert.ok(Math.abs(starts[1]-.3)<1e-9);assert.equal(sources.size,2);
+  audio.sync({state:'exploring',elapsedMs:250},ticket);
+  assert.equal(sources.size,2,'Booth updates must not cancel a carousel channel');
+  audio.sync({state:'paused',elapsedMs:250},ticket);assert.equal(sources.size,0);
+  audio.sync({state:'exploring',elapsedMs:250},ticket);
+  assert.equal(starts.length,4);assert.ok(starts.every((offset,index)=>Math.abs(offset-[0,.3,.25,.375][index])<1e-9));
+  assert.deepEqual([...sources].map(source=>source.playbackRate.value),[1,1.5]);
+  audio.sync({state:'exploring',elapsedMs:800},[],'carousel');
+  assert.equal(sources.size,1,'Clearing carousel cues must preserve the booth cue');
 });

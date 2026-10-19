@@ -1,5 +1,7 @@
 # Research
 
+Carousel checkpoint decision: reuse the verified CC0 bell at minor-triad pitch intervals, instead of introducing an unverified sample. The existing cue scheduler now retains activity channels so carousel updates cannot erase booth cues; playback rate is included in saved buffer offsets. A focused puzzle/controller module owns attempt/clue feedback and active-time hint age. Small note buttons beneath the carousel avoid overlapping tiny horse silhouettes with the existing bell target; the selected horse also lights up. No artwork extraction or story animation is added.
+
 Admission implementation decision: maintain a small visit-progress record in the app, separately from the replayable TicketStory attempt. Completion handoff occurs at the existing eight-active-second boundary and is idempotent, preventing reset/duplicate awards without another timer or persisted storage. Reuse the approved ticket SVG in a compact HUD badge; only carousel availability is added at this checkpoint. The field-preserving ending staging is now Developer-approved, but ending playback remains deferred.
 
 Latest creative approval, 2026-10-19: the Developer approved admission → musical carousel → two-throw carnival game, brass Ferris-wheel memory token, separate claim and ten-second disappearance. Revisit/refresh start fresh journeys. Only static ending staging is authorized now; the wheel-light celebration ending is superseded. Details and observed checks: [journey/staging record](docs/design/JOURNEY.md).

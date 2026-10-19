@@ -31,6 +31,20 @@ main.app {
 .bell-target { position: absolute; left: 24.05%; top: 62.3%; transform: translate(-50%, -50%); min-width: 44px; min-height: 44px; padding: 0; border: 1px solid #ffe0ad45; border-radius: 50%; background: transparent; touch-action: manipulation; }
 .bell-target[aria-disabled="true"] { cursor: default; }
 .ring-progress { position: absolute; left: 6%; top: 66%; margin: 0; padding: 4px 7px; max-width: 55%; border-radius: 5px; background: #0c1021f2; color: #fff0d9; font: 12px/1.4 system-ui, sans-serif; }
+.carousel-controls { position: absolute; top: 70%; left: 50%; transform: translateX(-50%); width: min(228px, calc(100% - 16px)); padding: 4px; border: 1px solid #d9bd8550; border-radius: 8px; background: #0c1021f2; color: #fff0d9; }
+.carousel-note-row { display: grid; grid-template-columns: repeat(4, minmax(44px, 1fr)); gap: 4px; }
+.carousel-note-row button { min-height: 44px; padding: 2px; border: 1px solid #caa66a80; border-radius: 5px; background: #1b2032; color: #ffe1ad; font-size: 12px; touch-action: manipulation; }
+.carousel-note-row button[data-active="true"] { background: #e6b66e; color: #21160d; border-color: #fff0c9; }
+.carousel-controls[data-mistake="true"] { border-color: #e5b8b1; }
+.carousel-controls button[aria-disabled="true"] { cursor: default; }
+#carousel-progress { margin: 5px 0 1px; min-height: 17px; text-align: center; font: 12px/1.4 system-ui, sans-serif; }
+.music-clue { position: absolute; left: 50%; bottom: 80px; transform: translateX(-50%); width: min(300px, calc(100% - 24px)); max-height: calc(100% - 174px); overflow: auto; padding: 12px; border: 1px solid #a98245; border-radius: 7px; background: #ead2a3; color: #3d2b1f; pointer-events: auto; box-shadow: 0 6px 24px #0009; text-align: center; }
+.music-clue h2 { margin: 2px 48px 4px 0; font: 19px/1.3 Georgia, serif; }
+.music-clue svg { display: block; width: 100%; height: 80px; }
+.music-clue p { margin: 6px 0; font: 12px/1.5 system-ui, sans-serif; }
+.music-clue .music-sequence { font-weight: 700; font-size: 13px; }
+#music-close { float: right; min-width: 44px; min-height: 44px; padding: 4px; border: 1px solid #79562e; border-radius: 4px; background: #f6e3be; color: #3d2b1f; }
+@media (orientation: landscape) { .carousel-controls { top: 27%; } .music-clue { bottom: 68px; } }
 .story-notice { position: absolute; top: 108px; left: 12px; right: 12px; margin: 0; padding: 8px 10px; background: #0c1021f2; color: #fff0d9; border-radius: 6px; font: 12px/1.4 system-ui, sans-serif; }
 .app-ui button:focus-visible { outline: 3px solid #fff0c9; outline-offset: 4px; }
 .start-screen { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; background: linear-gradient(#070b1c70, #070b1c99); }

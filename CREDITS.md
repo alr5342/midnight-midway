@@ -1,5 +1,7 @@
 # Midnight Midway credits
 
+Carousel puzzle: its three notes pitch the already-preserved CC0 Pleasing Bell derivative (story-ring-2.wav) at ratios 1, 2^(3/12), and 2^(7/12); incorrect notes add a short lower-pitched existing bell accent. Clue inspection uses an existing magical arrival accent. No new external sound was downloaded. The inspectable staff/notation is original inline SVG/HTML; text alternatives identify the horse sequence. Playback uses the existing shared AudioContext and active-time cue scheduler.
+
 Revised preview-only field repair: dev/previews/assets/empty-field-v1.png was made with built-in imagegen by editing the Developer-confirmed ChatGPT reference. It removes park elements to reveal moonlit land for the ending staging; original files are unchanged. Exact prompt/provenance: docs/design/EMPTY-FIELD-PROMPT.md. Attraction inspection masks are original SVG code in the preview. No production assets or sounds were replaced.
 
 Preview-only addition, 2026-10-19: dev/previews/assets/keepsake-token-v1.svg is original project SVG artwork prepared with Codex: brass gradients, deterministic grain, embossed Ferris wheel/open gondolas, worn rim and “A NIGHT REMEMBERED” inscription. No external image/font or image-generation service was used for this candidate. Ending fog/darkness are original preview CSS. Neither candidate nor ending playback has been added to the published app; visual approval is pending.

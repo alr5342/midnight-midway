@@ -6,6 +6,7 @@ import { connectBats } from './bats.js';
 import { connectAmbientAudio } from './ambient-audio.js';
 import { StoryAudio } from './story-audio.js';
 import { connectTicketStory } from './ticket-story.js';
+import { connectCarousel } from './carousel.js';
 
 mountSceneArtwork();
 
@@ -23,6 +24,7 @@ const admission = document.querySelector('#admission');
 // Visit progress is independent of the booth's temporary rings/animation reset.
 // Reload constructs a fresh visit; no storage or cross-session state is used.
 const journey = { admitted: false };
+let carousel = null;
 const audioNotice = document.querySelector('#audio-notice');
 let frame = null;
 let renderedState = null;
@@ -44,7 +46,13 @@ const storyAudio = new StoryAudio(ambientAudio, { onStatus: value => {
 } });
 const ticketStory = connectTicketStory(document.querySelector('.scene'), playback, storyAudio, {
   bell: document.querySelector('#bell'), progress: document.querySelector('#ring-progress'), hint, notice: storyNotice,
-  onComplete: grantAdmission
+  onComplete: grantAdmission,
+  canInteract: () => !carousel?.snapshot().clueOpen,
+  idleHint: () => carousel?.hint()
+});
+carousel = connectCarousel(document.querySelector('.scene'), playback, storyAudio, {
+  access: () => ({admitted:journey.admitted,storyPlaying:ticketStory.snapshot().playing}),
+  onSolved: () => { stage.dataset.carouselPuzzle = 'solved'; }
 });
 connectCredits(playback);
 const assets = connectAssetReadiness(document.querySelector('.scene'), enter, document.querySelector('#asset-notice'));
@@ -118,7 +126,7 @@ window.addEventListener('pagehide', () => playback.pause());
 // No diagnostic controls or runtime counters appear in the product interface.
 if (new URLSearchParams(location.search).has('diagnostics')) {
   Object.defineProperty(window, 'midwayDiagnostics', {
-    value: Object.freeze({ snapshot: () => ({ ...playback.snapshot(), scheduledFrames: frame === null ? 0 : 1 }), audio: () => ambientAudio.snapshot(), story: () => ticketStory.snapshot(), storyAudio: () => storyAudio.snapshot(), journey: journeySnapshot })
+    value: Object.freeze({ snapshot: () => ({ ...playback.snapshot(), scheduledFrames: frame === null ? 0 : 1 }), audio: () => ambientAudio.snapshot(), story: () => ticketStory.snapshot(), storyAudio: () => storyAudio.snapshot(), journey: journeySnapshot, carousel: () => carousel.snapshot() })
   });
 }
 

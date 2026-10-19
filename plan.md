@@ -1,5 +1,7 @@
 # Implementation Plan
 
+Current authorized checkpoint: implement the carousel musical puzzle from 0895f9c, without its story animation. Admission-gated notes, four-note matching, wrong-attempt feedback, inspectable music, progressive hints and shared Pause/audio are included. Verify only related carousel/playback/story unit suites, the focused carousel browser check and the existing ticket-story browser regression; do not run unrelated ambience/deployment/packaging suites. Stop for review with the local link and new commit. Branch: feature/carousel-puzzle.
+
 Current checkpoint: approved ending staging; admission progression implemented for review. Award once only after the full booth story, retain the ticket/carousel unlock across replay and Pause, and restart fresh on refresh. Existing bell/ghost/audio sequence stays intact. Evidence and commands: docs/design/JOURNEY.md, tests/results/admission-progress/. Stop for Developer review before carousel mechanics; no deployment.
 
 Ending staging correction: replace whole-screen darkness with separate attraction fades over a preview-only empty moonlit field. Booth goes first, then carousel/stall; wheel last; token and land remain. Token/Revisit placement are preserved. Static checks pass; visual approval of this revision is pending. Still no full playback, gameplay or deployment. See docs/design/JOURNEY.md and tests/results/ending-field-staging/.

@@ -34,6 +34,26 @@
         <div class="scene-actions">
           <button type="button" id="bell" class="bell-target" aria-label="Ring the ticket booth bell" aria-describedby="ring-progress" hidden></button>
           <p id="ring-progress" class="ring-progress" role="status" hidden></p>
+          <section id="carousel-controls" class="carousel-controls" aria-label="Carousel musical puzzle" hidden>
+            <div class="carousel-note-row">
+              <button type="button" data-horse-note="left" aria-label="Play left horse, low note">Left</button>
+              <button type="button" data-horse-note="center" aria-label="Play center horse, middle note">Center</button>
+              <button type="button" data-horse-note="right" aria-label="Play right horse, high note">Right</button>
+              <button type="button" id="music-open" aria-label="Inspect the worn sheet music" aria-expanded="false" aria-controls="music-clue" title="Inspect sheet music">♫</button>
+            </div>
+            <p id="carousel-progress" role="status">0 / 4 notes</p>
+          </section>
+          <section id="music-clue" class="music-clue" aria-labelledby="music-title" hidden>
+            <button type="button" id="music-close" aria-label="Put away the sheet music">Close</button>
+            <h2 id="music-title">A tune left behind</h2>
+            <svg viewBox="0 0 260 95" aria-hidden="true">
+              <path d="M12 25H248M12 35H248M12 45H248M12 55H248M12 65H248M28 75H52M208 75H232" fill="none" stroke="currentColor" stroke-width="1"/>
+              <g fill="currentColor"><ellipse cx="40" cy="75" rx="7" ry="4"/><ellipse cx="100" cy="55" rx="7" ry="4"/><ellipse cx="160" cy="65" rx="7" ry="4"/><ellipse cx="220" cy="75" rx="7" ry="4"/></g>
+              <path d="M46 75V40M106 55V20M166 65V30M226 75V40M147 49V70Q159 60 147 60" fill="none" stroke="currentColor" stroke-width="2"/>
+            </svg>
+            <p class="music-sequence">Left → Right → Center → Left</p>
+            <p>The lowest note returns at the end.<br>Left: low · Center: middle · Right: high</p>
+          </section>
         </div>
         <button type="button" id="credits-open" class="credits-open" aria-haspopup="dialog">Credits</button>
         <p class="hint-mockup" id="hint" role="status" hidden>Some guests never left the midway…</p>

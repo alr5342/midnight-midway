@@ -1,5 +1,7 @@
 # Technical Specification
 
+Carousel-puzzle checkpoint, based on 0895f9c: admission gates three note inputs and inspectable sheet music. Exact solution left → right → center → left; mistakes clear only the attempt, while learned success/admission survive replay. Shared-clock horse/button glints, note pitches, cue resume and hints pause with the existing system. Inspecting the clue blocks note/bell inputs; booth-story playback blocks carousel inputs. No carousel story, mechanical movement, prize unlock or deployment is included. Current implementation/verification: docs/design/JOURNEY.md.
+
 Current authorization: the Developer approved the revised field-preserving ending staging and requested the admission checkpoint only. Completion of the unchanged eight-active-second ticket story awards one in-memory admission ticket and unlocks carousel availability. Replays/pauses retain that progress; refresh clears it. Reuse ticket.svg in a persistent status badge; do not add carousel inputs, ending playback, new artwork/audio or deployment. Scope/acceptance: docs/design/JOURNEY.md.
 
 Ending clarification: the park fades away; the land stays visible. The final composition is token plus empty moonlit field, with the Ferris wheel the last major attraction to disappear. The previous blackout staging is superseded. Only revised static preview poses are authorized; the empty-field repair is a review candidate and the approved runtime/artwork remain unchanged.

@@ -6,7 +6,7 @@ One illustrated phone scene with lighting, fog, bats, looping wind, a start scre
 
 ## Run locally
 
-Current local checkpoint: complete the three-ring booth story to receive an admission-ticket badge and unlock carousel availability. The badge/progress survive replay and Pause; refresh starts fresh. The carousel puzzle is not implemented yet. This runs only on the local feature branch, with no deployment. The revised field-preserving ending staging is approved and remains a static reference.
+Current local checkpoint: complete the three-ring booth story to receive admission, then use the three carousel-note buttons. The tune is left → right → center → left. Inspect the ♫ sheet-music clue if needed; a wrong note resets only the attempt. Notes light the corresponding horse and use three pitches of the existing CC0 bell. Progressive hints use active time. Pause retains notes, clue and progress; refresh starts fresh. Puzzle success is recorded, but carousel story animation and prize-stall progression are not implemented. No deployment.
 
 Approved visual checkpoint: [keepsake/disappearance staging](http://127.0.0.1:4173/dev/previews/index.html?view=ending). Select poses manually; the approved journey is recorded in [docs/design/JOURNEY.md](docs/design/JOURNEY.md). Ending playback remains unimplemented.
 
