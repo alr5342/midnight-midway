@@ -1,5 +1,7 @@
 # Implementation Plan
 
+Ending staging correction: replace whole-screen darkness with separate attraction fades over a preview-only empty moonlit field. Booth goes first, then carousel/stall; wheel last; token and land remain. Token/Revisit placement are preserved. Static checks pass; visual approval of this revision is pending. Still no full playback, gameplay or deployment. See docs/design/JOURNEY.md and tests/results/ending-field-staging/.
+
 Latest checkpoint, 2026-10-19: the Developer approved the journey and memory-token ending; see [design/staging record](docs/design/JOURNEY.md). On design/ending-staging, based on the unmerged cleanup branch, the static preview is prepared and checked; visual approval is pending. Stop before admission persistence, musical/game mechanics, claim, ten-second playback or fresh-journey reset. Main, the public site and Phase 1 submission are unchanged. Future implementation checkpoints require individual review after staging approval.
 
 > EDITING DIRECTIVE: DEVELOPER AND AGENT EDIT THIS FILE COLLABORATIVELY. THE DEVELOPER MUST REVIEW AND APPROVE ITS CONTENT.

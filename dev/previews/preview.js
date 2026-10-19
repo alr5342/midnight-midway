@@ -9,16 +9,27 @@ if (view === 'ending') {
   const stage = document.querySelector('#ending-stage');
   const descriptions = {
     offered: 'Before claim: the token waits above the prize counter. The park remains fully visible.',
-    claimed: '2 seconds: the keepsake moves into view. Soft fog gathers as the lower lights begin to recede.',
-    fading: '5 seconds: the booth, carousel and stall retreat behind fog and darkness. The wheel still holds its shape.',
-    wheel: '8 seconds: the Ferris wheel is the final faint memory. Its right-hand gondola holds the last amber light.',
-    gone: '10 seconds: only the brass keepsake remains against darkness. No automatic return to the park.'
+    claimed: '2 seconds: the booth fades first, revealing moonlit land. The carousel, prize stall and wheel still stand.',
+    fading: '5 seconds: the carousel is almost gone and the prize stall follows. The field stays visible beneath them.',
+    wheel: '8 seconds: only the Ferris wheel remains over the empty land, with one last warm gondola light.',
+    gone: '10 seconds: the wheel is gone too. The keepsake and empty moonlit land remain. No automatic return.'
   };
-  // Reuse the complete approved assembly for the last wheel silhouette,
-  // including the corrected gondola; no original-reference replacement.
-  const memory = stage.querySelector('.ending-artwork').cloneNode(true);
-  memory.classList.remove('ending-artwork');
-  stage.querySelector('.ending-wheel-memory').append(memory);
+  // Source-coordinate, feathered inspection masks isolate the four attractions
+  // from copies of the approved assembly. The corrected gondola is retained.
+  // Empty land underneath replaces painted park pixels, rather than dimming them.
+  const masks = {
+    booth: 'M0 490 L155 485 L280 660 L300 1160 L245 1245 L0 1290Z',
+    carousel: 'M278 810 L455 700 L525 698 L727 820 L730 1155 L285 1165Z',
+    stall: 'M738 660 L941 530 L941 1250 L770 1190 L715 930Z',
+    wheel: 'M182 88 Q510 -15 722 150 Q835 290 786 490 L708 600 L620 728 L350 728 L290 650 L270 518 L160 478 Q105 285 182 88Z'
+  };
+  for (const element of stage.querySelectorAll('[data-attraction]')) {
+    const memory = stage.querySelector('.ending-artwork').cloneNode(true);
+    memory.classList.remove('ending-artwork');
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 941 1672"><defs><filter id="edge" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="9"/></filter></defs><path d="${masks[element.dataset.attraction]}" fill="white" filter="url(#edge)"/></svg>`;
+    element.style.maskImage = `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+    element.append(memory);
+  }
   document.querySelector('#ending-beat').addEventListener('change', event => {
     stage.dataset.beat = event.target.value;
     document.querySelector('#ending-caption').textContent = descriptions[event.target.value];
