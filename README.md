@@ -6,6 +6,8 @@ One illustrated phone scene with lighting, fog, bats, looping wind, a start scre
 
 ## Run locally
 
+Latest visual checkpoint: [keepsake/disappearance staging](http://127.0.0.1:4173/dev/previews/index.html?view=ending). Select poses manually; the approved journey is recorded in [docs/design/JOURNEY.md](docs/design/JOURNEY.md). This preview adds no runtime gameplay, audio or ending playback. Visual approval is pending.
+
 Run `node serve.mjs`, then open http://127.0.0.1:4173/index.html in VS Code Simple Browser or a desktop browser. No installation, framework or build is needed to run the app.
 
 The combined development workspace is http://127.0.0.1:4173/dev/previews/index.html. Its navigation retains the artwork inspector, booth/carriage comparisons, full scene and manual story staging with sound auditions. These previews are separate from the working app. Read-only runtime diagnostics remain available at `/?diagnostics`.

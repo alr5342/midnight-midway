@@ -1,5 +1,7 @@
 # Technical Specification
 
+Latest approved direction, 2026-10-19: [A night remembered](docs/design/JOURNEY.md) defines the connected journey, keepsake claim and disappearance. Revisit/refresh restart without saved progress. Preserve Phase 1 deliverables and artwork. Current authorization is manual development-preview poses only: no new runtime gameplay, audio or ending playback. Earlier Phase 1 contracts below remain the baseline, not a claim that the new journey is implemented.
+
 Organizational checkpoint, 2026-10-19: active source is grouped under src/, with one combined development preview workspace and consolidated shared scene styles/artwork helpers. All approved behavior and media remain required. Root index.html/serve.mjs and GitHub Pages main / (root) compatibility are retained. Work is isolated on chore/project-structure; the public site and original Phase 1 submission are unchanged. See docs/PROJECT-STRUCTURE.md for the approved cleanup scope; this adds no story or creative requirement.
 
 > EDITING DIRECTIVE: DEVELOPER AND AGENT EDIT THIS FILE COLLABORATIVELY. THE DEVELOPER MUST REVIEW AND APPROVE ITS CONTENT.

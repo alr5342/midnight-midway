@@ -1,5 +1,7 @@
 # Implementation Plan
 
+Latest checkpoint, 2026-10-19: the Developer approved the journey and memory-token ending; see [design/staging record](docs/design/JOURNEY.md). On design/ending-staging, based on the unmerged cleanup branch, the static preview is prepared and checked; visual approval is pending. Stop before admission persistence, musical/game mechanics, claim, ten-second playback or fresh-journey reset. Main, the public site and Phase 1 submission are unchanged. Future implementation checkpoints require individual review after staging approval.
+
 > EDITING DIRECTIVE: DEVELOPER AND AGENT EDIT THIS FILE COLLABORATIVELY. THE DEVELOPER MUST REVIEW AND APPROVE ITS CONTENT.
 
 Updated 2026-10-16. **Phase 1 only.** Public prototype and phone review are approved. Alex Rosemann tested the live site on iPhone 17 Pro / iOS 26.5.1 / Safari and authorized final submission packaging. Archive candidate inventory/hash and extracted-runtime checks passed; final ZIP acceptance is recorded in the external verification JSON described in docs/SUBMISSION.md. Live URL: https://alr5342.github.io/midnight-midway/. No creative changes or Phase 2 work.

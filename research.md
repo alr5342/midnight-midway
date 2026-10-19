@@ -1,5 +1,7 @@
 # Research
 
+Latest creative approval, 2026-10-19: the Developer approved admission → musical carousel → two-throw carnival game, brass Ferris-wheel memory token, separate claim and ten-second disappearance. Revisit/refresh start fresh journeys. Only static ending staging is authorized now; the wheel-light celebration ending is superseded. Details and observed checks: [journey/staging record](docs/design/JOURNEY.md).
+
 Organizational review, 2026-10-19: shared artwork/staging and CSS were consolidated because the app and inspectors use the same composition; credits/readiness helpers were app-only. Independent effect/audio/story controllers remain separate for focused testing and clear ownership. Module-relative asset URLs support both nested previews and project-subdirectory hosting. Historical evidence/submission files retain their original bytes. Structure and trade-offs: docs/PROJECT-STRUCTURE.md. No new creative direction was selected or implemented.
 
 > EDITING DIRECTIVE: DEVELOPER AND AGENT EDIT THIS FILE COLLABORATIVELY. THE DEVELOPER MUST REVIEW AND APPROVE ITS CONTENT.

@@ -1,5 +1,7 @@
 # Midnight Midway credits
 
+Preview-only addition, 2026-10-19: dev/previews/assets/keepsake-token-v1.svg is original project SVG artwork prepared with Codex: brass gradients, deterministic grain, embossed Ferris wheel/open gondolas, worn rim and “A NIGHT REMEMBERED” inscription. No external image/font or image-generation service was used for this candidate. Ending fog/darkness are original preview CSS. Neither candidate nor ending playback has been added to the published app; visual approval is pending.
+
 ## Developer and AI assistance
 
 **Alex Rosemann** — Developer; concept selection, direction, design decisions, evaluation and testing. Name confirmed by the Developer on 2026-10-16. OpenAI Codex/ChatGPT assisted with implementation and artwork preparation. HTML/CSS/JavaScript and SVG props/effects are project code; no external runtime code library or font is used. Playwright is a development-only browser testing dependency, not bundled into the app.

@@ -14,6 +14,7 @@
     <a href="?view=booth">Booth comparison</a>
     <a href="?view=scene">Full scene</a>
     <a href="?view=story">Story staging</a>
+    <a href="?view=ending">Keepsake &amp; disappearance</a>
     <a href="../../index.html">Working prototype</a>
   </nav>
   <main id="preview-content"></main>
@@ -83,6 +84,40 @@
     <details><summary>Sound candidates — press Play to audition</summary><p>CC0 sources and edits: <a href="../../CREDITS.md">credits</a>. These independent audition controls belong only to this review page.</p><div id="sounds"></div></details>
     <p class="caption"><a href="../../index.html">Return to current Phase 1 prototype</a> · <a href="../../docs/artwork/story/STORYBOARD.md">Storyboard and integration contract</a></p>
 
+  </template>
+  <template id="preview-ending">
+    <header><p class="eyebrow">Visual staging · awaiting approval</p><h1>A night remembered</h1><p>Static poses for the approved ten-second disappearance. Change stages manually; nothing plays.</p></header>
+    <section class="review-controls" aria-label="Ending visual inspection">
+      <label>Visual stage<select id="ending-beat">
+        <option value="offered">Before claim · token offered</option>
+        <option value="claimed">2 seconds · memory gathered</option>
+        <option value="fading">5 seconds · midway recedes</option>
+        <option value="wheel">8 seconds · the last wheel</option>
+        <option value="gone">10 seconds · token only</option>
+      </select></label>
+      <label>Phone proportions<select id="ending-ratio"><option value="reference">Reference · full composition</option><option value="tall" selected>Tall phone · 390 × 844</option><option value="short">Short phone · 375 × 667</option></select></label>
+      <label class="ending-return-control"><input type="checkbox" id="ending-return"> Show eventual Revisit placement</label>
+    </section>
+    <div class="phone ending-phone" id="ending-phone" data-ratio="tall">
+      <div class="ending-stage" id="ending-stage" data-beat="offered" role="img" aria-label="The approved midway, with a brass souvenir token offered above the prize counter.">
+        <div class="scene ending-artwork" data-view="assembled" data-attractions aria-hidden="true">
+          <img class="plate layer" src="../../assets/artwork/midway-clean-plate.png" alt="">
+          <img class="booth layer" src="../../assets/artwork/ticket-booth.png" alt="">
+          <img class="foreground layer" src="../../assets/sources/artwork/midnight-midway-concept.png" alt="">
+        </div>
+        <div class="ending-darkness" aria-hidden="true"></div>
+        <div class="ending-wheel-memory" aria-hidden="true"></div>
+        <div class="ending-fog" aria-hidden="true"></div>
+        <div class="ending-last-light" aria-hidden="true"></div>
+        <img class="ending-token" src="assets/keepsake-token-v1.svg" alt="">
+        <span class="pause-mockup ending-pause" aria-hidden="true">Ⅱ</span>
+        <span class="ending-revisit" aria-hidden="true">Revisit the midway</span>
+      </div>
+    </div>
+    <p class="caption" id="ending-caption" aria-live="polite">Before claim: the token waits above the prize counter. The park remains fully visible.</p>
+    <p class="caption">Pause and Revisit are nonfunctional placement mockups. The checkbox previews a later return option; the token-only frame itself has no text. No audio, timers, gameplay or progress persistence is implemented.</p>
+    <figure class="token-study"><img src="assets/keepsake-token-v1.svg" alt="Antique brass Ferris-wheel token, inscribed A NIGHT REMEMBERED."><figcaption>Token detail · original editable SVG candidate<br>Brass, worn rim and embossed open-gondola wheel.</figcaption></figure>
+    <details><summary>What to review</summary><p>Inspect the token at its offered and final sizes, the veil/fog edges at 5 seconds, and whether the wheel reads clearly as the last attraction at 8 seconds. The final frame fully conceals all artwork without changing its source files. Intermediate times are proposed visual poses, not tested animation timings.</p><p>Approved journey: three bell rings → musical horse puzzle → two-throw target game → claim the brass token → ten-second disappearance. Revisit and refresh will begin completely fresh journeys when gameplay is implemented.</p></details>
   </template>
   <script type="module" src="preview.js"></script>
 </body>
