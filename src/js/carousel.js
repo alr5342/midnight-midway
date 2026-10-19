@@ -41,7 +41,7 @@ export class CarouselPuzzle {
     if (this.mistake && this.feedbackAt !== null && time - this.feedbackAt < 1600) cues.push({id:`carousel-wrong-${this.serial}`,name:'carousel-box',at:this.feedbackAt,duration:1.6,rate:.5});
     if (this.inspectedAt !== null && time - this.inspectedAt < 250) cues.push({id:`music-paper-${this.inspectionSerial}`,name:'arrival',at:this.inspectedAt,duration:.25});
     const waiting = this.unlockedAt === null ? 0 : time - this.unlockedAt;
-    const hint = this.progress === 4 ? 'The tune is remembered. You can play it again.' : feedback && this.mistake ? 'That note slips away. Begin the tune again.' : waiting >= 24000 ? 'The tune returns to the horse where it began.' : waiting >= 12000 ? 'A scrap of music rests beside the horses.' : 'Each horse remembers a different note.';
+    const hint = this.progress === 4 ? 'The last note lingers. The horses seem to remember.' : feedback && this.mistake ? 'The melody slips out of reach. Listen once more.' : waiting >= 24000 ? 'The ink rises and falls, like the voices of the horses.' : waiting >= 12000 ? 'Something pale lies on the path beside the carousel.' : 'A different voice sleeps in each painted horse.';
     return {progress:this.progress,solved:this.solved,note:feedback?this.note:null,mistake:feedback&&this.mistake,hint,cues};
   }
 }
@@ -75,8 +75,9 @@ export function connectCarousel(scene, playback, audio, {access, onSolved}) {
     open.setAttribute('aria-expanded',String(clueOpen));
     close.setAttribute('aria-disabled',String(!enabled));
     controls.dataset.mistake = String(state.mistake);
-    const text = state.progress === 4 ? 'Melody complete · play again' : state.mistake ? 'Wrong note · start again' : `${state.progress} / 4 notes`;
+    const text = state.progress === 4 ? 'A remembered melody' : state.mistake ? 'The tune fades…' : state.progress ? `${state.progress} / 4 notes` : '';
     if (text !== lastProgress) {progress.textContent = text;lastProgress = text;}
+    progress.hidden = !text;
     for (const note of Object.keys(rates)) {
       const horse = scene.querySelector(`.horse-${note === 'center' ? 'center' : note}`);
       horse.style.filter = state.note === note ? 'brightness(1.2) drop-shadow(0 0 6px #ffe1ad)' : '';
@@ -112,6 +113,6 @@ export function connectCarousel(scene, playback, audio, {access, onSolved}) {
   });
   return {
     snapshot: () => ({...model.snapshot(playback.elapsedMs),clueOpen}),
-    hint: () => clueOpen ? 'The worn music pairs each note with a horse.' : model.snapshot(playback.elapsedMs).hint
+    hint: () => clueOpen ? 'Four notes survive the rain.' : model.snapshot(playback.elapsedMs).hint
   };
 }

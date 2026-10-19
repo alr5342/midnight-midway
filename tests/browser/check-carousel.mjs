@@ -3,7 +3,7 @@ import {mkdir,readFile,writeFile} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import {pathToFileURL} from 'node:url';
 import {createPreviewServer} from '../../serve.mjs';
-const output=process.argv[2] || 'tests/results/carousel-horse-input';
+const output=process.argv[2] || 'tests/results/environmental-props';
 await mkdir(output,{recursive:true});
 const {chromium}=await import(pathToFileURL(process.env.PLAYWRIGHT_MODULE || 'C:/Users/arose/AppData/Local/npm-cache/_npx/6bcb61ec6d5aea22/node_modules/playwright/index.mjs').href);
 const server=createPreviewServer({basePath:'/midnight-midway/'});
@@ -28,6 +28,15 @@ try {
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().progress),0);
   await page.locator('#enter').click();
   await page.waitForFunction(()=>window.midwayDiagnostics.storyAudio().status==='ready'&&window.midwayDiagnostics.audio().status==='playing');
+  const bellMotion=()=>page.locator('.story-bell').getAttribute('style');
+  const initialBell=await bellMotion();await page.waitForTimeout(250);
+  assert.notEqual(await bellMotion(),initialBell,'Bell should gently sway while exploring');
+  await page.locator('#playback').tap();
+  const frozenBell=await bellMotion();await page.waitForTimeout(180);
+  assert.equal(await bellMotion(),frozenBell,'Pause must freeze the bell artwork');
+  await page.locator('#playback').tap();await page.waitForTimeout(80);
+  assert.notEqual(await bellMotion(),frozenBell,'Play must resume the bell sway');
+  await page.screenshot({path:`${output}/booth-discovery.png`});
   for(let i=0;i<3;i++)await page.locator('#bell').click();
   await page.locator('[data-horse-note="left"]').dispatchEvent('click');
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().progress),0);
@@ -36,10 +45,13 @@ try {
   const select=note=>page.locator(`[data-horse-note="${note}"]`);
   await select('left').tap();assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().progress),1);
   await select('center').tap();assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().progress),0);
-  assert.match(await page.locator('#carousel-progress').textContent(),/Wrong/);
+  assert.match(await page.locator('#carousel-progress').textContent(),/tune fades/);
   await page.locator('#music-open').focus();await page.keyboard.press('Enter');
   assert.equal(await page.locator('#music-clue').isVisible(),true);
-  assert.match(await page.locator('.music-sequence').textContent(),/Left → Right → Center → Left/);
+  assert.equal(await page.locator('.music-sequence').count(),0);
+  assert.ok(!/left|right|center|lowest|highest|sequence/i.test(await page.locator('#music-clue').innerText()));
+  assert.match(await page.locator('#music-clue > img').getAttribute('src'),/music-sheet.svg$/);
+  assert.equal(await page.locator('#music-clue').evaluate(el=>getComputedStyle(el).backgroundColor),'rgba(0, 0, 0, 0)');
   const rings=await page.evaluate(()=>window.midwayDiagnostics.story().rings);
   await page.locator('#bell').dispatchEvent('click');
   await select('left').dispatchEvent('click');
@@ -78,7 +90,7 @@ try {
   await select('left').tap();
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().solved),true);
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().progress),4);
-  assert.match(await page.locator('#carousel-progress').textContent(),/Melody complete/);
+  assert.match(await page.locator('#carousel-progress').textContent(),/remembered melody/);
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.story().playing),false,'Puzzle success must not start another story');
   assert.equal(await page.locator('.story-window').isVisible(),false);
   assert.equal(await page.locator('#admission').isVisible(),true);
@@ -104,11 +116,14 @@ try {
       const horseHeads=[[38.5,57.8],[53.5,56.6],[67.5,58.3]].map(([x,y],i)=>
         document.elementFromPoint(stage.x+stage.width*x/100,stage.y+stage.height*y/100)===buttons[i]);
       const bell=document.querySelector('#bell'),r=bell.getBoundingClientRect();
-      return {fits:targets.every(t=>t.fits),targets,horseHeads,bellReceivesTap:document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)===bell};
+      const art=document.querySelector('.story-bell').getBoundingClientRect();
+      return {fits:targets.every(t=>t.fits),targets,horseHeads,bellReceivesTap:document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)===bell,
+        bellContainsArtwork:art.left>=r.left&&art.right<=r.right&&art.top>=r.top&&art.bottom<=r.bottom};
     });
     assert.equal(layout.fits,true);assert.ok(layout.targets.every(t=>t.width>=44&&t.height>=44&&t.receivesTap));
     assert.ok(layout.horseHeads.every(Boolean),'Actual horse heads must receive their corresponding note');
     assert.equal(layout.bellReceivesTap,true,'Horse input must not intercept the bell');
+    assert.equal(layout.bellContainsArtwork,true,'Fixed generous touch area must contain the swaying bell');
     for(const note of ['left','right','center','left'])await select(note).tap();
     assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().progress),4);
     await page.locator('#music-open').tap();
@@ -117,6 +132,8 @@ try {
     await page.locator('#music-close').click();layouts.push({width,height,...layout});
   }
   await page.emulateMedia({reducedMotion:'reduce'});
+  await page.waitForFunction(()=>window.midwayDiagnostics.story().bellX===0);
+  assert.equal(await page.locator('.story-bell').evaluate(el=>el.style.transform),'translate(0px, 0px) rotate(0deg)');
   await select('left').click();assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().progress),1);
   await page.evaluate(()=>window.testContext.suspend());
   await page.waitForFunction(()=>window.midwayDiagnostics.snapshot().state==='paused');
@@ -137,7 +154,14 @@ try {
   assert.ok(![first,second,third].some(text=>text.includes('Left → Right')),'Hints must not print the solution');
   assert.deepEqual(errors,[]);
   const git=(...args)=>execFileSync('git',['-c',`safe.directory=${process.cwd().replaceAll('\\','/')}`,...args],{maxBuffer:32*1024*1024});
-  for(const file of git('ls-tree','-r','--name-only','0895f9c','--','assets').toString().trim().split('\n'))assert.deepEqual(await readFile(file),git('show',`0895f9c:${file}`));
-  const result={status:'passed',baseCommit:'0895f9c',admissionGate:true,solution:['left','right','center','left'],mistakeResetsAttempt:true,inspectableClueAndFocus:true,clueLocksSceneInput:true,threeDistinctPitches:true,pitchedCueResume:true,pausePreservesAttemptAndFeedback:true,progressiveHints:[first,second,third],hintsPauseWithClock:true,boothReplayPreservesAdmissionAndPuzzle:true,reducedMotion:true,refreshStartsFresh:true,noCarouselStory:true,existingArtworkAudioAssetBytesUnchanged:true,horseTouchTargetsAndPhysicalHeads:true,originalMusicBoxBuffer:true,layouts,errors,limits:['Focused desktop Chromium integration, not physical-phone verification','Carousel success remembers the puzzle; ride story and prize-stall unlock remain deferred']};
+  for(const file of git('ls-tree','-r','--name-only','0895f9c','--','assets').toString().trim().split('\n')){
+    const current=await readFile(file),previous=git('show',`0895f9c:${file}`);
+    if(file==='assets/story/ticket.svg')assert.notDeepEqual(current,previous,'Approved ticket redesign must be present');
+    else assert.deepEqual(current,previous);
+  }
+  const notation=await readFile('assets/story/music-sheet.svg','utf8');
+  assert.equal((notation.match(/<ellipse cx="(?:86|142|198|254)"/g)||[]).length,4);
+  assert.ok(!notation.includes('<text'),'Paper must contain notation only');
+  const result={status:'passed',baseCommit:'0895f9c',admissionGate:true,solution:['left','right','center','left'],mistakeResetsAttempt:true,inspectableClueAndFocus:true,clueLocksSceneInput:true,threeDistinctPitches:true,pitchedCueResume:true,pausePreservesAttemptAndFeedback:true,progressiveHints:[first,second,third],hintsPauseWithClock:true,boothReplayPreservesAdmissionAndPuzzle:true,reducedMotion:true,refreshStartsFresh:true,noCarouselStory:true,backgroundAndAudioBytesUnchanged:true,approvedTicketRedesign:true,notationOnlyEnvironmentalPaper:true,horseTouchTargetsAndPhysicalHeads:true,originalMusicBoxBuffer:true,layouts,errors,limits:['Focused desktop Chromium integration, not physical-phone verification','Carousel success remembers the puzzle; ride story and prize-stall unlock remain deferred']};
   await writeFile(`${output}/checks.json`,JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));
 } finally {await browser.close();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}

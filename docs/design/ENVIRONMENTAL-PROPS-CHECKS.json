@@ -1,0 +1,371 @@
+{
+  "checkpoint": "Playtest edits from 5e4a04c",
+  "unitTests": 15,
+  "carousel": {
+    "status": "passed",
+    "baseCommit": "0895f9c",
+    "admissionGate": true,
+    "solution": [
+      "left",
+      "right",
+      "center",
+      "left"
+    ],
+    "mistakeResetsAttempt": true,
+    "inspectableClueAndFocus": true,
+    "clueLocksSceneInput": true,
+    "threeDistinctPitches": true,
+    "pitchedCueResume": true,
+    "pausePreservesAttemptAndFeedback": true,
+    "progressiveHints": [
+      "A different voice sleeps in each painted horse.",
+      "Something pale lies on the path beside the carousel.",
+      "The ink rises and falls, like the voices of the horses."
+    ],
+    "hintsPauseWithClock": true,
+    "boothReplayPreservesAdmissionAndPuzzle": true,
+    "reducedMotion": true,
+    "refreshStartsFresh": true,
+    "noCarouselStory": true,
+    "backgroundAndAudioBytesUnchanged": true,
+    "approvedTicketRedesign": true,
+    "notationOnlyEnvironmentalPaper": true,
+    "horseTouchTargetsAndPhysicalHeads": true,
+    "originalMusicBoxBuffer": true,
+    "layouts": [
+      {
+        "width": 390,
+        "height": 844,
+        "fits": true,
+        "targets": [
+          {
+            "width": 55,
+            "height": 55,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 55,
+            "height": 55,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 55,
+            "height": 55,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 64,
+            "height": 52,
+            "fits": true,
+            "receivesTap": true
+          }
+        ],
+        "horseHeads": [
+          true,
+          true,
+          true
+        ],
+        "bellReceivesTap": true,
+        "bellContainsArtwork": true
+      },
+      {
+        "width": 320,
+        "height": 568,
+        "fits": true,
+        "targets": [
+          {
+            "width": 45,
+            "height": 45,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 45,
+            "height": 45,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 45,
+            "height": 45,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 64,
+            "height": 52,
+            "fits": true,
+            "receivesTap": true
+          }
+        ],
+        "horseHeads": [
+          true,
+          true,
+          true
+        ],
+        "bellReceivesTap": true,
+        "bellContainsArtwork": true
+      },
+      {
+        "width": 280,
+        "height": 568,
+        "fits": true,
+        "targets": [
+          {
+            "width": 44,
+            "height": 44,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 44,
+            "height": 44,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 44,
+            "height": 44,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 64,
+            "height": 52,
+            "fits": true,
+            "receivesTap": true
+          }
+        ],
+        "horseHeads": [
+          true,
+          true,
+          true
+        ],
+        "bellReceivesTap": true,
+        "bellContainsArtwork": true
+      },
+      {
+        "width": 844,
+        "height": 390,
+        "fits": true,
+        "targets": [
+          {
+            "width": 44,
+            "height": 44,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 44,
+            "height": 44,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 44,
+            "height": 44,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 64,
+            "height": 52,
+            "fits": true,
+            "receivesTap": true
+          }
+        ],
+        "horseHeads": [
+          true,
+          true,
+          true
+        ],
+        "bellReceivesTap": true,
+        "bellContainsArtwork": true
+      }
+    ],
+    "errors": [],
+    "limits": [
+      "Focused desktop Chromium integration, not physical-phone verification",
+      "Carousel success remembers the puzzle; ride story and prize-stall unlock remain deferred"
+    ]
+  },
+  "ticket": {
+    "tests": "passed",
+    "completedCycles": 3,
+    "admissionAfterFullStoryOnly": true,
+    "oneTicketAcrossReplays": true,
+    "carouselUnlockPersists": true,
+    "pauseAndInterruptionsPreserveAdmission": true,
+    "refreshStartsFresh": true,
+    "admissionLayouts": [
+      {
+        "width": 390,
+        "height": 844,
+        "boxes": {
+          "admission": {
+            "x": 129,
+            "right": 241,
+            "y": 87.515625,
+            "bottom": 154.703125
+          },
+          "playback": {
+            "x": 12,
+            "right": 56,
+            "y": 87.515625,
+            "bottom": 131.515625
+          },
+          "credits-open": {
+            "x": 314,
+            "right": 378,
+            "y": 87.515625,
+            "bottom": 131.515625
+          }
+        },
+        "overflow": false
+      },
+      {
+        "width": 375,
+        "height": 667,
+        "boxes": {
+          "admission": {
+            "x": 121.5,
+            "right": 233.5,
+            "y": 12.34375,
+            "bottom": 79.53125
+          },
+          "playback": {
+            "x": 12,
+            "right": 56,
+            "y": 12.34375,
+            "bottom": 56.34375
+          },
+          "credits-open": {
+            "x": 299,
+            "right": 363,
+            "y": 12.34375,
+            "bottom": 56.34375
+          }
+        },
+        "overflow": false
+      },
+      {
+        "width": 320,
+        "height": 568,
+        "boxes": {
+          "admission": {
+            "x": 94,
+            "right": 206,
+            "y": 12.015625,
+            "bottom": 79.203125
+          },
+          "playback": {
+            "x": 12.171875,
+            "right": 56.171875,
+            "y": 12.015625,
+            "bottom": 56.015625
+          },
+          "credits-open": {
+            "x": 243.828125,
+            "right": 307.828125,
+            "y": 12.015625,
+            "bottom": 56.015625
+          }
+        },
+        "overflow": false
+      },
+      {
+        "width": 280,
+        "height": 568,
+        "boxes": {
+          "admission": {
+            "x": 74,
+            "right": 186,
+            "y": 47.25,
+            "bottom": 114.4375
+          },
+          "playback": {
+            "x": 12,
+            "right": 56,
+            "y": 47.25,
+            "bottom": 91.25
+          },
+          "credits-open": {
+            "x": 204,
+            "right": 268,
+            "y": 47.25,
+            "bottom": 91.25
+          }
+        },
+        "overflow": false
+      },
+      {
+        "width": 844,
+        "height": 390,
+        "boxes": {
+          "admission": {
+            "x": 376.2421875,
+            "right": 447.7265625,
+            "y": 12,
+            "bottom": 73.65625
+          },
+          "playback": {
+            "x": 324.25,
+            "right": 368.25,
+            "y": 12,
+            "bottom": 56
+          },
+          "credits-open": {
+            "x": 455.734375,
+            "right": 519.734375,
+            "y": 12,
+            "bottom": 56
+          }
+        },
+        "overflow": false
+      }
+    ],
+    "pauseBeats": [
+      "ring feedback",
+      "arrival",
+      "ticket",
+      "stamp",
+      "depart",
+      "reset"
+    ],
+    "touchAndKeyboard": true,
+    "distinctProgress": true,
+    "cueResumeOffset": true,
+    "cueEnergy": 0.09944392658203739,
+    "sharedContext": true,
+    "progressiveHints": [
+      "A little brass catches the lamplight at the silent booth.",
+      "On the counter, a bell waits beneath the dust.",
+      "Perhaps a chime would carry through the empty booth."
+    ],
+    "audioFailureRetry": true,
+    "artFailureSafe": true,
+    "lateLoadPaused": true,
+    "unchangedArtworkFiles": 12,
+    "errors": [],
+    "limits": [
+      "Desktop Chromium only; no deployment or new physical-phone review",
+      "Ticket-story regression only; musical input is covered by the separate focused carousel check"
+    ],
+    "restingStoryResetExceptIdleBellSway": true
+  },
+  "bellSwayPauseResumeAndReducedMotion": true,
+  "reviewedScreenshots": [
+    "booth-discovery.png",
+    "music-clue.png",
+    "puzzle-solved.png",
+    "ticket-regression/ticket.png"
+  ],
+  "testAdjustment": "Replaced moving bell touch target with a stable generous region; initial browser actionability timeouts resolved.",
+  "limits": [
+    "Desktop Chromium phone-sized viewports; physical-phone review pending",
+    "No carousel story payoff, deployment or packaging"
+  ]
+}

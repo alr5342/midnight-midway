@@ -29,7 +29,7 @@
         <button type="button" class="pause-mockup" id="playback" aria-label="Pause scene" hidden><span aria-hidden="true">Ⅱ</span></button>
         <div id="admission" class="admission-badge" role="group" aria-label="Journey progress" hidden>
           <img src="assets/story/ticket.svg" alt="Your admission ticket" width="72" height="38">
-          <span>Carousel unlocked</span>
+          <span>Admit one</span>
         </div>
         <div class="scene-actions">
           <button type="button" id="bell" class="bell-target" aria-label="Ring the ticket booth bell" aria-describedby="ring-progress" hidden></button>
@@ -39,26 +39,14 @@
             <button type="button" class="horse-target" data-horse-note="center" aria-label="Play center horse, middle note"></button>
             <button type="button" class="horse-target" data-horse-note="right" aria-label="Play right horse, high note"></button>
             <button type="button" id="music-open" class="music-scrap" aria-label="Inspect the worn sheet music" aria-expanded="false" aria-controls="music-clue">
-              <svg viewBox="0 0 40 48" aria-hidden="true">
-                <defs><linearGradient id="paper-age" x2=".8" y2="1"><stop stop-color="#d3b77f"/><stop offset="1" stop-color="#8e744e"/></linearGradient></defs>
-                <path d="M5 3L13 4 18 2 26 4 35 3 34 14 36 21 34 29 35 42 29 43 23 45 15 43 5 44 6 33 4 25 6 16Z" fill="url(#paper-age)" stroke="#5c442d"/>
-                <path d="M10 17H30M10 21H30M10 25H30M10 29H30M10 33H30" stroke="#4b3c2c" stroke-width=".6" opacity=".8"/>
-                <path d="M14 30V17M24 25V12M11 38L16 37M27 7L29 11M8 8L10 12" stroke="#4b3c2c" fill="none"/>
-                <g fill="#4b3c2c"><ellipse cx="12" cy="30" rx="2.5" ry="1.5"/><ellipse cx="22" cy="25" rx="2.5" ry="1.5"/></g>
-              </svg>
+              <img src="assets/story/music-sheet.svg" alt="" width="64" height="44">
             </button>
             <p id="carousel-progress" role="status">0 / 4 notes</p>
           </section>
           <section id="music-clue" class="music-clue" aria-labelledby="music-title" hidden>
-            <button type="button" id="music-close" aria-label="Put away the sheet music">Close</button>
-            <h2 id="music-title">A tune left behind</h2>
-            <svg viewBox="0 0 260 95" aria-hidden="true">
-              <path d="M12 25H248M12 35H248M12 45H248M12 55H248M12 65H248M28 75H52M208 75H232" fill="none" stroke="currentColor" stroke-width="1"/>
-              <g fill="currentColor"><ellipse cx="40" cy="75" rx="7" ry="4"/><ellipse cx="100" cy="55" rx="7" ry="4"/><ellipse cx="160" cy="65" rx="7" ry="4"/><ellipse cx="220" cy="75" rx="7" ry="4"/></g>
-              <path d="M46 75V40M106 55V20M166 65V30M226 75V40M147 49V70Q159 60 147 60" fill="none" stroke="currentColor" stroke-width="2"/>
-            </svg>
-            <p class="music-sequence">Left → Right → Center → Left</p>
-            <p>The lowest note returns at the end.<br>Left: low · Center: middle · Right: high</p>
+            <h2 id="music-title" class="visually-hidden">Worn sheet music</h2>
+            <img src="assets/story/music-sheet.svg" alt="A treble staff with four notes: C5, G5, E-flat5, C5." width="320" height="220">
+            <button type="button" id="music-close" aria-label="Put away the sheet music">&#215;</button>
           </section>
         </div>
         <button type="button" id="credits-open" class="credits-open" aria-haspopup="dialog">Credits</button>

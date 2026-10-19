@@ -4,6 +4,22 @@ import { TicketStory } from '../../src/js/ticket-story.js';
 import { Playback } from '../../src/js/playback.js';
 import { StoryAudio } from '../../src/js/story-audio.js';
 
+test('idle bell sway shares active time, freezes on pause and is suppressed by reduced motion/story playback',()=>{
+  let now=0;const playback=new Playback({now:()=>now}),story=new TicketStory();
+  playback.start();const resting=story.snapshot(playback.elapsedMs);
+  now=900;const moving=story.snapshot(playback.elapsedMs);
+  assert.notEqual(moving.bellX,resting.bellX);
+  assert.ok(Math.abs(moving.bellX)<=.6&&Math.abs(moving.bellTilt)<=2);
+  playback.pause();now+=60000;
+  assert.deepEqual(story.snapshot(playback.elapsedMs),moving);
+  const reduced=story.snapshot(playback.elapsedMs,true);
+  assert.deepEqual([reduced.bellX,reduced.bellY,reduced.bellTilt],[0,0,0]);
+  playback.resume();assert.deepEqual(story.snapshot(playback.elapsedMs),moving);
+  for(let i=0;i<3;i++)story.ring(playback.elapsedMs);
+  const playing=story.snapshot(playback.elapsedMs);
+  assert.deepEqual([playing.bellX,playing.bellY,playing.bellTilt],[0,0,0]);
+});
+
 test('three distinct responses launch one eight-second story; replay resets the attempt and preserves completion history', () => {
   const story = new TicketStory();
   for (let cycle = 0; cycle < 3; cycle++) {
@@ -47,8 +63,8 @@ test('shared pause freezes story, feedback and hints at beginning/middle/end', (
   assert.notEqual(exploring.snapshot(0).hint, exploring.snapshot(12000).hint);
   assert.notEqual(exploring.snapshot(12000).hint, exploring.snapshot(24000).hint);
   exploring.ring(1000);
-  assert.match(exploring.snapshot(1000).hint, /One chime/);
-  assert.match(exploring.snapshot(24000).hint, /persistence/, 'Partial progress must not suppress later discovery hints');
+  assert.match(exploring.snapshot(1000).hint, /rustle/);
+  assert.match(exploring.snapshot(24000).hint, /chime/, 'Partial progress must not suppress later discovery hints');
 });
 
 test('reduced motion keeps narrative but suppresses travel and spark expansion', () => {

@@ -39,11 +39,11 @@ export class TicketStory {
     const beat = playing ? ticketStoryboard.find(beat => beat.start !== null && seconds >= beat.start && seconds < beat.end).id : 'idle';
     const feedback = this.feedbackAt === null ? 0 : clamp(1 - (elapsedMs - this.feedbackAt) / 850);
     const waiting = (elapsedMs - this.hintSince) / 1000;
-    let hint = waiting >= 24 ? 'Perhaps the bell is waiting for a little persistence.' : waiting >= 12 ? 'A quiet bell rests on the old counter.' : 'The ticket booth is waiting for a visitor…';
-    if (this.completed > 0) hint = 'Admission secured. The carousel is unlocked.';
-    if (this.rings > 0 && !playing && elapsedMs - this.feedbackAt < 2200) hint = this.rings === 1 ? 'One chime… something stirs inside.' : 'Two chimes… the booth seems to be listening.';
+    let hint = waiting >= 24 ? 'Perhaps a chime would carry through the empty booth.' : waiting >= 12 ? 'On the counter, a bell waits beneath the dust.' : 'A little brass catches the lamplight at the silent booth.';
+    if (this.completed > 0) hint = 'Beyond the booth, a faint tune waits.';
+    if (this.rings > 0 && !playing && elapsedMs - this.feedbackAt < 2200) hint = this.rings === 1 ? 'A rustle behind the glass… then silence.' : 'The silence has begun to answer…';
     if (playing) hint = beat === 'reset' ? 'The booth falls quiet again…' : 'A ticket for a guest who never left…';
-    if (!playing && this.completedAt !== null && elapsedMs - this.completedAt < 2200) hint = 'Your ticket is yours. The carousel is unlocked.';
+    if (!playing && this.completedAt !== null && elapsedMs - this.completedAt < 2200) hint = 'The paper is warm. Beyond the booth, a faint tune waits.';
     const cues = [];
     if (this.feedbackAt !== null) cues.push({ id: `ring-${this.cycle}-${this.feedbackAt}-${this.rings}`, name: `ring-${this.rings}`, at: this.feedbackAt, duration: cueDurations[`ring-${this.rings}`] });
     if (playing) {
@@ -52,6 +52,9 @@ export class TicketStory {
     const departure = seconds === null ? 0 : smooth((seconds - 4.5) / 2);
     return {
       playing, rings: this.rings, beat, seconds, completed: this.completed, feedback, hint,
+      bellX: reducedMotion || playing ? 0 : .6 * Math.sin(elapsedMs / 1000 * Math.PI * 2 / 5.6),
+      bellY: reducedMotion || playing ? 0 : -.14 * (1 - Math.cos(elapsedMs / 1000 * Math.PI * 2 / 5.6)),
+      bellTilt: reducedMotion || playing ? 0 : 2 * Math.sin(elapsedMs / 1000 * Math.PI * 2 / 5.6),
       cues: cues.filter(cue => elapsedMs >= cue.at && elapsedMs < cue.at + cue.duration * 1000),
       ghostOpacity: !playing ? 0 : .82 * smooth(seconds / 1.1) * (1 - departure),
       ghostY: reducedMotion || !playing ? 0 : 5 * (1 - smooth(seconds / 1.5)),
@@ -102,7 +105,10 @@ export function connectTicketStory(scene, playback, cueAudio, { bell, progress, 
     part('stamp').style.transform = `translateY(${state.stampY}px)`;
     part('sparks').style.opacity = state.sparkOpacity;
     part('sparks').style.transform = `scale(${state.sparkScale})`;
-    part('bell').style.filter = `drop-shadow(0 0 ${2 + state.rings * 2}px rgba(255,217,125,${state.feedback * (.3 + .2 * state.rings)}))`;
+    const bellX = state.bellX * scene.clientWidth / 100;
+    const bellY = state.bellY * scene.clientHeight / 100;
+    part('bell').style.transform = `translate(${bellX}px, ${bellY}px) rotate(${state.bellTilt}deg)`;
+    part('bell').style.filter = `drop-shadow(1px 2px 2px #08061190) drop-shadow(0 0 ${2 + state.rings * 2}px rgba(255,217,125,${state.feedback * (.3 + .2 * state.rings)}))`;
     bell.hidden = snapshot.state === 'start';
     // Keep a stable keyboard focus target while rejecting paused/locked input.
     bell.setAttribute('aria-disabled', String(!snapshot.canInteract || !canInteract() || state.playing || !assetsReady || cueAudio.status === 'loading'));

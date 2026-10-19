@@ -92,7 +92,7 @@ summary { cursor: pointer; color: #e8c08a; }
 .story-ticket { left: 14.5%; top: 59.1%; width: 9.6%; height: 2.9%; filter: drop-shadow(0 0 3px #ffe0a080); }
 .story-stamp { left: 18.4%; top: 57.2%; width: 4.3%; height: 3%; }
 .story-sparks { left: 13.2%; top: 57.5%; width: 12.5%; height: 7%; }
-.story-bell { left: 21.4%; top: 61.1%; width: 5.3%; height: 2.4%; }
+.story-bell { left: 19.25%; top: 61.95%; width: 7.5%; height: 3.3%; transform-origin: 50% 65%; }
 .story-window, .story-ticket, .story-stamp, .story-sparks { display: none; }
 .ticket-story-art[data-phase="arrival"] .story-window,
 .ticket-story-art[data-phase="ticket"] .story-window,

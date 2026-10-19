@@ -48,7 +48,13 @@ await page.waitForFunction(() => window.midwayDiagnostics.story().assetsReady &&
 // Measure short bell cues only after the real context is running and advancing.
 await page.waitForFunction(() => window.midwayDiagnostics.audio().status === 'playing' && window.testAudioContext.currentTime > .1);
 assert.equal((await audio()).sharedContext,true);
-const restingMarkup = await page.locator('.ticket-story-art').evaluate(element=>element.outerHTML);
+const restingOverlay = () => page.locator('.ticket-story-art').evaluate(element=>{
+  const copy=element.cloneNode(true);
+  // Only the newly approved idle bell sway varies after a story reset.
+  copy.querySelector('.story-bell').style.transform='';
+  return copy.outerHTML;
+});
+const restingMarkup = await restingOverlay();
 const bellBox = await page.locator('#bell').boundingBox(); assert.ok(bellBox.width>=44 && bellBox.height>=44);
 await page.keyboard.press('Tab');
 assert.equal(await page.locator('#bell').evaluate(element=>element===document.activeElement),true,'Tab from Play/Pause should reach bell');
@@ -102,8 +108,8 @@ assert.equal((await story()).rings,0);
 assert.equal(await page.locator('.story-window').isVisible(),false);
 assert.equal(await page.locator('.story-ticket').isVisible(),false);
 assert.equal((await audio()).activeSources,0);
-assert.equal(await page.locator('.ticket-story-art').evaluate(element=>element.outerHTML),restingMarkup,'Reset must restore resting overlay state');
-assert.match(await page.locator('#hint').textContent(),/carousel is unlocked/i);
+assert.equal(await restingOverlay(),restingMarkup,'Reset must restore resting overlay state');
+assert.match(await page.locator('#hint').textContent(),/faint tune/i);
 assert.deepEqual(await journey(),admitted);
 assert.equal(await page.locator('#admission').isVisible(),true);
 assert.equal(await page.locator('#stage').getAttribute('data-carousel'),'unlocked');
@@ -209,6 +215,6 @@ await page.reload();await page.waitForFunction(()=>!document.querySelector('#ent
 assert.deepEqual(await journey(),notAdmitted,'Refresh must start a fresh journey');
 assert.equal(await page.locator('#admission').isVisible(),false);
 assert.equal(await page.locator('#stage').getAttribute('data-carousel'),'locked');
-const result={tests:'passed',completedCycles:3,admissionAfterFullStoryOnly:true,oneTicketAcrossReplays:true,carouselUnlockPersists:true,pauseAndInterruptionsPreserveAdmission:true,refreshStartsFresh:true,admissionLayouts,pauseBeats:['ring feedback','arrival','ticket','stamp','depart','reset'],touchAndKeyboard:true,distinctProgress:true,cueResumeOffset:true,cueEnergy,sharedContext:true,exactRestingOverlayReset:true,progressiveHints:[first,second,third],audioFailureRetry:true,artFailureSafe:true,lateLoadPaused:true,unchangedArtworkFiles:hashes.length,errors,limits:['Desktop Chromium only; no deployment or new physical-phone review','Ticket-story regression only; musical input is covered by the separate focused carousel check']};
+const result={tests:'passed',completedCycles:3,admissionAfterFullStoryOnly:true,oneTicketAcrossReplays:true,carouselUnlockPersists:true,pauseAndInterruptionsPreserveAdmission:true,refreshStartsFresh:true,admissionLayouts,pauseBeats:['ring feedback','arrival','ticket','stamp','depart','reset'],touchAndKeyboard:true,distinctProgress:true,cueResumeOffset:true,cueEnergy,sharedContext:true,restingStoryResetExceptIdleBellSway:true,progressiveHints:[first,second,third],audioFailureRetry:true,artFailureSafe:true,lateLoadPaused:true,unchangedArtworkFiles:hashes.length,errors,limits:['Desktop Chromium only; no deployment or new physical-phone review','Ticket-story regression only; musical input is covered by the separate focused carousel check']};
 await writeFile(`${output}/checks.json`,JSON.stringify(result,null,2)); console.log(JSON.stringify(result,null,2));
 await browser.close();
