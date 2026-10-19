@@ -19,6 +19,10 @@ const pauseIcon = pause.querySelector('span');
 const hint = document.querySelector('#hint');
 const motionNote = document.querySelector('#motion-note');
 const status = document.querySelector('#playback-status');
+const admission = document.querySelector('#admission');
+// Visit progress is independent of the booth's temporary rings/animation reset.
+// Reload constructs a fresh visit; no storage or cross-session state is used.
+const journey = { admitted: false };
 const audioNotice = document.querySelector('#audio-notice');
 let frame = null;
 let renderedState = null;
@@ -39,10 +43,28 @@ const storyAudio = new StoryAudio(ambientAudio, { onStatus: value => {
   storyNotice.textContent = value === 'unavailable' ? 'Some booth sounds could not load. Pause, then Play to retry.' : value === 'loading' ? 'Loading booth sounds…' : '';
 } });
 const ticketStory = connectTicketStory(document.querySelector('.scene'), playback, storyAudio, {
-  bell: document.querySelector('#bell'), progress: document.querySelector('#ring-progress'), hint, notice: storyNotice
+  bell: document.querySelector('#bell'), progress: document.querySelector('#ring-progress'), hint, notice: storyNotice,
+  onComplete: grantAdmission
 });
 connectCredits(playback);
 const assets = connectAssetReadiness(document.querySelector('.scene'), enter, document.querySelector('#asset-notice'));
+
+function grantAdmission() {
+  if (journey.admitted) return;
+  journey.admitted = true;
+  renderJourney(playback.snapshot());
+}
+
+function journeySnapshot() {
+  return { admitted: journey.admitted, admissionTickets: journey.admitted ? 1 : 0, carouselUnlocked: journey.admitted };
+}
+
+function renderJourney(snapshot) {
+  const availability = journey.admitted ? 'unlocked' : 'locked';
+  if (stage.dataset.carousel !== availability) stage.dataset.carousel = availability;
+  const hidden = !journey.admitted || snapshot.state === 'start';
+  if (admission.hidden !== hidden) admission.hidden = hidden;
+}
 
 function nextFrame() {
   frame = null;
@@ -50,6 +72,7 @@ function nextFrame() {
 }
 
 playback.subscribe((snapshot) => {
+  renderJourney(snapshot);
   if (renderedState !== snapshot.state || renderedMotion !== snapshot.reducedMotion) {
     stage.dataset.state = snapshot.state;
     stage.dataset.reducedMotion = String(snapshot.reducedMotion);
@@ -95,7 +118,7 @@ window.addEventListener('pagehide', () => playback.pause());
 // No diagnostic controls or runtime counters appear in the product interface.
 if (new URLSearchParams(location.search).has('diagnostics')) {
   Object.defineProperty(window, 'midwayDiagnostics', {
-    value: Object.freeze({ snapshot: () => ({ ...playback.snapshot(), scheduledFrames: frame === null ? 0 : 1 }), audio: () => ambientAudio.snapshot(), story: () => ticketStory.snapshot(), storyAudio: () => storyAudio.snapshot() })
+    value: Object.freeze({ snapshot: () => ({ ...playback.snapshot(), scheduledFrames: frame === null ? 0 : 1 }), audio: () => ambientAudio.snapshot(), story: () => ticketStory.snapshot(), storyAudio: () => storyAudio.snapshot(), journey: journeySnapshot })
   });
 }
 

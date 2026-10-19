@@ -40,9 +40,10 @@ export class TicketStory {
     const feedback = this.feedbackAt === null ? 0 : clamp(1 - (elapsedMs - this.feedbackAt) / 850);
     const waiting = (elapsedMs - this.hintSince) / 1000;
     let hint = waiting >= 24 ? 'Perhaps the bell is waiting for a little persistence.' : waiting >= 12 ? 'A quiet bell rests on the old counter.' : 'The ticket booth is waiting for a visitor…';
+    if (this.completed > 0) hint = 'Admission secured. The carousel is unlocked.';
     if (this.rings > 0 && !playing && elapsedMs - this.feedbackAt < 2200) hint = this.rings === 1 ? 'One chime… something stirs inside.' : 'Two chimes… the booth seems to be listening.';
     if (playing) hint = beat === 'reset' ? 'The booth falls quiet again…' : 'A ticket for a guest who never left…';
-    if (!playing && this.completedAt !== null && elapsedMs - this.completedAt < 2200) hint = 'The attendant is gone. The bell waits again.';
+    if (!playing && this.completedAt !== null && elapsedMs - this.completedAt < 2200) hint = 'Your ticket is yours. The carousel is unlocked.';
     const cues = [];
     if (this.feedbackAt !== null) cues.push({ id: `ring-${this.cycle}-${this.feedbackAt}-${this.rings}`, name: `ring-${this.rings}`, at: this.feedbackAt, duration: cueDurations[`ring-${this.rings}`] });
     if (playing) {
@@ -63,7 +64,7 @@ export class TicketStory {
   }
 }
 
-export function connectTicketStory(scene, playback, cueAudio, { bell, progress, hint, notice }) {
+export function connectTicketStory(scene, playback, cueAudio, { bell, progress, hint, notice, onComplete = () => {} }) {
   const art = mountTicketArtwork(scene);
   art.layer.hidden = true;
   const model = new TicketStory();
@@ -71,6 +72,7 @@ export function connectTicketStory(scene, playback, cueAudio, { bell, progress, 
   let assetFailure = false;
   let lastProgress = '';
   let lastHint = '';
+  let reportedCompletions = 0;
   const part = name => art.layer.querySelector(`.story-${name}`);
   Promise.all([...art.layer.querySelectorAll('img')].map(image => image.decode())).then(() => {
     assetsReady = true;
@@ -85,6 +87,12 @@ export function connectTicketStory(scene, playback, cueAudio, { bell, progress, 
 
   function render(snapshot) {
     const state = model.snapshot(snapshot.elapsedMs, snapshot.reducedMotion);
+    // Notify once per finished story, never at the stamp beat or on each frame.
+    // The visit owner decides whether this completion grants new progress.
+    if (state.completed > reportedCompletions) {
+      reportedCompletions = state.completed;
+      onComplete();
+    }
     art.layer.hidden = snapshot.state === 'start' || assetFailure;
     art.setPhase(state.beat);
     part('attendant').style.opacity = state.ghostOpacity;

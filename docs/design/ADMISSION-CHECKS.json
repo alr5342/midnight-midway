@@ -1,0 +1,56 @@
+{
+  "status": "passed-with-webkit-audio-environment-limit",
+  "checkpoint": "Admission ticket and carousel availability only",
+  "branch": "feature/admission-progress",
+  "developerReview": "pending",
+  "unitTests": {"passed": 17, "failed": 0},
+  "ticketStory": {
+    "completedCycles": 3,
+    "awardAfterFullEightSecondStoryOnly": true,
+    "oneTicketAcrossReplays": true,
+    "carouselUnlockPersists": true,
+    "exactRestingStoryOverlayReset": true,
+    "pauseBeats": ["ring feedback", "arrival", "ticket", "stamp", "depart", "reset"],
+    "pauseAndInterruptionsPreserveAdmission": true,
+    "refreshStartsFresh": true,
+    "touchAndKeyboard": true,
+    "initialAndLiveReducedMotion": true,
+    "cueResumeOffset": true,
+    "storySignalAboveNonSilenceThreshold": true,
+    "audioFailureRetry": true,
+    "artFailureSafe": true,
+    "lateLoadPaused": true,
+    "viewportChecks": [[390,844],[375,667],[320,568],[280,568],[844,390]],
+    "ticketDoesNotOverlapControls": true
+  },
+  "ambientAudioRegression": "passed: real graph signal, loop, Pause/Play, native suspension, hidden-tab silence, failure retry and late load",
+  "preflight": {
+    "chromium": "full audiovisual and admission checks passed",
+    "firefox": "full audiovisual and admission checks passed",
+    "webkit": "visual, admission, focus, contrast, viewport, failure and path checks passed; installed test build has no Web Audio API",
+    "projectSubdirectoryPaths": true,
+    "caseSensitiveFilenameChecks": true,
+    "textContrastIncludingAdmissionBadge": "at least 4.5:1",
+    "pageAndHttpErrors": []
+  },
+  "preservation": {
+    "artworkAssetsAndCompositionModuleUnchanged": true,
+    "audioAssetsAndEnginesUnchanged": true,
+    "phase1ZipSha256": "4c3d9bc0f40726dc2de73d8e2fbe9afe802a8dc8418f2d7b3f850edfdd1a6aa3",
+    "noStorage": true,
+    "noDeployment": true
+  },
+  "evidence": {
+    "story": "tests/results/admission-progress/story/checks.json",
+    "audio": "tests/results/admission-progress/audio/checks.json",
+    "preflight": "tests/results/admission-progress/preflight/checks.json",
+    "phoneCapture": "tests/results/admission-progress/story/admitted-390x844.png"
+  },
+  "testMaintenance": "The initial 100ms bell-signal sample captured no signal. The independent ambient regression passed. The short-cue test now waits for the actual native audio context to be running and advancing before sampling; its non-silence threshold is unchanged. No production audio code was changed.",
+  "limitations": [
+    "Carousel unlock is the visit availability flag and visible status; musical controls/puzzle are deferred",
+    "No new physical-phone review or public deployment",
+    "Windows WebKit audio remains unverified because this installed build exposes no Web Audio API",
+    "Ending remains the approved static preview; playback and fresh-journey Revisit controls are deferred"
+  ]
+}

@@ -4,7 +4,7 @@ import { TicketStory } from '../../src/js/ticket-story.js';
 import { Playback } from '../../src/js/playback.js';
 import { StoryAudio } from '../../src/js/story-audio.js';
 
-test('three distinct responses launch one eight-second story and replay resets all progress', () => {
+test('three distinct responses launch one eight-second story; replay resets the attempt and preserves completion history', () => {
   const story = new TicketStory();
   for (let cycle = 0; cycle < 3; cycle++) {
     const base = cycle * 11000;

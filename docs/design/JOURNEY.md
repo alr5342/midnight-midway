@@ -1,8 +1,8 @@
-# A night remembered — approved journey, staging pending
+# A night remembered — approved journey and visual staging
 
-Developer approval: 2026-10-19. This supersedes the independent-story proposals and wheel-light celebration ending. The shipped Phase 1 version and submission remain preserved. Only the static ending preview is authorized for implementation now.
+Developer approval: 2026-10-19. This supersedes the independent-story proposals and wheel-light celebration ending. The shipped Phase 1 version and submission remain preserved. The Developer subsequently approved the field-preserving visual staging and authorized only the admission/progression checkpoint described below; full ending and later gameplay are not authorized yet.
 
-Latest visual correction: the Developer rejected a whole-screen darkening effect. The midway structures must disappear while moonlit land/field stays visible; the wheel disappears last, leaving token and empty land. The static preview now uses a preview-only empty-field repair behind independently masked attraction layers. Token direction and Revisit placement are unchanged. Revised visual approval is pending; no playback is authorized.
+Approved visual correction: the midway structures disappear while moonlit land/field stays visible; the wheel disappears last, leaving token and empty land. The static preview uses an empty-field repair behind independently masked attraction layers. Token direction and Revisit placement are unchanged. This visual staging is now approved; ending playback remains deferred.
 
 ## Approved design
 
@@ -19,6 +19,8 @@ Goal: briefly awaken an abandoned midway, then leave with its memory. Preserve t
 Each attraction still needs a distinct replayable 5–10-second audiovisual story, unique feedback/progress, progressive hints and touch/keyboard support. One sequence owns scene input at a time; Play/Pause stays usable during playback. The existing active-time clock/context must freeze and resume all effects, cues, hints, input and fades. Interruptions require explicit Play. Reduced motion uses stationary reveals and gentle fades. Verify future external sound sources as public-domain/CC0; no new audio is introduced here.
 
 ## Current checkpoint: manual visual poses
+
+These approved poses remain a static review reference. The next authorized runtime work is admission only, not playback of the ending.
 
 Open [ending staging](../../dev/previews/index.html?view=ending). The selector manually switches these poses; timestamps describe future playback, not implemented timing:
 
@@ -42,4 +44,16 @@ Feathered, original-coordinate masks isolate booth/carousel/stall/wheel from cop
 
 `node tests/browser/check-ending-staging.mjs` passed: six preview modes, five poses, fully visible final field, all final park-layer opacities zero, no blackout overlay, unchanged token bytes, optional return placement, 390/375/320 viewport widths, no horizontal overflow, Pages-style project-prefix paths, no preview AudioContext/animations and unchanged app Enter/Pause smoke checks. All 45 existing runtime/media files match cleanup baseline 840227d byte-for-byte. The final Phase 1 ZIP SHA-256 is unchanged. Revised captures/results: tests/results/ending-field-staging/. Prior blackout-stage captures remain in tests/results/ending-staging/.
 
-This is Chromium desktop verification, not a physical-phone or future ending playback test. Review land continuity, attraction-mask boundaries and disappearance order, last-wheel readability and Revisit placement. The new field is a preview candidate, not approved production artwork. Visual approval is pending. Stop before full ending or gameplay implementation until the Developer approves the staging and next checkpoint.
+The staging checks above were recorded before the admission implementation. They are Chromium desktop verification, not physical-phone or ending playback tests. The field is approved in this visual staging, but remains preview-only until a separately authorized ending implementation. No ending asset is installed into the running app.
+
+## Admission checkpoint — implemented, runtime review pending
+
+Goal: finish the unchanged eight-second attendant story, receive one persistent admission ticket and unlock the carousel. Preserve three-ring feedback, ghost/prop animation, sound, replay, global Play/Pause and reduced motion. No carousel puzzle, additional wheel milestone, ending playback or deployment in this checkpoint.
+
+The app owns one in-memory admitted flag independent of TicketStory's temporary rings/animation reset. The story connector reports each completed sequence once, after all eight active seconds; granting admission is idempotent. One existing ticket.svg is displayed in a compact badge between Play/Pause and Credits, labelled “Carousel unlocked.” data-carousel on the stage and read-only journey diagnostics expose the same availability flag. This is a noninteractive status display; carousel inputs are deliberately deferred.
+
+The badge/progress remain during Pause, story replays, credits and tab/audio interruptions. Extra rings while a story plays cannot award early or duplicate anything. Refresh reconstructs a fresh visit with no ticket and a locked carousel. No storage is used. New idle/completion hint text confirms admission; the original partial-ring/story feedback remains.
+
+Acceptance: no award before full completion, exactly one admission across three replays, unchanged resting story reset, preserved progress through pause/interruption/reduced motion, fresh reload, keyboard/touch bell operation and nonoverlapping ticket/controls in portrait and landscape. Run unit, full ticket/audio regression and browser/subpath preflight. Evidence: tests/results/admission-progress/. Stop for Developer review before the carousel puzzle.
+
+Observed verification: all 17 unit tests pass; three full story cycles preserve one admission ticket and unlocked state. Pause at every story beat, native audio suspension, tab-return handling, refresh reset, touch/keyboard and reduced motion pass. Badge/control bounds pass at 390×844, 375×667, 320×568, 280×568 and 844×390. Chromium/Firefox pass full audiovisual preflight; Windows WebKit passes admission/visual/accessibility/path checks but has no Web Audio API, so no audio pass is claimed there. Artwork/composition and audio engines/assets are unchanged; Phase 1 ZIP hash is unchanged. Detailed result: [ADMISSION-CHECKS.json](ADMISSION-CHECKS.json). Runtime approval is pending; no deployment occurred.

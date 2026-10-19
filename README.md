@@ -6,7 +6,9 @@ One illustrated phone scene with lighting, fog, bats, looping wind, a start scre
 
 ## Run locally
 
-Latest visual checkpoint: [keepsake/disappearance staging](http://127.0.0.1:4173/dev/previews/index.html?view=ending). Select poses manually; the approved journey is recorded in [docs/design/JOURNEY.md](docs/design/JOURNEY.md). This preview adds no runtime gameplay, audio or ending playback. Visual approval is pending.
+Current local checkpoint: complete the three-ring booth story to receive an admission-ticket badge and unlock carousel availability. The badge/progress survive replay and Pause; refresh starts fresh. The carousel puzzle is not implemented yet. This runs only on the local feature branch, with no deployment. The revised field-preserving ending staging is approved and remains a static reference.
+
+Approved visual checkpoint: [keepsake/disappearance staging](http://127.0.0.1:4173/dev/previews/index.html?view=ending). Select poses manually; the approved journey is recorded in [docs/design/JOURNEY.md](docs/design/JOURNEY.md). Ending playback remains unimplemented.
 
 Run `node serve.mjs`, then open http://127.0.0.1:4173/index.html in VS Code Simple Browser or a desktop browser. No installation, framework or build is needed to run the app.
 

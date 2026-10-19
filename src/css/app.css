@@ -18,6 +18,8 @@ main.app {
 .app-ui button { pointer-events: auto; cursor: pointer; font-family: inherit; }
 .audio-notice { position: absolute; top: 64px; left: 12px; right: 12px; width: fit-content; max-width: calc(100% - 24px); margin: 0; padding: 8px 10px; background: #0c1021f2; color: #fff0d9; border-radius: 6px; font: 12px/1.4 system-ui, sans-serif; }
 .app-ui .pause-mockup { padding: 0; }
+.admission-badge { position: absolute; top: 12px; left: calc(50% - 10px); transform: translateX(-50%); width: min(112px, calc(100% - 148px)); padding: 5px 4px; display: grid; justify-items: center; gap: 2px; border: 1px solid #d9bd8540; border-radius: 8px; background: #0c1021f2; color: #fff0d9; font: 11px/1.4 system-ui, sans-serif; text-align: center; }
+.admission-badge img { display: block; width: min(72px, 100%); height: auto; }
 .credits-open { position:absolute; top:12px; right:12px; min-height:44px; min-width:64px; padding:8px; border:1px solid #d9bd8580; border-radius:8px; background:#101323; color:#ffdda2; font-size:12px; }
 #credits-dialog { width:min(520px, calc(100vw - 24px)); max-height:calc(100dvh - 32px); padding:20px; overflow:auto; border:1px solid #b89154; border-radius:12px; background:#0c1021; color:#fff0d9; font:14px/1.55 system-ui,sans-serif; }
 #credits-dialog::backdrop { background:#050711c9; }

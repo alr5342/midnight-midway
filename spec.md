@@ -1,5 +1,7 @@
 # Technical Specification
 
+Current authorization: the Developer approved the revised field-preserving ending staging and requested the admission checkpoint only. Completion of the unchanged eight-active-second ticket story awards one in-memory admission ticket and unlocks carousel availability. Replays/pauses retain that progress; refresh clears it. Reuse ticket.svg in a persistent status badge; do not add carousel inputs, ending playback, new artwork/audio or deployment. Scope/acceptance: docs/design/JOURNEY.md.
+
 Ending clarification: the park fades away; the land stays visible. The final composition is token plus empty moonlit field, with the Ferris wheel the last major attraction to disappear. The previous blackout staging is superseded. Only revised static preview poses are authorized; the empty-field repair is a review candidate and the approved runtime/artwork remain unchanged.
 
 Latest approved direction, 2026-10-19: [A night remembered](docs/design/JOURNEY.md) defines the connected journey, keepsake claim and disappearance. Revisit/refresh restart without saved progress. Preserve Phase 1 deliverables and artwork. Current authorization is manual development-preview poses only: no new runtime gameplay, audio or ending playback. Earlier Phase 1 contracts below remain the baseline, not a claim that the new journey is implemented.

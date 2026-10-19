@@ -69,7 +69,7 @@ try {
       await page.keyboard.press('Tab');assert.equal(await page.locator('#bell').evaluate(el=>el===document.activeElement),true);
       await page.keyboard.press('Enter');assert.equal(await page.evaluate(()=>window.midwayDiagnostics.story().rings),1);
       const ratios={};
-      for(const selector of ['#hint','#ring-progress','#credits-open','#credits-dialog','#credits-close','#audio-notice','#story-notice','#enter']) {
+      for(const selector of ['#hint','#ring-progress','#credits-open','#credits-dialog','#credits-close','#audio-notice','#story-notice','#enter','#admission']) {
         const colors=await page.locator(selector).evaluate(el=>({fg:getComputedStyle(el).color,bg:getComputedStyle(el).backgroundColor}));
         ratios[selector]=contrast(colors.fg,colors.bg);assert.ok(ratios[selector]>=4.5,`${name} ${selector} text contrast ${ratios[selector]}`);
       }
@@ -86,6 +86,8 @@ try {
       assert.equal(await page.evaluate(()=>window.midwayDiagnostics.snapshot().state),'paused');
       await page.locator('#playback').click();
       await page.waitForFunction(()=>window.midwayDiagnostics.story().completed===1);
+      assert.deepEqual(await page.evaluate(()=>window.midwayDiagnostics.journey()),{admitted:true,admissionTickets:1,carouselUnlocked:true});
+      assert.equal(await page.locator('#admission').isVisible(),true);
       assert.equal(await page.locator('.story-window').isVisible(),false);
       await page.locator('#playback').click();
       const layouts=[];
