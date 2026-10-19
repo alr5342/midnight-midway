@@ -35,10 +35,10 @@ export class CarouselPuzzle {
   snapshot(time) {
     const feedback = this.feedbackAt !== null && time - this.feedbackAt < 700;
     const cues = [];
-    if (this.feedbackAt !== null && time - this.feedbackAt < 400) {
-      cues.push({id:`carousel-${this.serial}`,name:'ring-2',at:this.feedbackAt,duration:.4,rate:rates[this.note]});
-      if (this.mistake && time - this.feedbackAt < 180) cues.push({id:`carousel-wrong-${this.serial}`,name:'ring-1',at:this.feedbackAt,duration:.18,rate:.5});
+    if (this.feedbackAt !== null && time - this.feedbackAt < 800 / rates[this.note]) {
+      cues.push({id:`carousel-${this.serial}`,name:'carousel-box',at:this.feedbackAt,duration:.8 / rates[this.note],rate:rates[this.note]});
     }
+    if (this.mistake && this.feedbackAt !== null && time - this.feedbackAt < 1600) cues.push({id:`carousel-wrong-${this.serial}`,name:'carousel-box',at:this.feedbackAt,duration:1.6,rate:.5});
     if (this.inspectedAt !== null && time - this.inspectedAt < 250) cues.push({id:`music-paper-${this.inspectionSerial}`,name:'arrival',at:this.inspectedAt,duration:.25});
     const waiting = this.unlockedAt === null ? 0 : time - this.unlockedAt;
     const hint = this.progress === 4 ? 'The tune is remembered. You can play it again.' : feedback && this.mistake ? 'That note slips away. Begin the tune again.' : waiting >= 24000 ? 'The tune returns to the horse where it began.' : waiting >= 12000 ? 'A scrap of music rests beside the horses.' : 'Each horse remembers a different note.';

@@ -35,12 +35,18 @@
           <button type="button" id="bell" class="bell-target" aria-label="Ring the ticket booth bell" aria-describedby="ring-progress" hidden></button>
           <p id="ring-progress" class="ring-progress" role="status" hidden></p>
           <section id="carousel-controls" class="carousel-controls" aria-label="Carousel musical puzzle" hidden>
-            <div class="carousel-note-row">
-              <button type="button" data-horse-note="left" aria-label="Play left horse, low note">Left</button>
-              <button type="button" data-horse-note="center" aria-label="Play center horse, middle note">Center</button>
-              <button type="button" data-horse-note="right" aria-label="Play right horse, high note">Right</button>
-              <button type="button" id="music-open" aria-label="Inspect the worn sheet music" aria-expanded="false" aria-controls="music-clue" title="Inspect sheet music">♫</button>
-            </div>
+            <button type="button" class="horse-target" data-horse-note="left" aria-label="Play left horse, low note"></button>
+            <button type="button" class="horse-target" data-horse-note="center" aria-label="Play center horse, middle note"></button>
+            <button type="button" class="horse-target" data-horse-note="right" aria-label="Play right horse, high note"></button>
+            <button type="button" id="music-open" class="music-scrap" aria-label="Inspect the worn sheet music" aria-expanded="false" aria-controls="music-clue">
+              <svg viewBox="0 0 40 48" aria-hidden="true">
+                <defs><linearGradient id="paper-age" x2=".8" y2="1"><stop stop-color="#d3b77f"/><stop offset="1" stop-color="#8e744e"/></linearGradient></defs>
+                <path d="M5 3L13 4 18 2 26 4 35 3 34 14 36 21 34 29 35 42 29 43 23 45 15 43 5 44 6 33 4 25 6 16Z" fill="url(#paper-age)" stroke="#5c442d"/>
+                <path d="M10 17H30M10 21H30M10 25H30M10 29H30M10 33H30" stroke="#4b3c2c" stroke-width=".6" opacity=".8"/>
+                <path d="M14 30V17M24 25V12M11 38L16 37M27 7L29 11M8 8L10 12" stroke="#4b3c2c" fill="none"/>
+                <g fill="#4b3c2c"><ellipse cx="12" cy="30" rx="2.5" ry="1.5"/><ellipse cx="22" cy="25" rx="2.5" ry="1.5"/></g>
+              </svg>
+            </button>
             <p id="carousel-progress" role="status">0 / 4 notes</p>
           </section>
           <section id="music-clue" class="music-clue" aria-labelledby="music-title" hidden>
@@ -69,6 +75,7 @@
       <p><strong>Visuals:</strong> Midnight Midway reference generated with ChatGPT, as confirmed by the Developer. Layer extractions, hidden-surface repairs, corrected gondola and spectral attendant prepared with OpenAI image generation. Bell, ticket, stamp, sparks, masks and ambient SVG effects are project-original code artwork. No external font or runtime code library is used.</p>
       <p><strong>Wind:</strong> remaxim, <a href="https://opengameart.org/content/short-wind-sound" target="_blank" rel="noopener noreferrer">Short wind sound</a>. Filtered and crossfaded into the ambient loop.</p>
       <p><strong>Bell:</strong> Julie Damsgaard / Spring Spring / Spring Enterprises, <a href="https://opengameart.org/content/pleasing-bell-sound-effect" target="_blank" rel="noopener noreferrer">Pleasing Bell Sound Effect</a>. Pitched and faded into three ring cues.</p>
+      <p><strong>Carousel notes:</strong> original code-synthesized music-box tones; no external recording. Preparation source is included in the project.</p>
       <p><strong>Magic:</strong> JaggedStone, <a href="https://opengameart.org/content/magic-spell-sfx" target="_blank" rel="noopener noreferrer">Magic Spell SFX</a>. Trimmed, pitched and faded for arrival, stamp and departure.</p>
       <p>All external sounds are <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0 1.0</a>. Full source URLs, preserved originals and processing details are recorded in the project’s CREDITS.md.</p>
       <p>Closing credits keeps the scene paused. Choose Play to continue.</p>

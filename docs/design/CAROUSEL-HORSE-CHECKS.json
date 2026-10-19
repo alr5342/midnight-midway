@@ -1,0 +1,191 @@
+{
+  "checkpoint": "Horse interaction refinement from 418a4ae",
+  "unitTests": 14,
+  "carousel": {
+    "status": "passed",
+    "baseCommit": "0895f9c",
+    "admissionGate": true,
+    "solution": [
+      "left",
+      "right",
+      "center",
+      "left"
+    ],
+    "mistakeResetsAttempt": true,
+    "inspectableClueAndFocus": true,
+    "clueLocksSceneInput": true,
+    "threeDistinctPitches": true,
+    "pitchedCueResume": true,
+    "pausePreservesAttemptAndFeedback": true,
+    "progressiveHints": [
+      "Each horse remembers a different note.",
+      "A scrap of music rests beside the horses.",
+      "The tune returns to the horse where it began."
+    ],
+    "hintsPauseWithClock": true,
+    "boothReplayPreservesAdmissionAndPuzzle": true,
+    "reducedMotion": true,
+    "refreshStartsFresh": true,
+    "noCarouselStory": true,
+    "existingArtworkAudioAssetBytesUnchanged": true,
+    "horseTouchTargetsAndPhysicalHeads": true,
+    "originalMusicBoxBuffer": true,
+    "layouts": [
+      {
+        "width": 390,
+        "height": 844,
+        "fits": true,
+        "targets": [
+          {
+            "width": 55,
+            "height": 55,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 55,
+            "height": 55,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 55,
+            "height": 55,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 44,
+            "height": 48,
+            "fits": true,
+            "receivesTap": true
+          }
+        ],
+        "horseHeads": [
+          true,
+          true,
+          true
+        ],
+        "bellReceivesTap": true
+      },
+      {
+        "width": 320,
+        "height": 568,
+        "fits": true,
+        "targets": [
+          {
+            "width": 45,
+            "height": 45,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 45,
+            "height": 45,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 45,
+            "height": 45,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 44,
+            "height": 48,
+            "fits": true,
+            "receivesTap": true
+          }
+        ],
+        "horseHeads": [
+          true,
+          true,
+          true
+        ],
+        "bellReceivesTap": true
+      },
+      {
+        "width": 280,
+        "height": 568,
+        "fits": true,
+        "targets": [
+          {
+            "width": 44,
+            "height": 44,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 44,
+            "height": 44,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 44,
+            "height": 44,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 44,
+            "height": 48,
+            "fits": true,
+            "receivesTap": true
+          }
+        ],
+        "horseHeads": [
+          true,
+          true,
+          true
+        ],
+        "bellReceivesTap": true
+      },
+      {
+        "width": 844,
+        "height": 390,
+        "fits": true,
+        "targets": [
+          {
+            "width": 44,
+            "height": 44,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 44,
+            "height": 44,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 44,
+            "height": 44,
+            "fits": true,
+            "receivesTap": true
+          },
+          {
+            "width": 44,
+            "height": 48,
+            "fits": true,
+            "receivesTap": true
+          }
+        ],
+        "horseHeads": [
+          true,
+          true,
+          true
+        ],
+        "bellReceivesTap": true
+      }
+    ],
+    "errors": [],
+    "limits": [
+      "Focused desktop Chromium integration, not physical-phone verification",
+      "Carousel success remembers the puzzle; ride story and prize-stall unlock remain deferred"
+    ]
+  },
+  "ticketRegression": "Passed three cycles; evidence in tests/results/carousel-horse-input/ticket-regression",
+  "humanTouchAndListeningReview": "pending"
+}

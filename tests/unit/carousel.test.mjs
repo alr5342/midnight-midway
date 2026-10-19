@@ -2,6 +2,25 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {CarouselPuzzle} from '../../src/js/carousel.js';
 import {Playback} from '../../src/js/playback.js';
+import {readFile} from 'node:fs/promises';
+
+test('carousel tone is an original non-clipping pitched WAV with a quiet tail, not the booth recording',async()=>{
+  const wav=await readFile(new URL('../../assets/audio/carousel-box.wav',import.meta.url));
+  const bell=await readFile(new URL('../../assets/audio/story-ring-2.wav',import.meta.url));
+  assert.notDeepEqual(wav,bell);
+  assert.equal(wav.toString('ascii',0,4),'RIFF');
+  assert.equal(wav.readUInt16LE(22),1);
+  const rate=wav.readUInt32LE(24),samples=[];
+  for(let i=44;i<wav.length;i+=2)samples.push(wav.readInt16LE(i)/32768);
+  assert.equal(samples.length/rate,.8);
+  assert.ok(Math.max(...samples.map(Math.abs))>.4&&Math.max(...samples.map(Math.abs))<.43);
+  let crossings=0;
+  for(let i=Math.ceil(.05*rate);i<.2*rate;i++)if(samples[i-1]<=0&&samples[i]>0)crossings++;
+  assert.ok(Math.abs(crossings/.15-523.251)<10,'Fundamental should be musical C5');
+  assert.ok(samples.slice(-100).every(value=>Math.abs(value)<.001),'Tail must fade rather than click');
+  const puzzle=new CarouselPuzzle();puzzle.unlock(0);puzzle.play('left',0);
+  assert.equal(puzzle.snapshot(0).cues[0].name,'carousel-box');
+});
 
 test('admission gates notes; exact four-note sequence solves and can be replayed',()=>{
   const puzzle=new CarouselPuzzle();

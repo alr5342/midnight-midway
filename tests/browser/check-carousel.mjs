@@ -3,7 +3,7 @@ import {mkdir,readFile,writeFile} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import {pathToFileURL} from 'node:url';
 import {createPreviewServer} from '../../serve.mjs';
-const output=process.argv[2] || 'tests/results/carousel-puzzle';
+const output=process.argv[2] || 'tests/results/carousel-horse-input';
 await mkdir(output,{recursive:true});
 const {chromium}=await import(pathToFileURL(process.env.PLAYWRIGHT_MODULE || 'C:/Users/arose/AppData/Local/npm-cache/_npx/6bcb61ec6d5aea22/node_modules/playwright/index.mjs').href);
 const server=createPreviewServer({basePath:'/midnight-midway/'});
@@ -18,7 +18,7 @@ try {
   await page.addInitScript(()=>{
     const Native=window.AudioContext;window.noteStarts=[];
     window.AudioContext=class extends Native {
-      constructor(...args){super(...args);window.testContext=this;const create=this.createBufferSource.bind(this);this.createBufferSource=()=>{const source=create(),start=source.start.bind(source);source.start=(when,offset)=>{window.noteStarts.push({rate:source.playbackRate.value,offset,loop:source.loop});return start(when,offset);};return source;};}
+      constructor(...args){super(...args);window.testContext=this;const create=this.createBufferSource.bind(this);this.createBufferSource=()=>{const source=create(),start=source.start.bind(source);source.start=(when,offset)=>{window.noteStarts.push({rate:source.playbackRate.value,offset,duration:source.buffer.duration,loop:source.loop});return start(when,offset);};return source;};}
     };
   });
   await page.goto(base+'?diagnostics');
@@ -55,6 +55,7 @@ try {
   assert.equal(await page.locator('#music-clue').isVisible(),true);
   await page.keyboard.press('Escape');
   assert.equal(await page.locator('#music-open').evaluate(el=>el===document.activeElement),true);
+  await page.waitForTimeout(1700); // Let the earlier wrong-note/clue tails expire.
   await page.evaluate(()=>window.noteStarts=[]);
   for(const note of ['left','right','center']) {
     await select(note).focus();await page.keyboard.press('Space');
@@ -72,6 +73,7 @@ try {
   await page.waitForTimeout(35);
   const starts=await page.evaluate(()=>window.noteStarts.filter(source=>!source.loop));
   assert.equal(new Set(starts.map(source=>source.rate)).size,3,'Notes must have three distinct pitches');
+  assert.ok(starts.every(source=>Math.abs(source.duration-.8)<.001),'Carousel must use the original musical buffer, not a booth bell');
   assert.ok(starts.some(source=>source.rate>1&&source.offset>.02),'Pitched note must resume from saved buffer offset');
   await select('left').tap();
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().solved),true);
@@ -92,10 +94,24 @@ try {
   for(const [width,height] of [[390,844],[320,568],[280,568],[844,390]]) {
     await page.setViewportSize({width,height});
     const layout=await page.locator('#carousel-controls').evaluate(el=>{
-      const r=el.getBoundingClientRect(),stage=document.querySelector('#stage').getBoundingClientRect();return {fits:r.left>=stage.left&&r.right<=stage.right+.5&&r.bottom<=stage.bottom,targets:[...el.querySelectorAll('button')].map(button=>{const b=button.getBoundingClientRect();return [b.width,b.height];})};
+      const stage=document.querySelector('#stage').getBoundingClientRect();
+      const buttons=[...el.querySelectorAll('button')];
+      const targets=buttons.map(button=>{
+        const r=button.getBoundingClientRect();
+        return {width:button.offsetWidth,height:button.offsetHeight,fits:r.left>=stage.left&&r.right<=stage.right&&r.top>=stage.top&&r.bottom<=stage.bottom,
+          receivesTap:button.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2))};
+      });
+      const horseHeads=[[38.5,57.8],[53.5,56.6],[67.5,58.3]].map(([x,y],i)=>
+        document.elementFromPoint(stage.x+stage.width*x/100,stage.y+stage.height*y/100)===buttons[i]);
+      const bell=document.querySelector('#bell'),r=bell.getBoundingClientRect();
+      return {fits:targets.every(t=>t.fits),targets,horseHeads,bellReceivesTap:document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)===bell};
     });
-    assert.equal(layout.fits,true);assert.ok(layout.targets.every(([w,h])=>w>=44&&h>=44));
-    await page.locator('#music-open').click();
+    assert.equal(layout.fits,true);assert.ok(layout.targets.every(t=>t.width>=44&&t.height>=44&&t.receivesTap));
+    assert.ok(layout.horseHeads.every(Boolean),'Actual horse heads must receive their corresponding note');
+    assert.equal(layout.bellReceivesTap,true,'Horse input must not intercept the bell');
+    for(const note of ['left','right','center','left'])await select(note).tap();
+    assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().progress),4);
+    await page.locator('#music-open').tap();
     const paper=await page.locator('#music-clue').boundingBox();assert.ok(paper.x>=0&&paper.y>=0&&paper.x+paper.width<=width&&paper.y+paper.height<=height);
     const pause=await page.locator('#playback').boundingBox();assert.ok(paper.y>pause.y+pause.height,'Clue must not cover Play/Pause');
     await page.locator('#music-close').click();layouts.push({width,height,...layout});
@@ -122,6 +138,6 @@ try {
   assert.deepEqual(errors,[]);
   const git=(...args)=>execFileSync('git',['-c',`safe.directory=${process.cwd().replaceAll('\\','/')}`,...args],{maxBuffer:32*1024*1024});
   for(const file of git('ls-tree','-r','--name-only','0895f9c','--','assets').toString().trim().split('\n'))assert.deepEqual(await readFile(file),git('show',`0895f9c:${file}`));
-  const result={status:'passed',baseCommit:'0895f9c',admissionGate:true,solution:['left','right','center','left'],mistakeResetsAttempt:true,inspectableClueAndFocus:true,clueLocksSceneInput:true,threeDistinctPitches:true,pitchedCueResume:true,pausePreservesAttemptAndFeedback:true,progressiveHints:[first,second,third],hintsPauseWithClock:true,boothReplayPreservesAdmissionAndPuzzle:true,reducedMotion:true,refreshStartsFresh:true,noCarouselStory:true,artworkAudioAssetBytesUnchanged:true,layouts,errors,limits:['Focused desktop Chromium integration, not physical-phone verification','Carousel success remembers the puzzle; ride story and prize-stall unlock remain deferred']};
+  const result={status:'passed',baseCommit:'0895f9c',admissionGate:true,solution:['left','right','center','left'],mistakeResetsAttempt:true,inspectableClueAndFocus:true,clueLocksSceneInput:true,threeDistinctPitches:true,pitchedCueResume:true,pausePreservesAttemptAndFeedback:true,progressiveHints:[first,second,third],hintsPauseWithClock:true,boothReplayPreservesAdmissionAndPuzzle:true,reducedMotion:true,refreshStartsFresh:true,noCarouselStory:true,existingArtworkAudioAssetBytesUnchanged:true,horseTouchTargetsAndPhysicalHeads:true,originalMusicBoxBuffer:true,layouts,errors,limits:['Focused desktop Chromium integration, not physical-phone verification','Carousel success remembers the puzzle; ride story and prize-stall unlock remain deferred']};
   await writeFile(`${output}/checks.json`,JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));
 } finally {await browser.close();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}

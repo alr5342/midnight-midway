@@ -1,7 +1,9 @@
+const cueNames = ['ring-1', 'ring-2', 'ring-3', 'arrival', 'stamp', 'departure', 'carousel-box'];
+
 // Short cues share the ambience's user-activated AudioContext. Desired cues are
 // derived from active time, so pause/resume and late loads retain exact offsets.
 export class StoryAudio {
-  constructor(ambient, { onStatus = () => {}, load = name => fetch(new URL(`../../assets/audio/story-${name}.wav`, import.meta.url)) } = {}) {
+  constructor(ambient, { onStatus = () => {}, load = name => fetch(new URL(`../../assets/audio/${name === 'carousel-box' ? name : `story-${name}`}.wav`, import.meta.url)) } = {}) {
     this.ambient = ambient;
     this.onStatus = onStatus;
     this.load = load;
@@ -29,9 +31,9 @@ export class StoryAudio {
       this.gain.connect(context.destination);
     }
     if (this.loading) return this.loading;
-    if (this.buffers.size === 6) { this.report('ready'); return Promise.resolve(); }
+    if (this.buffers.size === cueNames.length) { this.report('ready'); return Promise.resolve(); }
     this.report('loading');
-    this.loading = Promise.all(['ring-1', 'ring-2', 'ring-3', 'arrival', 'stamp', 'departure'].map(async name => {
+    this.loading = Promise.all(cueNames.map(async name => {
       if (this.buffers.has(name)) return;
       const response = await this.load(name);
       if (!response.ok) throw Error(`Missing story sound: ${name}`);
