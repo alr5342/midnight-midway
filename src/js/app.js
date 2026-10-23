@@ -45,7 +45,7 @@ const storyAudio = new StoryAudio(ambientAudio, { onStatus: value => {
   storyNotice.textContent = value === 'unavailable' ? 'Some booth sounds could not load. Pause, then Play to retry.' : value === 'loading' ? 'Loading booth sounds…' : '';
 } });
 const ticketStory = connectTicketStory(document.querySelector('.scene'), playback, storyAudio, {
-  bell: document.querySelector('#bell'), progress: document.querySelector('#ring-progress'), hint, notice: storyNotice,
+  bell: document.querySelector('#bell'), hint, notice: storyNotice,
   onComplete: grantAdmission,
   canInteract: () => !carousel?.snapshot().clueOpen,
   idleHint: () => carousel?.hint()

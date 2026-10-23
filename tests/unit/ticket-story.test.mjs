@@ -58,13 +58,13 @@ test('shared pause freezes story, feedback and hints at beginning/middle/end', (
     playback.resume();
     assert.deepEqual(story.snapshot(playback.elapsedMs), frozen);
   }
-  assert.equal(story.snapshot(0).hint, 'A ticket for a guest who never left…');
+  assert.equal(story.snapshot(0).hint, 'After all these years, someone is still on duty.');
   const exploring = new TicketStory();
   assert.notEqual(exploring.snapshot(0).hint, exploring.snapshot(12000).hint);
   assert.notEqual(exploring.snapshot(12000).hint, exploring.snapshot(24000).hint);
   exploring.ring(1000);
-  assert.match(exploring.snapshot(1000).hint, /rustle/);
-  assert.match(exploring.snapshot(24000).hint, /chime/, 'Partial progress must not suppress later discovery hints');
+  assert.match(exploring.snapshot(1000).hint, /waiting/);
+  assert.match(exploring.snapshot(24000).hint, /bell/, 'Partial progress must not suppress later discovery hints');
 });
 
 test('reduced motion keeps narrative but suppresses travel and spark expansion', () => {

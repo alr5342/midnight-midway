@@ -52,8 +52,8 @@ test('pause freezes note feedback/cues and hint age; repeated unlock cannot rest
   now=100;playback.pause();const state=puzzle.snapshot(playback.elapsedMs);
   now+=60000;assert.deepEqual(puzzle.snapshot(playback.elapsedMs),state);
   playback.resume();puzzle.unlock(playback.elapsedMs);
-  now+=12000;assert.match(puzzle.snapshot(playback.elapsedMs).hint,/path/);
-  now+=12000;assert.match(puzzle.snapshot(playback.elapsedMs).hint,/ink rises/);
+  now+=12000;assert.match(puzzle.snapshot(playback.elapsedMs).hint,/voices/);
+  now+=12000;assert.match(puzzle.snapshot(playback.elapsedMs).hint,/rain/);
 });
 test('notes have distinct minor-triad pitches; clue feedback cannot replay an old note',()=>{
   const puzzle=new CarouselPuzzle();puzzle.unlock(0);

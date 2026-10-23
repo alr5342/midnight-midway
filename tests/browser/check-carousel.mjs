@@ -3,7 +3,7 @@ import {mkdir,readFile,writeFile} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import {pathToFileURL} from 'node:url';
 import {createPreviewServer} from '../../serve.mjs';
-const output=process.argv[2] || 'tests/results/environmental-props';
+const output=process.argv[2] || 'tests/results/bell-narration';
 await mkdir(output,{recursive:true});
 const {chromium}=await import(pathToFileURL(process.env.PLAYWRIGHT_MODULE || 'C:/Users/arose/AppData/Local/npm-cache/_npx/6bcb61ec6d5aea22/node_modules/playwright/index.mjs').href);
 const server=createPreviewServer({basePath:'/midnight-midway/'});
@@ -156,12 +156,12 @@ try {
   const git=(...args)=>execFileSync('git',['-c',`safe.directory=${process.cwd().replaceAll('\\','/')}`,...args],{maxBuffer:32*1024*1024});
   for(const file of git('ls-tree','-r','--name-only','0895f9c','--','assets').toString().trim().split('\n')){
     const current=await readFile(file),previous=git('show',`0895f9c:${file}`);
-    if(file==='assets/story/ticket.svg')assert.notDeepEqual(current,previous,'Approved ticket redesign must be present');
+    if(['assets/story/ticket.svg','assets/story/bell.svg'].includes(file))assert.notDeepEqual(current,previous,'Approved prop redesign must be present');
     else assert.deepEqual(current,previous);
   }
   const notation=await readFile('assets/story/music-sheet.svg','utf8');
   assert.equal((notation.match(/<ellipse cx="(?:86|142|198|254)"/g)||[]).length,4);
   assert.ok(!notation.includes('<text'),'Paper must contain notation only');
-  const result={status:'passed',baseCommit:'0895f9c',admissionGate:true,solution:['left','right','center','left'],mistakeResetsAttempt:true,inspectableClueAndFocus:true,clueLocksSceneInput:true,threeDistinctPitches:true,pitchedCueResume:true,pausePreservesAttemptAndFeedback:true,progressiveHints:[first,second,third],hintsPauseWithClock:true,boothReplayPreservesAdmissionAndPuzzle:true,reducedMotion:true,refreshStartsFresh:true,noCarouselStory:true,backgroundAndAudioBytesUnchanged:true,approvedTicketRedesign:true,notationOnlyEnvironmentalPaper:true,horseTouchTargetsAndPhysicalHeads:true,originalMusicBoxBuffer:true,layouts,errors,limits:['Focused desktop Chromium integration, not physical-phone verification','Carousel success remembers the puzzle; ride story and prize-stall unlock remain deferred']};
+  const result={status:'passed',baseCommit:'0895f9c',admissionGate:true,solution:['left','right','center','left'],mistakeResetsAttempt:true,inspectableClueAndFocus:true,clueLocksSceneInput:true,threeDistinctPitches:true,pitchedCueResume:true,pausePreservesAttemptAndFeedback:true,progressiveHints:[first,second,third],hintsPauseWithClock:true,boothReplayPreservesAdmissionAndPuzzle:true,reducedMotion:true,refreshStartsFresh:true,noCarouselStory:true,backgroundAndAudioBytesUnchanged:true,approvedTicketRedesign:true,weatheredBellRedesign:true,noFloatingBellProgress:true,notationOnlyEnvironmentalPaper:true,horseTouchTargetsAndPhysicalHeads:true,originalMusicBoxBuffer:true,layouts,errors,limits:['Focused desktop Chromium integration, not physical-phone verification','Carousel success remembers the puzzle; ride story and prize-stall unlock remain deferred']};
   await writeFile(`${output}/checks.json`,JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));
 } finally {await browser.close();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}

@@ -74,7 +74,7 @@ async function pauseAndVerify(label) {
 
 await page.locator('#bell').tap();
 assert.equal((await story()).rings,1);
-assert.match(await page.locator('#ring-progress').textContent(),/1 chime/);
+assert.equal(await page.locator('#ring-progress').count(),0,'No floating bell progress text');
 const cueEnergy = await page.evaluate(async () => {
   let energy = 0;
   for(let sample=0;sample<5;sample++) {
@@ -90,7 +90,7 @@ assert.ok(cueEnergy>.0001,'Story audio graph produced no measurable signal');
 await page.waitForTimeout(110); await pauseAndVerify('ring feedback');
 await page.locator('#bell').focus(); await page.keyboard.press('Enter');
 assert.equal((await story()).rings,2);
-assert.match(await page.locator('#ring-progress').textContent(),/2 chimes/);
+assert.ok(!/chimes?|rings?|twice|three/i.test(await page.locator('#hint').textContent()),'Narration must not count the action');
 await page.keyboard.press('Space');
 assert.equal((await story()).playing,true);
 assert.equal((await story()).rings,3);
@@ -109,7 +109,7 @@ assert.equal(await page.locator('.story-window').isVisible(),false);
 assert.equal(await page.locator('.story-ticket').isVisible(),false);
 assert.equal((await audio()).activeSources,0);
 assert.equal(await restingOverlay(),restingMarkup,'Reset must restore resting overlay state');
-assert.match(await page.locator('#hint').textContent(),/faint tune/i);
+assert.match(await page.locator('#hint').textContent(),/old tune/i);
 assert.deepEqual(await journey(),admitted);
 assert.equal(await page.locator('#admission').isVisible(),true);
 assert.equal(await page.locator('#stage').getAttribute('data-carousel'),'unlocked');

@@ -3,6 +3,13 @@ import { ticketStoryboard, mountTicketArtwork } from './artwork.js';
 const clamp = value => Math.max(0, Math.min(1, value));
 const smooth = value => { const t = clamp(value); return t * t * (3 - 2 * t); };
 const cueDurations = { 'ring-1': .729, 'ring-2': .620, 'ring-3': .539, arrival: 1.2, stamp: .9, departure: 1.2 };
+const narration = {
+  arrival: 'After all these years, someone is still on duty.',
+  ticket: 'No one asks how you found this place.',
+  stamp: 'Every guest was expected. Even the late ones.',
+  depart: 'Some promises outlive the people who made them.',
+  reset: 'The night keeps its own hours.'
+};
 
 // All times are shared active milliseconds. No story timer runs independently.
 export class TicketStory {
@@ -39,11 +46,11 @@ export class TicketStory {
     const beat = playing ? ticketStoryboard.find(beat => beat.start !== null && seconds >= beat.start && seconds < beat.end).id : 'idle';
     const feedback = this.feedbackAt === null ? 0 : clamp(1 - (elapsedMs - this.feedbackAt) / 850);
     const waiting = (elapsedMs - this.hintSince) / 1000;
-    let hint = waiting >= 24 ? 'Perhaps a chime would carry through the empty booth.' : waiting >= 12 ? 'On the counter, a bell waits beneath the dust.' : 'A little brass catches the lamplight at the silent booth.';
-    if (this.completed > 0) hint = 'Beyond the booth, a faint tune waits.';
-    if (this.rings > 0 && !playing && elapsedMs - this.feedbackAt < 2200) hint = this.rings === 1 ? 'A rustle behind the glass… then silence.' : 'The silence has begun to answer…';
-    if (playing) hint = beat === 'reset' ? 'The booth falls quiet again…' : 'A ticket for a guest who never left…';
-    if (!playing && this.completedAt !== null && elapsedMs - this.completedAt < 2200) hint = 'The paper is warm. Beyond the booth, a faint tune waits.';
+    let hint = waiting >= 24 ? 'A bell was how you called them, in the old days.' : waiting >= 12 ? 'The little bell outlasted whoever rang it last.' : 'They used to keep someone here, however late the hour.';
+    if (this.completed > 0) hint = 'Somewhere beyond the booth, an old tune is waiting.';
+    if (this.rings > 0 && !playing && elapsedMs - this.feedbackAt < 2200) hint = this.rings === 1 ? 'For a moment, the waiting feels mutual.' : 'Whoever is inside has not quite finished waiting.';
+    if (playing) hint = narration[beat];
+    if (!playing && this.completedAt !== null && elapsedMs - this.completedAt < 2200) hint = 'Somewhere beyond the booth, an old tune is waiting.';
     const cues = [];
     if (this.feedbackAt !== null) cues.push({ id: `ring-${this.cycle}-${this.feedbackAt}-${this.rings}`, name: `ring-${this.rings}`, at: this.feedbackAt, duration: cueDurations[`ring-${this.rings}`] });
     if (playing) {
@@ -67,13 +74,12 @@ export class TicketStory {
   }
 }
 
-export function connectTicketStory(scene, playback, cueAudio, { bell, progress, hint, notice, onComplete = () => {}, canInteract = () => true, idleHint = () => null }) {
+export function connectTicketStory(scene, playback, cueAudio, { bell, hint, notice, onComplete = () => {}, canInteract = () => true, idleHint = () => null }) {
   const art = mountTicketArtwork(scene);
   art.layer.hidden = true;
   const model = new TicketStory();
   let assetsReady = false;
   let assetFailure = false;
-  let lastProgress = '';
   let lastHint = '';
   let reportedCompletions = 0;
   const part = name => art.layer.querySelector(`.story-${name}`);
@@ -114,9 +120,6 @@ export function connectTicketStory(scene, playback, cueAudio, { bell, progress, 
     bell.setAttribute('aria-disabled', String(!snapshot.canInteract || !canInteract() || state.playing || !assetsReady || cueAudio.status === 'loading'));
     bell.dataset.rings = state.rings;
     bell.dataset.story = state.playing ? 'playing' : 'idle';
-    const text = state.playing ? 'The attendant is here…' : state.rings ? `${state.rings} ${state.rings === 1 ? 'chime' : 'chimes'}` : '';
-    if (text !== lastProgress) { progress.textContent = text; lastProgress = text; }
-    progress.hidden = !text || snapshot.state === 'start';
     const explorationHint = !state.playing && !state.rings && state.completed > 0 && snapshot.elapsedMs - model.completedAt >= 2200 ? idleHint(snapshot) : null;
     const hintText = snapshot.state === 'paused' ? 'Paused. Choose Play to continue.' : explorationHint || state.hint;
     if (hintText !== lastHint) { hint.textContent = hintText; lastHint = hintText; }
