@@ -1,10 +1,21 @@
-import { mountSceneArtwork, ticketStoryboard, mountTicketArtwork } from '../../src/js/artwork.js';
+import { mountSceneArtwork, ticketStoryboard, mountTicketArtwork, mountCarouselArtwork } from '../../src/js/artwork.js';
 const requested = new URLSearchParams(location.search).get('view') || 'artwork';
-const view = ['artwork','carriage','booth','scene','story','ending'].includes(requested) ? requested : 'artwork';
+const view = ['artwork','carriage','booth','scene','story','ending','prize'].includes(requested) ? requested : 'artwork';
 document.body.dataset.preview = view;
 document.querySelector('#preview-content').append(document.querySelector('#preview-' + view).content.cloneNode(true));
 document.querySelector('.preview-nav a[href="?view=' + view + '"]').setAttribute('aria-current','page');
 mountSceneArtwork();
+if (view === 'prize') {
+  const scene=document.querySelector('#prize-scene');
+  mountTicketArtwork(scene);
+  mountCarouselArtwork(scene,document.createElement('div'));
+  document.querySelector('#prize-ratio').addEventListener('change',event=>{
+    document.querySelector('#prize-phone').dataset.ratio=event.target.value;
+  });
+  document.querySelector('#prize-zones').addEventListener('change',event=>{
+    scene.dataset.aimZones=String(event.target.checked);
+  });
+}
 if (view === 'ending') {
   const stage = document.querySelector('#ending-stage');
   const descriptions = {

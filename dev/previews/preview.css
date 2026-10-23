@@ -1,4 +1,21 @@
 /* Review workspace only; never loaded by the app. */
+/* Prize props and guide positions are review-only. No input/game controller. */
+.prize-props { position: absolute; inset: 0; pointer-events: none; }
+.prize-counter { position: absolute; left: 64%; top: 65%; width: 36%; height: 12%; object-fit: contain; filter: drop-shadow(0 2px 2px #10080ec0); }
+.prize-can { position: absolute; width: 13%; height: 7%; object-fit: contain; transform: translate(-50%, -100%); filter: drop-shadow(.4px 1px .6px #10080ec0); }
+.prize-can-left { left: 76%; top: 70.8%; transform: translate(-50%, -100%) rotate(-1deg); }
+.prize-can-right { left: 90%; top: 70.8%; transform: translate(-50%, -100%) rotate(1.2deg); }
+.prize-can-top { left: 83%; top: 65.1%; transform: translate(-50%, -100%) rotate(-2deg); }
+.prize-rules { position: absolute; left: 84%; top: 71.2%; width: 14.5%; height: 5.2%; color: #30231a; transform: rotate(-2deg); filter: drop-shadow(.4px 1px .5px #10080eb0); }
+.prize-aim { display: none; position: absolute; width: 44px; height: 44px; border: 1px dashed #d9dbd8; border-radius: 50%; transform: translate(-50%, -50%); }
+.prize-aim-left { left: 76%; top: 67.3%; }.prize-aim-right { left: 90%; top: 67.3%; }.prize-aim-top { left: 83%; top: 61.6%; }
+.prize-scene[data-aim-zones="true"] .prize-aim { display: block; }
+.prize-scene .environment-paper { position:absolute;left:57%;top:69.5%;width:64px;height:52px;transform:translate(-50%,-50%);pointer-events:none; }
+.prize-scene .sheet-art { position:relative;width:100%;aspect-ratio:320/220;color:#30251e; }
+.prize-scene .sheet-art img,.prize-scene .sheet-art svg { position:absolute;inset:0;width:100%;height:100%; }
+.prize-scene .sheet-art svg { mix-blend-mode:multiply;opacity:.85; }
+.prize-scene .environment-paper .sheet-art { transform:perspective(180px) rotateX(52deg) rotateZ(-14deg) scale(.85);filter:brightness(.7) saturate(.7) drop-shadow(.4px 1px .6px #080510b0); }
+.prize-scene .carousel-lighting { display:none; }
 .preview-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 20px; padding: 14px 16px; font-size: 13px; }
 .preview-nav a[aria-current="page"] { color: #fff0d9; }
 body[data-preview="scene"] main, body[data-preview="booth"] main { max-width: 1300px; }

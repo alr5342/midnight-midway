@@ -15,9 +15,39 @@
     <a href="?view=scene">Full scene</a>
     <a href="?view=story">Story staging</a>
     <a href="?view=ending">Keepsake &amp; disappearance</a>
+    <a href="?view=prize">Prize stall staging</a>
     <a href="../../index.html">Working prototype</a>
   </nav>
   <main id="preview-content"></main>
+  <template id="preview-prize">
+    <header><p class="eyebrow">Visual approval checkpoint</p><h1>The three-can knockdown</h1><p>A small game counter within the existing prize stall. Static staging only.</p></header>
+    <section class="review-controls" aria-label="Prize staging review controls">
+      <label>Phone proportions <select id="prize-ratio"><option value="tall">Tall phone · 390 × 844</option><option value="reference">Full composition</option><option value="short">Short phone · 375 × 667</option></select></label>
+      <label class="ending-return-control"><input id="prize-zones" type="checkbox">Show proposed aim zones (review only)</label>
+    </section>
+    <div class="phone" id="prize-phone" data-ui="on" data-ratio="tall">
+      <div class="scene prize-scene" id="prize-scene" data-view="assembled" data-attractions role="img" aria-label="Static midway with a three-can pyramid, two beanbags and a weathered rules sign on a small counter beneath the prize stall. No game interaction.">
+        <img class="plate layer" src="../../assets/artwork/midway-clean-plate.png" alt="">
+        <img class="booth layer" src="../../assets/artwork/ticket-booth.png" alt="">
+        <img class="foreground layer" src="../../assets/sources/artwork/midnight-midway-concept.png" alt="">
+        <div class="prize-props" aria-hidden="true">
+          <img class="prize-counter" src="assets/prize-counter-v1.png" alt="">
+          <img class="prize-can prize-can-left" src="assets/prize-can-v1.png" alt="">
+          <img class="prize-can prize-can-right" src="assets/prize-can-v1.png" alt="">
+          <img class="prize-can prize-can-top" src="assets/prize-can-v1.png" alt="">
+          <svg class="prize-counter prize-bags-front" viewBox="0 0 2048 768"><defs><clipPath id="waiting-bags"><path d="M130 235L327 141L395 181L430 175Q557 175 650 285L641 310L470 334L334 349L161 324Z"/></clipPath></defs><image href="assets/prize-counter-v1.png" width="2048" height="768" clip-path="url(#waiting-bags)"/></svg>
+          <svg class="prize-rules" viewBox="0 0 160 90">
+            <svg width="160" height="90" viewBox="1450 390 520 230" preserveAspectRatio="none"><image href="assets/prize-counter-v1.png" width="2048" height="768"/></svg>
+            <g fill="currentColor" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" opacity=".85"><text x="80" y="41" font-size="24">2 BAGS</text><text x="80" y="68" font-size="24">3 CANS</text></g>
+          </svg>
+          <span class="prize-aim prize-aim-left"></span><span class="prize-aim prize-aim-right"></span><span class="prize-aim prize-aim-top"></span>
+        </div>
+        <div class="scene-ui" aria-hidden="true"><span class="pause-mockup">Ⅱ</span><p class="hint-mockup">The last prize has been waiting a very long time.</p></div>
+      </div>
+    </div>
+    <p class="caption">Review the stack, contact shadows, two waiting bags and the worn sign at phone size. Dents/scuffs suggest where past throws landed; the sign gives the objective without revealing where to aim. Optional circles show proposed generous aim areas, not working controls. No throws, falling cans, scoring, audio, token claim or ending playback is implemented here.</p>
+    <p class="caption"><a href="../../index.html">Return to the unchanged working prototype</a> · <a href="?view=ending">Approved ending staging</a></p>
+  </template>
   <template id="preview-artwork">
     <header><p class="eyebrow">Visual checkpoint 02</p><h1>The Midnight Midway</h1><p>Complete static artwork &amp; interface placement</p></header>
     <section class="review-controls" aria-label="Artwork review controls">

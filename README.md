@@ -1,5 +1,7 @@
 # Midnight Midway
 
+Current visual checkpoint: [three-can prize-stall staging](dev/previews/index.html?view=prize) adds preview-only painted cans, two beanbags and a weathered physical sign. No prize gameplay is implemented. [Scope, exact artwork prompts and checks](docs/design/PRIZE-STAGING.md). Await visual approval before proceeding; runtime, approved ending, public site and Phase 1 submission remain unchanged.
+
 Published Phase 1 app: https://alr5342.github.io/midnight-midway/ — [GitHub repository](https://github.com/alr5342/midnight-midway).
 
 One illustrated phone scene with lighting, fog, bats, looping wind, a start screen and one eight-second ticket-booth story. Three bell activations summon the spectral attendant, ticket and magical stamp. Progressive hints, replay, credits, touch/keyboard controls and initial/live reduced motion are implemented. One Play/Pause control coordinates all motion, sound, effects, timers and interaction. Tab/OS audio interruptions wait for explicit Play.
