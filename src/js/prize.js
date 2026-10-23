@@ -155,7 +155,9 @@ export function connectPrize(scene,playback,audio,{access}) {
       image.style.opacity=can.opacity;
       image.style.transform=`translate(-50%, -100%) translate(${can.x*scene.clientWidth/100}px, ${can.y*scene.clientHeight/100}px) rotate(${can.tilt+(can.side==='left'?-1:can.side==='right'?1.2:-2)}deg)`;
     }
-    for(let i=0;i<2;i++)art.querySelector(`.prize-bag-${i}`).style.opacity=state.bags>i?1:0;
+    // Returned bags make the explicit retry/replay target visible. They do not
+    // refill the attempt until picked up, and remain absent during the story.
+    for(let i=0;i<2;i++)art.querySelector(`.prize-bag-${i}`).style.opacity=!retry.hidden||state.bags>i?1:0;
     const flying=art.querySelector('.prize-flying-bag');
     flying.style.opacity=state.flying.opacity;
     flying.style.left=`${state.flying.x}%`;flying.style.top=`${state.flying.y}%`;

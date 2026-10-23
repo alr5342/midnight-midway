@@ -87,6 +87,7 @@ try {
   await can('left').tap();await page.clock.runFor(1500);
   assert.equal((await snap()).failed,true);assert.equal((await snap()).tokenAwarded,false);
   assert.equal(await page.locator('#prize-retry').isVisible(),true);
+  assert.deepEqual(await page.locator('.prize-bag-0,.prize-bag-1').evaluateAll(bags=>bags.map(bag=>bag.style.opacity)),['1','1'],'Returned bags must make retry discoverable');
   await page.screenshot({path:`${output}/retry.png`});
   await page.locator('#prize-retry').tap();assert.equal((await snap()).bags,2);
   // Keyboard uses the same aims, without an additional panel or control mode.
@@ -107,6 +108,7 @@ try {
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.journey().souvenirTokens),1);
   assert.equal(await page.locator('.prize-token').evaluate(el=>el.style.opacity),'1');
   assert.match(await page.locator('#prize-status').textContent(),/Brass Ferris-wheel keepsake received/);
+  assert.deepEqual(await page.locator('.prize-bag-0,.prize-bag-1').evaluateAll(bags=>bags.map(bag=>bag.style.opacity)),['1','1'],'Returned bags must make replay discoverable');
   const starts=await page.evaluate(count=>window.audioStarts.slice(count),startsBefore);
   assert.ok(starts.some(s=>Math.abs(s.duration-2.4)<.01&&s.offset>0),'Winning chime resumes at a saved offset');
   assert.ok(starts.some(s=>Math.abs(s.duration-.85)<.01),'Tin hit is decoded and played');
