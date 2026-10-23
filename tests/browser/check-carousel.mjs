@@ -3,7 +3,7 @@ import {mkdir,readFile,writeFile} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import {pathToFileURL} from 'node:url';
 import {createPreviewServer} from '../../serve.mjs';
-const output=process.argv[2] || 'tests/results/carousel-payoff';
+const output=process.argv[2] || 'tests/results/carousel-tune';
 await mkdir(output,{recursive:true});
 const {chromium}=await import(pathToFileURL(process.env.PLAYWRIGHT_MODULE || 'C:/Users/arose/AppData/Local/npm-cache/_npx/6bcb61ec6d5aea22/node_modules/playwright/index.mjs').href);
 const server=createPreviewServer({basePath:'/midnight-midway/'});
@@ -18,7 +18,7 @@ try {
   await page.addInitScript(()=>{
     const Native=window.AudioContext;window.noteStarts=[];
     window.AudioContext=class extends Native {
-      constructor(...args){super(...args);window.testContext=this;const create=this.createBufferSource.bind(this);this.createBufferSource=()=>{const source=create(),start=source.start.bind(source);source.start=(when,offset)=>{window.noteStarts.push({rate:source.playbackRate.value,offset,duration:source.buffer.duration,loop:source.loop});return start(when,offset);};return source;};}
+      constructor(...args){super(...args);window.testContext=this;const create=this.createBufferSource.bind(this);this.createBufferSource=()=>{const source=create(),start=source.start.bind(source),connect=source.connect.bind(source);source.connect=target=>{source.cueGainTarget=target;return connect(target);};source.start=(when,offset)=>{window.noteStarts.push({rate:source.playbackRate.value,offset,duration:source.buffer.duration,loop:source.loop,gain:source.cueGainTarget?.gain?.value});return start(when,offset);};return source;};}
     };
   });
   await page.goto(base+'?diagnostics');
@@ -127,14 +127,27 @@ try {
   await page.locator('#playback').tap();
   await page.waitForFunction(()=>window.midwayDiagnostics.carousel().completed);
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().phase),'idle');
-  assert.ok(await page.evaluate(()=>window.midwayDiagnostics.carousel().horseY.every(y=>y>=-2.2)));
+  assert.ok(await page.evaluate(()=>window.midwayDiagnostics.carousel().horseY.every(y=>y>=-4.8)));
   await page.screenshot({path:`${output}/completed-idle.png`});
+  await page.waitForFunction(()=>window.noteStarts.some(source=>Math.abs(source.gain-.22)<.001));
+  const musicState=await page.evaluate(()=>window.midwayDiagnostics.carousel().musicCues);
+  assert.ok(musicState.length>0);
+  await page.locator('#playback').tap();
+  const quietFrozen=await page.evaluate(()=>window.midwayDiagnostics.carousel());
+  assert.equal(await page.evaluate(()=>window.midwayDiagnostics.storyAudio().activeSources),0);
+  await page.waitForTimeout(180);
+  assert.deepEqual(await page.evaluate(()=>window.midwayDiagnostics.carousel()),quietFrozen);
+  const noteCount=await page.evaluate(()=>window.noteStarts.length);
+  await page.locator('#playback').tap();
+  await page.waitForFunction(count=>window.noteStarts.slice(count).some(source=>Math.abs(source.gain-.22)<.001&&source.offset>0),noteCount);
+  const beforeReplay=await page.evaluate(()=>window.noteStarts.filter(source=>Math.abs(source.gain-.22)<.001).length);
   // The existing booth can still be replayed after the payoff; memory stays.
   for(let i=0;i<3;i++)await page.locator('#bell').click();
   assert.equal(await page.locator('#carousel-controls').isVisible(),false);
   await select('right').dispatchEvent('click');
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().progress),4);
   await page.waitForFunction(()=>window.midwayDiagnostics.story().completed===2);
+  assert.ok(await page.evaluate(count=>window.noteStarts.filter(source=>Math.abs(source.gain-.22)<.001).length>count,beforeReplay),'Quiet tune must continue under booth replay');
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().solved),true);
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.journey().admissionTickets),1);
   for(const [width,height] of [[390,844],[320,568],[280,568],[844,390]]) {
@@ -203,6 +216,6 @@ try {
     else assert.deepEqual(current,previous);
   }
   assert.equal(await page.locator('.environment-paper svg text').count(),0);
-  const result={status:'passed',baseCommit:'0895f9c',admissionGate:true,solution:['left','right','center','left'],mistakeResetsAttempt:true,inspectableClueAndFocus:true,clueLocksSceneInput:true,threeDistinctPitches:true,pitchedCueResume:true,pausePreservesAttemptAndFeedback:true,progressiveHints:[first,second,third],hintsPauseWithClock:true,boothReplayPreservesAdmissionAndPuzzle:true,reducedMotion:true,refreshStartsFresh:true,eightSecondCarouselPayoff:true,staggeredVerticalMotion:true,quietCompletedIdle:true,paperVisibleFromStartButLocked:true,singleRuntimeNarrationBox:true,backgroundAndAudioBytesUnchanged:true,approvedTicketRedesign:true,weatheredBellRedesign:true,noFloatingBellProgress:true,notationOnlyEnvironmentalPaper:true,horseTouchTargetsAndPhysicalHeads:true,originalMusicBoxBuffer:true,layouts,errors,limits:['Focused desktop Chromium integration, not physical-phone verification','Prize stall and ending implementation remain deferred; public site unchanged']};
+  const result={status:'passed',baseCommit:'0895f9c',admissionGate:true,solution:['left','right','center','left'],mistakeResetsAttempt:true,inspectableClueAndFocus:true,clueLocksSceneInput:true,threeDistinctPitches:true,pitchedCueResume:true,pausePreservesAttemptAndFeedback:true,progressiveHints:[first,second,third],hintsPauseWithClock:true,boothReplayPreservesAdmissionAndPuzzle:true,reducedMotion:true,refreshStartsFresh:true,eightSecondCarouselPayoff:true,staggeredVerticalMotion:true,noticeableCompletedIdle:true,continuousQuietCarouselTune:true,perCueGainAndMusicResume:true,tuneContinuesUnderBoothReplay:true,paperVisibleFromStartButLocked:true,singleRuntimeNarrationBox:true,backgroundAndAudioBytesUnchanged:true,approvedTicketRedesign:true,weatheredBellRedesign:true,noFloatingBellProgress:true,notationOnlyEnvironmentalPaper:true,horseTouchTargetsAndPhysicalHeads:true,originalMusicBoxBuffer:true,layouts,errors,limits:['Focused desktop Chromium integration, not physical-phone verification','Prize stall and ending implementation remain deferred; public site unchanged']};
   await writeFile(`${output}/checks.json`,JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));
 } finally {await browser.close();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}

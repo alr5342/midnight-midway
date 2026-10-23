@@ -1,5 +1,7 @@
 # Midnight Midway credits
 
+Carousel continuous tune refinement: original code-composed C-minor phrase (C4, G4, E-flat4, C4, F4, E-flat4, B-flat3, C4), one note every 1.5 active seconds on a 12-second cycle. Reuses carousel-box.wav at octave-lower pitch ratios; no new recording or external asset. Per-note gain 0.22 feeds the existing master gain 0.65, keeping the tune below interactive notes. Wind remains unchanged. Original sampler preparation/provenance is recorded below.
+
 Current painted props (2026-10-23): bell-painted-v1.png and music-paper-painted-v1.png were made with the built-in OpenAI image_gen tool, using the approved ChatGPT scene as the style/lighting reference. Blank paper and bell are genuinely transparent raster assets. Code adds exact notation, ground perspective and contact shadow; no generated text is used. Verbatim prompts and paths: [PAINTED-PROPS.md](docs/design/PAINTED-PROPS.md). Horse-left/center/right.png contain original scene pixels extracted through the approved masks with tools/prepare-horse-layers.mjs, not generated replacement horses. The existing hidden plate, railing and poles remain. Carousel payoff reuses the original synthesized music-box audio; no external sound was added.
 
 Earlier vector bell revision (retained as source history): assets/story/bell.svg is original project vector artwork, revised with worn bronze gradients, seeded patina texture, engraved carnival scallops, small scratches and muted lamplight highlights. No external image, font or recording was added. The bell sound and sway timing are unchanged.

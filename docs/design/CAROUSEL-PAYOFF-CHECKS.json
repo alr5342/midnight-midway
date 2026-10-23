@@ -84,5 +84,25 @@
     "Desktop Chromium phone-sized integration; physical-phone review of this checkpoint pending",
     "Static edge rasterization differs slightly; no pixel-identical screenshot claim",
     "No prize-stall or ending gameplay, merge, push, deployment or packaging"
-  ]
+  ],
+  "latestRefinement": {
+    "baseCommit": "ea3fa7d",
+    "unitTestsPassed": 19,
+    "focusedCarouselBrowser": "passed",
+    "maximumHorseLifts": [
+      12,
+      15,
+      13.5
+    ],
+    "idleEnvelope": 0.32,
+    "musicLoopSeconds": 12,
+    "musicCueGain": 0.22,
+    "pauseResumeOffsets": true,
+    "tuneContinuesUnderBoothReplay": true,
+    "reducedMotion": true,
+    "artworkAndExistingAudioUnchanged": true,
+    "results": "tests/results/carousel-tune/",
+    "physicalPhoneListeningReview": "pending",
+    "prizeAndEndingImplementation": "not started"
+  }
 }

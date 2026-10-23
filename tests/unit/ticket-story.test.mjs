@@ -81,9 +81,9 @@ function audioHarness(load) {
   const starts = [], sources = new Set();
   const context = {
     state: 'running', destination: {},
-    createGain: () => ({gain: {value: 0},connect() {}}),
+    createGain: () => ({gain: {value: 0},connect() {},disconnect() {this.disconnected=true;}}),
     decodeAudioData: async () => ({duration: 1.2}),
-    createBufferSource() { const source = {playbackRate:{value:1},connect() {},disconnect() {},start(when,offset) { starts.push(offset); sources.add(source); },stop() { sources.delete(source); }}; return source; }
+    createBufferSource() { const source = {playbackRate:{value:1},connect(target) {this.output=target;},disconnect() {},start(when,offset) { starts.push(offset); sources.add(source); },stop() { sources.delete(source); }}; return source; }
   };
   const audio = new StoryAudio({context}, {load: load || (async () => ({ok:true,arrayBuffer:async () => new ArrayBuffer(0)}))});
   return {audio, context, starts, sources};
@@ -129,4 +129,19 @@ test('carousel and booth channels coexist and pitched cues resume at the correct
   assert.deepEqual([...sources].map(source=>source.playbackRate.value),[1,1.5]);
   audio.sync({state:'exploring',elapsedMs:800},[],'carousel');
   assert.equal(sources.size,1,'Clearing carousel cues must preserve the booth cue');
+});
+
+test('quiet music has independent gain, preserves pitched resume offsets and disconnects its gain on pause',async()=>{
+  const {audio,sources,starts}=audioHarness();await audio.prepare();
+  const music=[{id:'quiet-note',name:'carousel-box',at:0,duration:1.6,rate:.5,gain:.22}];
+  audio.sync({state:'exploring',elapsedMs:200},music,'carousel-ambience');
+  const source=[...sources][0],gain=source.output;
+  assert.equal(gain.gain.value,.22);assert.equal(audio.gain.gain.value,.65);
+  assert.deepEqual(starts,[.1]);
+  audio.sync({state:'exploring',elapsedMs:250},[],'ticket');
+  assert.equal(sources.size,1,'Booth updates must retain the music channel');
+  audio.sync({state:'paused',elapsedMs:300},music,'carousel-ambience');
+  assert.equal(sources.size,0);assert.equal(audio.cueGains.size,0);assert.equal(gain.disconnected,true);
+  audio.sync({state:'exploring',elapsedMs:300},music,'carousel-ambience');
+  assert.deepEqual(starts,[.1,.15]);assert.equal([...sources][0].output.gain.value,.22);
 });

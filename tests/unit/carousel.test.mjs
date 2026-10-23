@@ -74,13 +74,13 @@ test('correct tune owns eight active seconds, staggers original horses, settles 
   const ride=puzzle.snapshot(3200);
   assert.equal(ride.phase,'ride');assert.ok(ride.light>.5);
   assert.equal(new Set(ride.horseY).size,3);
-  assert.ok(ride.horseY.every(y=>y<=0&&y>=-10));
+  assert.ok(ride.horseY.every(y=>y<=0&&y>=-15));
   assert.ok(puzzle.snapshot(2300).cues.some(cue=>cue.id.startsWith('ride-')));
   assert.equal(puzzle.snapshot(7000).phase,'settle');
   assert.equal(puzzle.snapshot(7999).playing,true);
   const idle=puzzle.snapshot(8000);
   assert.equal(idle.phase,'idle');assert.equal(idle.completed,true);
-  assert.ok(idle.horseY.every(y=>y>=-2.2));assert.deepEqual(idle.cues,[]);
+  assert.ok(idle.horseY.every(y=>y>=-4.8));assert.deepEqual(idle.cues,[]);
   puzzle.play('right',8500);
   assert.equal(puzzle.snapshot(8500).completed,true,'Wrong replay input cannot remove earned completion');
   for(const note of ['left','right','center','left'])puzzle.play(note,9000);
@@ -98,4 +98,23 @@ test('pause freezes payoff visuals/music and reduced motion retains beats withou
     assert.deepEqual(reduced.horseY,[0,0,0]);assert.equal(reduced.phase,state.phase);
     clock.resume();assert.deepEqual(puzzle.snapshot(clock.elapsedMs),state);
   }
+});
+
+test('quiet completed tune loops seamlessly, freezes with active time and keeps its phase across replay',()=>{
+  let now=0;const clock=new Playback({now:()=>now}),puzzle=new CarouselPuzzle();
+  clock.start();puzzle.unlock(0);
+  assert.deepEqual(puzzle.snapshot(0).musicCues,[]);
+  for(const note of ['left','right','center','left'])puzzle.play(note,0);
+  assert.deepEqual(puzzle.snapshot(7999).musicCues,[]);
+  const first=puzzle.snapshot(8000).musicCues[0];
+  assert.equal(first.gain,.22);assert.equal(first.rate,.5);
+  now=9000;clock.pause();const frozen=puzzle.snapshot(clock.elapsedMs);
+  now+=60000;assert.deepEqual(puzzle.snapshot(clock.elapsedMs),frozen);
+  clock.resume();
+  for(const note of ['left','right','center','left'])puzzle.play(note,9000);
+  assert.equal(puzzle.snapshot(9000).musicCues[0].id,first.id,'Replay must not restart background music');
+  const seam=puzzle.snapshot(20001).musicCues;
+  assert.ok(seam.some(cue=>cue.id==='midway-tune-0-7'),'Previous tail must finish across the loop seam');
+  assert.ok(seam.some(cue=>cue.id==='midway-tune-1-0'));
+  assert.deepEqual(puzzle.snapshot(20001,true).musicCues,seam,'Reduced motion retains music');
 });

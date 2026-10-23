@@ -4,6 +4,21 @@ const sequence = ['left', 'right', 'center', 'left'];
 const rates = {left: 1, center: 2 ** (3 / 12), right: 2 ** (7 / 12)};
 const smooth = value => {const x=Math.max(0,Math.min(1,value));return x*x*(3-2*x);};
 const payoffMelody = [[.4,'left'],[1.3,'center'],[2.3,'right'],[3.4,'center'],[4.5,'right'],[5.7,'left']];
+// Slow C-minor music-box phrase, an octave below the interactive notes.
+const idleMelody = [0,7,3,0,5,3,-2,0].map(semitones=>.5*2**(semitones/12));
+
+// Include the previous cycle's tail so notes decay naturally across the seam.
+function musicAt(time, anchor) {
+  if (anchor === null || time < anchor) return [];
+  const cycle = Math.floor((time-anchor)/12000), cues=[];
+  for(let turn=Math.max(0,cycle-1);turn<=cycle;turn++) {
+    idleMelody.forEach((rate,index)=>{
+      const at=anchor+turn*12000+index*1500, duration=.8/rate;
+      if(time>=at&&time<at+duration*1000)cues.push({id:`midway-tune-${turn}-${index}`,name:'carousel-box',at,duration,rate,gain:.22});
+    });
+  }
+  return cues;
+}
 
 // Attempts, the eight-second payoff and completed idle share active time.
 export class CarouselPuzzle {
@@ -20,6 +35,7 @@ export class CarouselPuzzle {
     this.payoffAt = null;
     this.payoffSerial = 0;
     this.completed = false;
+    this.musicStartedAt = null;
   }
 
   unlock(time) { if (this.unlockedAt === null) this.unlockedAt = time; }
@@ -33,6 +49,7 @@ export class CarouselPuzzle {
       this.solved = true;
       this.payoffAt = time;
       this.payoffSerial++;
+      if(this.musicStartedAt===null)this.musicStartedAt=time+8000;
     }
     this.feedbackAt = time;
     this.note = note;
@@ -47,9 +64,9 @@ export class CarouselPuzzle {
     const playing = age !== null && age < 8;
     if (age !== null && age >= 8) this.completed = true;
     const phase = age === null ? 'resting' : age < 1.2 ? 'lights' : age < 6 ? 'ride' : age < 8 ? 'settle' : 'idle';
-    const envelope = age === null ? 0 : smooth((age-1.2)/1.3)*(1-.78*smooth((age-6)/2));
+    const envelope = age === null ? 0 : smooth((age-1.2)/1.3)*(1-.68*smooth((age-6)/2));
     // Small upward lifts avoid exposing cropped feet below the fixed railing.
-    const horseY = [8,10,9].map((height,index)=>reducedMotion || age===null ? 0 : -height*envelope*(.5-.5*Math.cos(Math.max(0,age-1.2-index*.45)*Math.PI*2/3.8)));
+    const horseY = [12,15,13.5].map((height,index)=>reducedMotion || age===null ? 0 : -height*envelope*(.5-.5*Math.cos(Math.max(0,age-1.2-index*.45)*Math.PI*2/3.8)));
     const light = age === null ? 0 : age < 1.2 ? .65*smooth(age/1.2) : age < 6 ? .65+(reducedMotion?0:.07*Math.sin(age*Math.PI/1.8)) : .65-.41*smooth((age-6)/2);
     const feedback = this.feedbackAt !== null && time - this.feedbackAt < 700;
     const cues = [];
@@ -67,7 +84,7 @@ export class CarouselPuzzle {
     const waiting = this.unlockedAt === null ? 0 : time - this.unlockedAt;
     const hint = this.progress === 4 ? 'For a moment, the years seem less certain.' : feedback && this.mistake ? 'The memory breaks off before its end.' : waiting >= 24000 ? 'A few bars escaped the rain, down by the carousel.' : waiting >= 12000 ? 'The horses forgot the words, but not their voices.' : 'Someone left a song unfinished.';
     const narration = playing ? age<1.2 ? 'A spark of an evening long ago.' : age<6 ? 'For a little while, the years lose their hold.' : 'The old rhythm has found its way home.' : hint;
-    return {progress:this.progress,solved:this.solved,completed:this.completed,playing,phase,horseY,light,note:feedback?this.note:null,mistake:feedback&&this.mistake,hint:narration,cues};
+    return {progress:this.progress,solved:this.solved,completed:this.completed,playing,phase,horseY,light,note:feedback?this.note:null,mistake:feedback&&this.mistake,hint:narration,cues,musicCues:musicAt(time,this.musicStartedAt)};
   }
 }
 
@@ -108,6 +125,8 @@ export function connectCarousel(scene, playback, audio, {access, onSolved}) {
     }
     if (state.solved && !wasSolved) {wasSolved = true;onSolved();}
     audio.sync(snapshot, visible ? state.cues : [], 'carousel');
+    // Activated music persists under other attractions, sharing their clock.
+    audio.sync(snapshot,state.musicCues,'carousel-ambience');
   }
   playback.subscribe(render);
 

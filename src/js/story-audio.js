@@ -9,6 +9,7 @@ export class StoryAudio {
     this.load = load;
     this.buffers = new Map();
     this.sources = new Map();
+    this.cueGains = new Map();
     this.loading = null;
     this.context = null;
     this.status = 'idle';
@@ -48,6 +49,8 @@ export class StoryAudio {
   stop(id) {
     const source = this.sources.get(id);
     if (source) { source.stop(); source.disconnect(); this.sources.delete(id); }
+    const gain=this.cueGains.get(id);
+    if(gain){gain.disconnect();this.cueGains.delete(id);}
   }
 
   stopAll() { for (const id of this.sources.keys()) this.stop(id); }
@@ -72,7 +75,11 @@ export class StoryAudio {
       const source = this.context.createBufferSource();
       source.buffer = buffer;
       if (source.playbackRate) source.playbackRate.value = rate;
-      source.connect(this.gain);
+      if(cue.gain !== undefined) {
+        const gain=this.context.createGain();
+        gain.gain.value=cue.gain;gain.connect(this.gain);source.connect(gain);
+        this.cueGains.set(cue.id,gain);
+      } else source.connect(this.gain);
       source.start(0, offset);
       this.sources.set(cue.id, source);
       this.startedSources++;
