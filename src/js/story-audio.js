@@ -1,9 +1,9 @@
-const cueNames = ['ring-1', 'ring-2', 'ring-3', 'arrival', 'stamp', 'departure', 'carousel-box'];
+const cueNames = ['ring-1', 'ring-2', 'ring-3', 'arrival', 'stamp', 'departure', 'carousel-box', 'prize-throw', 'prize-tin', 'prize-chime'];
 
 // Short cues share the ambience's user-activated AudioContext. Desired cues are
 // derived from active time, so pause/resume and late loads retain exact offsets.
 export class StoryAudio {
-  constructor(ambient, { onStatus = () => {}, load = name => fetch(new URL(`../../assets/audio/${name === 'carousel-box' ? name : `story-${name}`}.wav`, import.meta.url)) } = {}) {
+  constructor(ambient, { onStatus = () => {}, load = name => fetch(new URL(`../../assets/audio/${name === 'carousel-box' || name.startsWith('prize-') ? name : `story-${name}`}.wav`, import.meta.url)) } = {}) {
     this.ambient = ambient;
     this.onStatus = onStatus;
     this.load = load;

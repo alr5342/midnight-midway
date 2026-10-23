@@ -81,3 +81,30 @@ export function mountCarouselArtwork(scene, inspector) {
   scene.insertBefore(lights,scene.querySelector('.ambient-fog'));
   return {lights,ground};
 }
+
+// Promote the approved preview props without repainting the scene. Bags use
+// clipped original pixels so each can leave the shelf independently.
+export function mountPrizeArtwork(scene) {
+  const counter = new URL('../../assets/story/prize-counter-v1.png',import.meta.url).href;
+  const can = new URL('../../assets/story/prize-can-v1.png',import.meta.url).href;
+  const token = new URL('../../assets/story/keepsake-token-v1.svg',import.meta.url).href;
+  const bagPaths = [
+    'M130 235L327 141L395 181L426 274L334 349L161 324Z',
+    'M330 205L430 175Q557 175 650 285L641 310L470 334L334 349Z'
+  ];
+  const layer=document.createElement('div');
+  layer.className='prize-props';layer.setAttribute('aria-hidden','true');
+  layer.innerHTML=`<svg class="prize-counter" viewBox="0 0 2048 768">
+    <defs><mask id="prize-empty-bags" maskUnits="userSpaceOnUse" x="0" y="0" width="2048" height="768"><rect width="2048" height="768" fill="white"/>${bagPaths.map(d=>`<path d="${d}" fill="black"/>`).join('')}</mask>
+    <linearGradient id="prize-wood" x2="0" y2="1"><stop stop-color="#69432d"/><stop offset="1" stop-color="#35241c"/></linearGradient></defs>
+    <path d="M130 287L585 241L655 310L334 349L161 324Z" fill="url(#prize-wood)"/>
+    <image href="${counter}" width="2048" height="768" mask="url(#prize-empty-bags)"/></svg>
+    ${['left','right','top'].map(side=>`<img class="prize-can prize-can-${side}" src="${can}" alt="">`).join('')}
+    ${bagPaths.map((d,i)=>`<svg class="prize-counter prize-bag-${i}" viewBox="0 0 2048 768"><defs><clipPath id="prize-bag-${i}"><path d="${d}"/></clipPath></defs><image href="${counter}" width="2048" height="768" clip-path="url(#prize-bag-${i})"/></svg>`).join('')}
+    <svg class="prize-rules" viewBox="0 0 160 90"><svg width="160" height="90" viewBox="1450 390 520 230" preserveAspectRatio="none"><image href="${counter}" width="2048" height="768"/></svg><g fill="currentColor" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" opacity=".85"><text x="80" y="41" font-size="24">2 BAGS</text><text x="80" y="68" font-size="24">3 CANS</text></g></svg>
+    <svg class="prize-flying-bag" viewBox="130 140 300 220"><defs><clipPath id="prize-thrown-bag"><path d="${bagPaths[0]}"/></clipPath></defs><image href="${counter}" width="2048" height="768" clip-path="url(#prize-thrown-bag)"/></svg>
+    <img class="prize-token" src="${token}" alt="">
+    <img class="prize-sparks" src="${new URL('../../assets/story/sparks.svg',import.meta.url).href}" alt="">`;
+  scene.insertBefore(layer,scene.querySelector('.ambient-fog'));
+  return layer;
+}

@@ -1,5 +1,7 @@
 # Midnight Midway
 
+Current local checkpoint: the approved three-can game is playable inside the stall after the carousel finishes. Two beanbags; tap cans to aim. Lower-can hits carry the top can down, while top-first leaves too much standing. Collect the waiting bags to retry or replay. A win starts an eight-second haunted prize story and reveals the brass Ferris-wheel keepsake. Claim/disappearance remain deferred by explicit agreement. Play/Pause, reduced motion and existing progress are shared. [Scope and test record](docs/design/PRIZE-GAME.md). No deployment.
+
 Current visual checkpoint: [three-can prize-stall staging](dev/previews/index.html?view=prize) adds preview-only painted cans, two beanbags and a weathered physical sign. No prize gameplay is implemented. [Scope, exact artwork prompts and checks](docs/design/PRIZE-STAGING.md). Await visual approval before proceeding; runtime, approved ending, public site and Phase 1 submission remain unchanged.
 
 Published Phase 1 app: https://alr5342.github.io/midnight-midway/ — [GitHub repository](https://github.com/alr5342/midnight-midway).

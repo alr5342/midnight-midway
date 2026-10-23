@@ -7,6 +7,7 @@ import { connectAmbientAudio } from './ambient-audio.js';
 import { StoryAudio } from './story-audio.js';
 import { connectTicketStory } from './ticket-story.js';
 import { connectCarousel } from './carousel.js';
+import { connectPrize } from './prize.js';
 
 mountSceneArtwork();
 
@@ -25,6 +26,7 @@ const admission = document.querySelector('#admission');
 // Reload constructs a fresh visit; no storage or cross-session state is used.
 const journey = { admitted: false };
 let carousel = null;
+let prize = null;
 const audioNotice = document.querySelector('#audio-notice');
 let frame = null;
 let renderedState = null;
@@ -42,17 +44,20 @@ const storyAudio = new StoryAudio(ambientAudio, { onStatus: value => {
   // Artwork failures own this notice until reload; audio failures are retryable.
   if (ticketStory?.snapshot().assetFailure) return;
   storyNotice.hidden = !['loading', 'unavailable'].includes(value);
-  storyNotice.textContent = value === 'unavailable' ? 'Some booth sounds could not load. Pause, then Play to retry.' : value === 'loading' ? 'Loading booth sounds…' : '';
+  storyNotice.textContent = value === 'unavailable' ? 'Some midway sounds could not load. Pause, then Play to retry.' : value === 'loading' ? 'Loading midway sounds…' : '';
 } });
 const ticketStory = connectTicketStory(document.querySelector('.scene'), playback, storyAudio, {
   bell: document.querySelector('#bell'), hint, notice: storyNotice,
   onComplete: grantAdmission,
-  canInteract: () => !carousel?.snapshot().clueOpen && !carousel?.snapshot().playing,
-  idleHint: () => carousel?.hint()
+  canInteract: () => !carousel?.snapshot().clueOpen && !carousel?.snapshot().playing && !prize?.snapshot().busy,
+  idleHint: () => prize?.snapshot().unlocked && !carousel?.snapshot().clueOpen && !carousel?.snapshot().playing ? prize.hint() : carousel?.hint()
 });
 carousel = connectCarousel(document.querySelector('.scene'), playback, storyAudio, {
-  access: () => ({admitted:journey.admitted,storyPlaying:ticketStory.snapshot().playing}),
+  access: () => ({admitted:journey.admitted,storyPlaying:ticketStory.snapshot().playing || Boolean(prize?.snapshot().busy)}),
   onSolved: () => { stage.dataset.carouselPuzzle = 'solved'; }
+});
+prize = connectPrize(document.querySelector('.scene'),playback,storyAudio,{
+  access: () => ({rideCompleted:carousel.snapshot().completed,blocked:ticketStory.snapshot().playing || carousel.snapshot().playing || carousel.snapshot().clueOpen})
 });
 connectCredits(playback);
 const assets = connectAssetReadiness(document.querySelector('.scene'), enter, document.querySelector('#asset-notice'));
@@ -64,7 +69,8 @@ function grantAdmission() {
 }
 
 function journeySnapshot() {
-  return { admitted: journey.admitted, admissionTickets: journey.admitted ? 1 : 0, carouselUnlocked: journey.admitted };
+  return { admitted: journey.admitted, admissionTickets: journey.admitted ? 1 : 0, carouselUnlocked: journey.admitted,
+    prizeUnlocked: Boolean(carousel?.snapshot().completed), souvenirTokens: prize?.snapshot().tokenAwarded ? 1 : 0 };
 }
 
 function renderJourney(snapshot) {
@@ -126,7 +132,7 @@ window.addEventListener('pagehide', () => playback.pause());
 // No diagnostic controls or runtime counters appear in the product interface.
 if (new URLSearchParams(location.search).has('diagnostics')) {
   Object.defineProperty(window, 'midwayDiagnostics', {
-    value: Object.freeze({ snapshot: () => ({ ...playback.snapshot(), scheduledFrames: frame === null ? 0 : 1 }), audio: () => ambientAudio.snapshot(), story: () => ticketStory.snapshot(), storyAudio: () => storyAudio.snapshot(), journey: journeySnapshot, carousel: () => carousel.snapshot() })
+    value: Object.freeze({ snapshot: () => ({ ...playback.snapshot(), scheduledFrames: frame === null ? 0 : 1 }), audio: () => ambientAudio.snapshot(), story: () => ticketStory.snapshot(), storyAudio: () => storyAudio.snapshot(), journey: journeySnapshot, carousel: () => carousel.snapshot(), prize: () => prize.snapshot() })
   });
 }
 

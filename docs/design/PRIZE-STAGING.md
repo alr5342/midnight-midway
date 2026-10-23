@@ -1,6 +1,8 @@
 # Prize-stall visual staging
 
-## Scope and approval
+The Developer subsequently approved this layout and authorized the runtime game. This document retains the original static checkpoint and exact prompts; current implementation and checks: [PRIZE-GAME.md](PRIZE-GAME.md).
+
+## Original staging scope and approval
 
 The Developer selected the three-can knockdown game: three stacked cans, two beanbags, and an aiming discovery supported by dents, scuffs and a weathered sign. Use reliable phone controls rather than complex physics. This checkpoint stages only the objects; their appearance and placement await visual approval. No throws, scoring, falling cans, prize story, token award or ending playback are implemented.
 

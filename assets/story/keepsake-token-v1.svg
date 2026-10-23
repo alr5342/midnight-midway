@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-labelledby="title desc">
+  <title id="title">A night remembered</title>
+  <desc id="desc">An antique brass souvenir token embossed with the Midnight Midway Ferris wheel and its open gondolas.</desc>
+  <defs>
+    <radialGradient id="brass" cx=".32" cy=".24" r=".85">
+      <stop stop-color="#e1be7a"/><stop offset=".33" stop-color="#b48b47"/>
+      <stop offset=".7" stop-color="#806035"/><stop offset="1" stop-color="#3e3025"/>
+    </radialGradient>
+    <linearGradient id="rim" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#f0d8a2"/><stop offset=".4" stop-color="#8b6838"/>
+      <stop offset=".66" stop-color="#443323"/><stop offset="1" stop-color="#c49b59"/>
+    </linearGradient>
+    <filter id="patina" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency=".14" numOctaves="3" seed="17"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feComposite in2="SourceAlpha" operator="in"/>
+      <feBlend in="SourceGraphic" mode="multiply"/>
+    </filter>
+    <path id="inscription" d="M49 165 A111 111 0 0 1 271 165"/>
+    <g id="wheel">
+      <circle cx="160" cy="155" r="74" fill="none" stroke-width="4"/>
+      <circle cx="160" cy="155" r="68" fill="none" stroke-width="1.4"/>
+      <path d="M160 81V229M86 155H234M108 103L212 207M108 207L212 103M160 155L130 244H190Z" fill="none" stroke-width="3" stroke-linejoin="round"/>
+      <circle cx="160" cy="155" r="10" stroke-width="2"/>
+      <g fill="none" stroke-width="2.5">
+        <path d="M150 74V86H170V74M150 79H170M98 98V111H118V98M98 103H118M76 149V163H96V149M76 154H96M98 201V214H118V201M98 206H118M150 223V236H170V223M150 228H170M202 201V214H222V201M202 206H222M224 149V163H244V149M224 154H244M202 98V111H222V98M202 103H222"/>
+      </g>
+      <path d="M123 245H197" fill="none" stroke-width="4" stroke-linecap="round"/>
+    </g>
+  </defs>
+  <circle cx="160" cy="162" r="151" fill="#201c19"/>
+  <circle cx="160" cy="158" r="149" fill="url(#brass)" stroke="#34291f" stroke-width="4"/>
+  <circle cx="160" cy="158" r="141" fill="none" stroke="url(#rim)" stroke-width="8"/>
+  <circle cx="160" cy="158" r="132" fill="none" stroke="#493a28" stroke-width="1.5"/>
+  <circle cx="160" cy="158" r="127" fill="none" stroke="#dfbd7d" stroke-opacity=".28" stroke-width="1"/>
+  <circle cx="160" cy="158" r="130" fill="url(#brass)" opacity=".17" filter="url(#patina)"/>
+  <use href="#wheel" stroke="#e7ca90" fill="#c29b5c" opacity=".5" transform="translate(0 -1.6)"/>
+  <use href="#wheel" stroke="#493721" fill="#ad8548"/>
+  <text fill="#e7cb94" opacity=".45" font-family="Georgia,serif" font-size="16" letter-spacing="1.5" transform="translate(0 -1)">
+    <textPath href="#inscription" startOffset="50%" text-anchor="middle">A NIGHT REMEMBERED</textPath>
+  </text>
+  <text fill="#463420" font-family="Georgia,serif" font-size="16" letter-spacing="1.5">
+    <textPath href="#inscription" startOffset="50%" text-anchor="middle">A NIGHT REMEMBERED</textPath>
+  </text>
+  <path d="M140 268H180M148 274H172" fill="none" stroke="#493721" stroke-width="1.5"/>
+  <g fill="none" stroke-linecap="round">
+    <path d="M54 69L61 64M260 222L269 208M77 273L83 277M197 22L207 25M24 148L25 139" stroke="#e9cd92" opacity=".48" stroke-width="2"/>
+    <path d="M64 215L75 210M234 75L239 83M111 48L120 45M201 265L211 259M52 121L57 114" stroke="#493a2b" opacity=".46" stroke-width="1.5"/>
+  </g>
+</svg>

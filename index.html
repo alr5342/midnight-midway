@@ -38,6 +38,13 @@
             <button type="button" class="horse-target" data-horse-note="center" aria-label="Play center horse, middle note"></button>
             <button type="button" class="horse-target" data-horse-note="right" aria-label="Play right horse, high note"></button>
           </section>
+          <section id="prize-controls" class="prize-controls" aria-label="Three-can knockdown game" hidden>
+            <button type="button" class="can-target can-target-top" data-can="top" aria-label="Throw a beanbag at the top can"></button>
+            <button type="button" class="can-target can-target-left" data-can="left" aria-label="Throw a beanbag at the lower left can"></button>
+            <button type="button" class="can-target can-target-right" data-can="right" aria-label="Throw a beanbag at the lower right can"></button>
+            <button type="button" id="prize-retry" class="prize-retry" aria-label="Collect two beanbags and try again" hidden></button>
+            <span id="prize-status" class="visually-hidden" role="status"></span>
+          </section>
           <button type="button" id="music-open" class="music-scrap" aria-label="Inspect the worn sheet music" aria-expanded="false" aria-controls="music-clue" aria-disabled="true" tabindex="-1"></button>
           <section id="music-clue" class="music-clue" aria-labelledby="music-title" hidden>
             <h2 id="music-title" class="visually-hidden">Worn sheet music</h2>
@@ -60,6 +67,7 @@
       <p><strong>Wind:</strong> remaxim, <a href="https://opengameart.org/content/short-wind-sound" target="_blank" rel="noopener noreferrer">Short wind sound</a>. Filtered and crossfaded into the ambient loop.</p>
       <p><strong>Bell:</strong> Julie Damsgaard / Spring Spring / Spring Enterprises, <a href="https://opengameart.org/content/pleasing-bell-sound-effect" target="_blank" rel="noopener noreferrer">Pleasing Bell Sound Effect</a>. Pitched and faded into three ring cues.</p>
       <p><strong>Carousel notes:</strong> original code-synthesized music-box tones; no external recording. Preparation source is included in the project.</p>
+      <p><strong>Prize game:</strong> cans and counter painted with OpenAI image generation using the approved reference. Brass token and effects are original SVG code. Throw, tin and winning chime sounds are original deterministic synthesis; no external recording. Exact prompts and preparation sources are included.</p>
       <p><strong>Magic:</strong> JaggedStone, <a href="https://opengameart.org/content/magic-spell-sfx" target="_blank" rel="noopener noreferrer">Magic Spell SFX</a>. Trimmed, pitched and faded for arrival, stamp and departure.</p>
       <p>All external sounds are <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0 1.0</a>. Full source URLs, preserved originals and processing details are recorded in the project’s CREDITS.md.</p>
       <p>Closing credits keeps the scene paused. Choose Play to continue.</p>
