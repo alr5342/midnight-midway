@@ -29,7 +29,9 @@ export class AmbientAudio {
         const context = this.context;
         context.addEventListener('statechange', () => {
           if (context !== this.context || !this.wanted) return;
-          if (context.state === 'interrupted' || context.state === 'closed' || (context.state === 'suspended' && this.status === 'playing')) this.onInterrupt();
+          // A native suspension can arrive while resume/decode is pending,
+          // before status reaches playing. Explicit Pause clears wanted first.
+          if (context.state === 'interrupted' || context.state === 'closed' || context.state === 'suspended') this.onInterrupt();
         });
       }
       // Called synchronously inside Enter/Play's activation event, before fetch.

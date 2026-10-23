@@ -47,7 +47,7 @@ const storyAudio = new StoryAudio(ambientAudio, { onStatus: value => {
 const ticketStory = connectTicketStory(document.querySelector('.scene'), playback, storyAudio, {
   bell: document.querySelector('#bell'), hint, notice: storyNotice,
   onComplete: grantAdmission,
-  canInteract: () => !carousel?.snapshot().clueOpen,
+  canInteract: () => !carousel?.snapshot().clueOpen && !carousel?.snapshot().playing,
   idleHint: () => carousel?.hint()
 });
 carousel = connectCarousel(document.querySelector('.scene'), playback, storyAudio, {

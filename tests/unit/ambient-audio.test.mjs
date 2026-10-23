@@ -60,3 +60,18 @@ test('load failure is reported without throwing; browser interruption notifies t
   running.listeners.get('statechange')();
   assert.equal(running.interruptions(), 1);
 });
+
+test('native suspension during resume/loading pauses the coordinator before a late source can start',async()=>{
+  let release;const delayed=new Promise(resolve=>{release=resolve;});
+  const running=harness(()=>delayed);
+  const notify=running.audio.onInterrupt;
+  running.audio.onInterrupt=()=>{notify();running.audio.pause();};
+  const pending=running.audio.play(0);
+  assert.equal(running.audio.status,'loading');
+  running.context.state='suspended';running.listeners.get('statechange')();
+  assert.equal(running.interruptions(),1);
+  release({ok:true,arrayBuffer:async()=>new ArrayBuffer(0)});await pending;
+  assert.equal(running.active.size,0);
+  assert.equal(running.audio.wanted,false,'No automatic resume after interruption');
+  await running.audio.play(1000);assert.equal(running.active.size,1);
+});

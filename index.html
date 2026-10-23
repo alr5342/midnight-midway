@@ -37,21 +37,18 @@
             <button type="button" class="horse-target" data-horse-note="left" aria-label="Play left horse, low note"></button>
             <button type="button" class="horse-target" data-horse-note="center" aria-label="Play center horse, middle note"></button>
             <button type="button" class="horse-target" data-horse-note="right" aria-label="Play right horse, high note"></button>
-            <button type="button" id="music-open" class="music-scrap" aria-label="Inspect the worn sheet music" aria-expanded="false" aria-controls="music-clue">
-              <img src="assets/story/music-sheet.svg" alt="" width="64" height="44">
-            </button>
-            <p id="carousel-progress" role="status">0 / 4 notes</p>
           </section>
+          <button type="button" id="music-open" class="music-scrap" aria-label="Inspect the worn sheet music" aria-expanded="false" aria-controls="music-clue" aria-disabled="true" tabindex="-1"></button>
           <section id="music-clue" class="music-clue" aria-labelledby="music-title" hidden>
             <h2 id="music-title" class="visually-hidden">Worn sheet music</h2>
-            <img src="assets/story/music-sheet.svg" alt="A treble staff with four notes: C5, G5, E-flat5, C5." width="320" height="220">
+            <div id="music-inspection-art"></div>
             <button type="button" id="music-close" aria-label="Put away the sheet music">&#215;</button>
           </section>
         </div>
         <button type="button" id="credits-open" class="credits-open" aria-haspopup="dialog">Credits</button>
         <p class="hint-mockup" id="hint" role="status" hidden>Some guests never left the midway…</p>
-        <p class="audio-notice" id="audio-notice" role="status" hidden></p>
-        <p class="story-notice" id="story-notice" role="status" hidden></p>
+        <p class="runtime-notice" id="audio-notice" aria-hidden="true" hidden></p>
+        <p class="runtime-notice" id="story-notice" aria-hidden="true" hidden></p>
       </div>
     </div>
     <p class="visually-hidden" id="playback-status" role="status"></p>
@@ -59,7 +56,7 @@
       <button type="button" id="credits-close">Close</button>
       <h2 id="credits-title">The Midnight Midway — credits</h2>
       <p><strong>Developer:</strong> Alex Rosemann. Concept direction, design decisions, review and testing by Alex Rosemann; code and artwork preparation assisted by OpenAI Codex/ChatGPT.</p>
-      <p><strong>Visuals:</strong> Midnight Midway reference generated with ChatGPT, as confirmed by the Developer. Layer extractions, hidden-surface repairs, corrected gondola and spectral attendant prepared with OpenAI image generation. Bell, ticket, stamp, sparks, masks and ambient SVG effects are project-original code artwork. No external font or runtime code library is used.</p>
+      <p><strong>Visuals:</strong> Midnight Midway reference generated with ChatGPT, as confirmed by the Developer. Layer extractions, hidden-surface repairs, corrected gondola and spectral attendant prepared with OpenAI image generation. Bell and blank music paper were painted with OpenAI image generation using the scene as a style reference; exact notation, ticket, stamp, sparks, masks and ambient SVG effects are project-original code artwork. Original horse pixels were extracted without regeneration. No external font or runtime code library is used.</p>
       <p><strong>Wind:</strong> remaxim, <a href="https://opengameart.org/content/short-wind-sound" target="_blank" rel="noopener noreferrer">Short wind sound</a>. Filtered and crossfaded into the ambient loop.</p>
       <p><strong>Bell:</strong> Julie Damsgaard / Spring Spring / Spring Enterprises, <a href="https://opengameart.org/content/pleasing-bell-sound-effect" target="_blank" rel="noopener noreferrer">Pleasing Bell Sound Effect</a>. Pitched and faded into three ring cues.</p>
       <p><strong>Carousel notes:</strong> original code-synthesized music-box tones; no external recording. Preparation source is included in the project.</p>

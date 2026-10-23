@@ -120,8 +120,10 @@ export function connectTicketStory(scene, playback, cueAudio, { bell, hint, noti
     bell.setAttribute('aria-disabled', String(!snapshot.canInteract || !canInteract() || state.playing || !assetsReady || cueAudio.status === 'loading'));
     bell.dataset.rings = state.rings;
     bell.dataset.story = state.playing ? 'playing' : 'idle';
-    const explorationHint = !state.playing && !state.rings && state.completed > 0 && snapshot.elapsedMs - model.completedAt >= 2200 ? idleHint(snapshot) : null;
-    const hintText = snapshot.state === 'paused' ? 'Paused. Choose Play to continue.' : explorationHint || state.hint;
+    const explorationHint = !state.playing && (!state.rings || !canInteract()) && state.completed > 0 && snapshot.elapsedMs - model.completedAt >= 2200 ? idleHint(snapshot) : null;
+    // One visible narration box also owns loading/failure guidance.
+    const warning = [notice, document.querySelector('#audio-notice')].find(item=>!item.hidden);
+    const hintText = snapshot.state === 'paused' ? 'Paused. Choose Play to continue.' : warning?.textContent || explorationHint || state.hint;
     if (hintText !== lastHint) { hint.textContent = hintText; lastHint = hintText; }
     cueAudio.sync(snapshot, state.cues);
   }

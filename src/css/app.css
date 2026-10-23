@@ -16,7 +16,6 @@ main.app {
 .ambient-bats { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .app-ui { position: absolute; inset: 0; pointer-events: none; }
 .app-ui button { pointer-events: auto; cursor: pointer; font-family: inherit; }
-.audio-notice { position: absolute; top: 64px; left: 12px; right: 12px; width: fit-content; max-width: calc(100% - 24px); margin: 0; padding: 8px 10px; background: #0c1021f2; color: #fff0d9; border-radius: 6px; font: 12px/1.4 system-ui, sans-serif; }
 .app-ui .pause-mockup { padding: 0; }
 .admission-badge { position: absolute; top: 12px; left: calc(50% - 10px); transform: translateX(-50%); width: min(112px, calc(100% - 148px)); padding: 5px 4px; display: grid; justify-items: center; gap: 2px; border: 1px solid #d9bd8540; border-radius: 8px; background: #0c1021f2; color: #fff0d9; font: 11px/1.4 system-ui, sans-serif; text-align: center; }
 .admission-badge img { display: block; width: min(72px, 100%); height: auto; }
@@ -40,13 +39,16 @@ main.app {
 .app-ui .horse-target:focus-visible { outline-offset: -4px; }
 .carousel-controls button[aria-disabled="true"] { cursor: default; }
 .music-scrap { position: absolute; left: 57%; top: 69.5%; width: 64px; height: 52px; padding: 0; border: 0; background: transparent; transform: translate(-50%, -50%); touch-action: manipulation; }
-.music-scrap img { display: block; width: 100%; height: auto; transform: perspective(180px) rotateX(38deg) rotateZ(-14deg); filter: drop-shadow(1px 3px 2px #09050bcc); }
-#carousel-progress { position: absolute; top: 75%; left: 50%; transform: translateX(-50%); width: max-content; max-width: 90%; margin: 0; padding: 3px 6px; border-radius: 4px; background: #0c1021d9; color: #fff0d9; text-align: center; font: 11px/1.4 system-ui, sans-serif; }
+.environment-paper { position: absolute; left: 57%; top: 69.5%; width: 64px; height: 52px; transform: translate(-50%, -50%); pointer-events: none; }
+.environment-paper .sheet-art { transform: perspective(180px) rotateX(52deg) rotateZ(-14deg) scale(.85); filter: brightness(.7) saturate(.7) drop-shadow(.4px 1px .6px #080510b0); }
+.sheet-art { position: relative; width: 100%; aspect-ratio: 320 / 220; color: #30251e; }
+.sheet-art img, .sheet-art svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.sheet-art svg { mix-blend-mode: multiply; opacity: .85; }
+.carousel-lighting { position: absolute; inset: 0; width: 100%; height: 100%; mix-blend-mode: screen; pointer-events: none; opacity: 0; }
 /* Inspect the same paper, without a rectangular panel, caption or solution. */
 .music-clue { position: absolute; top: 64%; left: 50%; transform: translate(-50%, -50%) rotate(-3deg); width: min(340px, calc(100% - 24px)); pointer-events: auto; filter: drop-shadow(2px 6px 7px #04020ac0); }
-.music-clue > img { display: block; width: 100%; height: auto; }
+
 #music-close { position: absolute; right: 4%; top: 3%; min-width: 44px; min-height: 44px; padding: 0; border: 0; border-radius: 50%; background: #bfa26c; color: #30231b; font: 24px/1 Georgia, serif; }
-.story-notice { position: absolute; top: 108px; left: 12px; right: 12px; margin: 0; padding: 8px 10px; background: #0c1021f2; color: #fff0d9; border-radius: 6px; font: 12px/1.4 system-ui, sans-serif; }
 .app-ui button:focus-visible { outline: 3px solid #fff0c9; outline-offset: 4px; }
 .start-screen { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; background: linear-gradient(#070b1c70, #070b1c99); }
 .start-card { width: min(100%, 300px); text-align: center; background: #0c1021f2; border: 1px solid #b891545c; border-radius: 14px; padding: 28px 20px; box-shadow: 0 12px 48px #0008; }
@@ -62,3 +64,6 @@ main.app {
 @media (prefers-reduced-motion: reduce) {
   .app-stage *, .app-stage *::before, .app-stage *::after { animation: none !important; transition: none !important; }
 }
+
+/* Internal status hosts feed the single visible bottom narration box. */
+.runtime-notice { display: none !important; }

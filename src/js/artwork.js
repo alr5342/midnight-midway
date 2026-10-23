@@ -16,7 +16,8 @@ export function mountSceneArtwork() {
       for (const piece of kind === 'attraction-patch' ? ['repair'] : pieces) {
         const image = document.createElement('img');
         image.className = `layer ${kind} ${piece}`;
-        image.src = kind === 'attraction-patch' ? new URL('../../assets/artwork/attractions-hidden-plate-v1.png', import.meta.url).href : source;
+        image.src = kind === 'attraction-patch' ? new URL('../../assets/artwork/attractions-hidden-plate-v1.png', import.meta.url).href
+          : piece.startsWith('horse-') ? new URL(`../../assets/artwork/${piece}.png`, import.meta.url).href : source;
         image.alt = '';
         scene.insertBefore(image, anchor);
       }
@@ -52,7 +53,31 @@ export function mountTicketArtwork(scene) {
   <img class="story-ticket" src="${new URL('../../assets/story/ticket.svg', import.meta.url).href}" alt="">
   <img class="story-stamp" src="${new URL('../../assets/story/stamp.svg', import.meta.url).href}" alt="">
   <img class="story-sparks" src="${new URL('../../assets/story/sparks.svg', import.meta.url).href}" alt="">
-  <img class="story-bell" src="${new URL('../../assets/story/bell.svg', import.meta.url).href}" alt="">`;
+  <img class="story-bell" src="${new URL('../../assets/story/bell-painted-v1.png', import.meta.url).href}" alt="">`;
   scene.append(layer);
   return { layer, setPhase: phase => { layer.dataset.phase = phase; } };
+}
+
+export function mountCarouselArtwork(scene, inspector) {
+  // The same painted scrap and exact notation appear on the ground and in
+  // inspection. No words, horse labels or generated notation are baked in.
+  const paper = new URL('../../assets/story/music-paper-painted-v1.png', import.meta.url).href;
+  const sheet = `<div class="sheet-art" role="img" aria-label="Treble staff: C5, G5, E-flat5, C5.">
+    <img src="${paper}" alt="">
+    <svg viewBox="0 0 320 220" aria-hidden="true">
+      <g fill="none" stroke="currentColor" stroke-width="1.2"><path d="M43 70H278M43 82H278M43 94H278M43 106H278M43 118H278"/>
+      <path d="M53 135C69 132 42 53 55 48C70 44 52 81 45 91C27 117 71 124 66 99C63 84 39 92 46 106M80 88V129M136 64V105M192 76V117M248 88V129" stroke-width="2.3"/>
+      <path d="M179 56V87Q195 70 179 76" stroke-width="1.9"/></g>
+      <g fill="currentColor">${[[86,88],[142,64],[198,76],[254,88]].map(([x,y])=>`<ellipse cx="${x}" cy="${y}" rx="7.5" ry="5" transform="rotate(-20 ${x} ${y})"/>`).join('')}</g>
+    </svg></div>`;
+  const ground = document.createElement('div');
+  ground.className='environment-paper';ground.setAttribute('aria-hidden','true');ground.innerHTML=sheet;
+  scene.insertBefore(ground,scene.querySelector('.ambient-fog'));
+  inspector.innerHTML=sheet;
+  const lights=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  lights.classList.add('carousel-lighting');lights.setAttribute('viewBox','0 0 941 1672');lights.setAttribute('aria-hidden','true');
+  lights.innerHTML=`<defs><radialGradient id="carousel-lamp"><stop stop-color="#fff1bd" stop-opacity=".9"/><stop offset=".3" stop-color="#ffd17e" stop-opacity=".45"/><stop offset="1" stop-color="#d88a45" stop-opacity="0"/></radialGradient></defs>
+    ${[[285,823],[322,851],[365,866],[408,878],[452,882],[496,880],[539,871],[582,860],[625,847],[661,829]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="14" fill="url(#carousel-lamp)"/>`).join('')}`;
+  scene.insertBefore(lights,scene.querySelector('.ambient-fog'));
+  return {lights,ground};
 }

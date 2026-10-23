@@ -46,9 +46,8 @@ summary { cursor: pointer; color: #e8c08a; }
 .carriage-patch { display: none; pointer-events: none; mask-image: url('../../assets/masks/gondola-patch-mask.svg'); mask-size: 100% 100%; mask-repeat: no-repeat; }
 .scene[data-view="assembled"] .carriage-patch,
 .scene[data-view="attraction-displaced"] .carriage-patch { display: block; }
-.horse-left { mask-image: url('../../assets/masks/horse-left-mask.svg'); }
-.horse-center { mask-image: url('../../assets/masks/horse-center-mask.svg'); }
-.horse-right { mask-image: url('../../assets/masks/horse-right-mask.svg'); }
+/* Original-pixel transparent PNGs retain scene coordinates; extraction masks
+   are preserved with the preparation tool, not applied twice at runtime. */
 .prize-pair { mask-image: url('../../assets/masks/prize-pair-mask.svg'); }
 .attraction-patch, .attraction-piece { mask-size: 100% 100%; mask-repeat: no-repeat; }
 .attraction-patch { mask-image: url('../../assets/masks/attraction-repair-mask.svg'); }

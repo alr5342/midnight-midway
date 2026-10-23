@@ -167,7 +167,9 @@ const hints=await browser.newPage({viewport:{width:320,height:568},reducedMotion
 await hints.goto('http://127.0.0.1:4173/?diagnostics');
 await hints.clock.install();
 await hints.locator('#enter').click();
+await hints.waitForFunction(()=>window.midwayDiagnostics.storyAudio().status==='ready'&&!document.querySelector('#hint').textContent.includes('Loading'));
 const first=await hints.locator('#hint').textContent();
+assert.match(first,/keep someone/,'Initial hint measurement must exclude loading status');
 await hints.clock.runFor(12100); const second=await hints.locator('#hint').textContent();
 await hints.locator('#playback').click();
 await hints.clock.runFor(30000);assert.equal(await hints.locator('#hint').textContent(),'Paused. Choose Play to continue.');
@@ -181,7 +183,8 @@ const failed = await browser.newPage();
 await failed.route('**/assets/audio/story-stamp.wav',route=>route.fulfill({status:404,body:''}));
 await failed.goto('http://127.0.0.1:4173/?diagnostics');await failed.locator('#enter').click();
 await failed.waitForFunction(()=>window.midwayDiagnostics.storyAudio().status==='unavailable');
-assert.equal(await failed.locator('#story-notice').isVisible(),true);
+assert.match(await failed.locator('#hint').textContent(),/could not load/);
+assert.equal(await failed.locator('#story-notice').isVisible(),false);
 await failed.unroute('**/assets/audio/story-stamp.wav');
 await failed.locator('#playback').click();await failed.locator('#playback').click();
 await failed.waitForFunction(()=>window.midwayDiagnostics.storyAudio().status==='ready');
@@ -193,7 +196,8 @@ await brokenArt.goto('http://127.0.0.1:4173/?diagnostics');await brokenArt.locat
 await brokenArt.waitForFunction(()=>window.midwayDiagnostics.story().assetFailure);
 await brokenArt.locator('#bell').dispatchEvent('click');
 assert.equal(await brokenArt.evaluate(()=>window.midwayDiagnostics.story().rings),0);
-assert.equal(await brokenArt.locator('#story-notice').isVisible(),true);
+assert.match(await brokenArt.locator('#hint').textContent(),/artwork could not load/);
+assert.equal(await brokenArt.locator('#story-notice').isVisible(),false);
 await brokenArt.locator('#playback').click();
 assert.equal(await brokenArt.evaluate(()=>window.midwayDiagnostics.snapshot().state),'paused');
 

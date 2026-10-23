@@ -3,7 +3,7 @@ import {mkdir,readFile,writeFile} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import {pathToFileURL} from 'node:url';
 import {createPreviewServer} from '../../serve.mjs';
-const output=process.argv[2] || 'tests/results/bell-narration';
+const output=process.argv[2] || 'tests/results/carousel-payoff';
 await mkdir(output,{recursive:true});
 const {chromium}=await import(pathToFileURL(process.env.PLAYWRIGHT_MODULE || 'C:/Users/arose/AppData/Local/npm-cache/_npx/6bcb61ec6d5aea22/node_modules/playwright/index.mjs').href);
 const server=createPreviewServer({basePath:'/midnight-midway/'});
@@ -26,6 +26,10 @@ try {
   assert.equal(await page.locator('#carousel-controls').isVisible(),false);
   await page.locator('[data-horse-note="left"]').dispatchEvent('click');
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().progress),0);
+  assert.equal(await page.locator('.environment-paper').isVisible(),true,'Paper must exist before entry');
+  const paperBefore=await page.locator('.environment-paper').evaluate(el=>el.outerHTML);
+  await page.locator('#music-open').dispatchEvent('click');
+  assert.equal(await page.locator('#music-clue').isVisible(),false,'Paper is locked before admission');
   await page.locator('#enter').click();
   await page.waitForFunction(()=>window.midwayDiagnostics.storyAudio().status==='ready'&&window.midwayDiagnostics.audio().status==='playing');
   const bellMotion=()=>page.locator('.story-bell').getAttribute('style');
@@ -42,15 +46,17 @@ try {
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().progress),0);
   await page.waitForFunction(()=>window.midwayDiagnostics.journey().admitted);
   assert.equal(await page.locator('#carousel-controls').isVisible(),true);
+  assert.equal(await page.locator('.environment-paper').evaluate(el=>el.outerHTML),paperBefore,'Admission must not reveal or change the ground paper');
   const select=note=>page.locator(`[data-horse-note="${note}"]`);
   await select('left').tap();assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().progress),1);
   await select('center').tap();assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().progress),0);
-  assert.match(await page.locator('#carousel-progress').textContent(),/tune fades/);
+  assert.equal(await page.locator('#carousel-progress').count(),0);
   await page.locator('#music-open').focus();await page.keyboard.press('Enter');
   assert.equal(await page.locator('#music-clue').isVisible(),true);
   assert.equal(await page.locator('.music-sequence').count(),0);
   assert.ok(!/left|right|center|lowest|highest|sequence/i.test(await page.locator('#music-clue').innerText()));
-  assert.match(await page.locator('#music-clue > img').getAttribute('src'),/music-sheet.svg$/);
+  assert.match(await page.locator('#music-clue img').getAttribute('src'),/music-paper-painted-v1.png$/);
+  assert.equal(await page.locator('#music-clue svg ellipse').count(),4);
   assert.equal(await page.locator('#music-clue').evaluate(el=>getComputedStyle(el).backgroundColor),'rgba(0, 0, 0, 0)');
   const rings=await page.evaluate(()=>window.midwayDiagnostics.story().rings);
   await page.locator('#bell').dispatchEvent('click');
@@ -90,12 +96,40 @@ try {
   await select('left').tap();
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().solved),true);
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().progress),4);
-  assert.match(await page.locator('#carousel-progress').textContent(),/remembered melody/);
+  assert.equal(await page.locator('#carousel-progress').count(),0);
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.story().playing),false,'Puzzle success must not start another story');
   assert.equal(await page.locator('.story-window').isVisible(),false);
   assert.equal(await page.locator('#admission').isVisible(),true);
   await page.screenshot({path:`${output}/puzzle-solved.png`});
-  // The existing booth can still be replayed after solving; puzzle memory stays.
+  assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().playing),true);
+  await page.locator('#bell').dispatchEvent('click');
+  await select('right').dispatchEvent('click');
+  await page.locator('#music-open').dispatchEvent('click');
+  assert.equal(await page.evaluate(()=>window.midwayDiagnostics.story().rings),0,'Payoff owns scene input');
+  assert.equal(await page.locator('#music-clue').isVisible(),false);
+  await page.waitForFunction(()=>window.midwayDiagnostics.carousel().phase==='ride');
+  await page.waitForTimeout(1500);
+  assert.ok(await page.evaluate(()=>window.midwayDiagnostics.carousel().horseY.some(y=>y<-.1)));
+  await page.screenshot({path:`${output}/ride.png`});
+  await page.locator('#playback').tap();
+  const frozenRide=await page.evaluate(()=>({state:window.midwayDiagnostics.carousel(),horses:[...document.querySelectorAll('.horse-left,.horse-center,.horse-right')].map(el=>el.style.cssText),lights:document.querySelector('.carousel-lighting').style.cssText}));
+  assert.equal(await page.evaluate(()=>window.midwayDiagnostics.storyAudio().activeSources),0);
+  await page.waitForTimeout(180);
+  assert.deepEqual(await page.evaluate(()=>({state:window.midwayDiagnostics.carousel(),horses:[...document.querySelectorAll('.horse-left,.horse-center,.horse-right')].map(el=>el.style.cssText),lights:document.querySelector('.carousel-lighting').style.cssText})),frozenRide);
+  await page.locator('#playback').tap();
+  await page.waitForFunction(()=>window.midwayDiagnostics.audio().status==='playing'&&window.testContext.state==='running');
+  await page.evaluate(()=>window.testContext.suspend());
+  await page.waitForFunction(()=>window.midwayDiagnostics.snapshot().state==='paused');
+  const interruptedRide=await page.evaluate(()=>window.midwayDiagnostics.carousel());
+  await page.waitForTimeout(120);
+  assert.deepEqual(await page.evaluate(()=>window.midwayDiagnostics.carousel()),interruptedRide,'Native audio interruption must freeze the ride');
+  assert.equal(await page.evaluate(()=>window.midwayDiagnostics.storyAudio().activeSources),0);
+  await page.locator('#playback').tap();
+  await page.waitForFunction(()=>window.midwayDiagnostics.carousel().completed);
+  assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().phase),'idle');
+  assert.ok(await page.evaluate(()=>window.midwayDiagnostics.carousel().horseY.every(y=>y>=-2.2)));
+  await page.screenshot({path:`${output}/completed-idle.png`});
+  // The existing booth can still be replayed after the payoff; memory stays.
   for(let i=0;i<3;i++)await page.locator('#bell').click();
   assert.equal(await page.locator('#carousel-controls').isVisible(),false);
   await select('right').dispatchEvent('click');
@@ -107,7 +141,7 @@ try {
     await page.setViewportSize({width,height});
     const layout=await page.locator('#carousel-controls').evaluate(el=>{
       const stage=document.querySelector('#stage').getBoundingClientRect();
-      const buttons=[...el.querySelectorAll('button')];
+      const buttons=[...el.querySelectorAll('button'),document.querySelector('#music-open')];
       const targets=buttons.map(button=>{
         const r=button.getBoundingClientRect();
         return {width:button.offsetWidth,height:button.offsetHeight,fits:r.left>=stage.left&&r.right<=stage.right&&r.top>=stage.top&&r.bottom<=stage.bottom,
@@ -126,6 +160,7 @@ try {
     assert.equal(layout.bellContainsArtwork,true,'Fixed generous touch area must contain the swaying bell');
     for(const note of ['left','right','center','left'])await select(note).tap();
     assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().progress),4);
+    await page.waitForFunction(()=>!window.midwayDiagnostics.carousel().playing);
     await page.locator('#music-open').tap();
     const paper=await page.locator('#music-clue').boundingBox();assert.ok(paper.x>=0&&paper.y>=0&&paper.x+paper.width<=width&&paper.y+paper.height<=height);
     const pause=await page.locator('#playback').boundingBox();assert.ok(paper.y>pause.y+pause.height,'Clue must not cover Play/Pause');
@@ -135,9 +170,17 @@ try {
   await page.waitForFunction(()=>window.midwayDiagnostics.story().bellX===0);
   assert.equal(await page.locator('.story-bell').evaluate(el=>el.style.transform),'translate(0px, 0px) rotate(0deg)');
   await select('left').click();assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().progress),1);
+  await page.waitForFunction(()=>window.midwayDiagnostics.audio().status==='playing'&&window.testContext.state==='running');
   await page.evaluate(()=>window.testContext.suspend());
   await page.waitForFunction(()=>window.midwayDiagnostics.snapshot().state==='paused');
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().progress),1);
+  await page.locator('#playback').tap();
+  for(const note of ['right','center','left'])await select(note).tap();
+  assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().playing),true);
+  await page.waitForTimeout(1500);
+  assert.deepEqual(await page.evaluate(()=>window.midwayDiagnostics.carousel().horseY),[0,0,0]);
+  assert.ok(await page.evaluate(()=>[...document.querySelectorAll('.horse-left,.horse-center,.horse-right')].every(el=>el.style.transform==='translateY(0px)')));
+  await page.screenshot({path:`${output}/reduced-motion-payoff.png`});
   await page.reload();await page.waitForFunction(()=>!document.querySelector('#enter').disabled);
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.carousel().solved),false);
   assert.equal(await page.locator('#carousel-controls').isVisible(),false);
@@ -159,9 +202,7 @@ try {
     if(['assets/story/ticket.svg','assets/story/bell.svg'].includes(file))assert.notDeepEqual(current,previous,'Approved prop redesign must be present');
     else assert.deepEqual(current,previous);
   }
-  const notation=await readFile('assets/story/music-sheet.svg','utf8');
-  assert.equal((notation.match(/<ellipse cx="(?:86|142|198|254)"/g)||[]).length,4);
-  assert.ok(!notation.includes('<text'),'Paper must contain notation only');
-  const result={status:'passed',baseCommit:'0895f9c',admissionGate:true,solution:['left','right','center','left'],mistakeResetsAttempt:true,inspectableClueAndFocus:true,clueLocksSceneInput:true,threeDistinctPitches:true,pitchedCueResume:true,pausePreservesAttemptAndFeedback:true,progressiveHints:[first,second,third],hintsPauseWithClock:true,boothReplayPreservesAdmissionAndPuzzle:true,reducedMotion:true,refreshStartsFresh:true,noCarouselStory:true,backgroundAndAudioBytesUnchanged:true,approvedTicketRedesign:true,weatheredBellRedesign:true,noFloatingBellProgress:true,notationOnlyEnvironmentalPaper:true,horseTouchTargetsAndPhysicalHeads:true,originalMusicBoxBuffer:true,layouts,errors,limits:['Focused desktop Chromium integration, not physical-phone verification','Carousel success remembers the puzzle; ride story and prize-stall unlock remain deferred']};
+  assert.equal(await page.locator('.environment-paper svg text').count(),0);
+  const result={status:'passed',baseCommit:'0895f9c',admissionGate:true,solution:['left','right','center','left'],mistakeResetsAttempt:true,inspectableClueAndFocus:true,clueLocksSceneInput:true,threeDistinctPitches:true,pitchedCueResume:true,pausePreservesAttemptAndFeedback:true,progressiveHints:[first,second,third],hintsPauseWithClock:true,boothReplayPreservesAdmissionAndPuzzle:true,reducedMotion:true,refreshStartsFresh:true,eightSecondCarouselPayoff:true,staggeredVerticalMotion:true,quietCompletedIdle:true,paperVisibleFromStartButLocked:true,singleRuntimeNarrationBox:true,backgroundAndAudioBytesUnchanged:true,approvedTicketRedesign:true,weatheredBellRedesign:true,noFloatingBellProgress:true,notationOnlyEnvironmentalPaper:true,horseTouchTargetsAndPhysicalHeads:true,originalMusicBoxBuffer:true,layouts,errors,limits:['Focused desktop Chromium integration, not physical-phone verification','Prize stall and ending implementation remain deferred; public site unchanged']};
   await writeFile(`${output}/checks.json`,JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));
 } finally {await browser.close();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}
