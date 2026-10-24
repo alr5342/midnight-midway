@@ -56,7 +56,13 @@
         <button type="button" id="revisit" class="ending-revisit" hidden>Revisit the midway</button>
         <span id="ending-status" class="visually-hidden" role="status"></span>
         <button type="button" id="credits-open" class="credits-open" aria-haspopup="dialog">Credits</button>
-        <p class="hint-mockup" id="hint" role="status" hidden>Some guests never left the midway…</p>
+        <div class="narration-area">
+          <div id="visit-tools" class="visit-tools" role="group" aria-label="Restart controls" hidden>
+            <button type="button" id="restart-activity">Restart activity</button>
+            <button type="button" id="restart-visit">Restart visit</button>
+          </div>
+          <p class="hint-mockup" id="hint" role="status" hidden>Some guests never left the midway…</p>
+        </div>
         <p class="runtime-notice" id="audio-notice" aria-hidden="true" hidden></p>
         <p class="runtime-notice" id="story-notice" aria-hidden="true" hidden></p>
       </div>

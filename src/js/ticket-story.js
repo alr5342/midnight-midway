@@ -31,6 +31,12 @@ export class TicketStory {
     return true;
   }
 
+  restart(time) {
+    this.snapshot(time);
+    this.rings=0;this.startedAt=null;this.feedbackAt=null;
+    this.hintSince=time;this.cycle++;
+  }
+
   snapshot(elapsedMs, reducedMotion = false) {
     let seconds = this.startedAt === null ? null : (elapsedMs - this.startedAt) / 1000;
     if (seconds !== null && seconds >= 8) {
@@ -47,10 +53,10 @@ export class TicketStory {
     const feedback = this.feedbackAt === null ? 0 : clamp(1 - (elapsedMs - this.feedbackAt) / 850);
     const waiting = (elapsedMs - this.hintSince) / 1000;
     let hint = waiting >= 24 ? 'A bell was how you called them, in the old days.' : waiting >= 12 ? 'The little bell outlasted whoever rang it last.' : 'They used to keep someone here, however late the hour.';
-    if (this.completed > 0) hint = 'Somewhere beyond the booth, an old tune is waiting.';
+    if (this.completed > 0) hint = 'Your ticket belongs to the silent carousel. Its horses are still waiting.';
     if (this.rings > 0 && !playing && elapsedMs - this.feedbackAt < 2200) hint = this.rings === 1 ? 'For a moment, the waiting feels mutual.' : 'Whoever is inside has not quite finished waiting.';
     if (playing) hint = narration[beat];
-    if (!playing && this.completedAt !== null && elapsedMs - this.completedAt < 2200) hint = 'Somewhere beyond the booth, an old tune is waiting.';
+    if (!playing && this.completedAt !== null && elapsedMs - this.completedAt < 2200) hint = 'Your ticket belongs to the silent carousel. Its horses are still waiting.';
     const cues = [];
     if (this.feedbackAt !== null) cues.push({ id: `ring-${this.cycle}-${this.feedbackAt}-${this.rings}`, name: `ring-${this.rings}`, at: this.feedbackAt, duration: cueDurations[`ring-${this.rings}`] });
     if (playing) {
@@ -74,7 +80,7 @@ export class TicketStory {
   }
 }
 
-export function connectTicketStory(scene, playback, cueAudio, { bell, hint, notice, onComplete = () => {}, canInteract = () => true, idleHint = () => null }) {
+export function connectTicketStory(scene, playback, cueAudio, { bell, hint, notice, onComplete = () => {}, onActivity = () => {}, canInteract = () => true, idleHint = () => null }) {
   const art = mountTicketArtwork(scene);
   art.layer.hidden = true;
   const model = new TicketStory();
@@ -130,7 +136,7 @@ export function connectTicketStory(scene, playback, cueAudio, { bell, hint, noti
   playback.subscribe(render);
   bell.addEventListener('click', () => {
     if (!playback.canInteract || !canInteract() || !assetsReady || assetFailure || cueAudio.status === 'loading') return;
-    if (model.ring(playback.elapsedMs)) playback.notify();
+    if (model.ring(playback.elapsedMs)) {onActivity();playback.notify();}
   });
-  return { snapshot: () => ({ ...model.snapshot(playback.elapsedMs, playback.reducedMotion), assetsReady, assetFailure }) };
+  return { snapshot: () => ({ ...model.snapshot(playback.elapsedMs, playback.reducedMotion), assetsReady, assetFailure }),restart:()=>model.restart(playback.elapsedMs) };
 }

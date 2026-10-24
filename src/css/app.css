@@ -14,9 +14,18 @@ main.app {
 .ambient-lighting { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; mix-blend-mode: screen; }
 .ambient-fog { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .ambient-bats { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.app-ui { position: absolute; inset: 0; pointer-events: none; }
+.app-ui { position: absolute; inset: 0; pointer-events: none; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 1fr auto auto; gap: 6px; padding: 12px; justify-items: center; }
 .app-ui button { pointer-events: auto; cursor: pointer; font-family: inherit; }
 .app-ui .pause-mockup { padding: 0; }
+.scene-actions { position: absolute; inset: 0; pointer-events: none; isolation: isolate; }
+.scene-actions button[aria-disabled="true"] { pointer-events: none; }
+.app-stage[data-state="start"] .scene-actions { visibility: hidden; }
+.narration-area { display: contents; }
+.narration-area .hint-mockup { grid-row: 3; position: static; transform: none; min-width: 0; width: auto; max-width: 100%; z-index: 2; }
+.visit-tools { grid-row: 2; display: flex; gap: 8px; width: min(100%, 274px); pointer-events: auto; position: relative; z-index: 3; }
+.visit-tools button { flex: 1; min-width: 0; min-height: 44px; padding: 6px; border: 1px solid #d9bd8540; border-radius: 7px; background: #0c1021d9; color: #ead7b4; font-size: 11px; line-height: 1.3; }
+.visit-tools button:disabled { opacity: .45; cursor: default; }
+@media (max-height: 450px) { .visit-tools { grid-row: 1; align-self: start; margin-top: 72px; } }
 .admission-badge { position: absolute; top: 12px; left: calc(50% - 10px); transform: translateX(-50%); width: min(112px, calc(100% - 148px)); padding: 5px 4px; display: grid; justify-items: center; gap: 2px; border: 1px solid #d9bd8540; border-radius: 8px; background: #0c1021f2; color: #fff0d9; font: 11px/1.4 system-ui, sans-serif; text-align: center; }
 .admission-badge img { display: block; width: min(72px, 100%); height: auto; }
 .credits-open { position:absolute; top:12px; right:12px; min-height:44px; min-width:64px; padding:8px; border:1px solid #d9bd8580; border-radius:8px; background:#101323; color:#ffdda2; font-size:12px; }
@@ -50,7 +59,7 @@ main.app {
 .prize-flying-bag { position: absolute; width: 7%; height: 3.5%; opacity: 0; filter: drop-shadow(1px 2px 2px #10080e90); }
 .prize-token { position: absolute; left: 78%; top: 62%; width: 12%; height: 8%; object-fit: contain; opacity: 0; filter: drop-shadow(0 0 8px #ffe0a060); }
 .prize-sparks { position: absolute; left: 75%; top: 60%; width: 18%; height: 12%; opacity: 0; }
-.prize-controls { position: absolute; inset: 0; pointer-events: none; }
+.prize-controls { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
 .can-target, .prize-retry { position: absolute; width: max(44px, 12%); height: max(44px, 6.2%); padding: 0; border: 0; background: transparent; transform: translate(-50%, -50%); touch-action: manipulation; }
 .can-target { border-radius: 50%; clip-path: ellipse(50% 50%); }
 .can-target-left { left: 76%; top: 67.3%; }
@@ -82,7 +91,7 @@ main.app {
 .sheet-art svg { mix-blend-mode: multiply; opacity: .85; }
 .carousel-lighting { position: absolute; inset: 0; width: 100%; height: 100%; mix-blend-mode: screen; pointer-events: none; opacity: 0; }
 /* Inspect the same paper, without a rectangular panel, caption or solution. */
-.music-clue { position: absolute; top: 64%; left: 50%; transform: translate(-50%, -50%) rotate(-3deg); width: min(340px, calc(100% - 24px)); pointer-events: auto; filter: drop-shadow(2px 6px 7px #04020ac0); }
+.music-clue { position: absolute; top: 64%; left: 50%; transform: translate(-50%, -50%) rotate(-3deg); width: min(340px, calc(100% - 24px)); pointer-events: auto; filter: drop-shadow(2px 6px 7px #04020ac0); z-index: 2; }
 
 #music-close { position: absolute; right: 4%; top: 3%; min-width: 44px; min-height: 44px; padding: 0; border: 0; border-radius: 50%; background: #bfa26c; color: #30231b; font: 24px/1 Georgia, serif; }
 .app-ui button:focus-visible { outline: 3px solid #fff0c9; outline-offset: 4px; }

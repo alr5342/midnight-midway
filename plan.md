@@ -1,6 +1,6 @@
 # Implementation Plan
 
-Current authorized checkpoint, from 6487dc4: stall wake-up cue, responsive throws without rule changes, deliberate token claim, approved ten-second field-revealing ending and fresh Revisit. Implementation and focused verification are complete for local review: 34 unit tests plus prize/ending browser checks passed; evidence/status is maintained in [ENDING-IMPLEMENTATION.md](docs/design/ENDING-IMPLEMENTATION.md). Stop after this checkpoint. No merge, push, deployment or new creative feature. Earlier checkpoint entries below are historical.
+Current checkpoint from 15f2597, 2026-10-24: fix touch recovery and transition clarity, add progress-preserving activity restart and distinct full-visit restart, and verify normal gameplay through Revisit. Complete for local review: 38 unit tests and the focused recovery browser check passed, including eight repeated failed attempts at four viewport sizes plus a normal-speed touch journey. [Evidence and limits](docs/design/JOURNEY-RECOVERY.md). Stop here; no merge, push or deployment. Earlier entries below are historical.
 
 Current authorized checkpoint, from 5bd5ff2: static visual staging for the Developer-selected three-can knockdown game (three stacked cans, two beanbags, subtle environmental aiming clues). The preview is prepared and focused browser checks passed. Stop for visual approval before throws, cascade rules, scoring, prize story or ending playback. No deployment. See [staging record](docs/design/PRIZE-STAGING.md). Earlier checkpoint entries below are historical.
 

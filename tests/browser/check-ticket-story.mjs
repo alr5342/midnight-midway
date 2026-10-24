@@ -109,7 +109,7 @@ assert.equal(await page.locator('.story-window').isVisible(),false);
 assert.equal(await page.locator('.story-ticket').isVisible(),false);
 assert.equal((await audio()).activeSources,0);
 assert.equal(await restingOverlay(),restingMarkup,'Reset must restore resting overlay state');
-assert.match(await page.locator('#hint').textContent(),/old tune/i);
+assert.match(await page.locator('#hint').textContent(),/carousel/i);
 assert.deepEqual(await journey(),admitted);
 assert.equal(await page.locator('#admission').isVisible(),true);
 assert.equal(await page.locator('#stage').getAttribute('data-carousel'),'unlocked');

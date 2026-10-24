@@ -36,6 +36,7 @@ export class CarouselPuzzle {
     this.payoffSerial = 0;
     this.completed = false;
     this.musicStartedAt = null;
+    this.lastCompletedPayoffAt = null;
   }
 
   unlock(time) { if (this.unlockedAt === null) this.unlockedAt = time; }
@@ -59,10 +60,19 @@ export class CarouselPuzzle {
 
   inspect(time) { this.inspectedAt = time; this.inspectionSerial++; }
 
+  restart(time) {
+    this.snapshot(time);
+    this.progress=0;this.note=null;this.feedbackAt=null;this.mistake=false;this.inspectedAt=null;
+    this.solved=this.completed;
+    this.payoffAt=this.lastCompletedPayoffAt;
+    if(!this.completed)this.musicStartedAt=null;
+    if(this.unlockedAt!==null)this.unlockedAt=time;
+  }
+
   snapshot(time, reducedMotion = false) {
     const age = this.payoffAt === null ? null : Math.max(0,(time-this.payoffAt)/1000);
     const playing = age !== null && age < 8;
-    if (age !== null && age >= 8) this.completed = true;
+    if (age !== null && age >= 8) {this.completed = true;this.lastCompletedPayoffAt=this.payoffAt;}
     const phase = age === null ? 'resting' : age < 1.2 ? 'lights' : age < 6 ? 'ride' : age < 8 ? 'settle' : 'idle';
     const envelope = age === null ? 0 : smooth((age-1.2)/1.3)*(1-.68*smooth((age-6)/2));
     // Small upward lifts avoid exposing cropped feet below the fixed railing.
@@ -82,13 +92,13 @@ export class CarouselPuzzle {
       }
     }
     const waiting = this.unlockedAt === null ? 0 : time - this.unlockedAt;
-    const hint = this.progress === 4 ? 'For a moment, the years seem less certain.' : feedback && this.mistake ? 'The memory breaks off before its end.' : waiting >= 24000 ? 'A few bars escaped the rain, down by the carousel.' : waiting >= 12000 ? 'The horses forgot the words, but not their voices.' : 'Someone left a song unfinished.';
+    const hint = this.progress === 4 ? 'Beyond the carousel, the prize stall waits for its last player.' : feedback && this.mistake ? 'The memory breaks off before its end.' : waiting >= 24000 ? 'A few bars escaped the rain, down by the carousel.' : waiting >= 12000 ? 'The carousel horses kept their voices. Something nearby kept the tune.' : 'The carousel is silent, but its horses remember a song.';
     const narration = playing ? age<1.2 ? 'A spark of an evening long ago.' : age<6 ? 'For a little while, the years lose their hold.' : 'The old rhythm has found its way home.' : hint;
     return {progress:this.progress,solved:this.solved,completed:this.completed,playing,phase,horseY,light,note:feedback?this.note:null,mistake:feedback&&this.mistake,hint:narration,cues,musicCues:musicAt(time,this.musicStartedAt)};
   }
 }
 
-export function connectCarousel(scene, playback, audio, {access, onSolved}) {
+export function connectCarousel(scene, playback, audio, {access, onSolved,onActivity=()=>{}}) {
   const model = new CarouselPuzzle();
   const controls = document.querySelector('#carousel-controls');
   const paper = document.querySelector('#music-clue');
@@ -123,7 +133,8 @@ export function connectCarousel(scene, playback, audio, {access, onSolved}) {
       horse.style.filter = state.note === note ? 'brightness(1.2) drop-shadow(0 0 6px #ffe1ad)' : state.light ? `brightness(${1+state.light*.16})` : '';
       horse.style.transform = `translateY(${state.horseY[index]*scene.clientHeight/1672}px)`;
     }
-    if (state.solved && !wasSolved) {wasSolved = true;onSolved();}
+    if (state.solved && !wasSolved) onSolved();
+    wasSolved=state.solved;
     audio.sync(snapshot, visible ? state.cues : [], 'carousel');
     // Activated music persists under other attractions, sharing their clock.
     audio.sync(snapshot,state.musicCues,'carousel-ambience');
@@ -139,13 +150,14 @@ export function connectCarousel(scene, playback, audio, {access, onSolved}) {
   }
   for (const button of notes) button.addEventListener('click', () => {
     if (!canUse() || clueOpen || audio.status === 'loading') return;
-    model.play(button.dataset.horseNote,playback.elapsedMs);
+    if(model.play(button.dataset.horseNote,playback.elapsedMs))onActivity();
     playback.notify();
   });
   open.addEventListener('click', () => {
     if (!canUse()) return;
     if (clueOpen) {putAway();return;}
     clueOpen = true;
+    onActivity();
     model.inspect(playback.elapsedMs);
     playback.notify();
     close.focus({preventScroll:true});
@@ -156,6 +168,7 @@ export function connectCarousel(scene, playback, audio, {access, onSolved}) {
   });
   return {
     snapshot: () => ({...model.snapshot(playback.elapsedMs,playback.reducedMotion),clueOpen}),
-    hint: () => clueOpen ? 'Whoever left this never came back for it.' : model.snapshot(playback.elapsedMs).hint
+    hint: () => clueOpen ? 'Whoever left this never came back for it.' : model.snapshot(playback.elapsedMs).hint,
+    restart:()=>{model.restart(playback.elapsedMs);clueOpen=false;}
   };
 }

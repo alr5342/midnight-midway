@@ -29,6 +29,11 @@ const journey = { admitted: false };
 let carousel = null;
 let prize = null;
 let ending = null;
+let currentActivity='booth';
+let rideNoticed=false;
+const restartActivity=document.querySelector('#restart-activity');
+const restartVisit=document.querySelector('#restart-visit');
+const selectActivity=name=>{currentActivity=name;};
 const audioNotice = document.querySelector('#audio-notice');
 let frame = null;
 let renderedState = null;
@@ -51,15 +56,18 @@ const storyAudio = new StoryAudio(ambientAudio, { onStatus: value => {
 const ticketStory = connectTicketStory(document.querySelector('.scene'), playback, storyAudio, {
   bell: document.querySelector('#bell'), hint, notice: storyNotice,
   onComplete: grantAdmission,
+  onActivity:()=>selectActivity('booth'),
   canInteract: () => !ending?.snapshot().claimed && !carousel?.snapshot().clueOpen && !carousel?.snapshot().playing && !prize?.snapshot().busy,
-  idleHint: () => prize?.snapshot().unlocked && !carousel?.snapshot().clueOpen && !carousel?.snapshot().playing ? prize.hint() : carousel?.hint()
+  idleHint: () => currentActivity==='carousel'||carousel?.snapshot().clueOpen||carousel?.snapshot().playing ? carousel?.hint() : prize?.snapshot().unlocked ? prize.hint() : carousel?.hint()
 });
 carousel = connectCarousel(document.querySelector('.scene'), playback, storyAudio, {
   access: () => ({admitted:journey.admitted,storyPlaying:ticketStory.snapshot().playing || Boolean(prize?.snapshot().busy) || Boolean(ending?.snapshot().claimed)}),
-  onSolved: () => { stage.dataset.carouselPuzzle = 'solved'; }
+  onSolved: () => { stage.dataset.carouselPuzzle = 'solved'; },
+  onActivity:()=>selectActivity('carousel')
 });
 prize = connectPrize(document.querySelector('.scene'),playback,storyAudio,{
-  access: () => ({rideCompleted:carousel.snapshot().completed,blocked:ticketStory.snapshot().playing || carousel.snapshot().playing || carousel.snapshot().clueOpen || Boolean(ending?.snapshot().claimed)})
+  access: () => ({rideCompleted:carousel.snapshot().completed,blocked:ticketStory.snapshot().playing || carousel.snapshot().playing || carousel.snapshot().clueOpen || Boolean(ending?.snapshot().claimed)}),
+  onActivity:()=>selectActivity('prize')
 });
 ending=connectEnding(document.querySelector('.scene'),playback,ambientAudio,storyAudio,{
   access:()=>{
@@ -72,6 +80,7 @@ connectCredits(playback);
 const assets = connectAssetReadiness(document.querySelector('.scene'), enter, document.querySelector('#asset-notice'));
 
 function grantAdmission() {
+  currentActivity=carousel?.snapshot().completed?'prize':'carousel';
   if (journey.admitted) return;
   journey.admitted = true;
   renderJourney(playback.snapshot());
@@ -83,6 +92,7 @@ function journeySnapshot() {
 }
 
 function renderJourney(snapshot) {
+  if(!rideNoticed&&carousel?.snapshot().completed) {rideNoticed=true;currentActivity='prize';}
   const availability = journey.admitted ? 'unlocked' : 'locked';
   if (stage.dataset.carousel !== availability) stage.dataset.carousel = availability;
   const hidden = !journey.admitted || snapshot.state === 'start' || Boolean(ending?.snapshot().claimed);
@@ -98,6 +108,13 @@ function nextFrame() {
 playback.subscribe((snapshot) => {
   renderJourney(snapshot);
   const finale=ending?.snapshot();
+  const reward=prize?.snapshot();
+  stage.dataset.activity=currentActivity;
+  document.querySelector('#visit-tools').hidden=snapshot.state==='start'||Boolean(finale?.gone);
+  restartActivity.disabled=Boolean(finale?.claimed);
+  const activityLabel=currentActivity==='prize'&&reward?.failed?'Retry game':currentActivity==='prize'&&reward?.completed&&reward?.bags===0&&!reward?.busy?'Replay game':'Restart activity';
+  if(restartActivity.textContent!==activityLabel)restartActivity.textContent=activityLabel;
+  restartActivity.setAttribute('aria-label',`${restartActivity.textContent}: ${currentActivity==='booth'?'ticket booth':currentActivity==='carousel'?'carousel puzzle':'prize game'}; keep visit progress`);
   // A tab interruption during the quiet final hold must still offer explicit
   // Play; otherwise the hidden control would strand the Revisit timer.
   pause.hidden=snapshot.state==='start'||Boolean(finale?.resting)||Boolean(finale?.gone&&snapshot.state!=='paused');
@@ -135,6 +152,13 @@ pause.addEventListener('click', () => {
   if (playback.state === 'paused') playback.resume();
   else playback.pause();
 });
+restartActivity.addEventListener('click',()=>{
+  if(playback.state==='start'||ending.snapshot().claimed)return;
+  ({booth:ticketStory,carousel,prize})[currentActivity].restart();
+  stage.dataset.carouselPuzzle=carousel.snapshot().solved?'solved':'pending';
+  playback.notify();
+});
+restartVisit.addEventListener('click',()=>location.reload());
 motionPreference.addEventListener('change', event => playback.setReducedMotion(event.matches));
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) playback.pause();

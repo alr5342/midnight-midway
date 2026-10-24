@@ -60,7 +60,14 @@ export class PrizeGame {
   retry(time) {
     const state=this.snapshot(time);
     if(this.unlockedAt===null||state.busy||(!state.failed&&!(state.completed&&this.bags===0)))return false;
-    this.down.clear();this.bags=2;this.storyAt=null;this.feedbackAt=time;
+    return this.restart(time);
+  }
+
+  restart(time) {
+    this.advance(time);
+    if(this.unlockedAt===null)return false;
+    this.down.clear();this.bags=2;this.throwing=null;this.storyAt=null;this.feedbackAt=time;
+    this.recentThrows=[];this.serial++;
     return true;
   }
 
@@ -108,9 +115,9 @@ export class PrizeGame {
       }
     }
     const waiting=this.unlockedAt===null?0:time-this.unlockedAt;
-    let hint=waiting>=28000?'The brightest scuffs are low on the old tins.':waiting>=14000?'The sign has outlasted a thousand hopeful throws.':'The last prize has been waiting a very long time.';
+    let hint=waiting>=28000?'The brightest scuffs are low on the old tins.':waiting>=14000?'At the prize stall, the sign still promises a game.':'Beyond the carousel, the prize stall is stirring. A game waits beneath its lights.';
     if(flight)hint='Something stirs behind the counter.';
-    else if(failed)hint='The bags are waiting for another try.';
+    else if(failed)hint='A few tins still stand. Retry the game when you’re ready.';
     else if(this.bags===1)hint='One chance left; the shelf remembers every miss.';
     if(playing)hint=storyAge<1?'A winning note, from an empty stall.':storyAge<4.5?'Even the prizes remember the hands that held them.':'Some nights leave something behind.';
     else if(this.tokenAwarded&&this.bags===0&&!failed)hint='A small piece of a place the world forgot.';
@@ -124,7 +131,7 @@ export class PrizeGame {
   }
 }
 
-export function connectPrize(scene,playback,audio,{access}) {
+export function connectPrize(scene,playback,audio,{access,onActivity=()=>{}}) {
   const model=new PrizeGame(),art=mountPrizeArtwork(scene);
   const controls=document.querySelector('#prize-controls');
   const targets=[...controls.querySelectorAll('[data-can]')];
@@ -197,16 +204,19 @@ export function connectPrize(scene,playback,audio,{access}) {
       })[0];
     }
     if(canUse()&&model.throwAt(side,playback.elapsedMs)) {
+      onActivity();
       playback.notify();
     }
   });
   retry.addEventListener('click',()=>{
     if(canUse()&&model.retry(playback.elapsedMs)) {
+      onActivity();
       playback.notify();targets[0].focus({preventScroll:true});
     }
   });
   return {
     snapshot:()=>({...model.snapshot(playback.elapsedMs,playback.reducedMotion),ready,assetFailure}),
-    hint:()=>assetFailure?'The game props could not load. Reload to try again.':model.snapshot(playback.elapsedMs).hint
+    hint:()=>assetFailure?'The game props could not load. Reload to try again.':model.snapshot(playback.elapsedMs).hint,
+    restart:()=>model.restart(playback.elapsedMs)
   };
 }
