@@ -12,6 +12,7 @@ export class AmbientAudio {
     this.generation = 0;
     this.elapsedMs = 0;
     this.status = 'idle';
+    this.level = 1;
   }
 
   report(status) { this.status = status; this.onStatus(status); }
@@ -24,7 +25,7 @@ export class AmbientAudio {
       if (!this.context || this.context.state === 'closed') {
         this.context = this.createContext();
         this.gain = this.context.createGain();
-        this.gain.gain.value = .30;
+        this.gain.gain.value = .30 * this.level;
         this.gain.connect(this.context.destination);
         const context = this.context;
         context.addEventListener('statechange', () => {
@@ -70,6 +71,11 @@ export class AmbientAudio {
     this.source.stop();
     this.source.disconnect();
     this.source = null;
+  }
+
+  setLevel(level) {
+    this.level=Math.max(0,Math.min(1,level));
+    if(this.gain)this.gain.gain.value=.30*this.level;
   }
 
   pause() {

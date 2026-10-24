@@ -80,9 +80,9 @@ try {
   await page.locator('#bell').dispatchEvent('click');await page.locator('#music-open').dispatchEvent('click');
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.story().rings),rings);
   assert.equal(await page.locator('#music-clue').isVisible(),false);
-  await freeze('beanbag flight');await page.clock.runFor(460);
+  await freeze('beanbag flight');await page.clock.runFor(140);
   await page.screenshot({path:`${output}/can-falling.png`});
-  await freeze('can falling');await page.clock.runFor(1000);
+  await freeze('can falling');await page.clock.runFor(400);
   assert.deepEqual((await snap()).down,['top']);
   await can('left').tap();await page.clock.runFor(1500);
   assert.equal((await snap()).failed,true);assert.equal((await snap()).tokenAwarded,false);
@@ -94,7 +94,7 @@ try {
   await can('left').focus();await page.keyboard.press('Enter');await page.clock.runFor(1500);
   assert.deepEqual(new Set((await snap()).down),new Set(['left','top']));
   const startsBefore=await page.evaluate(()=>window.audioStarts.length);
-  await can('right').tap();await page.clock.runFor(1650);
+  await can('right').tap();await page.clock.runFor(800);
   assert.equal((await snap()).phase,'win');assert.equal((await snap()).tokenAwarded,false);
   await freeze('winning chime');
   await page.clock.runFor(1800);
@@ -128,7 +128,10 @@ try {
   await can('left').dispatchEvent('click');assert.equal((await snap()).bags,0);
   await page.clock.runFor(8100);
   await page.emulateMedia({reducedMotion:'reduce'});
-  await page.locator('#prize-retry').tap();await can('right').tap();await page.clock.runFor(650);
+  await page.locator('#prize-retry').tap();
+  assert.equal(await page.locator('#claim-token').isVisible(),false,'Claim must not overlap replay aiming');
+  assert.equal((await snap()).tokenOpacity,0,'Keep earned token progress while clearing replay artwork');
+  await can('right').tap();await page.clock.runFor(650);
   assert.ok((await snap()).canPos.every(p=>p.x===0&&p.y===0&&p.tilt===0));
   await page.clock.runFor(850);await can('left').tap();await page.clock.runFor(3500);
   assert.equal((await snap()).prizeY,0);await page.clock.runFor(6500);
@@ -146,6 +149,6 @@ try {
   for(const file of files)assert.deepEqual(await readFile(file),git('show',`e160093:${file}`),`Approved asset/preview changed: ${file}`);
   for(const name of ['prize-can-v1.png','prize-counter-v1.png','keepsake-token-v1.svg'])assert.deepEqual(await readFile(`assets/story/${name}`),await readFile(`dev/previews/assets/${name}`));
   assert.deepEqual(errors,[]);
-  const result={status:'passed',touchAndKeyboard:true,twoBagsAndSupportedStack:true,topFirstFailureAndManualRetry:true,rapidInputLocked:true,oneEightSecondPrizeStory:true,waitingTokenAwardedOnce:true,progressSafeReplay:true,sharedPauseAtEveryPhase:true,audioResumeOffsets:true,nativeInterruptionWaitsForPlay:true,reducedMotion:true,allApprovedAssetsAndPreviewsUnchanged:true,refreshStartsFresh:true,projectPrefixPaths:true,layouts,errors,limits:['Desktop Chromium touch emulation; physical-phone review pending','Token claim and disappearance remain approved staging only; not implemented in this checkpoint']};
+  const result={status:'passed',touchAndKeyboard:true,twoBagsAndSupportedStack:true,topFirstFailureAndManualRetry:true,rapidInputLocked:true,oneEightSecondPrizeStory:true,waitingTokenAwardedOnce:true,progressSafeReplay:true,sharedPauseAtEveryPhase:true,audioResumeOffsets:true,nativeInterruptionWaitsForPlay:true,reducedMotion:true,allApprovedAssetsAndPreviewsUnchanged:true,refreshStartsFresh:true,projectPrefixPaths:true,layouts,errors,limits:['Desktop Chromium touch emulation; physical-phone review pending','Prize regression only; claim and disappearance are covered by check-ending.mjs']};
   await writeFile(`${output}/checks.json`,JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));
 } finally {await browser.close();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}

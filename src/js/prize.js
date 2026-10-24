@@ -3,7 +3,7 @@ import {mountPrizeArtwork} from './artwork.js';
 const sides=['left','right','top'];
 const positions={left:[76,67.3],right:[90,67.3],top:[83,61.6]};
 const smooth=value=>{const x=Math.max(0,Math.min(1,value));return x*x*(3-2*x);};
-const duration=1450, impact=380;
+const duration=650, impact=220, fallDuration=270, stagger=65;
 
 // Authored support relationships replace physics. A lower can carries the top
 // with it, but never the other lower can. Only accepted aims spend a bag;
@@ -22,6 +22,7 @@ export class PrizeGame {
     this.settledStory=0;
     this.tokenAwarded=false;
     this.feedbackAt=null;
+    this.recentThrows=[];
   }
 
   unlock(time) {if(this.unlockedAt===null)this.unlockedAt=time;}
@@ -51,6 +52,7 @@ export class PrizeGame {
     if(side!=='top'&&!this.down.has('top'))falls.push('top');
     this.bags--;
     this.throwing={at:time,side,falls,id:++this.serial};
+    this.recentThrows.push(this.throwing);
     this.feedbackAt=time;
     return true;
   }
@@ -71,7 +73,8 @@ export class PrizeGame {
     const failed=!flight&&!playing&&this.bags===0&&this.down.size<3;
     const canPos=sides.map(side=>{
       const order=flight?.falls.indexOf(side)??-1;
-      const fall=order<0?0:smooth((age-impact-order*115)/530);
+      const travel=order<0?0:Math.max(0,Math.min(1,(age-impact-order*stagger)/fallDuration));
+      const fall=travel*travel;
       return {side,opacity:this.down.has(side)?0:1-smooth((fall-.55)/.45),
         x:reducedMotion?0:fall*(side==='right'?8:-7),y:reducedMotion?0:fall*9,
         tilt:reducedMotion?0:fall*(side==='right'?100:-105)};
@@ -80,15 +83,23 @@ export class PrizeGame {
     const [targetX,targetY]=flight?positions[flight.side]:[70,70];
     const flying={opacity:flight&&age<impact?1:0,
       x:reducedMotion?targetX:70+(targetX-70)*progress,
-      y:reducedMotion?targetY:70+(targetY-70)*progress-9*Math.sin(progress*Math.PI),
-      scale:reducedMotion?1:1.2-.65*progress,tilt:reducedMotion?0:160*progress};
+      y:reducedMotion?targetY:70+(targetY-70)*progress-6*Math.sin(progress*Math.PI),
+      scale:reducedMotion?1:1-.4*progress,tilt:reducedMotion?0:100*progress};
     const haunted=playing?smooth((storyAge-1)/1)*(1-smooth((storyAge-4)/1.5)):0;
-    const tokenOpacity=this.tokenAwarded?1:playing?smooth((storyAge-4.5)/1.5):0;
+    // Keep earned progress during replays, but clear the waiting token from
+    // the aiming space until that attempt/story ends.
+    const tokenOpacity=this.tokenAwarded&&this.bags===0&&!flight&&!playing?1:playing?smooth((storyAge-4.5)/1.5):0;
     const cues=[];
-    if(flight) {
-      cues.push({id:`throw-${flight.id}`,name:'prize-throw',at:flight.at,duration:.42});
-      flight.falls.forEach((side,i)=>cues.push({id:`tin-${flight.id}-${side}`,name:'prize-tin',at:flight.at+impact+i*115,duration:.85/(side==='top'?1.18:.9),rate:side==='top'?1.18:.9,gain:.8}));
+    // Input unlock and ringing metal tails have different lifetimes.
+    this.recentThrows=this.recentThrows.filter(item=>time<item.at+1400);
+    for(const item of this.recentThrows) {
+      cues.push({id:`throw-${item.id}`,name:'prize-throw',at:item.at,duration:.42});
+      item.falls.forEach((side,i)=>cues.push({id:`tin-${item.id}-${side}`,name:'prize-tin',at:item.at+impact+i*stagger,duration:.85/(side==='top'?1.18:.9),rate:side==='top'?1.18:.9,gain:.8}));
     }
+    const wakeAge=this.unlockedAt===null?null:(time-this.unlockedAt)/1000;
+    const wakeEnvelope=wakeAge===null?0:smooth(wakeAge/.3)*(1-smooth((wakeAge-2.2)/1));
+    const wakeLight=wakeEnvelope*(reducedMotion ? .32 : .36+.14*Math.sin(wakeAge*7)+.05*Math.sin(wakeAge*13));
+    if(this.unlockedAt!==null)for(const [delay,rate] of [[300,.8],[750,.65]])cues.push({id:`stall-wake-${delay}`,name:'prize-tin',at:this.unlockedAt+delay,duration:.85/rate,rate,gain:.15});
     if(this.feedbackAt!==null&&!flight&&!playing&&this.bags===2)cues.push({id:`rack-${this.serial}-${this.feedbackAt}`,name:'prize-tin',at:this.feedbackAt,duration:.85,rate:.7,gain:.25});
     if(playing) {
       for(const [name,at,rate,gain] of [['prize-chime',0,.65,.7],['arrival',1.2,.8,.45],['departure',3.8,.8,.4],['prize-chime',4.5,1,.7]]) {
@@ -106,7 +117,7 @@ export class PrizeGame {
     return {unlocked:this.unlockedAt!==null,bags:this.bags,down:[...this.down],throwing:Boolean(flight),busy:Boolean(flight)||playing,
       failed,playing,storyAge,completed:this.completed,completedStories:this.completedStories,tokenAwarded:this.tokenAwarded,
       phase:playing?storyAge<1?'win':storyAge<4.5?'haunted':'token':failed?'retry':this.tokenAwarded&&this.bags===0?'reward':'aim',
-      canPos,flying,haunted,prizeY:reducedMotion?0:-.65*haunted,tokenOpacity,
+      canPos,flying,haunted,wakeLight,prizeY:reducedMotion?0:-.65*haunted,tokenOpacity,
       tokenY:reducedMotion||!playing?0:1.8*(1-smooth((storyAge-4.5)/2)),
       sparks:playing?smooth((storyAge-4.5)/.4)*(1-smooth((storyAge-5.1)/.7)):0,
       cues:cues.filter(cue=>time>=cue.at&&time<cue.at+cue.duration*1000),hint};
@@ -120,6 +131,10 @@ export function connectPrize(scene,playback,audio,{access}) {
   const retry=document.querySelector('#prize-retry');
   const status=document.querySelector('#prize-status');
   const pair=scene.querySelector('.prize-pair');
+  const canImages=new Map(sides.map(side=>[side,art.querySelector(`.prize-can-${side}`)]));
+  const bags=[0,1].map(i=>art.querySelector(`.prize-bag-${i}`));
+  const flying=art.querySelector('.prize-flying-bag'),token=art.querySelector('.prize-token');
+  const sparks=art.querySelector('.prize-sparks'),wake=art.querySelector('.prize-wake');
   let ready=false,assetFailure=false;
   // SVG image nodes are not HTMLImageElements: explicitly decode all three
   // source assets so partially missing props never become playable.
@@ -147,32 +162,41 @@ export function connectPrize(scene,playback,audio,{access}) {
     if(visible&&status.textContent!==summary)status.textContent=summary;
     const focused=document.activeElement;
     if(targets.includes(focused)&&focused.hidden) {
-      const next=targets.find(button=>!button.hidden);
+      const next=targets.find(button=>!button.hidden&&button.getAttribute('aria-disabled')==='false');
       (next||(!retry.hidden?retry:document.querySelector('#playback'))).focus({preventScroll:true});
     }
     for(const can of state.canPos) {
-      const image=art.querySelector(`.prize-can-${can.side}`);
+      const image=canImages.get(can.side);
       image.style.opacity=can.opacity;
       image.style.transform=`translate(-50%, -100%) translate(${can.x*scene.clientWidth/100}px, ${can.y*scene.clientHeight/100}px) rotate(${can.tilt+(can.side==='left'?-1:can.side==='right'?1.2:-2)}deg)`;
     }
     // Returned bags make the explicit retry/replay target visible. They do not
     // refill the attempt until picked up, and remain absent during the story.
-    for(let i=0;i<2;i++)art.querySelector(`.prize-bag-${i}`).style.opacity=!retry.hidden||state.bags>i?1:0;
-    const flying=art.querySelector('.prize-flying-bag');
+    for(let i=0;i<2;i++)bags[i].style.opacity=!retry.hidden||state.bags>i?1:0;
     flying.style.opacity=state.flying.opacity;
     flying.style.left=`${state.flying.x}%`;flying.style.top=`${state.flying.y}%`;
     flying.style.transform=`translate(-50%,-50%) rotate(${state.flying.tilt}deg) scale(${state.flying.scale})`;
     pair.style.transform=`translateY(${state.prizeY*scene.clientHeight/100}px)`;
     pair.style.filter=state.haunted?`brightness(${1+.35*state.haunted}) drop-shadow(0 0 ${state.haunted*5}px #b9def3)` : '';
-    const token=art.querySelector('.prize-token');
     token.style.opacity=state.tokenOpacity;
     token.style.transform=`translateY(${state.tokenY*scene.clientHeight/100}px)`;
-    art.querySelector('.prize-sparks').style.opacity=state.sparks;
+    sparks.style.opacity=state.sparks;
+    wake.style.opacity=state.wakeLight;
     audio.sync(clock,state.cues,'prize');
   }
   playback.subscribe(render);
-  for(const button of targets)button.addEventListener('click',()=>{
-    if(canUse()&&model.throwAt(button.dataset.can,playback.elapsedMs)) {
+  for(const button of targets)button.addEventListener('click',event=>{
+    let side=button.dataset.can;
+    // A real pointer chooses the nearest standing can, independent of which
+    // generous hit region won DOM overlap. Keyboard retains the named target.
+    if(event.detail>0) {
+      const bounds=scene.getBoundingClientRect(),down=model.snapshot(playback.elapsedMs).down;
+      side=sides.filter(name=>!down.includes(name)).sort((a,b)=>{
+        const distance=name=>Math.hypot(event.clientX-bounds.left-positions[name][0]*bounds.width/100,event.clientY-bounds.top-positions[name][1]*bounds.height/100);
+        return distance(a)-distance(b);
+      })[0];
+    }
+    if(canUse()&&model.throwAt(side,playback.elapsedMs)) {
       playback.notify();
     }
   });

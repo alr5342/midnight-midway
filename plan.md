@@ -1,6 +1,6 @@
 # Implementation Plan
 
-Current authorized checkpoint, from e160093: implement the visually approved three-can game, haunted prize story and waiting token. Developer confirmed the lower-can support rule and explicitly deferred claim/disappearance. Implementation is complete for local review; relevant verification is recorded in [PRIZE-GAME.md](docs/design/PRIZE-GAME.md). Stop after this checkpoint; no merge, push, deployment, ending playback or additional creative feature. Earlier entries below are historical.
+Current authorized checkpoint, from 6487dc4: stall wake-up cue, responsive throws without rule changes, deliberate token claim, approved ten-second field-revealing ending and fresh Revisit. Implementation and focused verification are complete for local review: 34 unit tests plus prize/ending browser checks passed; evidence/status is maintained in [ENDING-IMPLEMENTATION.md](docs/design/ENDING-IMPLEMENTATION.md). Stop after this checkpoint. No merge, push, deployment or new creative feature. Earlier checkpoint entries below are historical.
 
 Current authorized checkpoint, from 5bd5ff2: static visual staging for the Developer-selected three-can knockdown game (three stacked cans, two beanbags, subtle environmental aiming clues). The preview is prepared and focused browser checks passed. Stop for visual approval before throws, cascade rules, scoring, prize story or ending playback. No deployment. See [staging record](docs/design/PRIZE-STAGING.md). Earlier checkpoint entries below are historical.
 

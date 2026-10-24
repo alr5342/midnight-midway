@@ -145,3 +145,14 @@ test('quiet music has independent gain, preserves pitched resume offsets and dis
   audio.sync({state:'exploring',elapsedMs:300},music,'carousel-ambience');
   assert.deepEqual(starts,[.1,.15]);assert.equal([...sources][0].output.gain.value,.22);
 });
+
+test('ending master fade preserves cue gains and saved offsets across explicit resume',async()=>{
+  const {audio,sources,starts}=audioHarness();audio.setLevel(.4);await audio.prepare();
+  const cue=[{id:'ending-tone',name:'prize-chime',at:0,duration:2.4,gain:.55}];
+  audio.sync({state:'exploring',elapsedMs:250},cue,'ending');
+  assert.equal(audio.gain.gain.value,.65*.4);assert.equal([...sources][0].output.gain.value,.55);
+  audio.sync({state:'paused',elapsedMs:250},cue,'ending');assert.equal(sources.size,0);
+  audio.sync({state:'exploring',elapsedMs:250},cue,'ending');assert.deepEqual(starts,[.25,.25]);
+  assert.equal(audio.gain.gain.value,.65*.4);
+  audio.setLevel(0);assert.equal(audio.gain.gain.value,0);
+});

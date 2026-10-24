@@ -21,6 +21,14 @@ function harness(loadOverride) {
   return { audio, context, active, starts, listeners, interruptions: () => interruptions };
 }
 
+test('ending wind level survives context creation and Pause/Play without returning to full volume',async()=>{
+  const {audio}=harness();audio.setLevel(.4);await audio.play(2000);
+  assert.ok(Math.abs(audio.gain.gain.value-.12)<1e-9);
+  audio.pause();audio.setLevel(.2);await audio.play(2000);
+  assert.ok(Math.abs(audio.gain.gain.value-.06)<1e-9);
+  audio.setLevel(0);assert.equal(audio.gain.gain.value,0);audio.pause();
+});
+
 test('audio starts only on explicit play, stops synchronously and resumes from active time', async () => {
   const { audio, active, starts } = harness();
   assert.equal(audio.snapshot().contextState, 'not-created');

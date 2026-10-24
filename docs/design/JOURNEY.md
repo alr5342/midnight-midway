@@ -1,8 +1,8 @@
 # A night remembered — approved journey and visual staging
 
-Developer approval: 2026-10-19. This supersedes the independent-story proposals and wheel-light celebration ending. The shipped Phase 1 version and submission remain preserved. The Developer subsequently approved the field-preserving visual staging, authorized admission/progression, then requested the four-note carousel puzzle from commit 0895f9c. The carousel payoff is now implemented and approved. The Developer selected three-can knockdown with two beanbags. The prize-stall visual layout is approved. The Developer confirmed the support-based three-can rule and authorized game, eight-second prize story and waiting token. This implementation is ready for local review; claim and full ending remain deferred.
+Developer approval: 2026-10-19. This supersedes the independent-story proposals and wheel-light celebration ending. The shipped Phase 1 version and submission remain preserved. The Developer subsequently approved the field-preserving visual staging, authorized admission/progression, then requested the four-note carousel puzzle from commit 0895f9c. The carousel payoff is now implemented and approved. The Developer selected three-can knockdown with two beanbags. The prize-stall visual layout is approved. The Developer confirmed the support-based three-can rule and authorized game, eight-second prize story and waiting token. The Developer subsequently authorized the stall handoff, game responsiveness fixes and approved claim/disappearance/Revisit ending. This implementation is now prepared for local review; see ENDING-IMPLEMENTATION.md.
 
-Approved visual correction: the midway structures disappear while moonlit land/field stays visible; the wheel disappears last, leaving token and empty land. The static preview uses an empty-field repair behind independently masked attraction layers. Token direction and Revisit placement are unchanged. This visual staging is now approved; ending playback remains deferred.
+Approved visual correction: the midway structures disappear while moonlit land/field stays visible; the wheel disappears last, leaving token and empty land. The static preview uses an empty-field repair behind independently masked attraction layers. Token direction and Revisit placement are unchanged. This visual staging is approved and now supplies the runtime ending artwork; playback approval is pending local review.
 
 ## Approved design
 
@@ -18,9 +18,9 @@ Goal: briefly awaken an abandoned midway, then leave with its memory. Preserve t
 
 Each attraction still needs a distinct replayable 5–10-second audiovisual story, unique feedback/progress, progressive hints and touch/keyboard support. One sequence owns scene input at a time; Play/Pause stays usable during playback. The existing active-time clock/context must freeze and resume all effects, cues, hints, input and fades. Interruptions require explicit Play. Reduced motion uses stationary reveals and gentle fades. Verify future external sound sources as public-domain/CC0; no new audio is introduced here.
 
-## Current checkpoint: manual visual poses
+## Approved manual visual poses (historical reference)
 
-These approved poses remain a static review reference. The next authorized runtime work is admission only, not playback of the ending.
+These approved poses remain a static review reference. The current runtime checkpoint is recorded in ENDING-IMPLEMENTATION.md; historical scope statements below describe earlier reviews.
 
 Open [ending staging](../../dev/previews/index.html?view=ending). The selector manually switches these poses; timestamps describe future playback, not implemented timing:
 
@@ -135,3 +135,7 @@ The Developer selected three-can knockdown and authorized static staging only. A
 ## Three-can game and waiting-token checkpoint
 
 The Developer approved the static stall layout, lower-can support mechanic and explicit scope ending at the waiting token. The game, authored falls and eight-second haunted prize sequence are implemented locally; existing admission/ride progress remains independent of attempt/replay state. Every new effect, cue and input gate uses shared active time. See [PRIZE-GAME.md](PRIZE-GAME.md) for timing, evidence and limits. No claim/disappearance playback or deployment. Stop for runtime review.
+
+## Stall handoff, responsive game and implemented ending
+
+Authorized from 6487dc4: first completed ride wakes the stall with one subtle warm-light/metallic cue. A governing timing fix shortens input lock to 650ms while retaining independent sound tails; nearest standing-can aims resolve overlapping touch areas. A retained token clears the aiming space during replays. Explicit claim now starts ten active seconds of approved attraction fades over visible empty land, wheel last, then a two-second token-only hold before Revisit. Master sound levels, reduced motion, pause/interruption and fresh reload share existing playback. Original artwork and approved staging are preserved. Verification/evidence and review limits: [ENDING-IMPLEMENTATION.md](ENDING-IMPLEMENTATION.md). No deployment.

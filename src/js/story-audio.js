@@ -17,6 +17,7 @@ export class StoryAudio {
     this.cues = [];
     this.startedSources = 0;
     this.channels = new Map();
+    this.level = 1;
   }
 
   report(status) { this.status = status; this.onStatus(status); }
@@ -28,7 +29,7 @@ export class StoryAudio {
       this.stopAll();
       this.context = context;
       this.gain = context.createGain();
-      this.gain.gain.value = .65;
+      this.gain.gain.value = .65 * this.level;
       this.gain.connect(context.destination);
     }
     if (this.loading) return this.loading;
@@ -54,6 +55,11 @@ export class StoryAudio {
   }
 
   stopAll() { for (const id of this.sources.keys()) this.stop(id); }
+
+  setLevel(level) {
+    this.level=Math.max(0,Math.min(1,level));
+    if(this.gain)this.gain.gain.value=.65*this.level;
+  }
 
   sync(snapshot, cues, channel = 'ticket') {
     // Independent activities contribute cues to one shared clock/context.

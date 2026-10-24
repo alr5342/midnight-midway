@@ -1,6 +1,8 @@
 # Three-can game and waiting token
 
-## Approved scope
+This retains the original game checkpoint. Current handoff, timing revisions and implemented claim/ending are recorded in [ENDING-IMPLEMENTATION.md](ENDING-IMPLEMENTATION.md); the earlier deferred-ending statements below are historical.
+
+## Original approved scope
 
 Starting from e160093 on feature/carousel-puzzle, preserve the approved static prize layout, original scene, existing admission/ride progression and ending staging. The Developer approved the following support rule and explicitly chose to stop this checkpoint at the waiting token. No claim, disappearance, Revisit implementation, deployment, merge or push.
 

@@ -105,6 +105,10 @@ export function mountPrizeArtwork(scene) {
     <svg class="prize-flying-bag" viewBox="130 140 300 220"><defs><clipPath id="prize-thrown-bag"><path d="${bagPaths[0]}"/></clipPath></defs><image href="${counter}" width="2048" height="768" clip-path="url(#prize-thrown-bag)"/></svg>
     <img class="prize-token" src="${token}" alt="">
     <img class="prize-sparks" src="${new URL('../../assets/story/sparks.svg',import.meta.url).href}" alt="">`;
+  const wake=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  wake.setAttribute('viewBox','0 0 941 1672');wake.classList.add('prize-wake');
+  wake.innerHTML=`<defs><radialGradient id="stall-glow"><stop stop-color="#fff2ba" stop-opacity=".85"/><stop offset=".35" stop-color="#ffb85f" stop-opacity=".4"/><stop offset="1" stop-color="#d38236" stop-opacity="0"/></radialGradient></defs>${[[748,657],[787,632],[827,609],[869,588],[908,565],[935,552]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="18" fill="url(#stall-glow)"/>`).join('')}<ellipse cx="790" cy="1090" rx="100" ry="45" fill="url(#stall-glow)"/>`;
+  layer.append(wake);
   scene.insertBefore(layer,scene.querySelector('.ambient-fog'));
   return layer;
 }

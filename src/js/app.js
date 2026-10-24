@@ -8,6 +8,7 @@ import { StoryAudio } from './story-audio.js';
 import { connectTicketStory } from './ticket-story.js';
 import { connectCarousel } from './carousel.js';
 import { connectPrize } from './prize.js';
+import { connectEnding } from './ending.js';
 
 mountSceneArtwork();
 
@@ -27,6 +28,7 @@ const admission = document.querySelector('#admission');
 const journey = { admitted: false };
 let carousel = null;
 let prize = null;
+let ending = null;
 const audioNotice = document.querySelector('#audio-notice');
 let frame = null;
 let renderedState = null;
@@ -49,15 +51,22 @@ const storyAudio = new StoryAudio(ambientAudio, { onStatus: value => {
 const ticketStory = connectTicketStory(document.querySelector('.scene'), playback, storyAudio, {
   bell: document.querySelector('#bell'), hint, notice: storyNotice,
   onComplete: grantAdmission,
-  canInteract: () => !carousel?.snapshot().clueOpen && !carousel?.snapshot().playing && !prize?.snapshot().busy,
+  canInteract: () => !ending?.snapshot().claimed && !carousel?.snapshot().clueOpen && !carousel?.snapshot().playing && !prize?.snapshot().busy,
   idleHint: () => prize?.snapshot().unlocked && !carousel?.snapshot().clueOpen && !carousel?.snapshot().playing ? prize.hint() : carousel?.hint()
 });
 carousel = connectCarousel(document.querySelector('.scene'), playback, storyAudio, {
-  access: () => ({admitted:journey.admitted,storyPlaying:ticketStory.snapshot().playing || Boolean(prize?.snapshot().busy)}),
+  access: () => ({admitted:journey.admitted,storyPlaying:ticketStory.snapshot().playing || Boolean(prize?.snapshot().busy) || Boolean(ending?.snapshot().claimed)}),
   onSolved: () => { stage.dataset.carouselPuzzle = 'solved'; }
 });
 prize = connectPrize(document.querySelector('.scene'),playback,storyAudio,{
-  access: () => ({rideCompleted:carousel.snapshot().completed,blocked:ticketStory.snapshot().playing || carousel.snapshot().playing || carousel.snapshot().clueOpen})
+  access: () => ({rideCompleted:carousel.snapshot().completed,blocked:ticketStory.snapshot().playing || carousel.snapshot().playing || carousel.snapshot().clueOpen || Boolean(ending?.snapshot().claimed)})
+});
+ending=connectEnding(document.querySelector('.scene'),playback,ambientAudio,storyAudio,{
+  access:()=>{
+    const reward=prize.snapshot();
+    return {tokenAwarded:reward.tokenAwarded,tokenOffered:reward.tokenOpacity===1,
+      blocked:ticketStory.snapshot().playing || carousel.snapshot().playing || carousel.snapshot().clueOpen || reward.busy};
+  },hint
 });
 connectCredits(playback);
 const assets = connectAssetReadiness(document.querySelector('.scene'), enter, document.querySelector('#asset-notice'));
@@ -76,23 +85,28 @@ function journeySnapshot() {
 function renderJourney(snapshot) {
   const availability = journey.admitted ? 'unlocked' : 'locked';
   if (stage.dataset.carousel !== availability) stage.dataset.carousel = availability;
-  const hidden = !journey.admitted || snapshot.state === 'start';
+  const hidden = !journey.admitted || snapshot.state === 'start' || Boolean(ending?.snapshot().claimed);
   if (admission.hidden !== hidden) admission.hidden = hidden;
 }
 
 function nextFrame() {
   frame = null;
   playback.tick();
+  if(ending?.snapshot().resting)playback.finish();
 }
 
 playback.subscribe((snapshot) => {
   renderJourney(snapshot);
+  const finale=ending?.snapshot();
+  // A tab interruption during the quiet final hold must still offer explicit
+  // Play; otherwise the hidden control would strand the Revisit timer.
+  pause.hidden=snapshot.state==='start'||Boolean(finale?.resting)||Boolean(finale?.gone&&snapshot.state!=='paused');
+  hint.hidden=snapshot.state==='start'||Boolean(finale?.gone);
+  document.querySelector('#credits-open').hidden=Boolean(finale?.claimed);
   if (renderedState !== snapshot.state || renderedMotion !== snapshot.reducedMotion) {
     stage.dataset.state = snapshot.state;
     stage.dataset.reducedMotion = String(snapshot.reducedMotion);
     startScreen.hidden = snapshot.state !== 'start';
-    pause.hidden = snapshot.state === 'start';
-    hint.hidden = snapshot.state === 'start';
     pause.setAttribute('aria-label', snapshot.state === 'paused' ? 'Play scene' : 'Pause scene');
     pause.title = snapshot.state === 'paused' ? 'Play' : 'Pause';
     pauseIcon.textContent = snapshot.state === 'paused' ? '▶' : 'Ⅱ';
@@ -100,12 +114,12 @@ playback.subscribe((snapshot) => {
     motionNote.hidden = !snapshot.reducedMotion;
     // Announce transitions only; never send frame-by-frame updates to assistive tech.
     if (renderedState !== snapshot.state) {
-      status.textContent = snapshot.state === 'start' ? '' : snapshot.state === 'paused' ? 'Scene paused.' : 'Scene playing.';
+      status.textContent = snapshot.state === 'start' ? '' : snapshot.state === 'paused' ? 'Scene paused.' : snapshot.state === 'ended' ? 'The visit has ended.' : 'Scene playing.';
       renderedState = snapshot.state;
     }
     renderedMotion = snapshot.reducedMotion;
   }
-  if (snapshot.state === 'exploring' && frame === null) frame = requestAnimationFrame(nextFrame);
+  if (snapshot.state === 'exploring' && frame === null && !finale?.resting) frame = requestAnimationFrame(nextFrame);
   if (snapshot.state !== 'exploring' && frame !== null) {
     cancelAnimationFrame(frame);
     frame = null;
@@ -132,7 +146,7 @@ window.addEventListener('pagehide', () => playback.pause());
 // No diagnostic controls or runtime counters appear in the product interface.
 if (new URLSearchParams(location.search).has('diagnostics')) {
   Object.defineProperty(window, 'midwayDiagnostics', {
-    value: Object.freeze({ snapshot: () => ({ ...playback.snapshot(), scheduledFrames: frame === null ? 0 : 1 }), audio: () => ambientAudio.snapshot(), story: () => ticketStory.snapshot(), storyAudio: () => storyAudio.snapshot(), journey: journeySnapshot, carousel: () => carousel.snapshot(), prize: () => prize.snapshot() })
+    value: Object.freeze({ snapshot: () => ({ ...playback.snapshot(), scheduledFrames: frame === null ? 0 : 1 }), audio: () => ambientAudio.snapshot(), story: () => ticketStory.snapshot(), storyAudio: () => storyAudio.snapshot(), journey: journeySnapshot, carousel: () => carousel.snapshot(), prize: () => prize.snapshot(), ending: () => ending.snapshot() })
   });
 }
 

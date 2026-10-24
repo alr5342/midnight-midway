@@ -59,6 +59,14 @@ export class Playback {
     this.notify();
   }
 
+  finish() {
+    if(this.state!=='exploring')return;
+    this.accumulatedMs=this.elapsedMs;
+    this.activeSince=null;
+    this.state='ended';
+    this.notify();
+  }
+
   tick() {
     if (this.state === 'exploring') this.notify();
   }
