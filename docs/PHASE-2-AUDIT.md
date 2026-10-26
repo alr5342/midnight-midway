@@ -2,6 +2,8 @@
 
 ## Final submission follow-up, 2026-10-26
 
+**Observed delivery result:** actual GitHub ZIP of `c42d381` contains all 672 expected source files with matching Git blob hashes and exact original transcript/protocol SHA-256 values. Its independent extracted game passes the complete Chromium audit. An evidence-only follow-up refreshes the visible Git log and is rechecked as the final remote snapshot; see [final archive details](FINAL-SUBMISSION.md).
+
 The current assessment is [FINAL-SUBMISSION.md](FINAL-SUBMISSION.md), with [fresh test evidence](evidence/final/README.md). The completed debrief protocol/transcript and both development exports are present; the Developer confirmed these are all intended conversation materials. The debrief reports a final public Safari phone playthrough with tickets, either order and disappearance, recorded in [PHASE-2-PHONE-VERIFICATION.md](PHASE-2-PHONE-VERIFICATION.md). Phone model/OS and personally unperformed reduced-motion/stamp-beat checks are not invented.
 
 Fresh results: 61 unit tests, 92 syntax checks, current ticket routes, full Chromium audit and public runtime-file/journey checks pass. WebKit visual/keyboard/layout/reduced-motion checks also pass; its Windows build lacks Web Audio. Firefox fails inside Playwright before game navigation. Historical checkpoint tests retain superseded contracts and are inventoried, not passed by assumption. Peer assistance remains explicit; debrief adds the initial in-app-only discovery attempt, observed difficulty and revised-bell retest.

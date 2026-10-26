@@ -1,0 +1,11 @@
+{
+  "url": "https://github.com/alr5342/midnight-midway/archive/refs/heads/main.zip",
+  "downloadedFrom": "https://codeload.github.com/alr5342/midnight-midway/zip/refs/heads/main",
+  "file": "tests/results/final-submission-audit/github-main-c42d381.zip",
+  "bytes": 266769458,
+  "downloadedAt": "2026-10-26T19:54:27.301Z",
+  "sha256": "824fb4d716d06139438a64c6c704f0719d1f3acf606490059384cc074e2123ce",
+  "verifiedCommit": "c42d381c8e72b7c64823a468bffb4cecb506709f",
+  "inventoryReport": "github-archive-checks.json",
+  "extractedRuntimeReport": "extracted-browser-checks.json"
+}

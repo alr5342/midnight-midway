@@ -1,6 +1,45 @@
 Midnight Midway — exported Git history
-Revision: 548a6b405e897048ddc82b18b8f9858d7f459ce1
-Exported: 2026-10-26T19:49:37.801Z
+Revision: c42d381c8e72b7c64823a468bffb4cecb506709f
+Exported: 2026-10-26T19:57:18.696Z
+
+commit c42d381c8e72b7c64823a468bffb4cecb506709f
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-26T14:51:41-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-26T14:51:41-05:00
+
+    Include completed debrief and full final submission materials
+
+ .gitattributes                                     |     4 +
+ CREDITS.md                                         |     2 +
+ README.md                                          |     2 +
+ debrief.md                                         |   206 +
+ docs/FINAL-SUBMISSION.md                           |    58 +
+ docs/GITHUB-PAGES.md                               |     2 +
+ docs/PHASE-2-AUDIT.md                              |     8 +
+ docs/PHASE-2-DEPLOYMENT.md                         |     2 +
+ docs/PHASE-2-PHONE-VERIFICATION.md                 |    20 +
+ docs/PLAYTEST-NOTES.md                             |     4 +
+ docs/SUBMISSION.md                                 |     2 +
+ docs/evidence/final/README.md                      |    17 +
+ docs/evidence/final/browser-limitations.json       |    25 +
+ docs/evidence/final/chromium-audit.json            |   702 +
+ docs/evidence/final/public-checks.json             |   236 +
+ docs/evidence/final/reference-checks.json          |    18 +
+ docs/evidence/final/source-materials.json          |    36 +
+ docs/evidence/final/test-inventory.json            |   204 +
+ docs/evidence/final/ticket-system.json             |    93 +
+ docs/evidence/final/unit-tests.txt                 |    72 +
+ docs/evidence/final/webkit-audit.json              |   699 +
+ docs/evidence/phase2/README.md                     |     2 +
+ docs/git/PHASE-2-HISTORY.txt                       |    31 +-
+ ...est-revisions-conversation-2026-10-26_141334.md | 19921 +++++++++++++++++++
+ ...yered-artwork-conversation-2026-10-26_141121.md |  2477 +++
+ plan.md                                            |     4 +
+ research.md                                        |     2 +
+ spec.md                                            |     2 +
+ transcripts/debrief-2026-10-26_140247.md           |   506 +
+ 29 files changed, 25356 insertions(+), 1 deletion(-)
 
 commit 548a6b405e897048ddc82b18b8f9858d7f459ce1
 Author:     Alex Rosemann <arosemann@gmail.com>

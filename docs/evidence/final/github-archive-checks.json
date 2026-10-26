@@ -1,0 +1,35 @@
+{
+  "status": "passed",
+  "verifiedAt": "2026-10-26T19:55:20.991Z",
+  "commit": "c42d381c8e72b7c64823a468bffb4cecb506709f",
+  "extractedRoot": "C:\\Users\\arose\\AppData\\Local\\Temp\\mm-final-399170fb\\midnight-midway-main",
+  "files": 672,
+  "totalUncompressedBytes": 303710592,
+  "inventoryExactlyMatchesCommittedTree": true,
+  "allGitBlobHashesMatch": true,
+  "originalProtocolAndTranscriptSha256Match": true,
+  "requiredPaths": [
+    "index.html",
+    ".nojekyll",
+    "brief.md",
+    "research.md",
+    "spec.md",
+    "plan.md",
+    "CREDITS.md",
+    "debrief.md",
+    "docs/git/PHASE-2-HISTORY.txt",
+    "transcripts/debrief-2026-10-26_140247.md",
+    "docs/FINAL-SUBMISSION.md",
+    "docs/PLAYTEST-NOTES.md",
+    "docs/PHASE-2-PHONE-VERIFICATION.md",
+    "docs/transcripts/midnight-midway-phase1-submission-carousel-and-playtest-revisions-conversation-2026-10-26_141334.md",
+    "docs/transcripts/midnight-midway-visual-design-and-layered-artwork-conversation-2026-10-26_141121.md"
+  ],
+  "unnecessaryOrPrivateFiles": [],
+  "zipContainsGitDatabase": false,
+  "readableGitLogIncluded": true,
+  "limits": [
+    "GitHub source ZIP is a snapshot; full Git object/history database remains on GitHub.",
+    "Browser runtime verification is recorded separately after extraction."
+  ]
+}

@@ -46,6 +46,14 @@ Archive verification is performed on the **actual GitHub download** after commit
 
 A GitHub source ZIP contains a source snapshot, not the `.git` object database. The tracked readable Git log supplies the assignment's log; full history remains on GitHub. A log cannot contain its own containing commit hash, so its documented through-revision is explicit and the generated local export is refreshed afterward.
 
+## Observed archive result — passed
+
+The actual GitHub **main** ZIP of commit `c42d381c8e72b7c64823a468bffb4cecb506709f` was downloaded and extracted into a separate new temporary folder. It contains **672 files** in one top-level directory, **266,769,458 compressed bytes** and **303,710,592 source bytes**. Every file's Git blob hash matches the committed tree; the original protocol and all three transcripts also match their recorded SHA-256 hashes. All required source/document groups are present, with no private/cache/nested delivery files. [Inventory/hash result](evidence/final/github-archive-checks.json).
+
+The full Chromium audit was then run **from the extracted project**, served under `/midnight-midway/`, and passed: real keyboard journey through both attraction stories, ticket spending, native audio, clue, Credits/Pause, initial/live reduced motion, targets/layout/contrast, ending and fresh Revisit, filename case and startup missing-asset safety. [Extracted-runtime result](evidence/final/extracted-browser-checks.json).
+
+The following evidence-only commit includes these observed results and a history export through `c42d381`; it does not change runtime or the supplied materials. Before the final handoff, its actual GitHub ZIP is downloaded again and checked against that final committed inventory. The final ZIP's precise revision/count/hash are reported in the handoff rather than fabricated as self-referential commit metadata. No untracked required material is left out.
+
 ## Download for submission
 
 1. Open https://github.com/alr5342/midnight-midway and select **main**.
