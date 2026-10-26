@@ -83,3 +83,23 @@ test('native suspension during resume/loading pauses the coordinator before a la
   assert.equal(running.audio.wanted,false,'No automatic resume after interruption');
   await running.audio.play(1000);assert.equal(running.active.size,1);
 });
+
+test('a delayed event from our own suspension cannot interrupt the matching resume', async () => {
+  const running = harness();
+  await running.audio.play(1500);
+  running.audio.pause();
+  let release;
+  running.context.resume = () => new Promise(resolve => { release = resolve; });
+  const pending = running.audio.play(1500);
+  running.listeners.get('statechange')();
+  assert.equal(running.context.state, 'suspended');
+  assert.equal(running.interruptions(), 0, 'The pending owned suspension belongs to this resume');
+  running.context.state = 'running';
+  release();
+  await pending;
+  assert.equal(running.active.size, 1);
+  assert.equal(running.starts.at(-1), 1.5);
+  running.context.state = 'suspended';
+  running.listeners.get('statechange')();
+  assert.equal(running.interruptions(), 1, 'A later native suspension still interrupts playback');
+});

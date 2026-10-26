@@ -85,7 +85,7 @@ try {
     await page.locator('#playback').tap();
   };
   await gotoAge(.3);await assertFrozen('claim and moving token');
-  for(const age of [2,5,8]) {
+  for(const age of [1.6,4,6.4]) {
     await gotoAge(age);
     await page.screenshot({path:`${output}/ending-${age}s.png`});
     const state=await snap();const gains=await page.evaluate(()=>window.gains.slice(0,2).map(g=>g.gain.value));
@@ -100,7 +100,7 @@ try {
   await waitNative(()=>window.midwayDiagnostics.snapshot().state==='paused','native suspension pauses scene');
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.snapshot().state),'paused');
   const interrupted=await snap();await advance(5000);assert.deepEqual(await snap(),interrupted);await page.locator('#playback').tap();
-  await gotoAge(10.1);
+  await gotoAge(8.1);
   assert.equal((await snap()).gone,true);assert.equal((await snap()).wheel,0);
   assert.equal(await page.locator('#revisit').isVisible(),false,'Allow a quiet final hold');
   assert.equal(await page.locator('#hint').isVisible(),false);assert.equal(await page.locator('#playback').isVisible(),false);
@@ -114,7 +114,7 @@ try {
   await page.evaluate(()=>window.dispatchEvent(new Event('pagehide')));
   assert.equal(await page.locator('#playback').isVisible(),true);
   await advance(5000);assert.equal(await page.locator('#revisit').isVisible(),false);
-  await page.locator('#playback').tap();await gotoAge(12.1);
+  await page.locator('#playback').tap();await gotoAge(10.1);
   assert.equal(await page.locator('#revisit').isVisible(),true);
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.snapshot().state),'ended');
   assert.equal(await page.evaluate(()=>window.midwayDiagnostics.snapshot().scheduledFrames),0);
@@ -164,6 +164,6 @@ try {
   for(const file of git('ls-tree','-r','--name-only','6487dc4','--','assets','dev/previews').toString().trim().split('\n'))assert.deepEqual(await readFile(file),git('show',`6487dc4:${file}`),`Approved asset changed: ${file}`);
   assert.deepEqual(await readFile('assets/artwork/empty-field-v1.png'),await readFile('dev/previews/assets/empty-field-v1.png'));
   assert.deepEqual(errors,[]);
-  const result={status:'passed',stallWakeCue:true,quickSettledThrows:true,claimDeliberateAndKeyboardAccessible:true,claimLockedOnPause:true,tenSecondOrderedDisappearance:true,opaqueApprovedField:true,wheelLast:true,audioFadeLevelsAndPauseResume:true,nativeInterruptionRequiresPlay:true,finalHoldInterruptionRecoverable:true,tokenThenRevisit:true,endedClockAndNoFrames:true,finalSilence:true,revisitAndRefreshFresh:true,reducedMotionStationaryToken:true,missingFieldSafe:true,approvedAssetBytesUnchanged:true,uniqueSvgIds:true,projectPrefixPaths:true,layouts,errors,limits:['Chromium with phone touch emulation; physical-device review pending','No publishing or deployment']};
+  const result={status:'passed',stallWakeCue:true,quickSettledThrows:true,claimDeliberateAndKeyboardAccessible:true,claimLockedOnPause:true,eightSecondOrderedDisappearance:true,opaqueApprovedField:true,wheelLast:true,audioFadeLevelsAndPauseResume:true,nativeInterruptionRequiresPlay:true,finalHoldInterruptionRecoverable:true,tokenThenRevisit:true,endedClockAndNoFrames:true,finalSilence:true,revisitAndRefreshFresh:true,reducedMotionStationaryToken:true,missingFieldSafe:true,approvedAssetBytesUnchanged:true,uniqueSvgIds:true,projectPrefixPaths:true,layouts,errors,limits:['Chromium with phone touch emulation; physical-device review pending','No publishing or deployment']};
   await writeFile(`${output}/checks.json`,JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));
 } finally {await browser.close();server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}

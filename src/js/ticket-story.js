@@ -1,4 +1,5 @@
 import { ticketStoryboard, mountTicketArtwork } from './artwork.js';
+import {guidanceAt} from './guidance.js';
 
 const clamp = value => Math.max(0, Math.min(1, value));
 const smooth = value => { const t = clamp(value); return t * t * (3 - 2 * t); };
@@ -26,6 +27,7 @@ export class TicketStory {
   ring(elapsedMs) {
     if (this.startedAt !== null) return false;
     this.rings++;
+    this.hintSince=elapsedMs;
     this.feedbackAt = elapsedMs;
     if (this.rings === 3) { this.startedAt = elapsedMs; this.cycle++; }
     return true;
@@ -65,6 +67,7 @@ export class TicketStory {
     const departure = seconds === null ? 0 : smooth((seconds - 4.5) / 2);
     return {
       playing, rings: this.rings, beat, seconds, completed: this.completed, feedback, hint,
+      guidance:guidanceAt(elapsedMs,this.hintSince,reducedMotion),
       bellX: reducedMotion || playing ? 0 : .6 * Math.sin(elapsedMs / 1000 * Math.PI * 2 / 5.6),
       bellY: reducedMotion || playing ? 0 : -.14 * (1 - Math.cos(elapsedMs / 1000 * Math.PI * 2 / 5.6)),
       bellTilt: reducedMotion || playing ? 0 : 2 * Math.sin(elapsedMs / 1000 * Math.PI * 2 / 5.6),
@@ -120,7 +123,8 @@ export function connectTicketStory(scene, playback, cueAudio, { bell, hint, noti
     const bellX = state.bellX * scene.clientWidth / 100;
     const bellY = state.bellY * scene.clientHeight / 100;
     part('bell').style.transform = `translate(${bellX}px, ${bellY}px) rotate(${state.bellTilt}deg)`;
-    part('bell').style.filter = `drop-shadow(1px 2px 2px #08061190) drop-shadow(0 0 ${2 + state.rings * 2}px rgba(255,217,125,${state.feedback * (.3 + .2 * state.rings)}))`;
+    const guide=!state.playing&&state.completed===0?state.guidance.halo:0;
+    part('bell').style.filter = `drop-shadow(1px 2px 2px #08061190) drop-shadow(0 0 ${2 + state.rings * 2+guide*9}px rgba(255,217,125,${Math.max(guide*.55,state.feedback * (.3 + .2 * state.rings))}))`;
     bell.hidden = snapshot.state === 'start';
     // Keep a stable keyboard focus target while rejecting paused/locked input.
     bell.setAttribute('aria-disabled', String(!snapshot.canInteract || !canInteract() || state.playing || !assetsReady || cueAudio.status === 'loading'));

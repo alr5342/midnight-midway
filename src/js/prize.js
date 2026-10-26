@@ -1,4 +1,5 @@
 import {mountPrizeArtwork} from './artwork.js';
+import {guidanceAt} from './guidance.js';
 
 const sides=['left','right','top'];
 const positions={left:[76,67.3],right:[90,67.3],top:[83,61.6]};
@@ -23,18 +24,25 @@ export class PrizeGame {
     this.tokenAwarded=false;
     this.feedbackAt=null;
     this.recentThrows=[];
+    this.hintSince=null;
+    this.bestDown=0;
+    this.failedAttempts=0;
+    this.returnAt=null;
   }
 
-  unlock(time) {if(this.unlockedAt===null)this.unlockedAt=time;}
+  unlock(time) {if(this.unlockedAt===null) {this.unlockedAt=time;this.hintSince=time;} }
 
   advance(time) {
     if(this.throwing&&time>=this.throwing.at+duration) {
       for(const side of this.throwing.falls)this.down.add(side);
       const finishedAt=this.throwing.at+duration;
       this.throwing=null;
+      if(this.down.size>this.bestDown) {this.bestDown=this.down.size;this.hintSince=finishedAt;}
       if(this.down.size===3) {
         this.storyAt=finishedAt;
         this.storySerial++;
+      } else if(this.bags===0) {
+        this.failedAttempts++;this.returnAt=finishedAt;
       }
     }
     if(this.storyAt!==null&&time>=this.storyAt+8000&&this.settledStory!==this.storySerial) {
@@ -42,6 +50,7 @@ export class PrizeGame {
       this.completedStories++;
       this.completed=true;
       this.tokenAwarded=true;
+      this.returnAt=this.storyAt+8000;
     }
   }
 
@@ -68,6 +77,7 @@ export class PrizeGame {
     if(this.unlockedAt===null)return false;
     this.down.clear();this.bags=2;this.throwing=null;this.storyAt=null;this.feedbackAt=time;
     this.recentThrows=[];this.serial++;
+    this.returnAt=null;
     return true;
   }
 
@@ -78,6 +88,9 @@ export class PrizeGame {
     const storyAge=this.storyAt===null?null:(time-this.storyAt)/1000;
     const playing=storyAge!==null&&storyAge<8;
     const failed=!flight&&!playing&&this.bags===0&&this.down.size<3;
+    const pickupAvailable=!flight&&!playing&&this.bags===0&&(failed||this.completed);
+    const returnAge=this.returnAt===null?0:Math.max(0,time-this.returnAt);
+    const returned=smooth(returnAge/450);
     const canPos=sides.map(side=>{
       const order=flight?.falls.indexOf(side)??-1;
       const travel=order<0?0:Math.max(0,Math.min(1,(age-impact-order*stagger)/fallDuration));
@@ -114,15 +127,17 @@ export class PrizeGame {
         cues.push({id:`prize-story-${this.storySerial}-${at}`,name,at:this.storyAt+at*1000,duration:soundDuration/rate,rate,gain});
       }
     }
-    const waiting=this.unlockedAt===null?0:time-this.unlockedAt;
+    const waiting=this.hintSince===null?0:time-this.hintSince;
     let hint=waiting>=28000?'The brightest scuffs are low on the old tins.':waiting>=14000?'At the prize stall, the sign still promises a game.':'Beyond the carousel, the prize stall is stirring. A game waits beneath its lights.';
     if(flight)hint='Something stirs behind the counter.';
-    else if(failed)hint='A few tins still stand. Retry the game when you’re ready.';
+    else if(failed)hint=returnAge>=12000?'The beanbags have found their boxes again. Perhaps another try.':'The bags return to their little boxes, as if the stall is still expecting you.';
     else if(this.bags===1)hint='One chance left; the shelf remembers every miss.';
     if(playing)hint=storyAge<1?'A winning note, from an empty stall.':storyAge<4.5?'Even the prizes remember the hands that held them.':'Some nights leave something behind.';
     else if(this.tokenAwarded&&this.bags===0&&!failed)hint='A small piece of a place the world forgot.';
     return {unlocked:this.unlockedAt!==null,bags:this.bags,down:[...this.down],throwing:Boolean(flight),busy:Boolean(flight)||playing,
       failed,playing,storyAge,completed:this.completed,completedStories:this.completedStories,tokenAwarded:this.tokenAwarded,
+      pickupAvailable,bagReturn:pickupAvailable?{opacity:returned,y:reducedMotion||returned===1?0:-1.6*(1-returned)}:null,
+      guidance:guidanceAt(time,this.hintSince,reducedMotion,this.failedAttempts),
       phase:playing?storyAge<1?'win':storyAge<4.5?'haunted':'token':failed?'retry':this.tokenAwarded&&this.bags===0?'reward':'aim',
       canPos,flying,haunted,wakeLight,prizeY:reducedMotion?0:-.65*haunted,tokenOpacity,
       tokenY:reducedMotion||!playing?0:1.8*(1-smooth((storyAge-4.5)/2)),
@@ -156,15 +171,16 @@ export function connectPrize(scene,playback,audio,{access,onActivity=()=>{}}) {
     const state=model.snapshot(clock.elapsedMs,clock.reducedMotion);
     const visible=clock.state!=='start'&&state.unlocked;
     const enabled=visible&&canUse();
+    const guidanceActive=visible&&!availability.blocked&&!state.busy;
     controls.hidden=!visible;
     controls.dataset.phase=state.phase;
     for(const button of targets) {
       button.hidden=state.down.includes(button.dataset.can);
       button.setAttribute('aria-disabled',String(!enabled||state.bags===0));
     }
-    retry.hidden=!(state.failed||state.completed&&!state.busy&&state.bags===0);
+    retry.hidden=!state.pickupAvailable;
     retry.setAttribute('aria-disabled',String(!enabled));
-    retry.setAttribute('aria-label',state.failed?'Collect two beanbags and try again':'Replay the can game');
+    retry.setAttribute('aria-label',state.failed?'Pick up a returned beanbag for another round':'Pick up a beanbag to replay the game');
     const summary=state.playing?'The prize story is playing.':state.tokenAwarded&&!state.busy&&state.down.length===3?'All cans down. Brass Ferris-wheel keepsake received.':`${state.bags} beanbag${state.bags===1?'':'s'} remaining. ${state.down.length} of 3 cans down.`;
     if(visible&&status.textContent!==summary)status.textContent=summary;
     const focused=document.activeElement;
@@ -175,11 +191,17 @@ export function connectPrize(scene,playback,audio,{access,onActivity=()=>{}}) {
     for(const can of state.canPos) {
       const image=canImages.get(can.side);
       image.style.opacity=can.opacity;
+      const guide=guidanceActive&&!state.failed&&!state.tokenAwarded?state.guidance.halo:0;
+      image.style.filter=guide?`drop-shadow(0 0 ${guide*5}px #ffe1ad80)`:'';
       image.style.transform=`translate(-50%, -100%) translate(${can.x*scene.clientWidth/100}px, ${can.y*scene.clientHeight/100}px) rotate(${can.tilt+(can.side==='left'?-1:can.side==='right'?1.2:-2)}deg)`;
     }
     // Returned bags make the explicit retry/replay target visible. They do not
     // refill the attempt until picked up, and remain absent during the story.
-    for(let i=0;i<2;i++)bags[i].style.opacity=!retry.hidden||state.bags>i?1:0;
+    for(let i=0;i<2;i++) {
+      bags[i].style.opacity=state.bagReturn?state.bagReturn.opacity:state.bags>i?1:0;
+      bags[i].style.transform=`translateY(${(state.bagReturn?.y||0)*scene.clientHeight/100}px)`;
+      bags[i].style.filter=state.pickupAvailable?`drop-shadow(0 0 ${2+state.guidance.halo*6}px #ffe0a080)`:'';
+    }
     flying.style.opacity=state.flying.opacity;
     flying.style.left=`${state.flying.x}%`;flying.style.top=`${state.flying.y}%`;
     flying.style.transform=`translate(-50%,-50%) rotate(${state.flying.tilt}deg) scale(${state.flying.scale})`;
@@ -188,7 +210,7 @@ export function connectPrize(scene,playback,audio,{access,onActivity=()=>{}}) {
     token.style.opacity=state.tokenOpacity;
     token.style.transform=`translateY(${state.tokenY*scene.clientHeight/100}px)`;
     sparks.style.opacity=state.sparks;
-    wake.style.opacity=state.wakeLight;
+    wake.style.opacity=Math.max(state.wakeLight,guidanceActive&&!state.tokenAwarded&&!state.failed?state.guidance.halo*.5:0);
     audio.sync(clock,state.cues,'prize');
   }
   playback.subscribe(render);

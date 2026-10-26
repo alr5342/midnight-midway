@@ -1,5 +1,17 @@
 # Technical Specification
 
+## Current peer-revision contract, 2026-10-25
+
+Preserve the approved connected journey, two-bag support rule, stories and existing artwork. No permanent activity/visit restart controls remain. Failed rounds visibly return the original bags to counter compartments; touch or keyboard pickup refills two bags and restores the three cans without clearing earned milestones. No automatic round reset and no visible Retry button. Before token claim, completed stories remain replayable; Revisit/refresh starts a fresh visit.
+
+Environmental guidance derives from shared active time since meaningful progress: begin a soft halo after eight idle seconds and gradually strengthen it to forty seconds. Repeated failed can rounds add a bounded increase. Illuminate all horses/cans equally; never indicate the solution. Text hints remain in the one bottom narration box. Pause/Credits freezes hint age, pulse phase and all interaction/animation/audio; reduced motion uses constant light rather than pulses or bag travel.
+
+Credits saves the prior playback mode and never resets activity models. Close/Escape resumes if previously playing and still visible; an already paused scene stays paused. A pagehide/hidden-tab interruption while Credits is open cancels that automatic return, preserving the explicit-Play policy. Audio must distinguish a delayed event from its own suspension from a genuine interruption. Restore partial rings/notes, clue inspection, throws, failed rounds, stories and the waiting token exactly.
+
+Draw two pause bars in SVG with the existing accessible Pause/Play labels. Scale the approved disappearance from ten to eight active seconds while retaining every relative fade relationship, opaque empty land and wheel-last order. Fade sound by eight seconds, retain the two-second quiet hold, then Revisit. No changed masks, generated artwork, puzzle solutions or deployment. [Acceptance evidence and test limits](docs/design/PEER-REVISION.md).
+
+## Earlier checkpoints and Phase 1 specification (historical)
+
 Current reliability checkpoint: bottom narration explicitly suggests the carousel after admission and prize stall after the ride, keeping the solutions unspoken. A compact bounded control row supplies Restart activity, changing to Retry game on failure / Replay game after a win, plus separate Restart visit. Activity restart cancels partial input, active playback, stale cue tails and open clues without clearing earned admission, completed ride or token; paused restarts remain paused. Whole-visit restart reloads the start screen. UI recovery controls stay above scene input/inspection layers. Disabled scene targets do not intercept pointer input; active prize targets take precedence over the nearby music target. The existing two-bag game rules, artwork and ending remain intact. [Failure evidence, acceptance checks and limits](docs/design/JOURNEY-RECOVERY.md). Earlier entries below are historical.
 
 Current prize-stall checkpoint: visual preview only. The selected mechanic is three stacked cans and two beanbags, with simple reliable phone controls eventually replacing complex physics. Stage painted props within the existing stall; no popup game screen or extra narration box. Exact cascade rules and interaction remain unimplemented. Preserve runtime and approved ending. Acceptance evidence and pending visual approval: [PRIZE-STAGING.md](docs/design/PRIZE-STAGING.md).

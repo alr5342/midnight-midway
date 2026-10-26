@@ -1,5 +1,15 @@
 # Implementation Plan
 
+## Current checkpoint: peer-playtest revisions, 2026-10-25
+
+Authorized from 810dea4: remove permanent restarts; recover failed rounds by picking up returned beanbags; increase environmental guidance when progress stalls; draw the pause symbol; shorten the existing disappearance to eight seconds; preserve exact state through Credits. Existing puzzles, stories, approved media and public Phase 1 submission remain intact. [Scope and results](docs/design/PEER-REVISION.md).
+
+Implementation and focused recovery checks are complete for local review. Credits returns to its prior playing/paused state; external browser interruptions still require Play. The targeted browser run covers unfinished interactions, repeated modal cycles, touch pickup at four sizes, reduced motion and the wheel-last ending under a Pages-style path. Stop for Developer review; do not merge, push or deploy.
+
+Carry both reported peer rounds into the eventual debrief: initial Phase 1 prototype, then the more complete journey. [Playtest notes and missing details](docs/PLAYTEST-NOTES.md). The supplied debrief template and any further peer/device evaluation remain future work; no final debrief or new physical-phone pass is claimed.
+
+## Earlier checkpoints and Phase 1 plan (historical)
+
 Current checkpoint from 15f2597, 2026-10-24: fix touch recovery and transition clarity, add progress-preserving activity restart and distinct full-visit restart, and verify normal gameplay through Revisit. Complete for local review: 38 unit tests and the focused recovery browser check passed, including eight repeated failed attempts at four viewport sizes plus a normal-speed touch journey. [Evidence and limits](docs/design/JOURNEY-RECOVERY.md). Stop here; no merge, push or deployment. Earlier entries below are historical.
 
 Current authorized checkpoint, from 5bd5ff2: static visual staging for the Developer-selected three-can knockdown game (three stacked cans, two beanbags, subtle environmental aiming clues). The preview is prepared and focused browser checks passed. Stop for visual approval before throws, cascade rules, scoring, prize story or ending playback. No deployment. See [staging record](docs/design/PRIZE-STAGING.md). Earlier checkpoint entries below are historical.

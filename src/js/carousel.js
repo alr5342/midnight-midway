@@ -1,4 +1,5 @@
 import {mountCarouselArtwork} from './artwork.js';
+import {guidanceAt} from './guidance.js';
 
 const sequence = ['left', 'right', 'center', 'left'];
 const rates = {left: 1, center: 2 ** (3 / 12), right: 2 ** (7 / 12)};
@@ -37,15 +38,18 @@ export class CarouselPuzzle {
     this.completed = false;
     this.musicStartedAt = null;
     this.lastCompletedPayoffAt = null;
+    this.hintSince=null;
+    this.bestProgress=0;
   }
 
-  unlock(time) { if (this.unlockedAt === null) this.unlockedAt = time; }
+  unlock(time) { if (this.unlockedAt === null) {this.unlockedAt=time;this.hintSince=time;} }
 
   play(note, time) {
     if (this.unlockedAt === null || !Object.hasOwn(rates,note) || this.snapshot(time).playing) return false;
     if (this.progress === sequence.length) this.progress = 0;
     this.mistake = note !== sequence[this.progress];
     this.progress = this.mistake ? 0 : this.progress + 1;
+    if(this.progress>this.bestProgress) {this.bestProgress=this.progress;this.hintSince=time;}
     if (this.progress === sequence.length) {
       this.solved = true;
       this.payoffAt = time;
@@ -58,7 +62,7 @@ export class CarouselPuzzle {
     return true;
   }
 
-  inspect(time) { this.inspectedAt = time; this.inspectionSerial++; }
+  inspect(time) { if(this.inspectedAt===null)this.hintSince=time;this.inspectedAt = time; this.inspectionSerial++; }
 
   restart(time) {
     this.snapshot(time);
@@ -91,10 +95,10 @@ export class CarouselPuzzle {
         if(time>=cueAt&&time<cueAt+duration*1000)cues.push({id:`ride-${this.payoffSerial}-${at}`,name:'carousel-box',at:cueAt,duration,rate:rates[note]});
       }
     }
-    const waiting = this.unlockedAt === null ? 0 : time - this.unlockedAt;
+    const waiting = this.hintSince === null ? 0 : time - this.hintSince;
     const hint = this.progress === 4 ? 'Beyond the carousel, the prize stall waits for its last player.' : feedback && this.mistake ? 'The memory breaks off before its end.' : waiting >= 24000 ? 'A few bars escaped the rain, down by the carousel.' : waiting >= 12000 ? 'The carousel horses kept their voices. Something nearby kept the tune.' : 'The carousel is silent, but its horses remember a song.';
     const narration = playing ? age<1.2 ? 'A spark of an evening long ago.' : age<6 ? 'For a little while, the years lose their hold.' : 'The old rhythm has found its way home.' : hint;
-    return {progress:this.progress,solved:this.solved,completed:this.completed,playing,phase,horseY,light,note:feedback?this.note:null,mistake:feedback&&this.mistake,hint:narration,cues,musicCues:musicAt(time,this.musicStartedAt)};
+    return {progress:this.progress,solved:this.solved,completed:this.completed,playing,phase,horseY,light,note:feedback?this.note:null,mistake:feedback&&this.mistake,hint:narration,cues,musicCues:musicAt(time,this.musicStartedAt),guidance:guidanceAt(time,this.hintSince,reducedMotion)};
   }
 }
 
@@ -128,9 +132,11 @@ export function connectCarousel(scene, playback, audio, {access, onSolved,onActi
     close.setAttribute('aria-disabled',String(!enabled));
     controls.dataset.mistake = String(state.mistake);
     art.lights.style.opacity=String(state.light);
+    const guide=visible&&!state.playing&&!state.completed?state.guidance.halo:0;
+    art.ground.style.filter=guide?`drop-shadow(0 0 ${guide*7}px rgba(255,218,159,${guide*.6}))`:'';
     for (const [index,note] of Object.keys(rates).entries()) {
       const horse = scene.querySelector(`.horse-${note === 'center' ? 'center' : note}`);
-      horse.style.filter = state.note === note ? 'brightness(1.2) drop-shadow(0 0 6px #ffe1ad)' : state.light ? `brightness(${1+state.light*.16})` : '';
+      horse.style.filter = state.note === note ? 'brightness(1.2) drop-shadow(0 0 6px #ffe1ad)' : guide ? `brightness(${1+guide*.15}) drop-shadow(0 0 ${guide*5}px #ffe1ad70)` : state.light ? `brightness(${1+state.light*.16})` : '';
       horse.style.transform = `translateY(${state.horseY[index]*scene.clientHeight/1672}px)`;
     }
     if (state.solved && !wasSolved) onSolved();

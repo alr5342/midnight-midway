@@ -26,7 +26,7 @@
             <p id="motion-note" hidden></p>
           </div>
         </section>
-        <button type="button" class="pause-mockup" id="playback" aria-label="Pause scene" hidden><span aria-hidden="true">Ⅱ</span></button>
+        <button type="button" class="pause-mockup" id="playback" aria-label="Pause scene" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><g class="pause-bars"><rect x="6" y="5" width="4" height="14" rx=".8"/><rect x="14" y="5" width="4" height="14" rx=".8"/></g><path class="play-triangle" d="M8 5L19 12L8 19Z" hidden/></svg></button>
         <div id="admission" class="admission-badge" role="group" aria-label="Journey progress" hidden>
           <img src="assets/story/ticket.svg" alt="Your admission ticket" width="72" height="38">
           <span>Admit one</span>
@@ -42,7 +42,7 @@
             <button type="button" class="can-target can-target-top" data-can="top" aria-label="Throw a beanbag at the top can"></button>
             <button type="button" class="can-target can-target-left" data-can="left" aria-label="Throw a beanbag at the lower left can"></button>
             <button type="button" class="can-target can-target-right" data-can="right" aria-label="Throw a beanbag at the lower right can"></button>
-            <button type="button" id="prize-retry" class="prize-retry" aria-label="Collect two beanbags and try again" hidden></button>
+            <button type="button" id="prize-retry" class="prize-retry" aria-label="Pick up a returned beanbag for another round" hidden></button>
             <span id="prize-status" class="visually-hidden" role="status"></span>
           </section>
           <button type="button" id="music-open" class="music-scrap" aria-label="Inspect the worn sheet music" aria-expanded="false" aria-controls="music-clue" aria-disabled="true" tabindex="-1"></button>
@@ -57,10 +57,6 @@
         <span id="ending-status" class="visually-hidden" role="status"></span>
         <button type="button" id="credits-open" class="credits-open" aria-haspopup="dialog">Credits</button>
         <div class="narration-area">
-          <div id="visit-tools" class="visit-tools" role="group" aria-label="Restart controls" hidden>
-            <button type="button" id="restart-activity">Restart activity</button>
-            <button type="button" id="restart-visit">Restart visit</button>
-          </div>
           <p class="hint-mockup" id="hint" role="status" hidden>Some guests never left the midway…</p>
         </div>
         <p class="runtime-notice" id="audio-notice" aria-hidden="true" hidden></p>
@@ -79,7 +75,7 @@
       <p><strong>Prize game and ending:</strong> cans, counter and empty-field repair painted with OpenAI image generation using the approved reference. Brass token and effects are original SVG code. Throw, tin and winning chime sounds are original deterministic synthesis; no external recording. Exact prompts and preparation sources are included.</p>
       <p><strong>Magic:</strong> JaggedStone, <a href="https://opengameart.org/content/magic-spell-sfx" target="_blank" rel="noopener noreferrer">Magic Spell SFX</a>. Trimmed, pitched and faded for arrival, stamp and departure.</p>
       <p>All external sounds are <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0 1.0</a>. Full source URLs, preserved originals and processing details are recorded in the project’s CREDITS.md.</p>
-      <p>Closing credits keeps the scene paused. Choose Play to continue.</p>
+      <p>Closing credits returns to your previous activity. A scene you paused stays paused; after a browser interruption, choose Play to continue.</p>
     </dialog>
   </main>
   <script type="module" src="src/js/app.js"></script>

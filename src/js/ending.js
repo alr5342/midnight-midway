@@ -7,6 +7,7 @@ const masks={
   wheel:'M182 88 Q510 -15 722 150 Q835 290 786 490 L708 600 L620 728 L350 728 L290 650 L270 518 L160 478 Q105 285 182 88Z'
 };
 const tokenPoses=[[0,84,66,12],[2,59,54,24],[5,50,50,31],[8,50,46,34],[10,50,46,36]];
+export const endingDuration=8;
 
 export class Ending {
   constructor() {this.claimedAt=null;}
@@ -17,18 +18,20 @@ export class Ending {
   }
   snapshot(time,reducedMotion=false) {
     const age=this.claimed?Math.max(0,(time-this.claimedAt)/1000):0;
+    // Keep every approved pose/fade relationship, on a shorter timeline.
+    const poseAge=age*10/endingDuration;
     let token=[84,66,12];
     for(let i=1;i<tokenPoses.length;i++) {
       const before=tokenPoses[i-1],after=tokenPoses[i];
-      if(age>=before[0])token=after.slice(1).map((end,j)=>before[j+1]+(end-before[j+1])*smooth((age-before[0])/(after[0]-before[0])));
+      if(poseAge>=before[0])token=after.slice(1).map((end,j)=>before[j+1]+(end-before[j+1])*smooth((poseAge-before[0])/(after[0]-before[0])));
     }
     if(reducedMotion&&this.claimed)token=[50,46,36];
-    return {claimed:this.claimed,age,gone:this.claimed&&age>=10,resting:this.claimed&&age>=12,
-      site:1-smooth(age/2.8),carousel:1-smooth((age-2.5)/3),stall:1-smooth((age-4)/2.5),wheel:1-smooth((age-6.8)/3.2),
-      fog:.20*smooth(age/2)*(1-smooth((age-6.5)/3.5)),token,
+    return {claimed:this.claimed,age,gone:this.claimed&&age>=endingDuration,resting:this.claimed&&age>=endingDuration+2,
+      site:1-smooth(poseAge/2.8),carousel:1-smooth((poseAge-2.5)/3),stall:1-smooth((poseAge-4)/2.5),wheel:1-smooth((poseAge-6.8)/3.2),
+      fog:.20*smooth(poseAge/2)*(1-smooth((poseAge-6.5)/3.5)),token,
       tokenOpacity:reducedMotion&&this.claimed?smooth(age/.5):1,
-      storyLevel:this.claimed?1-smooth(age/9.5):1,windLevel:this.claimed?1-smooth(age/10):1,
-      hint:age<3?'The night begins to forget its own lights.':age<7?'Only the field remembers where they stood.':'One last light holds on.'};
+      storyLevel:this.claimed?1-smooth(poseAge/9.5):1,windLevel:this.claimed?1-smooth(poseAge/10):1,
+      hint:poseAge<3?'The night begins to forget its own lights.':poseAge<7?'Only the field remembers where they stood.':'One last light holds on.'};
   }
 }
 
@@ -90,7 +93,7 @@ export function connectEnding(scene,playback,ambient,audio,{access,hint}) {
       if(!full)mountMemories();
       full.style.opacity=state.site;
       for(const [name,memory] of memories)memory.style.opacity=state[name];
-      fog.style.opacity=state.fog;light.style.opacity=state.wheel*.3*smooth((state.age-6)/2);
+      fog.style.opacity=state.fog;light.style.opacity=state.wheel*.3*smooth((state.age*10/endingDuration-6)/2);
       token.style.left=`${state.token[0]}%`;token.style.top=`${state.token[1]}%`;token.style.width=`${state.token[2]}%`;token.style.opacity=state.tokenOpacity;
       const narration=clock.state==='paused'?'Paused. Choose Play to continue.':state.hint;
       if(hint.textContent!==narration)hint.textContent=narration;

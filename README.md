@@ -1,8 +1,8 @@
 # Midnight Midway
 
-Current local checkpoint: clearer narration names the carousel after admission and the prize stall after the ride, without revealing solutions. Retry game is explicit after failed two-bag attempts; Restart activity cancels the current attempt/story while preserving progress, and Restart visit starts fresh. Fixed overlapping clue/retry touch regions and locked inputs intercepting Enter. The full journey through claim, empty field and Revisit passed a normal-speed touch playthrough. [Recovery verification](docs/design/JOURNEY-RECOVERY.md). Local review only; no deployment. Earlier checkpoint paragraphs below are historical.
+Current local checkpoint, 2026-10-25: peer-playtest revisions remove the permanent restart controls. Failed rounds return the two beanbags to small counter compartments; picking one up resets only that attempt. Environmental glows grow with time spent without progress, without identifying puzzle answers. The pause icon uses drawn bars. Credits preserves the exact interaction and restores its previous playing/paused state; browser interruptions still require Play. The approved wheel-last disappearance now takes eight active seconds, followed by the existing two-second quiet hold. [Scope, findings and verification](docs/design/PEER-REVISION.md). Awaiting local Developer review; no deployment.
 
-Current visual checkpoint: [three-can prize-stall staging](dev/previews/index.html?view=prize) adds preview-only painted cans, two beanbags and a weathered physical sign. No prize gameplay is implemented. [Scope, exact artwork prompts and checks](docs/design/PRIZE-STAGING.md). Await visual approval before proceeding; runtime, approved ending, public site and Phase 1 submission remain unchanged.
+The Developer reports two peer-playtest rounds, after the Phase 1 prototype and with the more complete journey. [Notes for the eventual debrief](docs/PLAYTEST-NOTES.md) preserve that chronology and distinguish supplied observations from missing session details.
 
 Published Phase 1 app: https://alr5342.github.io/midnight-midway/ — [GitHub repository](https://github.com/alr5342/midnight-midway).
 
@@ -10,9 +10,11 @@ One illustrated phone scene with lighting, fog, bats, looping wind, a start scre
 
 ## Run locally
 
-Current local checkpoint: complete the three-ring booth story to receive admission, then tap the actual carousel horses. The tune is left → right → center → left. The painted ground paper exists from entry and becomes inspectable only after admission; unlocking does not reveal or change its appearance. It shows four musical notes only, without horse names or an arrow sequence. A wrong note resets only the attempt. Notes briefly brighten the corresponding horse and use three pitches of an original synthesized music-box tone. Touch regions are at least 44px across; keyboard names remain available. Bottom narration now suggests the lingering story, with later hints toward the bell, horse voices and nearby music. No chime counts or attendant captions appear beside the bell. The bell and blank paper are painted raster assets matched to the scene; their exact prompts and saved paths are in docs/design/PAINTED-PROPS.md. Bell size and sway remain unchanged. The larger foreground bell gently sways with active time; its fixed generous touch area covers the movement. Reduced motion keeps the bell still. The ticket and music share worn paper, faded ink and engraved details. Progressive hints use active time. Pause retains notes, clue and progress; refresh starts fresh. A correct tune starts an eight-active-second light/music/horse payoff, then settles into a more noticeable completed idle with a quiet repeating carousel tune. Lifts are now 50% larger during the payoff; the completed idle uses 32% of that range. The slow original music-box phrase begins after the payoff, continues under booth replay and resumes at its saved active-time position. Original-pixel horses move vertically with staggered phases; the carousel does not rotate. Replaying never removes admission or ride completion. The bottom narration is the only in-scene text box, including loading/error guidance. Prize-stall and ending progression remain unimplemented. No deployment.
+Complete the three-ring booth story to receive admission, then tap the carousel horses. The tune is left → right → center → left; the ground paper shows only four musical notes and becomes inspectable after admission. A wrong note resets only the melody attempt. The eight-second carousel payoff settles into staggered horse bobbing and quiet music, without rotation. The stall then wakes: two beanbags must knock down all three cans. Either lower can carries the top down; a top-first throw leaves too much standing. A failed round remains recoverable through bag pickup. Winning plays the eight-second prize story and offers a brass Ferris-wheel token. Deliberately claiming it fades the attractions over the empty field, with the wheel last. Revisit or refresh begins a fresh visit. Completed stories remain replayable before claim without clearing earned milestones.
 
-Approved visual checkpoint: [keepsake/disappearance staging](http://127.0.0.1:4173/dev/previews/index.html?view=ending). Select poses manually; the approved journey is recorded in [docs/design/JOURNEY.md](docs/design/JOURNEY.md). Ending playback remains unimplemented.
+The bottom narration is the only in-scene text box. One active-time clock coordinates motion, audio, hints, throws and fades. Pause freezes them all; reduced motion keeps the narrative and sound with stationary feedback instead of travel/pulsing. Original artwork and assets remain intact. [Journey and checkpoint history](docs/design/JOURNEY.md).
+
+Approved visual reference: [keepsake/disappearance staging](http://127.0.0.1:4173/dev/previews/index.html?view=ending). Its original ten-second pose labels are historical; the runtime now scales the same sequence to eight seconds.
 
 Run `node serve.mjs`, then open http://127.0.0.1:4173/index.html in VS Code Simple Browser or a desktop browser. No installation, framework or build is needed to run the app.
 
@@ -28,20 +30,20 @@ From the project root:
 
 ```powershell
 node --test tests/unit/*.test.mjs
-node tests/run-regressions.mjs
-node tests/browser/check-submission-ready.mjs tests/results/preflight
+node tests/browser/check-peer-revision.mjs
+node tests/browser/check-ending.mjs
 node tools/check-secrets.mjs
 node tools/export-git-log.mjs
 ```
 
-The browser runner starts a local server when needed and executes the existing shell, audio, lighting, fog, bats, wheel alignment, story/replay and preview regressions. Fresh captures/logs go into ignored `tests/results/`; earlier evidence stays unchanged in `archive/reviews/`. Browser checks need a separately installed Playwright package and browsers, which are not bundled or needed by the app. The scripts retain this machine's installed path. The preflight also supports `PLAYWRIGHT_MODULE` for a different Playwright entry path.
+Current targeted browser checks are `node tests/browser/check-peer-revision.mjs` and `node tests/browser/check-ending.mjs`. The former supersedes `check-journey-recovery.mjs`, whose historical contract includes the removed restart toolbar. Existing older runners are preserved for their checkpoint evidence; they are not all current acceptance tests. Fresh captures/logs go into ignored `tests/results/`; earlier evidence stays unchanged in `archive/reviews/`. Browser checks need a separately installed Playwright package and browsers, which are not bundled or needed by the app. The scripts retain this machine's installed path and support `PLAYWRIGHT_MODULE` where indicated.
 
 Preflight tests the project under `/midnight-midway-check/` and checks filename case for GitHub Pages compatibility. Chromium/Firefox support the full audiovisual checks. The installed Windows WebKit build has no Web Audio API; its visual/accessibility/path checks pass, but its audio is unverified. Historical strict touch screenshot comparisons remain unresolved; current regressions verify exact frozen active time/DOM state and resting story reset. See the [audit](docs/PHASE-1-AUDIT.md) for scope and limitations.
 
 ## Published Phase 1 and preserved submission
 
-The published prototype was approved on an actual iPhone 17 Pro / iOS 26.5.1 / Safari by Alex Rosemann. The finalized Phase 1 ZIP, extraction, checksum and verification sidecar remain unchanged in `submissions/`. They record revision `4f7ed1b` and retain the original folder structure. The organizational cleanup is confined to the separate `chore/project-structure` branch; it has not been merged, pushed or deployed. The physical-phone approval applies to the published Phase 1 version.
+The published prototype was approved on an actual iPhone 17 Pro / iOS 26.5.1 / Safari by Alex Rosemann. The finalized Phase 1 ZIP, extraction, checksum and verification sidecar remain unchanged in `submissions/`. They record revision `4f7ed1b` and retain the original folder structure. Local cleanup and journey revisions are on separate development branches, currently `feature/carousel-puzzle`; they have not been merged, pushed or deployed. The physical-phone approval applies to the published Phase 1 version, not these local changes.
 
 The active Git-log exporter now writes `docs/git/GIT-LOG.txt`. The packager uses that location for future exports; it does not alter the existing submission. Run it only when a new package is authorized. [Submission record](docs/SUBMISSION.md), [deployment evidence](docs/DEPLOYMENT.md), [Pages instructions](docs/GITHUB-PAGES.md), [phone review](docs/PHONE-VERIFICATION.md).
 
-[Brief](brief.md) · [research](research.md) · [specification](spec.md) · [plan](plan.md) · [developer/asset credits](CREDITS.md). No narrative redesign or additional stories are implemented in this cleanup.
+[Brief](brief.md) · [research](research.md) · [specification](spec.md) · [plan](plan.md) · [developer/asset credits](CREDITS.md).

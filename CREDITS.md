@@ -20,6 +20,8 @@ Preview-only addition, 2026-10-19: dev/previews/assets/keepsake-token-v1.svg is 
 
 ## Developer and AI assistance
 
+Peer-revision treatment (2026-10-25): the small wooden beanbag compartments and drawn pause icon are original project SVG code. Existing painted props, reference artwork and audio assets are reused unchanged; no new external assets were acquired.
+
 **Alex Rosemann** — Developer; concept selection, direction, design decisions, evaluation and testing. Name confirmed by the Developer on 2026-10-16. OpenAI Codex/ChatGPT assisted with implementation and artwork preparation. HTML/CSS/JavaScript and SVG props/effects are project code; no external runtime code library or font is used. Playwright is a development-only browser testing dependency, not bundled into the app.
 
 ## Reference and visual assets

@@ -33,7 +33,7 @@ test('top-first loses; explicit retry resets only the attempt, replay never dupl
   assert.equal(game.retry(14000),true);assert.equal(game.tokenAwarded,true);assert.equal(game.snapshot(14000).tokenOpacity,0);
   game.throwAt('top',14000);game.snapshot(15450);game.throwAt('right',15500);
   assert.equal(game.snapshot(16950).failed,true);assert.equal(game.tokenAwarded,true);
-  assert.match(game.snapshot(16950).hint,/Retry/);
+  assert.match(game.snapshot(16950).hint,/boxes/);
   game.retry(17000);game.throwAt('right',17000);game.snapshot(18450);game.throwAt('left',18500);
   assert.equal(game.snapshot(27950).completedStories,2);
   assert.equal(game.snapshot(27950).tokenAwarded,true);

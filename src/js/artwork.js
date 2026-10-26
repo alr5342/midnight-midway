@@ -98,7 +98,10 @@ export function mountPrizeArtwork(scene) {
     <defs><mask id="prize-empty-bags" maskUnits="userSpaceOnUse" x="0" y="0" width="2048" height="768"><rect width="2048" height="768" fill="white"/>${bagPaths.map(d=>`<path d="${d}" fill="black"/>`).join('')}</mask>
     <linearGradient id="prize-wood" x2="0" y2="1"><stop stop-color="#69432d"/><stop offset="1" stop-color="#35241c"/></linearGradient></defs>
     <path d="M130 287L585 241L655 310L334 349L161 324Z" fill="url(#prize-wood)"/>
-    <image href="${counter}" width="2048" height="768" mask="url(#prize-empty-bags)"/></svg>
+    <image href="${counter}" width="2048" height="768" mask="url(#prize-empty-bags)"/>
+    <g class="beanbag-boxes" stroke="#352018" stroke-width="7" stroke-linejoin="round"><path d="M110 301L341 256L378 331L133 375Z" fill="#39291f"/><path d="M356 287L638 266L677 327L390 369Z" fill="#39291f"/>
+    <path d="M110 301L133 375L133 394L110 319ZM133 375L378 331L378 350L133 394ZM356 287L390 369L390 388L356 306ZM390 369L677 327L677 347L390 388Z" fill="url(#prize-wood)"/></g>
+    <path d="M120 303L341 263M367 289L634 273" fill="none" stroke="#a27545" stroke-width="5" opacity=".55"/></svg>
     ${['left','right','top'].map(side=>`<img class="prize-can prize-can-${side}" src="${can}" alt="">`).join('')}
     ${bagPaths.map((d,i)=>`<svg class="prize-counter prize-bag-${i}" viewBox="0 0 2048 768"><defs><clipPath id="prize-bag-${i}"><path d="${d}"/></clipPath></defs><image href="${counter}" width="2048" height="768" clip-path="url(#prize-bag-${i})"/></svg>`).join('')}
     <svg class="prize-rules" viewBox="0 0 160 90"><svg width="160" height="90" viewBox="1450 390 520 230" preserveAspectRatio="none"><image href="${counter}" width="2048" height="768"/></svg><g fill="currentColor" text-anchor="middle" font-family="Georgia,serif" font-weight="bold" opacity=".85"><text x="80" y="41" font-size="24">2 BAGS</text><text x="80" y="68" font-size="24">3 CANS</text></g></svg>

@@ -13,6 +13,8 @@ export class AmbientAudio {
     this.elapsedMs = 0;
     this.status = 'idle';
     this.level = 1;
+    this.pausedContext = null;
+    this.resumeOperation = null;
   }
 
   report(status) { this.status = status; this.onStatus(status); }
@@ -30,13 +32,23 @@ export class AmbientAudio {
         const context = this.context;
         context.addEventListener('statechange', () => {
           if (context !== this.context || !this.wanted) return;
+          // A requested suspend can settle after a quick modal Close/Play.
+          // While its matching resume is pending, that owned transition is
+          // expected. Real interruptions during initial resume/loading still
+          // pause immediately; a failed resume is checked again below.
+          if(context.state==='suspended'&&this.resumeOperation?.context===context&&this.resumeOperation.ownedPause)return;
           // A native suspension can arrive while resume/decode is pending,
           // before status reaches playing. Explicit Pause clears wanted first.
           if (context.state === 'interrupted' || context.state === 'closed' || context.state === 'suspended') this.onInterrupt();
         });
       }
       // Called synchronously inside Enter/Play's activation event, before fetch.
-      const resume = this.context.resume();
+      const operation={context:this.context,generation,ownedPause:this.pausedContext===this.context};
+      this.resumeOperation=operation;
+      this.pausedContext=null;
+      const resume = Promise.resolve(this.context.resume()).finally(()=>{
+        if(this.resumeOperation===operation)this.resumeOperation=null;
+      });
       this.report('loading');
       if (!this.loading) {
         this.loading = this.load().then(response => {
@@ -82,7 +94,10 @@ export class AmbientAudio {
     this.wanted = false;
     this.generation++;
     this.stopSource();
-    if (this.context && this.context.state !== 'closed') this.context.suspend().catch(() => {});
+    if (this.context && this.context.state !== 'closed') {
+      this.pausedContext=this.context;
+      this.context.suspend().catch(() => {});
+    }
     if (this.status !== 'idle') this.report('paused');
   }
 

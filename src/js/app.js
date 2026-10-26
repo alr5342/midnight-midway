@@ -18,7 +18,8 @@ const stage = document.querySelector('#stage');
 const startScreen = document.querySelector('#start-screen');
 const enter = document.querySelector('#enter');
 const pause = document.querySelector('#playback');
-const pauseIcon = pause.querySelector('span');
+const pauseBars = pause.querySelector('.pause-bars');
+const playTriangle = pause.querySelector('.play-triangle');
 const hint = document.querySelector('#hint');
 const motionNote = document.querySelector('#motion-note');
 const status = document.querySelector('#playback-status');
@@ -31,8 +32,6 @@ let prize = null;
 let ending = null;
 let currentActivity='booth';
 let rideNoticed=false;
-const restartActivity=document.querySelector('#restart-activity');
-const restartVisit=document.querySelector('#restart-visit');
 const selectActivity=name=>{currentActivity=name;};
 const audioNotice = document.querySelector('#audio-notice');
 let frame = null;
@@ -108,13 +107,7 @@ function nextFrame() {
 playback.subscribe((snapshot) => {
   renderJourney(snapshot);
   const finale=ending?.snapshot();
-  const reward=prize?.snapshot();
   stage.dataset.activity=currentActivity;
-  document.querySelector('#visit-tools').hidden=snapshot.state==='start'||Boolean(finale?.gone);
-  restartActivity.disabled=Boolean(finale?.claimed);
-  const activityLabel=currentActivity==='prize'&&reward?.failed?'Retry game':currentActivity==='prize'&&reward?.completed&&reward?.bags===0&&!reward?.busy?'Replay game':'Restart activity';
-  if(restartActivity.textContent!==activityLabel)restartActivity.textContent=activityLabel;
-  restartActivity.setAttribute('aria-label',`${restartActivity.textContent}: ${currentActivity==='booth'?'ticket booth':currentActivity==='carousel'?'carousel puzzle':'prize game'}; keep visit progress`);
   // A tab interruption during the quiet final hold must still offer explicit
   // Play; otherwise the hidden control would strand the Revisit timer.
   pause.hidden=snapshot.state==='start'||Boolean(finale?.resting)||Boolean(finale?.gone&&snapshot.state!=='paused');
@@ -126,7 +119,8 @@ playback.subscribe((snapshot) => {
     startScreen.hidden = snapshot.state !== 'start';
     pause.setAttribute('aria-label', snapshot.state === 'paused' ? 'Play scene' : 'Pause scene');
     pause.title = snapshot.state === 'paused' ? 'Play' : 'Pause';
-    pauseIcon.textContent = snapshot.state === 'paused' ? '▶' : 'Ⅱ';
+    pauseBars.toggleAttribute('hidden',snapshot.state==='paused');
+    playTriangle.toggleAttribute('hidden',snapshot.state!=='paused');
     motionNote.textContent = snapshot.reducedMotion ? 'Reduced motion is enabled for your device.' : '';
     motionNote.hidden = !snapshot.reducedMotion;
     // Announce transitions only; never send frame-by-frame updates to assistive tech.
@@ -152,13 +146,6 @@ pause.addEventListener('click', () => {
   if (playback.state === 'paused') playback.resume();
   else playback.pause();
 });
-restartActivity.addEventListener('click',()=>{
-  if(playback.state==='start'||ending.snapshot().claimed)return;
-  ({booth:ticketStory,carousel,prize})[currentActivity].restart();
-  stage.dataset.carouselPuzzle=carousel.snapshot().solved?'solved':'pending';
-  playback.notify();
-});
-restartVisit.addEventListener('click',()=>location.reload());
 motionPreference.addEventListener('change', event => playback.setReducedMotion(event.matches));
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) playback.pause();
@@ -174,18 +161,33 @@ if (new URLSearchParams(location.search).has('diagnostics')) {
   });
 }
 
-// Credits are an in-scene modal. Opening it pauses the shared experience;
-// closing it never resumes audio or a story without an explicit Play action.
+// Credits temporarily owns the pause, not the activity state. Restore only
+// a pause it created; an external interruption invalidates automatic resume.
 function connectCredits(playback) {
   const dialog = document.querySelector('#credits-dialog');
   const open = document.querySelector('#credits-open');
   const close = document.querySelector('#credits-close');
+  let restorePlaying=false;
   open.addEventListener('click', () => {
+    if(dialog.open)return;
+    restorePlaying=playback.state==='exploring';
     playback.pause();
     dialog.showModal();
     close.focus();
   });
-  close.addEventListener('click', () => dialog.close());
+  function closeCredits() {
+    const resume=restorePlaying&&!document.hidden;
+    restorePlaying=false;
+    dialog.close();
+    // Resume inside the Close/Escape activation, including the AudioContext.
+    if(resume&&playback.state==='paused')playback.resume();
+    open.focus({preventScroll:true});
+  }
+  close.addEventListener('click',closeCredits);
+  dialog.addEventListener('cancel',event=>{event.preventDefault();closeCredits();});
+  const interrupted=()=>{if(dialog.open)restorePlaying=false;};
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)interrupted();});
+  window.addEventListener('pagehide',interrupted);
   dialog.addEventListener('keydown', event => {
     if(event.key !== 'Tab') return;
     const controls = [...dialog.querySelectorAll('button, a[href]')];
@@ -196,7 +198,7 @@ function connectCredits(playback) {
     event.preventDefault();
     controls[next].focus();
   });
-  dialog.addEventListener('close', () => open.focus({preventScroll:true}));
+  dialog.addEventListener('close', () => {if(!dialog.open) {restorePlaying=false;open.focus({preventScroll:true});} });
 }
 
 // Keep the start screen usable if a required scene image, stylesheet or mask
