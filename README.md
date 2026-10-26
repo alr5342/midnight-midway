@@ -1,28 +1,55 @@
-# Midnight Midway
+# The Midnight Midway
 
-Published Phase 1 app: https://alr5342.github.io/midnight-midway/ — repository: https://github.com/alr5342/midnight-midway. The approved prototype includes in-scene credits, startup asset checks and accessibility/browser/path verification. One eight-second ticket-booth story, ambience, progressive hints, replay and shared Play/Pause are implemented. No Phase 2 work is included.
+A phone-sized illustrated Halloween midway: ring for admission, spend tickets on a musical carousel or a two-beanbag can game, then claim a brass keepsake as the park disappears. Spooky, playful, ages 10+, unbranded. Ferris wheel and carousel stay stationary; layered artwork, lighting, fog, sound and staggered horse movement create the atmosphere.
 
-Run `node serve.mjs`, then open http://127.0.0.1:4173 in VS Code Simple Browser or a desktop browser. No installation/build is required. Enter enables lighting, fog, bats and CC0 wind. Explore the ticket-booth bell; three activations summon the attendant, floating ticket and magical stamp. Pause freezes/resumes all active-time effects, hints, progress and sound. Leaving the tab or interrupting audio pauses until explicit Play.
+**Phase 2 publication authorized, 2026-10-26:** approved application baseline `614e44b`; reviewed documentation/evidence/harness changes accompany it. [Publication status and public verification](docs/PHASE-2-DEPLOYMENT.md). The supplied debrief remains deferred; no final ZIP in this checkpoint. [Requirements audit and remaining gates](docs/PHASE-2-AUDIT.md).
 
-Reduced motion is honored before Enter and live. Touch and keyboard are supported: Enter focuses Play/Pause, then Tab reaches the bell. Bell input waits for initially loading sounds and is locked during the story/pause. Cue failure shows Pause/Play retry guidance; missing story artwork disables the trigger with reload guidance.
+[Public URL](https://alr5342.github.io/midnight-midway/) and [GitHub repository](https://github.com/alr5342/midnight-midway) are being updated through the existing `main` / `/(root)` Pages source. Consult the publication record for the verified revision. The previous phone approval applies only to Phase 1, not this finished app.
 
-**Phase 1 submission finalization:** the prototype and public HTTPS site are approved, including Alex Rosemann’s actual iPhone 17 Pro / iOS 26.5.1 / Safari review. The extracted archive candidate passed inventory/hash, 17 unit and browser checks. Final ZIP contents and acceptance results are described in [docs/SUBMISSION.md](docs/SUBMISSION.md); the final verification sidecar must have status passed before submission. Developer/asset credits and Git history/log are included. [Detailed audit](docs/PHASE-1-AUDIT.md), [plan](plan.md), [specification](spec.md), [research](research.md), [credits](CREDITS.md).
+## Run and play
 
-Tests use an existing local Playwright installation whose path is listed in browser scripts; update that path on another machine. It is not needed to run the app.
+Run `node serve.mjs`, then open http://127.0.0.1:4173/index.html. No dependency installation or build is needed for the app. VS Code Simple Browser can use the same URL. The consolidated artwork/story/ending inspector is at http://127.0.0.1:4173/dev/previews/index.html; it is separate from gameplay. `/?diagnostics` exposes read-only development state.
+
+Complete the eight-second booth story to earn a ticket; repeat to stack more. The first accepted note or throw spends one ticket on that activity. Wrong melodies and failed can rounds are free retries within the paid activity. Pick up returned beanbags to reset a failed round. Successful attraction replays cost new tickets; the booth stays available for more. Complete both attraction stories in either order to reveal one token at the prize stall. Deliberately claim it for the wheel-last disappearance; Revisit/refresh starts a fresh visit.
+
+One Play/Pause control coordinates motion, sound, effects, timers and interaction. Credits freezes exact progress and restores the previous playback mode. Genuine tab/audio interruptions wait for Play. Reduced motion keeps stationary story states and sound without travel/bobbing/pulsing. One bottom narration box provides hints; the music scrap enlarges for inspection without another instructional panel.
+
+## Verification
+
+From the project root:
 
 ```powershell
-node --test tests/playback.test.mjs tests/lighting.test.mjs tests/fog.test.mjs tests/bats.test.mjs tests/ambient-audio.test.mjs tests/ticket-story.test.mjs
-node tests/check-ticket-story.mjs artwork-review/p1-7-8-review
-node tests/check-shell.mjs artwork-review/p1-7-8-shell-final
-node tests/check-audio.mjs artwork-review/p1-7-8-audio-final
-node tests/check-bats.mjs artwork-review/p1-7-8-bats
-node tests/check-submission-ready.mjs artwork-review/p1-9-final
+node --test tests/unit/*.test.mjs
+node tests/browser/check-tickets.mjs
 node tools/check-secrets.mjs
 node tools/export-git-log.mjs
 ```
 
-Final preflight: Chromium/Firefox pass the full audiovisual flow; WebKit passes visual/accessibility/path checks but has no Web Audio API in this Windows test build. Its audio remains unverified. Results: artwork-review/p1-9-final/checks.json. Desktop checks do not establish human discovery, phone speaker balance or physical-phone behavior. The final preflight supports PLAYWRIGHT_MODULE for a different installed Playwright entry path. Historical strict screenshot comparisons remain unresolved; current checks verify frozen active time/DOM state and exact resting story-overlay reset. Evidence and limits are in the audit/plan.
+The 2026-10-26 audit observed **61 unit tests passing** and the current Chromium ticket runner passing both orders, exact payment/retry/replay rules, Credits/Pause, reduced motion, touch layouts and the ending. [Tracked reports/captures and limitations](docs/evidence/phase2/README.md).
 
-Credits (upper right) is available before/after Enter. It pauses the scene; closing leaves it paused until Play. Startup image/stylesheet/mask failure keeps Enter disabled with reload guidance. [Deployment evidence](docs/DEPLOYMENT.md), [GitHub Pages handoff](docs/GITHUB-PAGES.md) and [physical-phone checklist](docs/PHONE-VERIFICATION.md) describe the current result and next steps. The archive includes source/assets/docs/Git log, existing transcript-folder materials, history and supporting tests/evidence; see docs/SUBMISSION.md.
+Browser tests need a separately installed Playwright package and browsers; the app does not. Set `PLAYWRIGHT_MODULE` to its `index.mjs` if needed. Older browser runners retain historical single-ticket/sequential contracts and are not current acceptance tests. The corrected `check-phase2-audit.mjs` now completes its **Chromium audit**, including initial/live reduced motion, visible-state target measurements, focus/contrast/layout, ending/Revisit, filename case and startup failures. The full command then failed inside Playwright's Firefox page creation before loading the game; WebKit was not reached, so no overall cross-browser pass is claimed. [Follow-up evidence](docs/evidence/phase2/browser-audit/resolution.json). Historical Windows WebKit lacked Web Audio; no Safari/iPhone audio pass is inferred from that environment. Automation is not physical-phone, screen-reader-user or unaided peer verification.
 
-Read-only development diagnostics: /?diagnostics. No diagnostic launch control appears in the app. Static inspectors: /artwork-review.html and /story-review.html. Comparison pages, source images, prompts, previous assets and audio processing records remain preserved. Pre-checkpoint source/docs: docs/history/20261016-p1-7-8/. For the extracted app, run node serve.mjs inside midnight-midway-phase1/. No install/build is needed for the app. Browser automation needs the separately installed Playwright package/browsers; they are not bundled.
+## Project and evidence
+
+- `index.html`, `.nojekyll`, `serve.mjs`: buildless entry, Pages support and local preview.
+- `src/js/`, `src/css/`: runtime controllers, shared clock/audio/progression and styles.
+- `assets/`: artwork, masks, story props, sound, preserved original recordings/reference and derivative metadata.
+- `dev/previews/`: consolidated development inspector and approved staging candidates.
+- `tests/`, `tools/`: unit/browser checks and reproducible asset/history preparation.
+- `docs/`: current audit, peer notes, sources/design/artwork records, deployment/submission history and tracked evidence.
+- `archive/`: older review evidence and superseded entry points; preserved.
+- `submissions/`: preserved Phase 1 ZIP and verification sidecars (local/ignored, not nested in a final source ZIP).
+
+[Folder responsibilities](docs/PROJECT-STRUCTURE.md), [historical path map](docs/FILE-MAP.json). Root document copies before finalization are preserved in [docs/history/20261026-finalization/](docs/history/20261026-finalization/); their earlier “current checkpoint” statements are historical.
+
+Two smartphone peer rounds are recorded: 2026-10-19 needed substantial guidance; the later round needed minimal guidance. Findings, revisions, provenance and missing raw records are explicit in [PLAYTEST-NOTES.md](docs/PLAYTEST-NOTES.md). No wholly unaided pass is claimed.
+
+## Release and submission
+
+The existing Pages repository/source remains `alr5342/midnight-midway`, `main` / `/(root)`. Current relative paths are exercised under `/midnight-midway/`. After review: complete the supplied debrief, resolve audit gates, publish the approved branch/history to the existing repository, verify actual public resources/journeys and the finished app on a physical phone, then create and extraction-test the final repository ZIP. No new repository or creative work is needed. [Release plan](plan.md), [Pages handoff](docs/GITHUB-PAGES.md).
+
+`docs/git/PHASE-2-HISTORY.txt` is a tracked history snapshot through the audited application baseline; it must be refreshed for final release. `node tools/export-git-log.mjs` creates the full `docs/git/GIT-LOG.txt`, intentionally ignored. GitHub's source ZIP omits ignored files and `.git`; the final repository must contain a tracked history export, selected evidence and the completed supplied debrief. The historical Phase 1 packager is not a final Phase 2 acceptance tool.
+
+Phase 1 public/phone/archive records remain intact: [submission](docs/SUBMISSION.md), [deployment](docs/DEPLOYMENT.md), [phone record](docs/PHONE-VERIFICATION.md). The audit rechecked the original ZIP hash without replacing it.
+
+[Assignment](brief.md) · [research](research.md) · [specification](spec.md) · [plan](plan.md) · [credits](CREDITS.md).

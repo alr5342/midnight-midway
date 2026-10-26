@@ -1,0 +1,95 @@
+{
+  "prepared": "2026-10-26",
+  "applicationBaseline": "614e44beffa18869d09983d3fa406c0be6655e76",
+  "evidence": [
+    {
+      "file": "docs/evidence/phase2/current/checks.json",
+      "source": "tests/results/ticket-system/checks.json",
+      "sha256": "3d076b91e77e545d043e32823bb5360f8902a3d1579033c9f3c08daa74f1fd17",
+      "scope": "fresh current audit run"
+    },
+    {
+      "file": "docs/evidence/phase2/current/carousel-first-token.png",
+      "source": "tests/results/ticket-system/carousel-first-token.png",
+      "sha256": "f02648b03cca84f3aa5f5d7f9ace1706ab7ebb1c1d1aaea905ce5589c8af3d7f",
+      "scope": "fresh current audit run"
+    },
+    {
+      "file": "docs/evidence/phase2/current/prize-first-carousel-last-token.png",
+      "source": "tests/results/ticket-system/prize-first-carousel-last-token.png",
+      "sha256": "ce34596c60923f4d16538be004d49053cb15fa14da61cfa3dffdbc5ec90a1c91",
+      "scope": "fresh current audit run"
+    },
+    {
+      "file": "docs/evidence/phase2/current/stacked-tickets.png",
+      "source": "tests/results/ticket-system/stacked-tickets.png",
+      "sha256": "7ad55d2931b0633352f0612686c1c1a98e80c9e66b001035a06ecfae06cdfe3d",
+      "scope": "fresh current audit run"
+    },
+    {
+      "file": "docs/evidence/phase2/historical/peer-revision-checks.json",
+      "source": "tests/results/peer-revision/checks.json",
+      "sha256": "3f00e022bb702d9f54fe43722e6088a172e1e5e02832ac3338da0466ecf2d441",
+      "scope": "preserved historical output; not rerun"
+    },
+    {
+      "file": "docs/evidence/phase2/historical/returned-bags.png",
+      "source": "tests/results/peer-revision/returned-bags.png",
+      "sha256": "200c79daee86ba8d861ca4b9fb76534d8a9265b5673b361c640c991db72c3d88",
+      "scope": "preserved historical output; not rerun"
+    },
+    {
+      "file": "docs/evidence/phase2/historical/ending-runtime-checks.json",
+      "source": "tests/results/ending-runtime/checks.json",
+      "sha256": "a74abb45bb19ab76b253cfdc7fa5a15daa45eb39f835aefb2e07a96ab6790cd2",
+      "scope": "preserved historical output; not rerun"
+    },
+    {
+      "file": "docs/evidence/phase2/historical/ending-4s.png",
+      "source": "tests/results/ending-runtime/ending-4s.png",
+      "sha256": "818fb0c79929d81614661a8f6b38c8840fc24e672eb79516aa7f09fd0171bd15",
+      "scope": "preserved historical output; not rerun"
+    },
+    {
+      "file": "docs/evidence/phase2/historical/empty-field-hold.png",
+      "source": "tests/results/ending-runtime/empty-field-hold.png",
+      "sha256": "80091d4bc76112699c40036cdab87942cda60e78254bd267d3ebfeb33167f131",
+      "scope": "preserved historical output; not rerun"
+    },
+    {
+      "file": "docs/evidence/phase2/browser-audit/chromium-waiting-token.png",
+      "source": "tests/results/phase2-audit/chromium-waiting-token.png",
+      "sha256": "65351e3a7c41e97670c089beca73911763101eb964247e1b9d69cd9a1af03805",
+      "scope": "2026-10-26 browser-harness follow-up; Chromium complete pass, remaining engines incomplete"
+    },
+    {
+      "file": "docs/evidence/phase2/browser-audit/chromium-empty-field.png",
+      "source": "tests/results/phase2-audit/chromium-empty-field.png",
+      "sha256": "3e34a5a09b2d862e7fb79630372dca8f05d86ad988ef042334d44436dc57d282",
+      "scope": "2026-10-26 browser-harness follow-up; Chromium complete pass, remaining engines incomplete"
+    },
+    {
+      "file": "docs/evidence/phase2/browser-audit/modal-focus-probe.json",
+      "source": "tests/results/phase2-audit/modal-focus-probe.json",
+      "sha256": "71742bdf81378ff5433f0afc20eca65e19a20e0b6cd943ae0e88d32ebf13cf5a",
+      "scope": "2026-10-26 browser-harness follow-up; Chromium complete pass, remaining engines incomplete"
+    }
+  ],
+  "unitOutput": {
+    "file": "docs/evidence/phase2/current/unit-tests.txt",
+    "sha256": "9c3e46aa79c752d2f95f8eeb868316d54032c400a03eb9ee90afcc33e26fde31",
+    "command": "node --test tests/unit/*.test.mjs",
+    "pass": 61,
+    "fail": 0
+  },
+  "note": "Selected local evidence; not a final release or submission ZIP manifest. Refresh for release.",
+  "browserAuditFollowup": {
+    "resolution": "docs/evidence/phase2/browser-audit/resolution.json",
+    "resolutionSha256": "022d7e771ae56654100e05c6755a9b01aaa40ff774f123f12aa176582291bd16",
+    "runner": "tests/browser/check-phase2-audit.mjs",
+    "runnerSha256": "3a379793ad656bf709c2ed6e4a46f6529e1b1483ae90ed4aa639469131561991",
+    "observedOutput": "docs/evidence/phase2/browser-audit/run-output.txt",
+    "observedOutputSha256": "de488aeb6f22da724395184bfaa0e2f8e7a31154ff84c80b5b1fb2b270afa490",
+    "status": "chromium-passed-firefox-page-creation-failed-webkit-not-reached"
+  }
+}

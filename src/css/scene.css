@@ -1,0 +1,106 @@
+/* Shared scene, artwork inspection and ticket staging. Cascade order preserved. */
+
+/* Base scene and inspection styles */
+:root { color-scheme: dark; font-family: system-ui, sans-serif; background: #090c18; color: #eee6d9; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+main { max-width: 900px; margin: auto; padding: 24px 16px 36px; }
+header { text-align: center; }
+h1 { font-family: Georgia, serif; font-weight: 400; font-size: clamp(26px, 5vw, 38px); margin: 8px 0; }
+header p { color: #bdb7bd; margin: 8px 0; }
+.eyebrow { text-transform: uppercase; letter-spacing: .18em; font-size: 11px; }
+.review-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 20px; margin: 22px 0; }
+label { display: grid; gap: 6px; font-size: 12px; color: #c8c2cc; }
+select { font: inherit; font-size: 14px; color: #eee6d9; background: #171b2a; border: 1px solid #494354; border-radius: 6px; min-height: 44px; padding: 8px; max-width: 100%; }
+select:focus-visible, summary:focus-visible { outline: 2px solid #ffd18a; outline-offset: 3px; }
+.phone { width: min(100%, 390px); aspect-ratio: 941 / 1672; margin: auto; background: #050711; display: flex; align-items: center; border: 1px solid #443b41; overflow: hidden; }
+.phone[data-ratio="tall"] { aspect-ratio: 390 / 844; }
+.phone[data-ratio="short"] { aspect-ratio: 375 / 667; }
+.scene { position: relative; width: 100%; aspect-ratio: 941 / 1672; flex: none; overflow: hidden; }
+.layer { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; }
+.plate, .booth, .foreground { display: none; }
+/* Reuse original foreground pixels; soften only the join, leaving the pumpkin opaque.
+   Both masks use scene coordinates, so the foreground stays aligned at every size. */
+.foreground {
+  mask-image: linear-gradient(to bottom, transparent 66%, black 71.5%), linear-gradient(to right, black 33%, transparent 41%);
+  mask-composite: intersect;
+  pointer-events: none;
+}
+.scene[data-view="assembled"] .foreground { display: block; }
+.scene[data-view="before"] .original { display: none; }
+.scene[data-view="before"] .plate, .scene[data-view="before"] .booth { display: block; }
+a { color: #e8c08a; }
+.booth { transform-origin: top left; transform: translateY(13.5%) scale(.76); }
+.scene[data-view="assembled"] .original, .scene[data-view="plate"] .original, .scene[data-view="cutout"] .original, .scene[data-view="displaced"] .original { display: none; }
+.scene[data-view="assembled"] .plate, .scene[data-view="assembled"] .booth, .scene[data-view="plate"] .plate, .scene[data-view="cutout"] .booth, .scene[data-view="displaced"] .plate, .scene[data-view="displaced"] .booth { display: block; }
+.scene[data-view="cutout"] { background-color: #c7c4c0; background-image: conic-gradient(#8e8c8a 25%, transparent 0 50%, #8e8c8a 0 75%, transparent 0); background-size: 24px 24px; }
+.scene[data-view="displaced"] .booth { transform: translate(16%, 13.5%) scale(.76); }
+.caption, details { max-width: 560px; margin: 18px auto 0; color: #bdb7bd; font-size: 13px; line-height: 1.6; }
+summary { cursor: pointer; color: #e8c08a; }
+@media (max-width: 420px) { main { padding: 16px 10px 24px; } .review-controls { gap: 12px; } label { width: 100%; } }
+
+/* Attraction masks and interface placement */
+/* All masks and source images share the original 941 × 1672 scene coordinates.
+   Generated repairs are visible only where extracted subjects originally stood. */
+.attraction-patch, .attraction-piece, .attraction-occlusion { display: none; pointer-events: none; }
+.carriage-patch { display: none; pointer-events: none; mask-image: url('../../assets/masks/gondola-patch-mask.svg'); mask-size: 100% 100%; mask-repeat: no-repeat; }
+.scene[data-view="assembled"] .carriage-patch,
+.scene[data-view="attraction-displaced"] .carriage-patch { display: block; }
+/* Original-pixel transparent PNGs retain scene coordinates; extraction masks
+   are preserved with the preparation tool, not applied twice at runtime. */
+.prize-pair { mask-image: url('../../assets/masks/prize-pair-mask.svg'); }
+.attraction-patch, .attraction-piece { mask-size: 100% 100%; mask-repeat: no-repeat; }
+.attraction-patch { mask-image: url('../../assets/masks/attraction-repair-mask.svg'); }
+.attraction-occlusion {
+  mask-image: url('../../assets/masks/fixed-trim-mask.svg');
+  mask-size: 100% 100%;
+}
+.scene[data-view="assembled"] .attraction-patch,
+.scene[data-view="assembled"] .attraction-piece,
+.scene[data-view="assembled"] .attraction-occlusion,
+.scene[data-view="attraction-pieces"] .attraction-piece,
+.scene[data-view="attraction-displaced"] .attraction-patch,
+.scene[data-view="attraction-displaced"] .attraction-piece,
+.scene[data-view="attraction-displaced"] .attraction-occlusion { display: block; }
+.scene[data-view="attraction-pieces"] .original,
+.scene[data-view="attraction-pieces"] .plate,
+.scene[data-view="attraction-pieces"] .booth,
+.scene[data-view="attraction-pieces"] .foreground { display: none; }
+.scene[data-view="attraction-pieces"] { background: repeating-conic-gradient(#b6b0aa 0 25%, #777679 0 50%) 0 / 24px 24px; }
+.scene[data-view="attraction-displaced"] .original { display: none; }
+.scene[data-view="attraction-displaced"] .plate,
+.scene[data-view="attraction-displaced"] .booth,
+.scene[data-view="attraction-displaced"] .foreground { display: block; }
+.scene[data-view="attraction-displaced"] .horse-left.attraction-piece { transform: translateY(-.65%); }
+.scene[data-view="attraction-displaced"] .horse-center.attraction-piece { transform: translateY(-.9%); }
+.scene[data-view="attraction-displaced"] .horse-right.attraction-piece { transform: translateY(-.5%); }
+.scene[data-view="attraction-displaced"] .prize-pair.attraction-piece { transform: translateY(-.6%); }
+
+/* Visual mockups only: no playback state, timers, sound or story triggers. */
+.scene-ui { position: absolute; inset: 0; pointer-events: none; display: none; }
+.phone[data-ui="on"] .scene[data-view="assembled"] .scene-ui { display: block; }
+.pause-mockup { position: absolute; top: 12px; left: 12px; min-width: 44px; min-height: 44px; display: grid; place-items: center; border: 1px solid #d9bd8580; border-radius: 50%; background: #101323eb; color: #ffdda2; font-size: 18px; box-shadow: 0 2px 8px #0008; }
+.hint-mockup { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); width: max-content; max-width: calc(100% - 24px); margin: 0; padding: 10px 14px; border: 1px solid #d9bd8540; border-radius: 10px; background: #0c1021eb; color: #fff0d9; font: 13px/1.4 system-ui, sans-serif; text-align: center; text-wrap: balance; box-shadow: 0 3px 12px #0008; }
+
+/* Ticket-story prop staging */
+.ticket-story-art { position: absolute; inset: 0; pointer-events: none; }
+.ticket-story-art img { position: absolute; object-fit: contain; }
+.story-window { position: absolute; inset: 0; mask-image: url('../../assets/story/booth-window-mask.svg'); mask-size: 100% 100%; }
+.story-empty-window { inset: 0; width: 100%; height: 100%; object-fit: fill !important; transform-origin: top left; transform: translateY(13.5%) scale(.76); }
+.story-attendant { left: 8.8%; top: 48.5%; width: 12%; height: 14.2%; opacity: .82; }
+.story-ticket { left: 14.5%; top: 59.1%; width: 9.6%; height: 2.9%; filter: drop-shadow(0 0 3px #ffe0a080); }
+.story-stamp { left: 18.4%; top: 57.2%; width: 4.3%; height: 3%; }
+.story-sparks { left: 13.2%; top: 57.5%; width: 12.5%; height: 7%; }
+.story-bell { left: 19.25%; top: 61.95%; width: 7.5%; height: 3.3%; transform-origin: 50% 65%; }
+.story-window, .story-ticket, .story-stamp, .story-sparks { display: none; }
+.ticket-story-art[data-phase="arrival"] .story-window,
+.ticket-story-art[data-phase="ticket"] .story-window,
+.ticket-story-art[data-phase="stamp"] .story-window,
+.ticket-story-art[data-phase="depart"] .story-window { display: block; }
+.ticket-story-art[data-phase="ticket"] .story-ticket,
+.ticket-story-art[data-phase="stamp"] .story-ticket,
+.ticket-story-art[data-phase="depart"] .story-ticket { display: block; }
+.ticket-story-art[data-phase="stamp"] .story-stamp,
+.ticket-story-art[data-phase="stamp"] .story-sparks { display: block; }
+.ticket-story-art[data-phase="depart"] .story-attendant { opacity: .25; }
+.ticket-story-art[data-phase="arrival"] .story-attendant { opacity: .65; }

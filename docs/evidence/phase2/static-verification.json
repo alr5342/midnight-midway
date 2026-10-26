@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-26",
+  "applicationBaseline": "614e44beffa18869d09983d3fa406c0be6655e76",
+  "branch": "feature/carousel-puzzle",
+  "runtimeArtworkAndPreviewsUnchanged": true,
+  "phase1Archive": {
+    "file": "submissions/midnight-midway-phase1-20261016184044-final.zip",
+    "sha256": "4c3d9bc0f40726dc2de73d8e2fbe9afe802a8dc8418f2d7b3f850edfdd1a6aa3",
+    "unchanged": true
+  },
+  "preservedRootSnapshotsMatchBaseline": [
+    "README.md",
+    "spec.md",
+    "plan.md",
+    "research.md",
+    "CREDITS.md"
+  ],
+  "evidenceCopiesByteIdentical": 9,
+  "focusedSecretScan": "passed; observed node tools/check-secrets.mjs",
+  "gitDiffWhitespace": "passed; observed git diff --check",
+  "debrief": "Developer-uploaded file remains unmodified and unreviewed; deferred",
+  "crossBrowserAudit": "Original harness failures resolved; complete Chromium audit passed. Firefox/Playwright page creation failed before navigation; WebKit not reached. See browser-audit/resolution.json.",
+  "publishedCandidate": false,
+  "archiveCreated": false,
+  "currentMarkdownLinksChecked": 9,
+  "missingLinks": [],
+  "browserHarnessFollowup": {
+    "date": "2026-10-26",
+    "runtimeArtworkAndPreviewsUnchanged": true,
+    "protectedDebriefAndEntryStylesUnchanged": [
+      "debrief.md",
+      "index.html",
+      "src/css/app.css",
+      "src/css/scene.css"
+    ],
+    "newEvidenceCopiesByteIdentical": 3,
+    "uncommittedWorkBackup": "tests/results/audit-harness-before-20261026-1793036154063",
+    "noPushDeploymentOrPackaging": true,
+    "currentMarkdownLinksChecked": 5
+  }
+}

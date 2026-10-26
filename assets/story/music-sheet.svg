@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 220">
+  <defs>
+    <radialGradient id="paper"><stop stop-color="#d3bd8c"/><stop offset=".65" stop-color="#b79b67"/><stop offset="1" stop-color="#735638"/></radialGradient>
+    <filter id="grain"><feTurbulence baseFrequency=".55" numOctaves="3" seed="8"/><feColorMatrix type="saturate" values="0"/><feBlend in="SourceGraphic" mode="soft-light"/></filter>
+    <clipPath id="edge"><path d="M23 22L67 17 99 20 132 16 171 20 207 17 249 21 293 16 291 60 296 98 289 124 295 165 287 195 249 199 215 194 175 200 131 195 94 200 65 193 22 197 26 159 21 126 27 90 22 55Z"/></clipPath>
+  </defs>
+  <g clip-path="url(#edge)">
+    <path d="M0 0H320V220H0Z" fill="url(#paper)" filter="url(#grain)"/>
+    <path d="M23 22L67 17 99 20 132 16 171 20 207 17 249 21 293 16 291 60 296 98 289 124 295 165 287 195 249 199 215 194 175 200 131 195 94 200 65 193 22 197 26 159 21 126 27 90 22 55Z" fill="none" stroke="#5e432b" stroke-width="2"/>
+    <g fill="none" stroke="#756043" opacity=".25">
+      <path d="M106 16L111 69 105 126 113 198M213 20L209 89 215 147 210 198"/>
+      <path d="M24 151L95 148 166 153 232 149 292 151"/>
+    </g>
+    <path d="M109 20L114 68 108 126 116 196M25 154L96 151 166 156 232 152 291 154" fill="none" stroke="#f0dfb3" opacity=".2"/>
+    <ellipse cx="28" cy="181" rx="53" ry="26" fill="#493927" opacity=".15"/>
+    <ellipse cx="277" cy="31" rx="30" ry="17" fill="#493927" opacity=".17"/>
+    <!-- Treble staff: C5, G5, E-flat5, C5. No position labels or arrows. -->
+    <g stroke="#42372c" fill="none" opacity=".86">
+      <path d="M43 70H278M43 82H278M43 94H278M43 106H278M43 118H278" stroke-width="1.2"/>
+      <path d="M53 135C69 132 42 53 55 48C70 44 52 81 45 91C27 117 71 124 66 99C63 84 39 92 46 106M80 88V129M136 64V105M192 76V117M248 88V129" stroke-width="2.3"/>
+      <path d="M179 56V87Q195 70 179 76" stroke-width="1.9"/>
+    </g>
+    <g fill="#42372c" opacity=".9">
+      <ellipse cx="86" cy="88" rx="7.5" ry="5" transform="rotate(-20 86 88)"/>
+      <ellipse cx="142" cy="64" rx="7.5" ry="5" transform="rotate(-20 142 64)"/>
+      <ellipse cx="198" cy="76" rx="7.5" ry="5" transform="rotate(-20 198 76)"/>
+      <ellipse cx="254" cy="88" rx="7.5" ry="5" transform="rotate(-20 254 88)"/>
+    </g>
+    <path d="M25 49L37 51M287 155L273 159M47 193L59 185M239 21L234 30" stroke="#4e3b29" opacity=".45" fill="none"/>
+  </g>
+</svg>

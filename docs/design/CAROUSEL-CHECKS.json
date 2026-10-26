@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "baseCommit": "0895f9c",
+  "branch": "feature/carousel-puzzle",
+  "review": "pending",
+  "scope": "Four-note puzzle and clue only; no carousel story, prize unlock or deployment",
+  "unitTests": {
+    "passed": 13,
+    "failed": 0,
+    "suites": ["carousel.test.mjs", "ticket-story.test.mjs", "playback.test.mjs"],
+    "coverage": ["admission gate", "exact sequence", "wrong-attempt reset", "repeat solving", "shared-time pause/hints", "independent cue channels", "pitched resume offsets", "existing booth story and playback"]
+  },
+  "focusedChromiumCheck": {
+    "passed": true,
+    "solution": ["left", "right", "center", "left"],
+    "touchAndKeyboard": true,
+    "sheetMusicInspectionAndFocusReturn": true,
+    "pausedClueAndNotesRejectInput": true,
+    "clueBlocksBellAndNotes": true,
+    "wrongAttemptResetsOnlyAttempt": true,
+    "threeDistinctPitchRates": true,
+    "noteCueResumesFromPitchedBufferOffset": true,
+    "hintsPauseWithSharedClock": true,
+    "boothReplayPreservesAdmissionAndPuzzle": true,
+    "reducedMotion": true,
+    "refreshRestartsJourney": true,
+    "noCarouselStoryTriggered": true,
+    "projectSubdirectoryAssetPaths": true,
+    "viewportChecks": [[390,844],[320,568],[280,568],[844,390]],
+    "controlsFitSceneAndTargetsAtLeast44px": true,
+    "clueLeavesPlayPauseAccessible": true,
+    "pageAndHttpErrors": []
+  },
+  "ticketRegression": {"passed": true, "completedCycles": 3, "oneAdmissionTicket": true, "pauseAtAllStoryBeats": true, "exactRestingOverlayReset": true, "soundFailureRetryAndLateLoad": true},
+  "preservation": "All existing artwork/audio asset bytes match 0895f9c; approved ending staging, public site and Phase 1 submission were not modified",
+  "evidence": ["tests/results/carousel-puzzle/checks.json", "tests/results/carousel-puzzle/music-clue.png", "tests/results/carousel-puzzle/puzzle-solved.png", "tests/results/carousel-puzzle/ticket-regression/checks.json"],
+  "testCorrections": ["Numeric audio-offset assertions allow floating-point precision tolerance", "Scene input now notifies the common coordinator synchronously to avoid a one-frame stale control state"],
+  "limits": ["Focused desktop Chromium integration only; no new physical-phone or other browser verification", "The melody-solved flag does not yet award carousel story completion or unlock the prize stall", "No unrelated ambience/deployment/packaging regression suites were run"]
+}

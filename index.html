@@ -4,18 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>The Midnight Midway</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="artwork.css">
-  <link rel="stylesheet" href="ticket-story-assets.css">
-  <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="src/css/scene.css">
+  <link rel="stylesheet" href="src/css/app.css">
 </head>
 <body>
   <main class="app" aria-label="The Midnight Midway">
     <div class="app-stage" id="stage" data-state="start">
       <div class="scene" data-view="assembled" data-attractions role="img" aria-label="A moonlit Halloween midway. A Ferris wheel rises behind a ticket booth, carousel and prize stall.">
-        <img class="plate layer" src="assets/midway-clean-plate.png" alt="" fetchpriority="high">
-        <img class="booth layer" src="assets/ticket-booth.png" alt="">
-        <img class="foreground layer" src="reference/midnight-midway-concept.png" alt="">
+        <img class="plate layer" src="assets/artwork/midway-clean-plate.png" alt="" fetchpriority="high">
+        <img class="booth layer" src="assets/artwork/ticket-booth.png" alt="">
+        <img class="foreground layer" src="assets/sources/artwork/midnight-midway-concept.png" alt="">
       </div>
       <div class="app-ui">
         <section class="start-screen" id="start-screen" aria-labelledby="start-title">
@@ -28,15 +26,41 @@
             <p id="motion-note" hidden></p>
           </div>
         </section>
-        <button type="button" class="pause-mockup" id="playback" aria-label="Pause scene" hidden><span aria-hidden="true">Ⅱ</span></button>
-        <div class="scene-actions">
-          <button type="button" id="bell" class="bell-target" aria-label="Ring the ticket booth bell" aria-describedby="ring-progress" hidden></button>
-          <p id="ring-progress" class="ring-progress" role="status" hidden></p>
+        <button type="button" class="pause-mockup" id="playback" aria-label="Pause scene" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><g class="pause-bars"><rect x="6" y="5" width="4" height="14" rx=".8"/><rect x="14" y="5" width="4" height="14" rx=".8"/></g><path class="play-triangle" d="M8 5L19 12L8 19Z" hidden/></svg></button>
+        <div id="admission" class="admission-badge" role="group" aria-label="Journey progress" hidden>
+          <img src="assets/story/ticket.svg" alt="Your admission ticket" width="72" height="38">
+          <span aria-live="polite" aria-atomic="true">0 tickets</span>
         </div>
+        <div class="scene-actions">
+          <button type="button" id="bell" class="bell-target" aria-label="Ring the ticket booth bell" hidden></button>
+          <section id="carousel-controls" class="carousel-controls" aria-label="Carousel musical puzzle" hidden>
+            <button type="button" class="horse-target" data-horse-note="left" aria-label="Play left horse, low note"></button>
+            <button type="button" class="horse-target" data-horse-note="center" aria-label="Play center horse, middle note"></button>
+            <button type="button" class="horse-target" data-horse-note="right" aria-label="Play right horse, high note"></button>
+          </section>
+          <section id="prize-controls" class="prize-controls" aria-label="Three-can knockdown game" hidden>
+            <button type="button" class="can-target can-target-top" data-can="top" aria-label="Throw a beanbag at the top can"></button>
+            <button type="button" class="can-target can-target-left" data-can="left" aria-label="Throw a beanbag at the lower left can"></button>
+            <button type="button" class="can-target can-target-right" data-can="right" aria-label="Throw a beanbag at the lower right can"></button>
+            <button type="button" id="prize-retry" class="prize-retry" aria-label="Pick up a returned beanbag for another round" hidden></button>
+            <span id="prize-status" class="visually-hidden" role="status"></span>
+          </section>
+          <button type="button" id="music-open" class="music-scrap" aria-label="Inspect the worn sheet music" aria-expanded="false" aria-controls="music-clue" aria-disabled="true" tabindex="-1"></button>
+          <section id="music-clue" class="music-clue" aria-labelledby="music-title" hidden>
+            <h2 id="music-title" class="visually-hidden">Worn sheet music</h2>
+            <div id="music-inspection-art"></div>
+            <button type="button" id="music-close" aria-label="Put away the sheet music">&#215;</button>
+          </section>
+        </div>
+        <button type="button" id="claim-token" class="claim-token" aria-label="Claim the brass Ferris-wheel keepsake" hidden></button>
+        <button type="button" id="revisit" class="ending-revisit" hidden>Revisit the midway</button>
+        <span id="ending-status" class="visually-hidden" role="status"></span>
         <button type="button" id="credits-open" class="credits-open" aria-haspopup="dialog">Credits</button>
-        <p class="hint-mockup" id="hint" role="status" hidden>Some guests never left the midway…</p>
-        <p class="audio-notice" id="audio-notice" role="status" hidden></p>
-        <p class="story-notice" id="story-notice" role="status" hidden></p>
+        <div class="narration-area">
+          <p class="hint-mockup" id="hint" role="status" hidden>Some guests never left the midway…</p>
+        </div>
+        <p class="runtime-notice" id="audio-notice" aria-hidden="true" hidden></p>
+        <p class="runtime-notice" id="story-notice" aria-hidden="true" hidden></p>
       </div>
     </div>
     <p class="visually-hidden" id="playback-status" role="status"></p>
@@ -44,15 +68,16 @@
       <button type="button" id="credits-close">Close</button>
       <h2 id="credits-title">The Midnight Midway — credits</h2>
       <p><strong>Developer:</strong> Alex Rosemann. Concept direction, design decisions, review and testing by Alex Rosemann; code and artwork preparation assisted by OpenAI Codex/ChatGPT.</p>
-      <p><strong>Visuals:</strong> Midnight Midway reference generated with ChatGPT, as confirmed by the Developer. Layer extractions, hidden-surface repairs, corrected gondola and spectral attendant prepared with OpenAI image generation. Bell, ticket, stamp, sparks, masks and ambient SVG effects are project-original code artwork. No external font or runtime code library is used.</p>
+      <p><strong>Visuals:</strong> Midnight Midway reference generated with ChatGPT, as confirmed by the Developer. Layer extractions, hidden-surface repairs, corrected gondola and spectral attendant prepared with OpenAI image generation. Bell and blank music paper were painted with OpenAI image generation using the scene as a style reference; exact notation, ticket, stamp, sparks, masks and ambient SVG effects are project-original code artwork. Original horse pixels were extracted without regeneration. No external font or runtime code library is used.</p>
       <p><strong>Wind:</strong> remaxim, <a href="https://opengameart.org/content/short-wind-sound" target="_blank" rel="noopener noreferrer">Short wind sound</a>. Filtered and crossfaded into the ambient loop.</p>
       <p><strong>Bell:</strong> Julie Damsgaard / Spring Spring / Spring Enterprises, <a href="https://opengameart.org/content/pleasing-bell-sound-effect" target="_blank" rel="noopener noreferrer">Pleasing Bell Sound Effect</a>. Pitched and faded into three ring cues.</p>
+      <p><strong>Carousel notes:</strong> original code-synthesized music-box tones; no external recording. Preparation source is included in the project.</p>
+      <p><strong>Prize game and ending:</strong> cans, counter and empty-field repair painted with OpenAI image generation using the approved reference. Brass token and effects are original SVG code. Throw, tin and winning chime sounds are original deterministic synthesis; no external recording. Exact prompts and preparation sources are included.</p>
       <p><strong>Magic:</strong> JaggedStone, <a href="https://opengameart.org/content/magic-spell-sfx" target="_blank" rel="noopener noreferrer">Magic Spell SFX</a>. Trimmed, pitched and faded for arrival, stamp and departure.</p>
       <p>All external sounds are <a href="https://creativecommons.org/publicdomain/zero/1.0/" target="_blank" rel="noopener noreferrer">CC0 1.0</a>. Full source URLs, preserved originals and processing details are recorded in the project’s CREDITS.md.</p>
-      <p>Closing credits keeps the scene paused. Choose Play to continue.</p>
+      <p>Closing credits returns to your previous activity. A scene you paused stays paused; after a browser interruption, choose Play to continue.</p>
     </dialog>
   </main>
-  <script src="artwork.js"></script>
-  <script type="module" src="app.js"></script>
+  <script type="module" src="src/js/app.js"></script>
 </body>
 </html>

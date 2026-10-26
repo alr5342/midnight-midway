@@ -12,7 +12,7 @@ Published revision at review: 834200ba34474fcd7ac7e858c0deb169d641696f. The runt
 
 The Developer reported testing the live GitHub Pages site on their phone, said everything looked good, and explicitly instructed that the phone review be considered complete. No defect was reported. This is accepted as the brief's actual-smartphone verification and authorization to finalize the Phase 1 submission.
 
-The device details and general approval are user-reported evidence. No screenshots, per-beat pause log, separate OS-interruption results, screen-reader evaluation or individual reduced-motion notes were supplied; these are not invented or individually marked passed. Automated desktop checks remain separately documented in PHASE-1-AUDIT.md and artwork-review/.
+The device details and general approval are user-reported evidence. No screenshots, per-beat pause log, separate OS-interruption results, screen-reader evaluation or individual reduced-motion notes were supplied; these are not invented or individually marked passed. Automated desktop checks remain separately documented in PHASE-1-AUDIT.md and archive/reviews/.
 
 ## Submission gate
 

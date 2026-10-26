@@ -4,7 +4,7 @@ const {chromium}=await import(pathToFileURL('C:/Users/arose/AppData/Local/npm-ca
 const server=createPreviewServer({basePath:'/check/'});await new Promise(resolve=>server.listen(4174,'127.0.0.1',resolve));
 const browser=await chromium.launch();
 try {
-  for(const missing of ['assets/midway-clean-plate.png','assets/horse-left-mask.svg','artwork.css']) {
+  for(const missing of ['assets/artwork/midway-clean-plate.png','assets/masks/horse-left-mask.svg','src/css/scene.css']) {
     const page=await browser.newPage();const errors=[];
     page.on('pageerror',error=>errors.push(error.message));
     await page.route(`**/${missing}`,route=>route.fulfill({status:404,body:''}));

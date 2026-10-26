@@ -1,8 +1,22 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 64">
-  <defs><linearGradient id="brass" x2="1" y2="1"><stop stop-color="#ffe8a4"/><stop offset=".35" stop-color="#c58a38"/><stop offset=".7" stop-color="#70401b"/><stop offset="1" stop-color="#e6b65b"/></linearGradient></defs>
-  <ellipse cx="40" cy="57" rx="36" ry="6" fill="#221422"/>
-  <path d="M9 50Q12 23 35 20V13H45V20Q68 23 71 50Z" fill="url(#brass)" stroke="#42221a" stroke-width="3"/>
-  <path d="M6 50H74V57H6Z" fill="url(#brass)" stroke="#42221a" stroke-width="3"/>
-  <ellipse cx="40" cy="12" rx="12" ry="5" fill="url(#brass)" stroke="#42221a" stroke-width="2"/>
-  <path d="M21 41Q24 28 33 26" fill="none" stroke="#ffe0a0" stroke-width="3" opacity=".7"/>
+  <defs>
+    <linearGradient id="bronze" x2=".85" y2=".7"><stop stop-color="#b49257"/><stop offset=".22" stop-color="#8d713e"/><stop offset=".5" stop-color="#59482f"/><stop offset=".78" stop-color="#392e26"/><stop offset="1" stop-color="#78603a"/></linearGradient>
+    <linearGradient id="rim" x2="0" y2="1"><stop stop-color="#a18149"/><stop offset=".25" stop-color="#4b3826"/><stop offset=".65" stop-color="#282120"/><stop offset="1" stop-color="#665036"/></linearGradient>
+    <filter id="patina" x="0" y="0" width="1" height="1"><feTurbulence baseFrequency=".5" numOctaves="2" seed="31" result="grain"/><feColorMatrix in="grain" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 .18 0"/><feBlend in="SourceGraphic" mode="soft-light"/></filter>
+  </defs>
+  <ellipse cx="40" cy="58" rx="34" ry="4" fill="#100e16" opacity=".6"/>
+  <path d="M8 50Q12 24 35 22V16H45V22Q67 24 72 50L69 53H11Z" fill="url(#bronze)" stroke="#30241e" stroke-width="1.6" filter="url(#patina)"/>
+  <path d="M35 22Q40 24 45 22M13 47Q40 51 68 47" fill="none" stroke="#bc9556" stroke-width=".8" opacity=".55"/>
+  <path d="M9 49Q40 53 71 49L75 53 73 58Q40 62 7 58L5 54Z" fill="url(#rim)" stroke="#30241e" stroke-width="1.4"/>
+  <path d="M9 54Q40 58 71 54" fill="none" stroke="#a4824a" stroke-width=".8" opacity=".6"/>
+  <path d="M35 17V12H45V17" fill="url(#rim)" stroke="#34261e"/>
+  <path d="M29 11Q30 6 39 6Q50 6 51 11L49 14Q40 17 31 14Z" fill="url(#bronze)" stroke="#382a21" stroke-width="1.4"/>
+  <path d="M32 10Q39 7 47 10M18 39Q22 29 31 27" fill="none" stroke="#d2b276" stroke-width="1.1" opacity=".65"/>
+  <!-- Worn engraved scallops echo the booth's carved carnival trim. -->
+  <g fill="none" stroke="#2b2521" stroke-width=".85" opacity=".8">
+    <path d="M16 44Q17 36 23 37Q29 39 23 43Q20 44 20 40M64 44Q63 36 57 37Q51 39 57 43Q60 44 60 40"/>
+    <path d="M30 45Q40 29 50 45M34 44Q40 36 46 44M40 30V45"/>
+  </g>
+  <path d="M12 47L16 40 14 44M61 44L66 47 63 47M28 51L31 50M49 57L52 56" fill="none" stroke="#6f8270" stroke-width="1.5" opacity=".38"/>
+  <path d="M25 31L24 35M56 45L59 46M34 55L39 56M45 25L44 28" stroke="#dbc08b" stroke-width=".6" opacity=".4"/>
 </svg>

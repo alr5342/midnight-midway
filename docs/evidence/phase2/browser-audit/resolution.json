@@ -1,0 +1,62 @@
+{
+  "date": "2026-10-26",
+  "applicationBaseline": "614e44beffa18869d09983d3fa406c0be6655e76",
+  "runner": "tests/browser/check-phase2-audit.mjs",
+  "overallStatus": "original-failures-resolved-chromium-passed-cross-engine-incomplete",
+  "originalFailures": [
+    {
+      "failure": "Reduced-motion assertion before native matchMedia change delivery",
+      "classification": "test synchronization",
+      "fix": "Retain the explicit native media-state wait, independent of fake animation time. Verify initial reduced motion, both live preference changes and actual horseY results.",
+      "verified": "Complete Chromium audit passed with the unchanged game."
+    },
+    {
+      "failure": "All can buttons measured after the cans had fallen and their buttons were hidden",
+      "classification": "test measured the wrong interaction state",
+      "fix": "Explicitly require and measure all three standing-can controls before throws at five sizes. After winning, assert the can controls are hidden and measure visible pickup/claim controls instead. No blanket visibility filter or reduced size threshold.",
+      "verified": "Complete Chromium audit passed at 390x844, 375x667, 320x568, 280x568 and 844x390."
+    }
+  ],
+  "followupRuns": [
+    {
+      "run": 1,
+      "exitCode": 1,
+      "stoppedAt": "Chromium audio readiness after rapid keyboard Credits/layout cycles",
+      "investigation": "A separate focused probe recorded delayed native dialog-close focus restoration after the next control had already been focused. Gameplay/audio remained running in that probe. The harness now awaits the native close event and verifies focus return before sending another keypress; it does not add a sleep or change game state.",
+      "evidence": "modal-focus-probe.json"
+    },
+    {
+      "run": 2,
+      "command": "node tests/browser/check-phase2-audit.mjs",
+      "exitCode": 1,
+      "stdout": ["Auditing chromium", "chromium: passed", "Auditing firefox"],
+      "failure": "browser.newPage: Cannot read properties of undefined (reading '_page')",
+      "failureLocation": "Playwright Firefox page creation, before page.goto or game scripts",
+      "chromium": {
+        "status": "passed",
+        "keyboardPrizeFirstJourney": true,
+        "initialAndLiveReducedMotion": true,
+        "allStandingCanTargetsAndPostWinPickupClaimMeasured": true,
+        "viewportSizes": [[390,844],[375,667],[320,568],[280,568],[844,390]],
+        "creditsFocusTrapAndExactResume": true,
+        "pauseFreezesModelsAndStopsAudio": true,
+        "sampledTextContrastAtLeast4point5": true,
+        "deliberateClaimEndingAndFreshRevisit": true,
+        "projectPrefixAndCaseSensitiveRequests": true,
+        "missingImageAndStylesheetSafelyGateEnter": true,
+        "unexpectedPageOrHttpErrors": [],
+        "evidenceLimit": "The runner writes its aggregate JSON only after every engine finishes. The observed Chromium pass and screenshots are preserved here; numeric contrast/target metrics were not exported before Firefox failed, so none are invented."
+      },
+      "firefox": {"status":"test-engine-page-creation-failed", "gameLoaded":false},
+      "webkit": {"status":"not-reached"}
+    }
+  ],
+  "runtimeOrArtworkChanges": false,
+  "debriefChanges": false,
+  "published": false,
+  "remaining": [
+    "Investigate Firefox/Playwright page-creation failure before any further full audit retry.",
+    "Complete outstanding engine verification; no fresh Safari or physical-phone pass is claimed.",
+    "No third follow-up run: stopped and reported under AGENTS.md two-failure rule."
+  ]
+}

@@ -1,0 +1,226 @@
+import { legacyAssetPath, artworkBaseline } from '../helpers/legacy-paths.mjs';
+import assert from 'node:assert/strict';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
+import { pathToFileURL } from 'node:url';
+const { chromium } = await import(pathToFileURL('C:/Users/arose/AppData/Local/npm-cache/_npx/6bcb61ec6d5aea22/node_modules/playwright/index.mjs').href);
+const output = process.argv[2] || 'tests/results/p1-7-8';
+await mkdir(output, {recursive:true});
+const browser = await chromium.launch({headless:true});
+const page = await browser.newPage({viewport:{width:390,height:844},hasTouch:true});
+const errors = [];
+page.on('pageerror', error => errors.push(error.message));
+page.on('response', response => { if(response.status() >= 400) errors.push(`${response.status()} ${response.url()}`); });
+await page.addInitScript(() => {
+  const NativeContext = window.AudioContext;
+  window.audioStarts = [];
+  window.AudioContext = class extends NativeContext {
+    constructor(...args) {
+      super(...args); window.testAudioContext = this;
+      const createGain = this.createGain.bind(this);
+      this.createGain = () => {
+        const gain = createGain(), analyser = this.createAnalyser(); analyser.fftSize = 1024;
+        gain.connect(analyser); window.storyAnalyser = analyser; return gain;
+      };
+      const create = this.createBufferSource.bind(this);
+      this.createBufferSource = () => {
+        const source = create(), start = source.start.bind(source);
+        source.start = (when,offset) => { window.audioStarts.push({loop:source.loop,offset}); start(when,offset); };
+        return source;
+      };
+    }
+  };
+});
+await page.goto('http://127.0.0.1:4173/?diagnostics');
+const story = () => page.evaluate(() => window.midwayDiagnostics.story());
+const audio = () => page.evaluate(() => window.midwayDiagnostics.storyAudio());
+const journey = () => page.evaluate(() => window.midwayDiagnostics.journey());
+const notAdmitted = {admitted:false,admissionTickets:0,carouselUnlocked:false,prizeUnlocked:false,souvenirTokens:0};
+const admitted = {admitted:true,admissionTickets:1,carouselUnlocked:true,prizeUnlocked:false,souvenirTokens:0};
+assert.deepEqual(await journey(),notAdmitted);
+assert.equal(await page.locator('#admission').isVisible(),false);
+assert.equal(await page.locator('#stage').getAttribute('data-carousel'),'locked');
+assert.equal(await page.locator('#bell').isVisible(),false);
+assert.equal(await page.evaluate(() => window.midwayDiagnostics.audio().contextState),'not-created');
+await page.locator('#enter').click();
+await page.waitForFunction(() => window.midwayDiagnostics.story().assetsReady && window.midwayDiagnostics.storyAudio().status === 'ready');
+// Buffer decode can finish before Windows starts processing the audio graph.
+// Measure short bell cues only after the real context is running and advancing.
+await page.waitForFunction(() => window.midwayDiagnostics.audio().status === 'playing' && window.testAudioContext.currentTime > .1);
+assert.equal((await audio()).sharedContext,true);
+const restingOverlay = () => page.locator('.ticket-story-art').evaluate(element=>{
+  const copy=element.cloneNode(true);
+  // Only the newly approved idle bell sway varies after a story reset.
+  copy.querySelector('.story-bell').style.transform='';
+  return copy.outerHTML;
+});
+const restingMarkup = await restingOverlay();
+const bellBox = await page.locator('#bell').boundingBox(); assert.ok(bellBox.width>=44 && bellBox.height>=44);
+await page.keyboard.press('Tab');
+assert.equal(await page.locator('#bell').evaluate(element=>element===document.activeElement),true,'Tab from Play/Pause should reach bell');
+
+async function pauseAndVerify(label) {
+  await page.locator('#playback').tap();
+  await page.waitForFunction(() => window.midwayDiagnostics.audio().contextState === 'suspended');
+  const frozen = await page.evaluate(() => ({clock:window.midwayDiagnostics.snapshot(),story:window.midwayDiagnostics.story(),journey:window.midwayDiagnostics.journey(),markup:document.querySelector('.ticket-story-art').outerHTML,hint:document.querySelector('#hint').textContent}));
+  assert.equal((await audio()).activeSources,0);
+  assert.equal(await page.evaluate(() => window.midwayDiagnostics.audio().activeSources),0);
+  await page.locator('#bell').dispatchEvent('click');
+  await page.waitForTimeout(240);
+  assert.deepEqual(await page.evaluate(() => ({clock:window.midwayDiagnostics.snapshot(),story:window.midwayDiagnostics.story(),journey:window.midwayDiagnostics.journey(),markup:document.querySelector('.ticket-story-art').outerHTML,hint:document.querySelector('#hint').textContent})),frozen,label);
+  await page.locator('#playback').tap();
+  await page.waitForFunction(() => window.midwayDiagnostics.audio().status === 'playing');
+}
+
+await page.locator('#bell').tap();
+assert.equal((await story()).rings,1);
+assert.equal(await page.locator('#ring-progress').count(),0,'No floating bell progress text');
+const cueEnergy = await page.evaluate(async () => {
+  let energy = 0;
+  for(let sample=0;sample<5;sample++) {
+    await new Promise(resolve=>setTimeout(resolve,20));
+    const values = new Float32Array(window.storyAnalyser.fftSize);
+    window.storyAnalyser.getFloatTimeDomainData(values);
+    energy = Math.max(energy, Math.sqrt(values.reduce((sum,value)=>sum+value*value,0)/values.length));
+  }
+  return energy;
+});
+if(cueEnergy<=.0001) await writeFile(`${output}/bell-signal-failure.json`,JSON.stringify(await page.evaluate(()=>({clock:window.midwayDiagnostics.snapshot(),audio:window.midwayDiagnostics.audio(),storyAudio:window.midwayDiagnostics.storyAudio(),story:window.midwayDiagnostics.story(),starts:window.audioStarts,contextTime:window.testAudioContext.currentTime})),null,2));
+assert.ok(cueEnergy>.0001,'Story audio graph produced no measurable signal');
+await page.waitForTimeout(110); await pauseAndVerify('ring feedback');
+await page.locator('#bell').focus(); await page.keyboard.press('Enter');
+assert.equal((await story()).rings,2);
+assert.ok(!/chimes?|rings?|twice|three/i.test(await page.locator('#hint').textContent()),'Narration must not count the action');
+await page.keyboard.press('Space');
+assert.equal((await story()).playing,true);
+assert.equal((await story()).rings,3);
+await page.locator('#bell').dispatchEvent('click');
+assert.equal((await story()).rings,3);
+await page.waitForTimeout(120); await pauseAndVerify('arrival');
+for(const beat of ['ticket','stamp','depart','reset']) {
+  await page.waitForFunction(beat => window.midwayDiagnostics.story().beat === beat,beat);
+  assert.deepEqual(await journey(),notAdmitted,'Admission must wait until the entire first story finishes');
+  await page.screenshot({path:`${output}/${beat}.png`});
+  await pauseAndVerify(beat);
+}
+await page.waitForFunction(() => window.midwayDiagnostics.story().completed === 1);
+assert.equal((await story()).rings,0);
+assert.equal(await page.locator('.story-window').isVisible(),false);
+assert.equal(await page.locator('.story-ticket').isVisible(),false);
+assert.equal((await audio()).activeSources,0);
+assert.equal(await restingOverlay(),restingMarkup,'Reset must restore resting overlay state');
+assert.match(await page.locator('#hint').textContent(),/carousel/i);
+assert.deepEqual(await journey(),admitted);
+assert.equal(await page.locator('#admission').isVisible(),true);
+assert.equal(await page.locator('#stage').getAttribute('data-carousel'),'unlocked');
+
+// Replay twice without a reload; rapid fourth/fifth presses cannot add stories.
+for (const count of [2,3]) {
+  for(let ring=0;ring<5;ring++) await page.locator('#bell').dispatchEvent('click');
+  assert.equal((await story()).rings,3);
+  assert.deepEqual(await journey(),admitted,'Starting a replay must retain the admission');
+  if(count===2) {
+    await page.emulateMedia({reducedMotion:'reduce'});
+    await page.waitForFunction(() => window.midwayDiagnostics.story().beat === 'stamp');
+    const state=await story(); assert.equal(state.ticketY,0);assert.equal(state.stampY,0);assert.equal(state.sparkScale,1);
+    await page.screenshot({path:`${output}/reduced-stamp.png`});
+    // Native shared-context interruption pauses the story and all sound.
+    await page.evaluate(() => window.testAudioContext.suspend());
+    await page.waitForFunction(() => window.midwayDiagnostics.snapshot().state === 'paused');
+    assert.equal((await audio()).activeSources,0);
+    await page.locator('#playback').tap();
+  }
+  await page.waitForFunction(count => window.midwayDiagnostics.story().completed === count,count);
+  assert.deepEqual(await journey(),admitted,'Replays must not issue duplicate tickets');
+  assert.equal(await page.locator('#admission img').count(),1);
+}
+const starts=await page.evaluate(() => window.audioStarts);
+assert.ok(starts.some(start => !start.loop && start.offset > .1),'Paused cue was not resumed from an offset');
+assert.equal(await page.locator('.ticket-story-art').count(),1);
+assert.equal(await page.evaluate(() => window.midwayDiagnostics.snapshot().scheduledFrames),1);
+await page.locator('#playback').tap();
+assert.deepEqual(await journey(),admitted);
+const admissionLayouts=[];
+for(const [width,height] of [[390,844],[375,667],[320,568],[280,568],[844,390]]) {
+  await page.setViewportSize({width,height});
+  const layout=await page.evaluate(()=>{
+    const boxes=Object.fromEntries(['admission','playback','credits-open'].map(id=>{
+      const r=document.getElementById(id).getBoundingClientRect();return [id,{x:r.x,right:r.right,y:r.y,bottom:r.bottom}];
+    }));
+    return {boxes,overflow:document.documentElement.scrollWidth>innerWidth || document.documentElement.scrollHeight>innerHeight};
+  });
+  assert.equal(layout.overflow,false);
+  assert.ok(layout.boxes.admission.x>layout.boxes.playback.right && layout.boxes.admission.right<layout.boxes['credits-open'].x,'Ticket badge overlaps a control');
+  admissionLayouts.push({width,height,...layout});
+  await page.screenshot({path:`${output}/admitted-${width}x${height}.png`});
+}
+await page.setViewportSize({width:390,height:844});
+await page.locator('#playback').tap();
+assert.equal(await page.evaluate(()=>window.midwayDiagnostics.snapshot().state),'exploring');
+await page.evaluate(()=>{Object.defineProperty(document,'hidden',{configurable:true,value:true});document.dispatchEvent(new Event('visibilitychange'));});
+await page.evaluate(()=>{delete document.hidden;document.dispatchEvent(new Event('visibilitychange'));});
+assert.equal(await page.evaluate(()=>window.midwayDiagnostics.snapshot().state),'paused');
+assert.deepEqual(await journey(),admitted,'Tab interruptions must not clear earned progress');
+
+// Accelerated hint checks still advance the actual shared RAF/performance clock.
+const hints=await browser.newPage({viewport:{width:320,height:568},reducedMotion:'reduce'});
+await hints.goto('http://127.0.0.1:4173/?diagnostics');
+await hints.clock.install();
+await hints.locator('#enter').click();
+await hints.waitForFunction(()=>window.midwayDiagnostics.storyAudio().status==='ready'&&!document.querySelector('#hint').textContent.includes('Loading'));
+const first=await hints.locator('#hint').textContent();
+assert.match(first,/late shift/,'Initial hint measurement must exclude loading status');
+await hints.clock.runFor(12100); const second=await hints.locator('#hint').textContent();
+await hints.locator('#playback').click();
+await hints.clock.runFor(30000);assert.equal(await hints.locator('#hint').textContent(),'Paused. Choose Play to continue.');
+await hints.locator('#playback').click();assert.equal(await hints.locator('#hint').textContent(),second);
+await hints.clock.runFor(12100);const third=await hints.locator('#hint').textContent();
+assert.equal(new Set([first,second,third]).size,3);
+assert.ok(!/three|3|times/i.test(third),'Hint gives away the solution');
+await hints.screenshot({path:`${output}/hints-small-phone.png`});
+
+const failed = await browser.newPage();
+await failed.route('**/assets/audio/story-stamp.wav',route=>route.fulfill({status:404,body:''}));
+await failed.goto('http://127.0.0.1:4173/?diagnostics');await failed.locator('#enter').click();
+// Audio state settles before the next shared render. Observe the actual
+// recovery message rather than racing that frame with an immediate assertion.
+await failed.waitForFunction(()=>window.midwayDiagnostics.storyAudio().status==='unavailable'&&document.querySelector('#hint').textContent.includes('could not load'));
+assert.match(await failed.locator('#hint').textContent(),/could not load/);
+assert.equal(await failed.locator('#story-notice').isVisible(),false);
+await failed.unroute('**/assets/audio/story-stamp.wav');
+await failed.locator('#playback').click();await failed.locator('#playback').click();
+await failed.waitForFunction(()=>window.midwayDiagnostics.storyAudio().status==='ready');
+assert.equal(await failed.locator('#story-notice').isVisible(),false);
+
+const brokenArt=await browser.newPage();
+await brokenArt.route('**/assets/story/ghost-attendant-v3.png',route=>route.fulfill({status:404,body:''}));
+await brokenArt.goto('http://127.0.0.1:4173/?diagnostics');await brokenArt.locator('#enter').click();
+await brokenArt.waitForFunction(()=>window.midwayDiagnostics.story().assetFailure&&document.querySelector('#hint').textContent.includes('artwork could not load'));
+await brokenArt.locator('#bell').dispatchEvent('click');
+assert.equal(await brokenArt.evaluate(()=>window.midwayDiagnostics.story().rings),0);
+assert.match(await brokenArt.locator('#hint').textContent(),/artwork could not load/);
+assert.equal(await brokenArt.locator('#story-notice').isVisible(),false);
+await brokenArt.locator('#playback').click();
+assert.equal(await brokenArt.evaluate(()=>window.midwayDiagnostics.snapshot().state),'paused');
+
+const delayed=await browser.newPage();let release;
+const wait=new Promise(resolve=>{release=resolve;});
+await delayed.route('**/assets/audio/story-*.wav',async route=>{await wait;await route.continue();});
+await delayed.goto('http://127.0.0.1:4173/?diagnostics');await delayed.locator('#enter').click();
+await delayed.waitForFunction(()=>window.midwayDiagnostics.story().assetsReady);
+await delayed.locator('#bell').dispatchEvent('click');
+assert.equal(await delayed.evaluate(()=>window.midwayDiagnostics.story().rings),0,'Input must wait for initially loading cues');
+await delayed.locator('#playback').click();release();
+await delayed.waitForFunction(()=>window.midwayDiagnostics.storyAudio().status==='ready');
+assert.equal(await delayed.evaluate(()=>window.midwayDiagnostics.storyAudio().activeSources),0);
+
+const hashes=artworkBaseline();
+for(const entry of hashes) assert.equal(createHash('sha256').update(await readFile(legacyAssetPath(entry.Path))).digest('hex').toUpperCase(),entry.Hash);
+assert.deepEqual(errors,[]);
+await page.reload();await page.waitForFunction(()=>!document.querySelector('#enter').disabled);
+assert.deepEqual(await journey(),notAdmitted,'Refresh must start a fresh journey');
+assert.equal(await page.locator('#admission').isVisible(),false);
+assert.equal(await page.locator('#stage').getAttribute('data-carousel'),'locked');
+const result={tests:'passed',completedCycles:3,admissionAfterFullStoryOnly:true,oneTicketAcrossReplays:true,carouselUnlockPersists:true,pauseAndInterruptionsPreserveAdmission:true,refreshStartsFresh:true,admissionLayouts,pauseBeats:['ring feedback','arrival','ticket','stamp','depart','reset'],touchAndKeyboard:true,distinctProgress:true,cueResumeOffset:true,cueEnergy,sharedContext:true,restingStoryResetExceptIdleBellSway:true,progressiveHints:[first,second,third],audioFailureRetry:true,artFailureSafe:true,lateLoadPaused:true,unchangedArtworkFiles:hashes.length,errors,limits:['Desktop Chromium only; no deployment or new physical-phone review','Ticket-story regression only; musical input is covered by the separate focused carousel check']};
+await writeFile(`${output}/checks.json`,JSON.stringify(result,null,2)); console.log(JSON.stringify(result,null,2));
+await browser.close();

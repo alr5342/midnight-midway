@@ -1,0 +1,247 @@
+import { mountSceneArtwork } from './artwork.js';
+import { Playback } from './playback.js';
+import { connectLighting } from './lighting.js';
+import { connectFog } from './fog.js';
+import { connectBats } from './bats.js';
+import { connectAmbientAudio } from './ambient-audio.js';
+import { StoryAudio } from './story-audio.js';
+import { connectTicketStory } from './ticket-story.js';
+import { connectCarousel } from './carousel.js';
+import { connectPrize } from './prize.js';
+import { connectEnding } from './ending.js';
+import { selectNarration } from './narration.js';
+import { Visit } from './visit.js';
+
+mountSceneArtwork();
+
+const motionPreference = matchMedia('(prefers-reduced-motion: reduce)');
+const playback = new Playback({ reducedMotion: motionPreference.matches });
+const stage = document.querySelector('#stage');
+const startScreen = document.querySelector('#start-screen');
+const enter = document.querySelector('#enter');
+const pause = document.querySelector('#playback');
+const pauseBars = pause.querySelector('.pause-bars');
+const playTriangle = pause.querySelector('.play-triangle');
+const hint = document.querySelector('#hint');
+const motionNote = document.querySelector('#motion-note');
+const status = document.querySelector('#playback-status');
+const admission = document.querySelector('#admission');
+// Visit progress is independent of the booth's temporary rings/animation reset.
+// Reload constructs a fresh visit; no storage or cross-session state is used.
+const journey = new Visit();
+let carousel = null;
+let prize = null;
+let ending = null;
+const audioNotice = document.querySelector('#audio-notice');
+let frame = null;
+let renderedState = null;
+let renderedMotion = null;
+
+connectLighting(document.querySelector('.scene'), playback);
+connectFog(document.querySelector('.scene'), playback);
+connectBats(document.querySelector('.scene'), playback);
+const ambientAudio = connectAmbientAudio(playback, audioStatus => {
+  audioNotice.hidden = audioStatus !== 'unavailable';
+  audioNotice.textContent = audioStatus === 'unavailable' ? 'Sound unavailable. Pause, then Play to retry.' : '';
+});
+const storyNotice = document.querySelector('#story-notice');
+const storyAudio = new StoryAudio(ambientAudio, { onStatus: value => {
+  // Artwork failures own this notice until reload; audio failures are retryable.
+  if (ticketStory?.snapshot().assetFailure) return;
+  storyNotice.hidden = !['loading', 'unavailable'].includes(value);
+  storyNotice.textContent = value === 'unavailable' ? 'Some midway sounds could not load. Pause, then Play to retry.' : value === 'loading' ? 'Loading midway sounds…' : '';
+} });
+const ticketStory = connectTicketStory(document.querySelector('.scene'), playback, storyAudio, {
+  bell: document.querySelector('#bell'), notice: storyNotice,
+  onComplete: grantAdmission,
+  needsTicket: () => journey.tickets===0&&!journey.active.carousel&&!journey.active.prize&&journey.tokenAt===null,
+  canInteract: () => !ending?.snapshot().claimed && !carousel?.snapshot().clueOpen && !carousel?.snapshot().playing && !prize?.snapshot().busy
+});
+carousel = connectCarousel(document.querySelector('.scene'), playback, storyAudio, {
+  access: () => ({admitted:journey.issued>0,canPlay:journey.canPlay('carousel'),storyPlaying:ticketStory.snapshot().playing || Boolean(prize?.snapshot().busy) || Boolean(ending?.snapshot().claimed)}),
+  play: action => journey.play('carousel',playback.elapsedMs,action),
+  onComplete: stories => journey.complete('carousel',stories,playback.elapsedMs),
+  onSolved: () => { stage.dataset.carouselPuzzle = 'solved'; }
+});
+prize = connectPrize(document.querySelector('.scene'),playback,storyAudio,{
+  access: () => ({admitted:journey.issued>0,canPlay:journey.canPlay('prize'),tokenAt:journey.tokenAt,blocked:ticketStory.snapshot().playing || carousel.snapshot().playing || carousel.snapshot().clueOpen || Boolean(ending?.snapshot().claimed)}),
+  play: action => journey.play('prize',playback.elapsedMs,action),
+  onComplete: stories => journey.complete('prize',stories,playback.elapsedMs)
+});
+ending=connectEnding(document.querySelector('.scene'),playback,ambientAudio,storyAudio,{
+  access:()=>{
+    const reward=prize.snapshot();
+    return {tokenAwarded:journey.tokenAt!==null,tokenOffered:reward.tokenOffered,
+      blocked:ticketStory.snapshot().playing || carousel.snapshot().playing || carousel.snapshot().clueOpen || reward.busy};
+  }
+});
+connectCredits(playback);
+const assets = connectAssetReadiness(document.querySelector('.scene'), enter, document.querySelector('#asset-notice'));
+
+function grantAdmission(stories) {
+  journey.award(stories,playback.elapsedMs);
+  renderJourney(playback.snapshot());
+}
+
+function journeySnapshot() {
+  return journey.snapshot();
+}
+
+function renderJourney(snapshot) {
+  const availability = journey.issued>0 ? 'unlocked' : 'locked';
+  if (stage.dataset.carousel !== availability) stage.dataset.carousel = availability;
+  const hidden = journey.issued===0 || snapshot.state === 'start' || Boolean(ending?.snapshot().claimed);
+  if (admission.hidden !== hidden) admission.hidden = hidden;
+  const count = `${journey.tickets} ticket${journey.tickets===1?'':'s'}`;
+  const label = admission.querySelector('span');
+  if(label.textContent!==count)label.textContent=count;
+  admission.setAttribute('aria-label',`Available admission: ${count}`);
+}
+
+function nextFrame() {
+  frame = null;
+  playback.tick();
+  if(ending?.snapshot().resting)playback.finish();
+}
+
+function renderNarration(clock) {
+  const booth = ticketStory.snapshot(), ride = carousel.snapshot();
+  const game = prize.snapshot(), finale = ending.snapshot();
+  const visit=journey.snapshot();
+  const notice = [storyNotice, audioNotice].find(item => !item.hidden);
+  const warning = visit.admitted&&game.assetFailure
+    ? 'The game props could not load. Reload to try again.' : notice?.textContent || '';
+  const narration = selectNarration({clock, visit, booth, carousel: ride, prize: game, ending: finale, warning});
+  hint.hidden = narration.hidden;
+  hint.dataset.owner = narration.owner;
+  if (hint.textContent !== narration.text) hint.textContent = narration.text;
+  stage.dataset.activity = narration.owner;
+}
+
+playback.subscribe((snapshot) => {
+  renderJourney(snapshot);
+  const finale=ending?.snapshot();
+  renderNarration(snapshot);
+  // A tab interruption during the quiet final hold must still offer explicit
+  // Play; otherwise the hidden control would strand the Revisit timer.
+  pause.hidden=snapshot.state==='start'||Boolean(finale?.resting)||Boolean(finale?.gone&&snapshot.state!=='paused');
+  document.querySelector('#credits-open').hidden=Boolean(finale?.claimed);
+  if (renderedState !== snapshot.state || renderedMotion !== snapshot.reducedMotion) {
+    stage.dataset.state = snapshot.state;
+    stage.dataset.reducedMotion = String(snapshot.reducedMotion);
+    startScreen.hidden = snapshot.state !== 'start';
+    pause.setAttribute('aria-label', snapshot.state === 'paused' ? 'Play scene' : 'Pause scene');
+    pause.title = snapshot.state === 'paused' ? 'Play' : 'Pause';
+    pauseBars.toggleAttribute('hidden',snapshot.state==='paused');
+    playTriangle.toggleAttribute('hidden',snapshot.state!=='paused');
+    motionNote.textContent = snapshot.reducedMotion ? 'Reduced motion is enabled for your device.' : '';
+    motionNote.hidden = !snapshot.reducedMotion;
+    // Announce transitions only; never send frame-by-frame updates to assistive tech.
+    if (renderedState !== snapshot.state) {
+      status.textContent = snapshot.state === 'start' ? '' : snapshot.state === 'paused' ? 'Scene paused.' : snapshot.state === 'ended' ? 'The visit has ended.' : 'Scene playing.';
+      renderedState = snapshot.state;
+    }
+    renderedMotion = snapshot.reducedMotion;
+  }
+  if (snapshot.state === 'exploring' && frame === null && !finale?.resting) frame = requestAnimationFrame(nextFrame);
+  if (snapshot.state !== 'exploring' && frame !== null) {
+    cancelAnimationFrame(frame);
+    frame = null;
+  }
+});
+
+enter.addEventListener('click', () => {
+  if (!assets.ready) return;
+  playback.start();
+  pause.focus({ preventScroll: true });
+});
+pause.addEventListener('click', () => {
+  if (playback.state === 'paused') playback.resume();
+  else playback.pause();
+});
+motionPreference.addEventListener('change', event => playback.setReducedMotion(event.matches));
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) playback.pause();
+  // Returning to the tab deliberately does not resume playback.
+});
+window.addEventListener('pagehide', () => playback.pause());
+
+// Read-only diagnostics, enabled only on the explicit development URL.
+// No diagnostic controls or runtime counters appear in the product interface.
+if (new URLSearchParams(location.search).has('diagnostics')) {
+  Object.defineProperty(window, 'midwayDiagnostics', {
+    value: Object.freeze({ snapshot: () => ({ ...playback.snapshot(), scheduledFrames: frame === null ? 0 : 1 }), audio: () => ambientAudio.snapshot(), story: () => ticketStory.snapshot(), storyAudio: () => storyAudio.snapshot(), journey: journeySnapshot, carousel: () => carousel.snapshot(), prize: () => prize.snapshot(), ending: () => ending.snapshot() })
+  });
+}
+
+// Credits temporarily owns the pause, not the activity state. Restore only
+// a pause it created; an external interruption invalidates automatic resume.
+function connectCredits(playback) {
+  const dialog = document.querySelector('#credits-dialog');
+  const open = document.querySelector('#credits-open');
+  const close = document.querySelector('#credits-close');
+  let restorePlaying=false;
+  open.addEventListener('click', () => {
+    if(dialog.open)return;
+    restorePlaying=playback.state==='exploring';
+    playback.pause();
+    dialog.showModal();
+    close.focus();
+  });
+  function closeCredits() {
+    const resume=restorePlaying&&!document.hidden;
+    restorePlaying=false;
+    dialog.close();
+    // Resume inside the Close/Escape activation, including the AudioContext.
+    if(resume&&playback.state==='paused')playback.resume();
+    open.focus({preventScroll:true});
+  }
+  close.addEventListener('click',closeCredits);
+  dialog.addEventListener('cancel',event=>{event.preventDefault();closeCredits();});
+  const interrupted=()=>{if(dialog.open)restorePlaying=false;};
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)interrupted();});
+  window.addEventListener('pagehide',interrupted);
+  dialog.addEventListener('keydown', event => {
+    if(event.key !== 'Tab') return;
+    const controls = [...dialog.querySelectorAll('button, a[href]')];
+    // Some browsers skip links in their default Tab order. Use the same full
+    // control order everywhere instead of only trapping the boundary keys.
+    const index = controls.indexOf(document.activeElement);
+    const next = (index + (event.shiftKey ? -1 : 1) + controls.length) % controls.length;
+    event.preventDefault();
+    controls[next].focus();
+  });
+  dialog.addEventListener('close', () => {if(!dialog.open) {restorePlaying=false;open.focus({preventScroll:true});} });
+}
+
+// Keep the start screen usable if a required scene image, stylesheet or mask
+// is missing. Validate real URLs rather than inferring success from layout.
+function connectAssetReadiness(scene, enter, notice) {
+  const state = { ready:false };
+  enter.disabled = true;
+  notice.hidden = false;
+  notice.textContent = 'Loading the midway…';
+  const styles = [...document.querySelectorAll('link[rel="stylesheet"]')];
+  const masks = new Set();
+  for (const element of [scene,...scene.querySelectorAll('*')]) {
+    const value = getComputedStyle(element).maskImage;
+    for (const match of value.matchAll(/url\(["']?([^"')]+)["']?\)/g)) masks.add(match[1]);
+  }
+  Promise.all([
+    ...[...scene.querySelectorAll(':scope > img')].map(image=>image.decode()),
+    // A failed stylesheet can still expose an empty CSSStyleSheet, so sheet
+    // presence alone is not evidence that its request succeeded.
+    ...[...styles.map(link=>link.href),...masks].map(async url => {
+      const response = await fetch(url);
+      if(!response.ok) throw Error('Scene stylesheet or mask missing');
+    })
+  ]).then(() => {
+    state.ready = true;
+    enter.disabled = false;
+    notice.hidden = true;
+  }).catch(() => {
+    notice.textContent = 'The midway artwork could not load. Reload to try again.';
+    // Credits remain available; do not launch a broken scene or start audio.
+  });
+  return state;
+}

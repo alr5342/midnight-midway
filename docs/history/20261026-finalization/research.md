@@ -1,0 +1,146 @@
+Ticket-system decision: a small visit ledger owns funds and durable milestones, separately from the replayable attraction models. Charge only after a synchronous model action accepts input; keep the activity paid until its full story succeeds. This covers wrong notes and repeated failed rounds without charging on retries, frames or resumed audio. Attribute completion serials before allowing the next input, including input arriving before the next DOM frame. Preserve paid activities when exploring elsewhere. Model-local prize success no longer awards the global token; the ledger grants it once after both stories, allowing the carousel to finish last. Existing token art/placement and ending are reused. [Implementation and evidence](docs/design/TICKET-SYSTEM.md).
+
+The existing ticket badge supplies the balance without another HUD element. Narration follows paid activity ownership, then remaining milestones or returning to the bell; no fixed carousel-then-stall handoff. Paper remains free. Failed attempts are treated as retries within the paid activity rather than additional admissions; this interpretation was stated before implementation. Earlier sequential/single-admission decisions below are historical.
+
+Narration revision: the old booth connector wrote the shared bottom box and routed its fallback from the last attraction touched. Partial booth replay rings could suppress the fallback, and completed horse/paper input could retain carousel priority. Ending also wrote the same box. Replace those competing routes with one app-owned writer and an objective-based selector; attraction models supply only their local prose/state. Put handoffs alongside the selector, not inside story completion text. This isolates the requested future ticket/either-order policy without implementing it. Exact approved copy and checks: [narration revision](docs/design/NARRATION-REVISION.md).
+
+A focused keyboard reproduction confirmed the lingering bell circle was its 3px focus-visible outline, retained after the story. The painted bell's guidance alpha was already zero. Move focus to the usable playback control when the story locks scene input, retaining the normal outline on deliberate keyboard return. Remove inactive halo filters rather than changing artwork or globally hiding focus. Narration now holds wrong-note text beyond its short glint and stops the throw phase from inserting an unrelated sentence.
+
+Peer-revision findings (2026-10-25): retain one shared active clock and preserve models while Credits owns a temporary pause. Restore the previous playing/paused state on Close/Escape, while genuine page interruptions still require Play. Testing reproduced a delayed AudioContext suspension event racing with modal resume, leaving the scene paused after Escape; track the matching owned-suspension resume operation instead of treating every suspended event as external. A real-time four-cycle Close/Escape probe passed after the fix; targeted tests retain coverage for genuine interruptions during initial resume/loading. Details: [peer revision](docs/design/PEER-REVISION.md).
+
+Use a shared pure guidance envelope rather than more timers: increase light after time without meaningful progress, equally across horses/cans so it identifies an activity without solving it. Reuse original bag sprites, touch regions and the corrected interaction layers for natural recovery; only small original SVG wooden compartments are added. Keep authored throw/cascade logic. Scale the approved fade poses to eight seconds rather than revising the artwork or sequence. Both reported peer rounds must appear in the eventual debrief; [source and missing details](docs/PLAYTEST-NOTES.md). No new external assets or licensing claim.
+
+Earlier research entries below are historical decisions; the current peer-revision contract supersedes their permanent restart controls and pause-until-Play policy for Credits only.
+
+Journey recovery finding (2026-10-24): on the 280px baseline, the beanbag edge resolved to music-open after a lost game; inspection then blocked can input. Locked paper could also intercept Enter because pointer-events:none on an ancestor did not override explicit pointer-events:auto on descendant buttons. Fix the governing interaction layers: hide start-state scene actions, remove disabled targets from pointer hit testing, isolate scene actions, and prioritize active prize targets/recovery controls appropriately. Retain native button semantics and model input guards. A bounded single-column grid keeps narration and restart controls inside the scene; short landscape layouts place the controls below the existing top controls. Explicit restart methods cancel transient model state and cues while preserving earned milestones. Evidence: docs/design/JOURNEY-RECOVERY.md.
+
+Ending implementation decision (2026-10-23): reuse the approved empty-field image and source-coordinate attraction masks, with frozen copies of the actual settled runtime scene. This preserves corrected artwork and horse positions without generating another background. Keep land opaque and fade park copies in order; namespace cloned SVG IDs. Derive every fade, sound level, token pose and final hold from shared active time. Separate the shortened 650ms throw input lock from metallic sound tails, resolve pointer overlap geometrically, and clear the token from replay aiming space while retaining earned progress. Revisit uses a full reload to avoid duplicated event listeners/audio contexts and re-establish the existing Enter gate. Details and test limits: docs/design/ENDING-IMPLEMENTATION.md.
+
+Carousel motion/tune refinement: reuse the existing original synthesized tone rather than adding a new sound dependency. Schedule a slow eight-note, 12-second phrase in its own cue channel, with per-source gain 0.22 through the established 0.65 master. The shared scheduler now owns/disconnects optional cue gain nodes; default story sounds still connect directly to the same master. Scheduling includes the previous cycle's note tail, preserves the original anchor through attraction replay, and derives resume offsets from active time. Horse lifts increase 50%; idle envelope increases from 22% to 32%, preserving vertical motion and reduced-motion suppression. No prize gameplay/ending code or new assets.
+
+Prize-game implementation: use a deterministic support graph (either lower can carries the top) rather than phone-dependent rigid-body physics. Developer explicitly approved the rule and waiting-token checkpoint. Each aim is a transparent touch/keyboard target over an approved can; bag flight, impacts, staggered falls and the eight-second prize story derive from the existing active clock. Original deterministic synthesis supplies cloth throw, metallic hit and hollow chord sounds through the existing shared AudioContext. No external sound or new generated artwork was required. Source/acceptance notes: docs/design/PRIZE-GAME.md.
+
+Carousel payoff decision (2026-10-23): reuse the existing horse-free hidden plate and fixed occlusion layer, exporting the original masked horse pixels to transparent PNGs. Full scene-sized transparent canvases preserve coordinates and avoid new generated horses. Static comparison against the earlier masked rendering changed 315 of 71,400 carousel-crop pixels (0.44%), mean absolute channel error 0.0059/255; static and lifted poses were visually reviewed before adding motion. Bell/blank paper now use scene-referenced painted raster assets instead of further vector styling. Exact musical notation remains deterministic code, shared by the ground and inspector; only input availability changes on admission. The existing CarouselPuzzle now owns payoff age, music cues and settled idle on the shared clock; no extra controller, animation timer or rotating ride. Runtime notice hosts feed one visible bottom narration box.
+
+Playtest refinement from 5e4a04c: maintain the existing puzzle/progression while replacing directive hints with observations that suggest the next discovery. The clue now uses standard treble notation (C5, G5, E-flat5, C5) matching the actual pitches. Inspection enlarges the same weathered SVG ground paper without a panel/caption/position labels. Accessible pitch names remain in the image alternative. The ticket uses worn paper, faded ink and an engraved wheel to fit the illustration. Bell staging moves slightly forward and grows from 5.3% to 7.5% scene width; subtle shared-clock translation/tilt is disabled during the story and reduced motion. A fixed minimum-44px touch area contains its full sway, avoiding a moving tap target. No external assets, new sound or story payoff.
+
+# Research
+
+Carousel refinement: replace the reused bell with an original additive-synthesized C5 music-box/reed tone, played at minor-triad pitch intervals. No external recording or new license is involved; tools/prepare-carousel-audio.mjs reproduces the WAV. The existing cue scheduler now retains activity channels so carousel updates cannot erase booth cues; playback rate is included in saved buffer offsets. A focused puzzle/controller module owns attempt/clue feedback and active-time hint age. Transparent elliptical touch regions follow the horse bodies/heads, with the middle region raised to its head. The selected horse briefly lights up; a weathered inline-SVG paper scrap beside the carousel opens the existing clue. Bounds, horse-head hit testing, bell access and real touch sequences are checked at narrow portrait and landscape sizes. No artwork extraction or story animation is added.
+
+Admission implementation decision: maintain a small visit-progress record in the app, separately from the replayable TicketStory attempt. Completion handoff occurs at the existing eight-active-second boundary and is idempotent, preventing reset/duplicate awards without another timer or persisted storage. Reuse the approved ticket SVG in a compact HUD badge; only carousel availability is added at this checkpoint. The field-preserving ending staging is now Developer-approved, but ending playback remains deferred.
+
+Latest creative approval, 2026-10-19: the Developer approved admission → musical carousel → two-throw carnival game, brass Ferris-wheel memory token, separate claim and ten-second disappearance. Revisit/refresh start fresh journeys. Only static ending staging is authorized now; the wheel-light celebration ending is superseded. Details and observed checks: [journey/staging record](docs/design/JOURNEY.md).
+
+Organizational review, 2026-10-19: shared artwork/staging and CSS were consolidated because the app and inspectors use the same composition; credits/readiness helpers were app-only. Independent effect/audio/story controllers remain separate for focused testing and clear ownership. Module-relative asset URLs support both nested previews and project-subdirectory hosting. Historical evidence/submission files retain their original bytes. Structure and trade-offs: docs/PROJECT-STRUCTURE.md. No new creative direction was selected or implemented.
+
+> EDITING DIRECTIVE: DEVELOPER AND AGENT EDIT THIS FILE COLLABORATIVELY. THE DEVELOPER MUST REVIEW AND APPROVE ITS CONTENT.
+
+Updated 2026-10-16. Phase 1 only. Developer approved preparation and authorized publication under alr5342. Git Credential Manager confirmed that account; Git/REST created public midnight-midway, preserved main/history and configured Pages main / (root). Public HTTPS/browser/resource verification passed; evidence: docs/DEPLOYMENT.md. Artwork/audio/runtime are unchanged. The Developer subsequently approved actual iPhone 17 Pro / iOS 26.5.1 / Safari review and authorized final ZIP preparation. Candidate archive inventory/extracted-runtime checks passed. Final artifact acceptance is described in docs/SUBMISSION.md and its sidecar; Phase 2 is deferred.
+
+## Goal and approved direction
+
+Create a playful, spooky exploration experience for ages 10+ that builds interest in visiting an unbranded theme park. The chosen concept is **The Midnight Midway**: an abandoned carnival that briefly wakes after dark.
+
+Three alternatives were compared: Midnight Midway, Lanternkeeper's Garden, and Hollow Station. The Developer selected the midway, then supplied [the visual reference](assets/sources/artwork/midnight-midway-concept.png). Its composition, rather than the initial verbal concept alone, governs the artwork:
+
+- A stationary Ferris wheel dominates the upper scene; the moon and clouds provide depth.
+- Ticket booth left, carousel center, prize stall right; the wet path draws the eye between them.
+- Detailed painterly surfaces, weathered burgundy structures, blue-violet shadows and warm amber bulbs.
+- Portrait framing retains the complete scene. Tall-phone framing currently uses dark space above and below rather than cropping attractions.
+- Small upper-left Play/Pause placement and a bottom-center hint panel are visually approved. Their current symbols/text are mockups, with no behavior.
+- The corrected right-hand carriage has matching open sides, narrow posts and a burgundy basket, with a subtle glow.
+
+The Developer explicitly approved the booth refinement, then approved the complete static visual design after the carriage correction. Preserve this baseline; consequential visual revisions require review.
+
+## Artwork approach and evidence
+
+Use a shared 941 × 1672 scene coordinate system. Retain original pixels for visible pieces where possible. Generate only necessary hidden surfaces or local corrections, expose them through masks, and place fixed scenery in front of movable pieces. Do not replace the entire approved scene to make a local edit.
+
+| Decision / experiment | Result and implication | Evidence |
+| --- | --- | --- |
+| Generated booth extraction | Useful transparent asset, but changed size/details and produced a straight base. Keep the existing approved alignment rather than regenerating the booth. | [Extraction review](docs/artwork/REVIEW.md), archive/reviews/ |
+| Original foreground over booth base | Restored pumpkin, plants, ground and fog; Developer approved the blend. | archive/reviews/booth-refinement-v2/ |
+| Original-pixel horse/prize masks with localized repairs | Three horses can move independently. Overlapping ghost/cat prizes remain one pair. Fixed poles, railing and shelf lip conceal joins. Small static lifts were inspected; animated motion is not yet verified. | [Layer notes](docs/artwork/ARTWORK.md), archive/reviews/attractions-v3-final/ |
+| Local carriage correction | Matched structure and reduced brightness. Rendered pixel check found zero changes outside its inspection area; Developer approved. | [Edit notes](docs/artwork/GONDOLA.md), archive/reviews/carriage-v4/checks.json |
+
+Keep the wheel stationary and use small horse bobs rather than full carousel rotation. Large travel, toy rotation, independent ghost/cat motion, or newly exposed surfaces would require additional artwork. Exact motion amplitudes remain to be tested.
+
+The static app has been checked in a desktop browser at 390 × 844, 375 × 667 and 320 × 568. This supports layout review; it does not prove physical-phone performance, audio support, accessibility, or full playback behavior.
+
+## Story, ambience and behavior decisions
+
+### Approved Story 1 direction and interruption policy
+
+The player rings the ticket booth's bell three times, with different audiovisual feedback and visible progress on each activation. The third ring triggers the ghostly attendant: appear, present a floating ticket, stamp it with magical sparks, disappear, and return the booth to normal. The sequence must meet the brief's 5–10 active-second duration and replay without reload. This narrative and three-ring trigger are approved; exact feedback, assets, hint text/timing and storyboard durations will be reviewed at P1.6/P1.8.
+
+The Developer selected automatic pause when the tab/app is hidden, with explicit Play required on return. Reduced-motion preferences initialize before Enter and update live. Ambient wind now joins the shared lifecycle; no bell or story sequence is implemented yet. Preserve trigger progress while paused once the trigger exists; completion must reset it for a new three-ring replay.
+
+The remaining story details below are proposals; the approved plan schedules lighting, fog and bats one system at a time.
+
+| Area | Initial direction to review | Remaining decisions |
+| --- | --- | --- |
+| Ticket booth — approved Story 1 direction | Three bell rings with distinct feedback; ghostly attendant appears, presents floating ticket, stamps it with magical sparks and disappears as the booth returns to normal. | Approve detailed 5–10 second storyboard, each ring's feedback, hint stages and new bell/window/attendant/ticket/stamp artwork. |
+| Carousel | Horses wake and bob in a light sequence; possible ghost passenger, then return to rest. | Story arc, optional passenger, trigger, sound, timing and motion limits. |
+| Prize stall | Toys briefly come to life and settle again. Existing ghost/cat pair supports a small shared bounce or sway. | Complete arc and trigger; decide whether shared movement suffices before commissioning separate poses. |
+| Ambient effects | Gentle wheel/bulb and gondola glow variation; drifting fog; occasional bats. | Confirm these three distinct effect systems, density, pacing, reduced-motion alternatives and visual restraint. |
+| Sound | Low-key looping night/carnival atmosphere with short, distinct attraction feedback. | Find and verify public-domain/CC0 recordings; audition for tone and loop quality on a phone. |
+
+The later Story 1 approval covers its narrative and three-ring trigger. Hint wording/timing, audio files, exact animation and other stories remain open. Resolve only what the next checkpoint needs.
+
+## Sources and credits register
+
+| Material | Source / method | Usage and credit status |
+| --- | --- | --- |
+| Original visual reference | Developer-supplied assets/sources/artwork/midnight-midway-concept.png | Developer confirmed 2026-10-16: AI-generated with ChatGPT. Record this origin in in-app credits/CREDITS.md; no third-party illustration source is asserted. |
+| Booth extraction and repair plate | Built-in image_gen edits of supplied reference | Saved in assets/; exact prompts in [PROMPTS.md](docs/artwork/PROMPTS.md). Credit AI-assisted preparation; source-reference provenance remains relevant. |
+| Horse/prize backing | Built-in image_gen edit | [Exact prompt](docs/artwork/ATTRACTIONS-PROMPT.md); visible subject pixels and SVG masks described in docs/artwork/ARTWORK.md. |
+| Corrected gondola | Built-in image_gen edit, locally masked | [Exact prompt and saved output](docs/artwork/GONDOLA.md). |
+| App code and Developer credit | Alex Rosemann, confirmed 2026-10-16; project HTML/CSS/JavaScript/SVG with Codex assistance | In-app credits and CREDITS.md now present. No runtime framework/external font; Playwright is a development-only test dependency. |
+| Ambient wind | remaxim, [Short wind sound](https://opengameart.org/content/short-wind-sound), verified 2026-10-16; creator explicitly releases it under CC0 | [CC0 deed](https://creativecommons.org/publicdomain/zero/1.0/), exact download and processing/credit in [CREDITS.md](CREDITS.md). Original preserved; filtered/crossfaded local loop installed. Human audition pending. |
+| Story bell | Julie Damsgaard / Spring Spring / Spring Enterprises, [Pleasing Bell Sound Effect](https://opengameart.org/content/pleasing-bell-sound-effect), CC0 verified 2026-10-16 | Three pitched/faded mono PCM ring candidates. Original and processing details in CREDITS.md and assets/story/audio-manifest.json. Human audition pending. |
+| Story magic | JaggedStone, [Magic Spell SFX](https://opengameart.org/content/magic-spell-sfx), CC0 verified 2026-10-16 | magical_1_0.ogg supplies arrival/stamp/departure candidates; trimmed/pitched/faded mono PCM derivatives. URLs/edits in CREDITS.md; human audition pending. |
+
+P1.5 licensing research checked the selected item's creator/license statement and the CC0 deed. CC0 permits adaptation/redistribution without copyright attribution requirements; credit is nevertheless recorded for the assignment and creator recognition. Other sound assets still require independent verification. Source selection: short wind is lightweight and fits an empty nighttime midway; mild-wind recordings with bag rustling and high-pitched eerie-tone loops were not installed. No music, speech or startling cues were added. Human evaluation of mood, volume and repetition remains pending.
+
+## Open questions and scope
+
+Current P1.9: credits use a modal inside the existing scene and participate in pause-until-Play. Readiness checks disable Enter if a main image, stylesheet or mask fails. Testing found that a failed stylesheet may still expose an empty CSSStyleSheet, so readiness verifies actual fetch status instead of sheet presence. Credits focus initially escaped under native Tab wrapping, then WebKit skipped links under its default navigation; explicit full dialog control order replaces boundary-only handling. These findings led to scoped fixes, not new creative features.
+
+GitHub's official publishing-source/creation documentation was checked 2026-10-16. For this static root app, the prepared route is main → /(root), with .nojekyll and relative project-site asset URLs. No Actions build/deployment pipeline or remote is needed locally; no publishing is performed. Real Git history begins at the approved existing prototype; earlier documentation/backups remain evidence. Git write/ownership restrictions required a command-only safe.directory exception for this known workspace; no global trust setting changed. Final browser evidence and limitations are in the audit. Next gates remain review, public deployment, actual phone and ZIP/log extraction testing.
+
+### Prior P1.7/P1.8 findings — pending labels superseded by P1.9
+
+Current P1.7/P1.8 result: TicketStory uses the existing active-time clock for story beats, feedback and hints. StoryAudio shares the ambience's user-activated context, derives desired cues/offsets from active time, and stops every source on pause. No independent story/hint timer, second context, development launch control or new external asset was added. Initial loading gates the bell to avoid silently consuming early rings. Missing cues are retryable through Pause/Play; missing story images disable the trigger with readable guidance. Partial progress does not suppress later hints.
+
+Developer approved P1.6 including ghost v3. Full runtime unit, real-browser story/ambient and viewport regressions are recorded in plan.md and docs/PHASE-1-AUDIT.md. Three complete replays, all beat pauses, measurable story/wind signals and exact resting overlay reset passed. Actual-phone/OS interruption, human discovery/listening and public host behavior remain unverified. Remaining publication questions: Developer credit name and original reference creator/origin/permission. In-app credits, Git/log, GitHub Pages and final extraction-tested ZIP are not done. No Phase 2 work performed.
+
+### Historical checkpoint findings
+
+The following notes retain earlier results and pending labels; the current status above and the dated audit supersede those labels.
+
+Current P1.6 result: friendly painterly ghost and empty-window repair generated with built-in image_gen; original code-native prop/effect SVGs; six verified CC0-derived sound candidates; proposed eight-second storyboard with reduced-motion alternatives. Original artwork and main runtime remain unchanged. Static staging and asset/audio decoding checks passed, plus existing unit/shell regressions. Evidence: archive/reviews/p1-6/. Asset fit, sound choice and timing await Developer review before P1.7; real playback/lockout/pause/replay and triggers are not yet proven or implemented. Prompt set: docs/artwork/story/PROMPTS.md; detailed scope: docs/artwork/story/STORYBOARD.md.
+
+Current P1.5 result: local looping wind is integrated with Enter, shared Play/Pause, visibility and native AudioContext interruption handling. Programmatic decode/signal/loop-seam checks passed, including missing-file retry and paused late-load prevention; full 12-unit-test run and bat/shell regressions passed. Credits/provenance are in CREDITS.md. Audio cannot yet be considered human-auditioned or phone-verified. Next review is listening to several loops, pausing/resuming and checking balance with the scene; story assets/sounds remain P1.6 onward. No artwork files changed and no Phase 2 work started.
+
+Current P1.4 result: two occasional code-native bat silhouettes provide the third ambient system alongside lighting/fog, without adding an external artwork asset. The shared clock governs flight and wing movement; reduced motion suppresses flight. Combined touch Pause/resume, live/initial preference, interruption and rapid-toggle checks passed, as did existing fog/shell regressions and all 9 unit tests. Source artwork hashes remain unchanged. Evidence: archive/reviews/p1-4/. Visual review and physical-phone verification remain pending. No audio/story or Phase 2 work was started.
+
+Current Phase 1 audit: scene/start/playback, three visual ambient systems and verified CC0 wind ambience exist; ambience awaits listening review. Still needed: story sounds and ticket-booth artwork/control, full 5–10 second sequence, three-ring feedback/progress, progressive hints, lockout/reset/replay, complete credits, accessibility/failure checks and final integration. Ambient audio licensing is verified; visual-reference provenance and future story sounds remain outstanding.
+
+GitHub Pages is the chosen delivery host; repository/account and Git history are not yet established. Deployment work must verify the public candidate's relative asset/module/audio paths and record the tested revision. User's actual phone verification is required; desktop viewport tests do not satisfy it. A final clean submission ZIP must include current project files/docs/credits and exported Git log, be extracted/tested and match the verified revision. These are required later gates, not completed research or deployment results. No extra artwork redesign or Phase 2 story is authorized.
+
+P1.3 uses original code-driven SVG fog wisps, so no external fog raster asset was introduced. Source files remain unchanged; fog and lights share active time. Unit and functional browser checks passed; visibility interruption was simulated and the touch screenshot-byte check failed twice and is held unresolved. Evidence/remaining work: plan.md and archive/reviews/p1-3-functional/. Stop for review before adding bats.
+
+Earlier P1.2 evidence: soft wheel-bulb variation and gondola glow share the active-time clock, with no independent timers and steady reduced-motion illumination. Same-scene paused screenshots were pixel-identical across a 500 ms wait; unit/browser checks verified resume phase and interruption behavior. Evidence: archive/reviews/p1-2/. Original artwork files remain unchanged. This result does not resolve the earlier app-versus-review strict screenshot comparison, and physical-phone verification is pending.
+
+Developer feedback on the initial P1.2 result: animation was difficult to notice. The revised overlay increases contrast and halo size and adds smooth shimmer to shorter, gentle pulses. Revised pause/resume/reduced-motion and shell regressions passed; low/high phone-size captures show a measurable light difference, with no artwork-file changes. Review evidence: archive/reviews/p1-2-visible/ and archive/reviews/p1-2-visible-shell/. Perceived visibility and atmosphere still require Developer review; no P1.3 work has started.
+
+Subsequent Developer feedback accepted the visibility but identified alignment errors. Cause: estimated positions did not follow the painted perspective, particularly on the lower-left spoke. Final adjustment uses source-pixel bulb centers rather than regular geometric spacing; all 55 centers passed a 3-source-pixel warm-light check and were inspected at native resolution. Current brightness/shimmer functions are unchanged, as are original artwork files and gondola glow. Pause/resume, reduced motion and shell regressions passed. Evidence: archive/reviews/p1-2-alignment/ and the related playback/shell directories listed in plan.md. Stopped at this Phase 1 refinement; final visual review pending, P1.3 unstarted.
+
+Ambient listening review, reduced-motion story treatment and ring feedback/hints remain upcoming checkpoint decisions. Visual-reference provenance, story-sound selection, public hosting and repository setup remain unfinished. The [plan](plan.md) carries verification and playtest evidence; the [specification](spec.md) defines acceptance checks.
+
+Prior planning documents are preserved in docs/history/20261016-144916/. Detailed asset notes describe their original test dates; later approvals recorded here supersede their historical “approval pending” labels.
+
+## Saving transcripts
+
+Only when directed, save the entire current conversation as transcripts/research-YYYY-MM-DD_HHMMSS.md, with messages labeled Developer and Agent, and confirm the path.

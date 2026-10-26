@@ -1,0 +1,11 @@
+# Empty-field staging repair — v1
+
+Tool: built-in imagegen, edit mode. Skill: imagegen. Source: assets/sources/artwork/midnight-midway-concept.png. Preview-only output: dev/previews/assets/empty-field-v1.png. No original asset was overwritten. Not approved production artwork; no gameplay or playback is implemented.
+
+The source depicts attractions over areas of land that were never separately painted. This candidate supplies that hidden land so the structures can disappear without darkening the entire screen. It also removes transient park objects while retaining a readable moonlit environment. The token is the existing original SVG, unchanged.
+
+Exact edit prompt:
+
+> Edit target: the supplied portrait illustrated Halloween midway. Produce a clean empty-land/background repair plate for layering under EXACTLY THIS composition. Preserve the same portrait camera, moon at upper right, dark cobalt moonlit clouds, distant natural tree silhouettes, perspective, wet muddy central path curving into the mid-distance, autumn grass, weeds and earth foreground. REMOVE ALL constructed carnival/park elements throughout: entire Ferris wheel including supports and gondolas, ticket booth, carousel, prize stall, every sign, string of bulbs, flags and pennants, bunting, lanterns, fences, barrels, toys and carved jack-o-lantern pumpkins. Replace their areas convincingly with the continuous EMPTY MOONLIT FIELD, low dark trees in the distance, damp grass, earth and the same meandering wet path. Remove warm artificial light reflections on the ground, replace with subtle cool moon reflections. Keep the land and sky clearly readable, not black, not made globally darker; same soft painterly textured illustrated style and cobalt/muted brown palette as reference. No new buildings, ruins, objects, people, tokens, text or interface. Do not redesign the camera, horizon, sky/large moon position or path position; this is the land revealed when carnival attractions cease to exist. Fully opaque complete background plate, portrait composition.
+
+Inspection: field/grass/trees, a wet path and moon/clouds remain visible; the generated plate contains no park attractions. Original artwork supplies the staged attraction masks and is unchanged. Crossfades may reveal small differences in generated cloud/path detail; visual review is required before any production adoption.

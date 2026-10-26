@@ -1,0 +1,20 @@
+Observed 2026-10-26. Command: node tests/browser/check-phase2-audit.mjs
+Second follow-up run; overall exit code 1.
+
+Auditing chromium
+chromium: passed
+Auditing firefox
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+browser.newPage: Cannot read properties of undefined (reading '_page')
+    at C:\Users\arose\OneDrive\Desktop\project-4-template\tests\browser\check-phase2-audit.mjs:34:34 {
+  log: [],
+  name: 'TypeError'
+}
+
+Node.js v24.19.0
+
+The browser engine failed before navigation. Chromium's complete audit had
+already passed; Firefox gameplay and WebKit are not verified by this run.

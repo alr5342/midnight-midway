@@ -1,0 +1,61 @@
+{
+  "status": "passed",
+  "stallWakeCue": true,
+  "quickSettledThrows": true,
+  "claimDeliberateAndKeyboardAccessible": true,
+  "claimLockedOnPause": true,
+  "eightSecondOrderedDisappearance": true,
+  "opaqueApprovedField": true,
+  "wheelLast": true,
+  "audioFadeLevelsAndPauseResume": true,
+  "nativeInterruptionRequiresPlay": true,
+  "finalHoldInterruptionRecoverable": true,
+  "tokenThenRevisit": true,
+  "endedClockAndNoFrames": true,
+  "finalSilence": true,
+  "revisitAndRefreshFresh": true,
+  "reducedMotionStationaryToken": true,
+  "missingFieldSafe": true,
+  "approvedAssetBytesUnchanged": true,
+  "uniqueSvgIds": true,
+  "projectPrefixPaths": true,
+  "layouts": [
+    {
+      "viewportWidth": 390,
+      "viewportHeight": 844,
+      "width": 46.796875,
+      "height": 55.421875,
+      "fits": true,
+      "receivesTap": true
+    },
+    {
+      "viewportWidth": 320,
+      "viewportHeight": 568,
+      "width": 44,
+      "height": 45.4375,
+      "fits": true,
+      "receivesTap": true
+    },
+    {
+      "viewportWidth": 280,
+      "viewportHeight": 568,
+      "width": 44,
+      "height": 44,
+      "fits": true,
+      "receivesTap": true
+    },
+    {
+      "viewportWidth": 844,
+      "viewportHeight": 390,
+      "width": 44,
+      "height": 44,
+      "fits": true,
+      "receivesTap": true
+    }
+  ],
+  "errors": [],
+  "limits": [
+    "Chromium with phone touch emulation; physical-device review pending",
+    "No publishing or deployment"
+  ]
+}

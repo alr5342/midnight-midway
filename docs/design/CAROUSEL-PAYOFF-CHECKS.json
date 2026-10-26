@@ -1,0 +1,108 @@
+{
+  "checkpoint": "Painted props and carousel payoff from 2765f8e",
+  "unitTests": {
+    "passed": 21,
+    "suites": [
+      "carousel",
+      "ticket-story",
+      "playback",
+      "ambient-audio"
+    ]
+  },
+  "staticArtwork": {
+    "status": "passed",
+    "changedPixels": 315,
+    "changedFraction": 0.004411764705882353,
+    "meanChannelError": 0.00592436974789916,
+    "originalPixelsPreserved": true,
+    "originalBackgroundFilesUnchanged": true,
+    "visuallyReviewed": [
+      "reassembled-static.png",
+      "lifted-static.png"
+    ]
+  },
+  "carousel": {
+    "status": "passed",
+    "solution": [
+      "left",
+      "right",
+      "center",
+      "left"
+    ],
+    "paperPresentBeforeEntryAndAdmissionLocked": true,
+    "oneNarrationBox": true,
+    "payoffSeconds": 8,
+    "phases": [
+      "lights",
+      "ride",
+      "settle",
+      "idle"
+    ],
+    "payoffPauseAndResume": true,
+    "nativeSuspensionOfRunningContext": true,
+    "loadingSuspensionEventUnitCheck": true,
+    "staggeredVerticalMotion": true,
+    "quietCompletedIdle": true,
+    "noRotation": true,
+    "reducedMotionModelAndRenderedPayoff": true,
+    "replayPreservesProgress": true,
+    "refreshStartsFresh": true,
+    "viewports": [
+      {
+        "width": 390,
+        "height": 844
+      },
+      {
+        "width": 320,
+        "height": 568
+      },
+      {
+        "width": 280,
+        "height": 568
+      },
+      {
+        "width": 844,
+        "height": 390
+      }
+    ],
+    "assetPathsVerifiedUnder": "/midnight-midway/",
+    "errors": []
+  },
+  "ticket": {
+    "status": "passed",
+    "completedCycles": 3,
+    "oneTicketAcrossReplays": true,
+    "pauseAndInterruptionsPreserveAdmission": true,
+    "audioFailureRetry": true,
+    "artFailureSafe": true,
+    "unchangedArtworkFiles": 12,
+    "errors": []
+  },
+  "assetsAndVerbatimPrompts": "PAINTED-PROPS.md",
+  "evidenceDirectory": "tests/results/carousel-payoff/",
+  "limits": [
+    "Desktop Chromium phone-sized integration; physical-phone review of this checkpoint pending",
+    "Static edge rasterization differs slightly; no pixel-identical screenshot claim",
+    "No prize-stall or ending gameplay, merge, push, deployment or packaging"
+  ],
+  "latestRefinement": {
+    "baseCommit": "ea3fa7d",
+    "unitTestsPassed": 19,
+    "focusedCarouselBrowser": "passed",
+    "maximumHorseLifts": [
+      12,
+      15,
+      13.5
+    ],
+    "idleEnvelope": 0.32,
+    "musicLoopSeconds": 12,
+    "musicCueGain": 0.22,
+    "pauseResumeOffsets": true,
+    "tuneContinuesUnderBoothReplay": true,
+    "reducedMotion": true,
+    "artworkAndExistingAudioUnchanged": true,
+    "results": "tests/results/carousel-tune/",
+    "physicalPhoneListeningReview": "pending",
+    "prizeAndEndingImplementation": "not started"
+  }
+}

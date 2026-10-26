@@ -1,0 +1,44 @@
+{
+  "date": "2026-10-26",
+  "applicationBaseline": "614e44beffa18869d09983d3fa406c0be6655e76",
+  "runner": "tests/browser/check-phase2-audit.mjs",
+  "overallStatus": "incomplete-not-passed",
+  "attempts": [
+    {
+      "attempt": 1,
+      "engineReached": "chromium",
+      "exitCode": 1,
+      "failure": "Expected horseY [0,0,0] immediately after live reduced-motion media emulation; native matchMedia change had not yet been delivered to the paused fake clock.",
+      "changeAfterInspection": "Wait explicitly for the native media event before asserting the rendered model. Runtime unchanged."
+    },
+    {
+      "attempt": 2,
+      "engineReached": "chromium",
+      "exitCode": 1,
+      "failure": "AssertionError: chromium: undersized target at 390",
+      "sourceInspection": "The target array measures all three can buttons after a win. src/js/prize.js deliberately hides each button whose can is down, so these buttons have zero layout bounds. No actual visible target-size defect is established by this assertion.",
+      "remainingWork": "Review measurement against visible interaction states, then finish cross-engine/focus/contrast/layout/path/failure checks after Developer review. No third attempt in this checkpoint."
+    }
+  ],
+  "assertionsReachedBeforeSecondFailure": [
+    "Initial reduced motion, start clock stopped and no pre-Enter AudioContext",
+    "Credits keyboard focus containment and Escape return",
+    "Keyboard booth twice, prize-first win, clue inspection and carousel completion",
+    "Credits exact model preservation during carousel story",
+    "One token only after both stories",
+    "Initial/live reduced motion, paused model equality and stopped ambient source",
+    "Credits retains an existing pause",
+    "Sampled text contrast assertions at first viewport"
+  ],
+  "notVerifiedByThisRunner": [
+    "Complete visible-target layouts",
+    "Final claim/Revisit in this runner",
+    "Case-sensitive request inventory",
+    "Missing-asset failure gates",
+    "Firefox",
+    "WebKit",
+    "Physical smartphone or current public deployment"
+  ],
+  "runtimeChanges": false,
+  "otherEvidence": "Current check-tickets.mjs passes full journeys, ending, replay and recovery independently. This draft is not an acceptance pass."
+}

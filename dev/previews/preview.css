@@ -1,0 +1,73 @@
+/* Review workspace only; never loaded by the app. */
+/* Prize props and guide positions are review-only. No input/game controller. */
+.prize-props { position: absolute; inset: 0; pointer-events: none; }
+.prize-counter { position: absolute; left: 64%; top: 65%; width: 36%; height: 12%; object-fit: contain; filter: drop-shadow(0 2px 2px #10080ec0); }
+.prize-can { position: absolute; width: 13%; height: 7%; object-fit: contain; transform: translate(-50%, -100%); filter: drop-shadow(.4px 1px .6px #10080ec0); }
+.prize-can-left { left: 76%; top: 70.8%; transform: translate(-50%, -100%) rotate(-1deg); }
+.prize-can-right { left: 90%; top: 70.8%; transform: translate(-50%, -100%) rotate(1.2deg); }
+.prize-can-top { left: 83%; top: 65.1%; transform: translate(-50%, -100%) rotate(-2deg); }
+.prize-rules { position: absolute; left: 84%; top: 71.2%; width: 14.5%; height: 5.2%; color: #30231a; transform: rotate(-2deg); filter: drop-shadow(.4px 1px .5px #10080eb0); }
+.prize-aim { display: none; position: absolute; width: 44px; height: 44px; border: 1px dashed #d9dbd8; border-radius: 50%; transform: translate(-50%, -50%); }
+.prize-aim-left { left: 76%; top: 67.3%; }.prize-aim-right { left: 90%; top: 67.3%; }.prize-aim-top { left: 83%; top: 61.6%; }
+.prize-scene[data-aim-zones="true"] .prize-aim { display: block; }
+.prize-scene .environment-paper { position:absolute;left:57%;top:69.5%;width:64px;height:52px;transform:translate(-50%,-50%);pointer-events:none; }
+.prize-scene .sheet-art { position:relative;width:100%;aspect-ratio:320/220;color:#30251e; }
+.prize-scene .sheet-art img,.prize-scene .sheet-art svg { position:absolute;inset:0;width:100%;height:100%; }
+.prize-scene .sheet-art svg { mix-blend-mode:multiply;opacity:.85; }
+.prize-scene .environment-paper .sheet-art { transform:perspective(180px) rotateX(52deg) rotateZ(-14deg) scale(.85);filter:brightness(.7) saturate(.7) drop-shadow(.4px 1px .6px #080510b0); }
+.prize-scene .carousel-lighting { display:none; }
+.preview-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 20px; padding: 14px 16px; font-size: 13px; }
+.preview-nav a[aria-current="page"] { color: #fff0d9; }
+body[data-preview="scene"] main, body[data-preview="booth"] main { max-width: 1300px; }
+.comparisons { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+body[data-preview="carriage"] .comparisons { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+figure { margin: 0; }
+figcaption { text-align: center; margin: 14px 0; color: #c8c2cc; }
+@media (max-width: 650px) { body:not([data-preview="carriage"]) .comparisons { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { body[data-preview="carriage"] .comparisons { grid-template-columns: 1fr; } }
+
+/* Manual ending poses only: no transitions, keyframes or runtime integration. */
+.ending-phone { background: #03050a; }
+.ending-stage {
+  position: relative; width: 100%; aspect-ratio: 941 / 1672; flex: none;
+  isolation: isolate; overflow: hidden; background: #03050a;
+  --site: 1; --booth: 0; --carousel: 0; --stall: 0; --wheel: 0; --fog: 0; --last-light: 0;
+  --token-x: 84%; --token-y: 64%; --token-size: 12%;
+}
+.ending-land, .ending-attraction-memory, .ending-fog, .ending-last-light { position: absolute; inset: 0; pointer-events: none; }
+.ending-land { width: 100%; height: 100%; object-fit: fill; }
+.ending-artwork { opacity: var(--site); }
+.ending-attraction-memory { mask-size: 100% 100%; mask-repeat: no-repeat; }
+.ending-booth-memory { opacity: var(--booth); }
+.ending-carousel-memory { opacity: var(--carousel); }
+.ending-stall-memory { opacity: var(--stall); }
+.ending-wheel-memory { opacity: var(--wheel); }
+.ending-fog {
+  opacity: var(--fog);
+  background:
+    radial-gradient(ellipse 78% 12% at 25% 70%, #8190a58c, transparent 72%),
+    radial-gradient(ellipse 72% 11% at 83% 58%, #73829880, transparent 75%),
+    radial-gradient(ellipse 84% 17% at 54% 87%, #64708480, transparent 74%);
+}
+.ending-last-light { opacity: var(--last-light); background: radial-gradient(ellipse 3% 1.5% at 75.5% 25%, #ffe0a870, #e3a4571c 55%, transparent); }
+.ending-token {
+  position: absolute; left: var(--token-x); top: var(--token-y); width: var(--token-size); height: auto;
+  transform: translate(-50%, -50%); filter: drop-shadow(0 3px 5px #000a) drop-shadow(0 0 7px #dbad5530);
+}
+.ending-pause { pointer-events: none; font-family: system-ui, sans-serif; }
+.ending-stage[data-beat="claimed"] { --site: .18; --carousel: 1; --stall: 1; --wheel: 1; --fog: .1; --token-x: 59%; --token-y: 54%; --token-size: 24%; }
+.ending-stage[data-beat="fading"] { --site: 0; --carousel: .22; --stall: .65; --wheel: 1; --fog: .16; --token-x: 50%; --token-y: 50%; --token-size: 31%; }
+.ending-stage[data-beat="wheel"] { --site: 0; --wheel: .65; --last-light: .35; --token-x: 50%; --token-y: 46%; --token-size: 34%; }
+.ending-stage[data-beat="gone"] { --site: 0; --token-x: 50%; --token-y: 46%; --token-size: 36%; }
+.ending-stage[data-beat="gone"] .ending-pause { display: none; }
+.ending-revisit {
+  display: none; position: absolute; left: 50%; top: 64%; transform: translateX(-50%);
+  padding: 12px 16px; min-height: 44px; width: max-content; max-width: 90%;
+  color: #d5b67c; font: 13px/1.4 Georgia, serif; border-bottom: 1px solid #b38b494d;
+}
+.ending-stage[data-beat="gone"][data-return="true"] .ending-revisit { display: block; }
+.ending-return-control { display: flex; align-items: center; gap: 8px; min-height: 44px; cursor: pointer; }
+.ending-return-control input { width: 20px; height: 20px; accent-color: #b99758; }
+.token-study { text-align: center; margin: 28px auto; }
+.token-study img { width: min(64%, 240px); height: auto; }
+.token-study figcaption { font-size: 13px; line-height: 1.6; }
