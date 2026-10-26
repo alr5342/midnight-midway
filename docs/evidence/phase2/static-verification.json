@@ -1,7 +1,7 @@
 {
   "date": "2026-10-26",
   "applicationBaseline": "614e44beffa18869d09983d3fa406c0be6655e76",
-  "branch": "feature/carousel-puzzle",
+  "branch": "main",
   "runtimeArtworkAndPreviewsUnchanged": true,
   "phase1Archive": {
     "file": "submissions/midnight-midway-phase1-20261016184044-final.zip",
@@ -19,8 +19,8 @@
   "focusedSecretScan": "passed; observed node tools/check-secrets.mjs",
   "gitDiffWhitespace": "passed; observed git diff --check",
   "debrief": "Developer-uploaded file remains unmodified and unreviewed; deferred",
-  "crossBrowserAudit": "Original harness failures resolved; complete Chromium audit passed. Firefox/Playwright page creation failed before navigation; WebKit not reached. See browser-audit/resolution.json.",
-  "publishedCandidate": false,
+  "crossBrowserAudit": "Chromium audit and focused public journey passed; Firefox/Playwright startup and WebKit coverage limits documented and accepted by Developer for publication. No new broad audit.",
+  "publishedCandidate": true,
   "archiveCreated": false,
   "currentMarkdownLinksChecked": 9,
   "missingLinks": [],
@@ -37,5 +37,15 @@
     "uncommittedWorkBackup": "tests/results/audit-harness-before-20261026-1793036154063",
     "noPushDeploymentOrPackaging": true,
     "currentMarkdownLinksChecked": 5
+  },
+  "publication": {
+    "verifiedMerge": "f46add2972288c72f82590dfa8ed46f1ef5fdf7e",
+    "url": "https://alr5342.github.io/midnight-midway/",
+    "verifiedAt": "2026-10-26T18:05:53.855Z",
+    "runtimeResources": 53,
+    "wavFiles": 11,
+    "branch": "main",
+    "knownBrowserLimitsDocumented": true,
+    "phase1AndDebriefUnchanged": true
   }
 }

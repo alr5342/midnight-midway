@@ -1,0 +1,17 @@
+{
+  "verifiedAt": "2026-10-26T18:03:51.568Z",
+  "repository": "alr5342/midnight-midway",
+  "url": "https://alr5342.github.io/midnight-midway/",
+  "source": {
+    "branch": "main",
+    "path": "/"
+  },
+  "commit": "f46add2972288c72f82590dfa8ed46f1ef5fdf7e",
+  "status": "built",
+  "createdAt": "2026-10-26T17:58:08Z",
+  "updatedAt": "2026-10-26T17:58:51Z",
+  "buildUrl": "https://api.github.com/repos/alr5342/midnight-midway/pages/builds/1316573352",
+  "error": {
+    "message": null
+  }
+}

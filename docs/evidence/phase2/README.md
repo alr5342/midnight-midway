@@ -1,6 +1,6 @@
 # Phase 2 evidence index
 
-Prepared 2026-10-26 for review; application baseline `614e44b`. This directory is intended to be tracked so the eventual GitHub source ZIP includes selected evidence. Fresh `tests/results/` output remains ignored. Current documents/evidence are uncommitted pending Developer review; no final archive or publication is implied.
+Updated 2026-10-26; approved application baseline `614e44b`, now published from main. This directory is tracked so the eventual GitHub source ZIP includes selected evidence. Fresh `tests/results/` output remains ignored. Public verification is recorded below; no final archive or completed supplied debrief is implied.
 
 ## Current observed checks
 
@@ -10,6 +10,7 @@ Prepared 2026-10-26 for review; application baseline `614e44b`. This directory i
 - [Original audit-draft attempt record](audit-draft-attempts.json): historical failures, preserved unchanged. Both original failures are resolved in the authorized follow-up; this old record is not its current status.
 - [Browser-harness resolution](browser-audit/resolution.json), [observed run output](browser-audit/run-output.txt), [native focus probe](browser-audit/modal-focus-probe.json), [waiting-token capture](browser-audit/chromium-waiting-token.png), [empty-field capture](browser-audit/chromium-empty-field.png): the complete Chromium audit passes. The full command then exits 1 inside Playwright Firefox page creation, before game navigation; WebKit not reached. No aggregate pass or unexported numeric metrics are invented. Corrections are test-only; original game/media/debrief bytes remain intact. Stopped after two full follow-up failures under AGENTS.md; no third retry.
 - [Static verification](static-verification.json) and [file manifest](manifest.json): scope/inventory checks, Phase 1 ZIP hash, preserved evidence provenance and SHA-256 hashes. These are local preparation records, not final ZIP acceptance.
+- [Public Phase 2 report](publication/checks.json), [Pages build metadata](publication/pages-build.json), [start](publication/start-phone.png), [waiting token](publication/waiting-token-phone.png), [empty field](publication/empty-field-phone.png): authenticated Pages build for merge `f46add2`; real-time public Chromium touch journey passed with no unexpected errors. All 53 fetched runtime resources/11 WAVs match local bytes. Both orders remain covered locally; the focused public route used prize first. [Deployment record](../../PHASE-2-DEPLOYMENT.md). Documentation-only evidence updates do not change the verified runtime.
 
 ## Historical evidence copied without reclassifying it as current
 
@@ -19,4 +20,4 @@ Prepared 2026-10-26 for review; application baseline `614e44b`. This directory i
 
 ## Limits
 
-These are desktop automation and Developer-reported peer findings. No physical-phone test of the current app, fully unaided peer result, screen-reader-user audit, or current public Phase 2 deployment is established here. Current Chromium now completes all audit stages, including path/failure checks; remaining cross-engine verification stopped at Playwright Firefox page creation. Previous Windows WebKit lacked Web Audio; that is not an iPhone audio result. Final submission still needs supplied-debrief work, outstanding browser verification, release/phone verification and archive extraction testing. [Full requirements audit](../../PHASE-2-AUDIT.md).
+These are desktop automation and Developer-reported peer findings. No physical-phone test of the finished app, fully unaided peer result or screen-reader-user audit is established here. Phase 2 public deployment is verified. Chromium completes its audit and focused public journey; Firefox/Playwright page creation and WebKit coverage limits remain documented and were accepted by the Developer for publication. Previous Windows WebKit lacked Web Audio; that is not an iPhone audio result. Final submission still needs actual-phone verification, supplied-debrief work and archive extraction testing. [Full requirements audit](../../PHASE-2-AUDIT.md).

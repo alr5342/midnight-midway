@@ -1,4 +1,60 @@
-﻿commit 614e44beffa18869d09983d3fa406c0be6655e76
+﻿commit f46add2972288c72f82590dfa8ed46f1ef5fdf7e
+Merge: 4f7ed1b 3f9c165
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-26T12:57:56-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-26T12:57:56-05:00
+
+    Merge completed Midnight Midway Phase 2
+
+commit 3f9c165ea65f1eb10eb044a05db4ea4179209a7b
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-26T12:57:45-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-26T12:57:45-05:00
+
+    Finalize reviewed Phase 2 documents and publication verification
+
+ CREDITS.md                                         |   85 +-
+ README.md                                          |   65 +-
+ docs/GITHUB-PAGES.md                               |   59 +-
+ docs/PHASE-2-AUDIT.md                              |   66 +
+ docs/PHASE-2-DEPLOYMENT.md                         |   25 +
+ docs/PLAYTEST-NOTES.md                             |   36 +-
+ docs/evidence/phase2/README.md                     |   22 +
+ docs/evidence/phase2/audit-draft-attempts.json     |   44 +
+ .../phase2/browser-audit/chromium-empty-field.png  |  Bin 0 -> 459968 bytes
+ .../browser-audit/chromium-waiting-token.png       |  Bin 0 -> 522326 bytes
+ .../phase2/browser-audit/modal-focus-probe.json    |  252 ++++
+ docs/evidence/phase2/browser-audit/resolution.json |   62 +
+ docs/evidence/phase2/browser-audit/run-output.txt  |   20 +
+ .../phase2/current/carousel-first-token.png        |  Bin 0 -> 521180 bytes
+ docs/evidence/phase2/current/checks.json           |   93 ++
+ .../current/prize-first-carousel-last-token.png    |  Bin 0 -> 521230 bytes
+ docs/evidence/phase2/current/stacked-tickets.png   |  Bin 0 -> 522001 bytes
+ docs/evidence/phase2/current/unit-tests.txt        |   73 +
+ .../phase2/historical/empty-field-hold.png         |  Bin 0 -> 458369 bytes
+ docs/evidence/phase2/historical/ending-4s.png      |  Bin 0 -> 503937 bytes
+ .../phase2/historical/ending-runtime-checks.json   |   61 +
+ .../phase2/historical/peer-revision-checks.json    |   73 +
+ docs/evidence/phase2/historical/returned-bags.png  |  Bin 0 -> 512223 bytes
+ docs/evidence/phase2/manifest.json                 |   95 ++
+ docs/evidence/phase2/static-verification.json      |   41 +
+ docs/git/PHASE-2-HISTORY.txt                       | 1553 ++++++++++++++++++++
+ docs/history/20261026-finalization/CREDITS.md      |   73 +
+ docs/history/20261026-finalization/GITHUB-PAGES.md |   50 +
+ docs/history/20261026-finalization/README.md       |   56 +
+ docs/history/20261026-finalization/plan.md         |  305 ++++
+ docs/history/20261026-finalization/research.md     |  146 ++
+ docs/history/20261026-finalization/spec.md         |  186 +++
+ plan.md                                            |  320 +---
+ research.md                                        |  149 +-
+ spec.md                                            |  197 +--
+ tests/browser/check-phase2-audit.mjs               |  211 +++
+ tests/browser/check-phase2-live.mjs                |  126 ++
+ 37 files changed, 3811 insertions(+), 733 deletions(-)
+
+commit 614e44beffa18869d09983d3fa406c0be6655e76
 Author:     Alex Rosemann <arosemann@gmail.com>
 AuthorDate: 2026-10-26T00:04:04-05:00
 Commit:     Alex Rosemann <arosemann@gmail.com>

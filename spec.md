@@ -1,6 +1,6 @@
 # Midnight Midway — current specification
 
-Updated 2026-10-26 for final Phase 2 review. Application baseline: `614e44b` on `feature/carousel-puzzle`. The Developer has approved the current experience; this checkpoint audits and documents it without runtime or creative changes. Fixed assignment requirements: [brief.md](brief.md). Final acceptance evidence and outstanding gates: [Phase 2 audit](docs/PHASE-2-AUDIT.md).
+Updated 2026-10-26. Approved application baseline: `614e44b`, now merged into `main` and published without runtime or creative changes. [Deployment and public verification](docs/PHASE-2-DEPLOYMENT.md) record the actual release. Fixed assignment requirements: [brief.md](brief.md). Final submission evidence and outstanding phone/debrief/archive gates: [Phase 2 audit](docs/PHASE-2-AUDIT.md).
 
 ## Goal and constraints
 

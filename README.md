@@ -2,9 +2,9 @@
 
 A phone-sized illustrated Halloween midway: ring for admission, spend tickets on a musical carousel or a two-beanbag can game, then claim a brass keepsake as the park disappears. Spooky, playful, ages 10+, unbranded. Ferris wheel and carousel stay stationary; layered artwork, lighting, fog, sound and staggered horse movement create the atmosphere.
 
-**Phase 2 publication authorized, 2026-10-26:** approved application baseline `614e44b`; reviewed documentation/evidence/harness changes accompany it. [Publication status and public verification](docs/PHASE-2-DEPLOYMENT.md). The supplied debrief remains deferred; no final ZIP in this checkpoint. [Requirements audit and remaining gates](docs/PHASE-2-AUDIT.md).
+**Phase 2 published and public-browser verified, 2026-10-26.** Full public journey verified at merge `f46add2`, with runtime unchanged from approved application baseline `614e44b`; later evidence updates change documentation only. [Deployment and verification record](docs/PHASE-2-DEPLOYMENT.md). Final physical-phone verification, supplied debrief and final ZIP remain separate checkpoints. [Requirements audit and remaining gates](docs/PHASE-2-AUDIT.md).
 
-[Public URL](https://alr5342.github.io/midnight-midway/) and [GitHub repository](https://github.com/alr5342/midnight-midway) are being updated through the existing `main` / `/(root)` Pages source. Consult the publication record for the verified revision. The previous phone approval applies only to Phase 1, not this finished app.
+[Play the finished app](https://alr5342.github.io/midnight-midway/) · [GitHub repository](https://github.com/alr5342/midnight-midway). Pages uses the existing `main` / `/(root)` source. The previous phone approval applies only to Phase 1; a new review of this finished public app is still required.
 
 ## Run and play
 
@@ -46,9 +46,9 @@ Two smartphone peer rounds are recorded: 2026-10-19 needed substantial guidance;
 
 ## Release and submission
 
-The existing Pages repository/source remains `alr5342/midnight-midway`, `main` / `/(root)`. Current relative paths are exercised under `/midnight-midway/`. After review: complete the supplied debrief, resolve audit gates, publish the approved branch/history to the existing repository, verify actual public resources/journeys and the finished app on a physical phone, then create and extraction-test the final repository ZIP. No new repository or creative work is needed. [Release plan](plan.md), [Pages handoff](docs/GITHUB-PAGES.md).
+The approved development history is merged into `main` and published through the existing Pages repository/source. Focused public verification passed: actual journey, Credits/Pause, failed-round recovery, claim/disappearance/Revisit and 53 matching runtime resources including 11 WAVs. Firefox/WebKit coverage limits remain documented; no new extensive audit. Next: review publication, verify the finished app on a physical phone, complete the supplied debrief in its separate checkpoint, then create and extraction-test the final repository ZIP. [Release plan](plan.md), [Pages record](docs/GITHUB-PAGES.md).
 
-`docs/git/PHASE-2-HISTORY.txt` is a tracked history snapshot through the audited application baseline; it must be refreshed for final release. `node tools/export-git-log.mjs` creates the full `docs/git/GIT-LOG.txt`, intentionally ignored. GitHub's source ZIP omits ignored files and `.git`; the final repository must contain a tracked history export, selected evidence and the completed supplied debrief. The historical Phase 1 packager is not a final Phase 2 acceptance tool.
+`docs/git/PHASE-2-HISTORY.txt` is a tracked history snapshot through the verified publication merge; refresh it for the final submission. `node tools/export-git-log.mjs` creates the full `docs/git/GIT-LOG.txt`, intentionally ignored. GitHub's source ZIP omits ignored files and `.git`; the final repository must contain a tracked history export, selected evidence and the completed supplied debrief. The historical Phase 1 packager is not a final Phase 2 acceptance tool.
 
 Phase 1 public/phone/archive records remain intact: [submission](docs/SUBMISSION.md), [deployment](docs/DEPLOYMENT.md), [phone record](docs/PHONE-VERIFICATION.md). The audit rechecked the original ZIP hash without replacing it.
 

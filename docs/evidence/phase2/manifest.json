@@ -73,6 +73,36 @@
       "source": "tests/results/phase2-audit/modal-focus-probe.json",
       "sha256": "71742bdf81378ff5433f0afc20eca65e19a20e0b6cd943ae0e88d32ebf13cf5a",
       "scope": "2026-10-26 browser-harness follow-up; Chromium complete pass, remaining engines incomplete"
+    },
+    {
+      "file": "docs/evidence/phase2/publication/checks.json",
+      "source": "tests/results/phase2-publication/checks.json",
+      "sha256": "783c0ee61f70aaa3fed599b9a3389fbd2404aeccf4fb3aa9585653004b263f4a",
+      "scope": "2026-10-26 focused public Phase 2 verification of merge f46add2; real-time Chromium touch, not physical-phone review"
+    },
+    {
+      "file": "docs/evidence/phase2/publication/pages-build.json",
+      "source": "tests/results/phase2-publication/pages-status.json",
+      "sha256": "141c8d80f7939cead4934bad422acd6f4b87ea9764a44cd1591324dc9cc53f94",
+      "scope": "2026-10-26 focused public Phase 2 verification of merge f46add2; real-time Chromium touch, not physical-phone review"
+    },
+    {
+      "file": "docs/evidence/phase2/publication/start-phone.png",
+      "source": "tests/results/phase2-publication/start-phone.png",
+      "sha256": "458586acb25c4c88c4c6d56eecbce18731ac4e6a322c52511cee8a6168ec9433",
+      "scope": "2026-10-26 focused public Phase 2 verification of merge f46add2; real-time Chromium touch, not physical-phone review"
+    },
+    {
+      "file": "docs/evidence/phase2/publication/waiting-token-phone.png",
+      "source": "tests/results/phase2-publication/waiting-token-phone.png",
+      "sha256": "26cd211a49a0c9a71ec23bd21341030f81cf5773b223485d21039bc0ea4e73fb",
+      "scope": "2026-10-26 focused public Phase 2 verification of merge f46add2; real-time Chromium touch, not physical-phone review"
+    },
+    {
+      "file": "docs/evidence/phase2/publication/empty-field-phone.png",
+      "source": "tests/results/phase2-publication/empty-field-phone.png",
+      "sha256": "3e34a5a09b2d862e7fb79630372dca8f05d86ad988ef042334d44436dc57d282",
+      "scope": "2026-10-26 focused public Phase 2 verification of merge f46add2; real-time Chromium touch, not physical-phone review"
     }
   ],
   "unitOutput": {
@@ -91,5 +121,15 @@
     "observedOutput": "docs/evidence/phase2/browser-audit/run-output.txt",
     "observedOutputSha256": "de488aeb6f22da724395184bfaa0e2f8e7a31154ff84c80b5b1fb2b270afa490",
     "status": "chromium-passed-firefox-page-creation-failed-webkit-not-reached"
+  },
+  "publication": {
+    "verifiedMerge": "f46add2972288c72f82590dfa8ed46f1ef5fdf7e",
+    "url": "https://alr5342.github.io/midnight-midway/",
+    "verifiedAt": "2026-10-26T18:05:53.855Z",
+    "runtimeResources": 53,
+    "wavFiles": 11,
+    "branch": "main",
+    "knownBrowserLimitsDocumented": true,
+    "phase1AndDebriefUnchanged": true
   }
 }
