@@ -15,28 +15,28 @@ test('admission/ride gate, supported stack and two bags are deterministic in eit
     assert.equal(game.throwAt(last,700),true);assert.equal(game.bags,0);
     assert.equal(game.snapshot(1349).playing,false);
     assert.equal(game.snapshot(1350).playing,true);
-    assert.equal(game.snapshot(9349).tokenAwarded,false,'Award waits for full story');
-    assert.equal(game.snapshot(9350).tokenAwarded,true);
+    assert.equal(game.snapshot(9349).completed,false,'Milestone waits for full story');
+    assert.equal(game.snapshot(9350).completed,true);
     assert.equal(game.snapshot(9350).completedStories,1);
     assert.equal(game.snapshot(20000).completedStories,1);
   }
 });
 
-test('top-first loses; explicit retry resets only the attempt, replay never duplicates the keepsake',()=>{
+test('top-first loses; explicit retry resets only the attempt, replay preserves completed prize history',()=>{
   const game=new PrizeGame();game.unlock(0);
   game.throwAt('top',0);game.snapshot(650);game.throwAt('left',700);
   assert.equal(game.snapshot(1350).failed,true);assert.equal(game.throwAt('right',3000),false);
-  assert.equal(game.tokenAwarded,false);assert.equal(game.retry(3000),true);
+  assert.equal(game.completed,false);assert.equal(game.retry(3000),true);
   assert.equal(game.bags,2);assert.equal(game.down.size,0);
   game.throwAt('left',3000);game.snapshot(4450);game.throwAt('right',4500);
   assert.equal(game.snapshot(13950).completed,true);
-  assert.equal(game.retry(14000),true);assert.equal(game.tokenAwarded,true);assert.equal(game.snapshot(14000).tokenOpacity,0);
+  assert.equal(game.retry(14000),true);assert.equal(game.completed,true);
   game.throwAt('top',14000);game.snapshot(15450);game.throwAt('right',15500);
-  assert.equal(game.snapshot(16950).failed,true);assert.equal(game.tokenAwarded,true);
+  assert.equal(game.snapshot(16950).failed,true);assert.equal(game.completed,true);
   assert.match(game.snapshot(16950).hint,/boxes/);
   game.retry(17000);game.throwAt('right',17000);game.snapshot(18450);game.throwAt('left',18500);
   assert.equal(game.snapshot(27950).completedStories,2);
-  assert.equal(game.snapshot(27950).tokenAwarded,true);
+  assert.equal(game.snapshot(27950).completed,true);
 });
 
 test('shared pause freezes throws, story, hints and cues; reduced motion removes travel, retains timing/feedback',()=>{
@@ -54,7 +54,7 @@ test('shared pause freezes throws, story, hints and cues; reduced motion removes
     now+=age-clock.elapsedMs;clock.pause();const frozen=game.snapshot(clock.elapsedMs);
     now+=60000;assert.deepEqual(game.snapshot(clock.elapsedMs),frozen);clock.resume();
     const reduced=game.snapshot(clock.elapsedMs,true);
-    assert.equal(reduced.prizeY,0);assert.equal(reduced.tokenY,0);assert.equal(reduced.playing,frozen.playing);
+    assert.equal(reduced.prizeY,0);assert.equal(reduced.playing,frozen.playing);
   }
 });
 

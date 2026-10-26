@@ -72,7 +72,7 @@ export class TicketStory {
   }
 }
 
-export function connectTicketStory(scene, playback, cueAudio, { bell, notice, onComplete = () => {}, canInteract = () => true }) {
+export function connectTicketStory(scene, playback, cueAudio, { bell, notice, onComplete = () => {}, needsTicket = () => false, canInteract = () => true }) {
   const art = mountTicketArtwork(scene);
   art.layer.hidden = true;
   const model = new TicketStory();
@@ -97,7 +97,7 @@ export function connectTicketStory(scene, playback, cueAudio, { bell, notice, on
     // The visit owner decides whether this completion grants new progress.
     if (state.completed > reportedCompletions) {
       reportedCompletions = state.completed;
-      onComplete();
+      onComplete(state.completed);
       if (document.activeElement === bell) document.querySelector('#playback').focus({preventScroll:true});
     }
     art.layer.hidden = snapshot.state === 'start' || assetFailure;
@@ -112,7 +112,7 @@ export function connectTicketStory(scene, playback, cueAudio, { bell, notice, on
     const bellX = state.bellX * scene.clientWidth / 100;
     const bellY = state.bellY * scene.clientHeight / 100;
     part('bell').style.transform = `translate(${bellX}px, ${bellY}px) rotate(${state.bellTilt}deg)`;
-    const guide=!state.playing&&state.completed===0?state.guidance.halo:0;
+    const guide=!state.playing&&(state.completed===0||needsTicket())?state.guidance.halo:0;
     const glow = Math.max(guide*.55, state.feedback * (.3 + .2 * state.rings));
     part('bell').style.filter = 'drop-shadow(1px 2px 2px #08061190)' +
       (glow > 0 ? ` drop-shadow(0 0 ${2 + state.rings * 2+guide*9}px rgba(255,217,125,${glow}))` : '');

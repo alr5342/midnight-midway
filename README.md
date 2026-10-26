@@ -1,6 +1,8 @@
 # Midnight Midway
 
-Current local checkpoint: approved narration overhaul with the Developer's three wording changes. One bottom-box writer selects the pending objective, active story or explicit inspection; partial replays and completed objects cannot steal later hints. Handoffs yield immediately to the next interaction. The bell releases its lingering focus ring when its story starts, retains deliberate keyboard focus when revisited, and remains replayable. [Scope, copy ownership and verification](docs/design/NARRATION-REVISION.md). Current sequential progression and one admission ticket are unchanged; stackable/spendable tickets and either-order attractions are a later checkpoint. Awaiting local review; no deployment.
+Current local checkpoint: stackable tickets and flexible attraction order. Every completed booth story adds one ticket. Start the carousel or prize game with one ticket; wrong notes and failed-round retries remain covered until that activity succeeds. Both attractions unlock with the first ticket and can be replayed with new tickets after success. Finish both stories in either order to receive one souvenir at the prize stall. The existing compact badge shows the available balance, including zero. [Scope, payment rules and verification](docs/design/TICKET-SYSTEM.md). Awaiting local review; no deployment.
+
+The approved narration rewrite and bell focus correction remain. One bottom-box writer now follows the selected paid activity, remaining milestones or the need for another ticket. [Prior narration checkpoint](docs/design/NARRATION-REVISION.md).
 
 Prior peer revisions remain: natural returned-bag pickup, gradual environmental glows, SVG pause icon, exact Credits recovery and an eight-second wheel-last ending plus two-second quiet hold. [Prior checks](docs/design/PEER-REVISION.md).
 
@@ -12,7 +14,11 @@ One illustrated phone scene with lighting, fog, bats, looping wind, a start scre
 
 ## Run locally
 
-Complete the three-ring booth story to receive admission, then tap the carousel horses. The tune is left → right → center → left; the ground paper shows only four musical notes and becomes inspectable after admission. A wrong note resets only the melody attempt. The eight-second carousel payoff settles into staggered horse bobbing and quiet music, without rotation. The stall then wakes: two beanbags must knock down all three cans. Either lower can carries the top down; a top-first throw leaves too much standing. A failed round remains recoverable through bag pickup. Winning plays the eight-second prize story and offers a brass Ferris-wheel token. Deliberately claiming it fades the attractions over the empty field, with the wheel last. Revisit or refresh begins a fresh visit. Completed stories remain replayable before claim without clearing earned milestones.
+Complete the three-ring booth story for a ticket; repeat it to collect more. Either attraction can come next. The first accepted horse note spends a ticket on the carousel: its tune remains left → right → center → left. The ground paper is free to inspect after the first admission. Wrong notes reset only the melody attempt. Its eight-second payoff settles into staggered horse bobbing and quiet music, without rotation.
+
+The first accepted throw spends a ticket on the prize game: two beanbags must knock down all three cans. Either lower can carries the top down; a top-first throw leaves too much standing. Pick up returned bags after failure to retry the paid game free. Winning plays the same eight-second haunted prize story. Starting a replay after success costs a new ticket (prize replay starts at bag pickup). Unfinished paid activities remain paid if you explore elsewhere or return to the booth.
+
+After both stories have completed, the brass Ferris-wheel token appears at the existing prize-stall location, including when the carousel finishes last. It remains earned across replays and stays out of the prize aiming space during a replay round. Claim it to fade the attractions over the empty field, with the wheel last. Revisit or refresh begins a fresh visit.
 
 The bottom narration is the only in-scene text box. One active-time clock coordinates motion, audio, hints, throws and fades. Pause freezes them all; reduced motion keeps the narrative and sound with stationary feedback instead of travel/pulsing. Original artwork and assets remain intact. [Journey and checkpoint history](docs/design/JOURNEY.md).
 
@@ -32,14 +38,12 @@ From the project root:
 
 ```powershell
 node --test tests/unit/*.test.mjs
-node tests/browser/check-narration.mjs
-node tests/browser/check-peer-revision.mjs
-node tests/browser/check-ending.mjs
+node tests/browser/check-tickets.mjs
 node tools/check-secrets.mjs
 node tools/export-git-log.mjs
 ```
 
-Current targeted browser checks are `node tests/browser/check-peer-revision.mjs` and `node tests/browser/check-ending.mjs`. The former supersedes `check-journey-recovery.mjs`, whose historical contract includes the removed restart toolbar. Existing older runners are preserved for their checkpoint evidence; they are not all current acceptance tests. Fresh captures/logs go into ignored `tests/results/`; earlier evidence stays unchanged in `archive/reviews/`. Browser checks need a separately installed Playwright package and browsers, which are not bundled or needed by the app. The scripts retain this machine's installed path and support `PLAYWRIGHT_MODULE` where indicated.
+The current focused browser runner is `check-tickets.mjs`: both orders, payments, retries, replays, Pause/Credits, reduced motion and the unchanged ending. Older ticket/narration/ending runners retain their historical sequential, single-ticket contracts and are preserved as checkpoint evidence; they are not current acceptance tests. Fresh captures/logs go into ignored `tests/results/`; earlier evidence stays unchanged in `archive/reviews/`. Browser checks need a separately installed Playwright package and browsers, which are not bundled or needed by the app. The current runner supports `PLAYWRIGHT_MODULE` for another installation.
 
 Preflight tests the project under `/midnight-midway-check/` and checks filename case for GitHub Pages compatibility. Chromium/Firefox support the full audiovisual checks. The installed Windows WebKit build has no Web Audio API; its visual/accessibility/path checks pass, but its audio is unverified. Historical strict touch screenshot comparisons remain unresolved; current regressions verify exact frozen active time/DOM state and resting story reset. See the [audit](docs/PHASE-1-AUDIT.md) for scope and limitations.
 

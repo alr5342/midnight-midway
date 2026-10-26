@@ -37,6 +37,7 @@ export class CarouselPuzzle {
     this.payoffAt = null;
     this.payoffSerial = 0;
     this.completed = false;
+    this.completedStories = 0;
     this.musicStartedAt = null;
     this.lastCompletedPayoffAt = null;
     this.completedAt = null;
@@ -79,7 +80,9 @@ export class CarouselPuzzle {
     const age = this.payoffAt === null ? null : Math.max(0,(time-this.payoffAt)/1000);
     const playing = age !== null && age < 8;
     if (age !== null && age >= 8) {
-      this.completed = true;this.lastCompletedPayoffAt=this.payoffAt;
+      this.completed = true;
+      if (this.lastCompletedPayoffAt !== this.payoffAt) this.completedStories++;
+      this.lastCompletedPayoffAt=this.payoffAt;
       if (this.completedAt === null) this.completedAt = this.payoffAt + 8000;
     }
     const phase = age === null ? 'resting' : age < 1.2 ? 'lights' : age < 6 ? 'ride' : age < 8 ? 'settle' : 'idle';
@@ -103,13 +106,13 @@ export class CarouselPuzzle {
     const waiting = this.hintSince === null ? 0 : time - this.hintSince;
     const hint = carouselNarration({playing, age, mistake: this.mistake,
       feedbackAge: this.feedbackAt === null ? null : time - this.feedbackAt, waiting});
-    return {progress:this.progress,solved:this.solved,completed:this.completed,completedAt:this.completedAt,
+    return {progress:this.progress,solved:this.solved,completed:this.completed,completedStories:this.completedStories,completedAt:this.completedAt,
       feedbackAt:this.feedbackAt,inspectedAt:this.inspectedAt,playing,phase,horseY,light,
       note:feedback?this.note:null,mistake:feedback&&this.mistake,hint,cues,musicCues:musicAt(time,this.musicStartedAt),guidance:guidanceAt(time,this.hintSince,reducedMotion)};
   }
 }
 
-export function connectCarousel(scene, playback, audio, {access, onSolved}) {
+export function connectCarousel(scene, playback, audio, {access, play, onComplete, onSolved}) {
   const model = new CarouselPuzzle();
   const controls = document.querySelector('#carousel-controls');
   const paper = document.querySelector('#music-clue');
@@ -119,18 +122,28 @@ export function connectCarousel(scene, playback, audio, {access, onSolved}) {
   const notes = [...controls.querySelectorAll('[data-horse-note]')];
   let clueOpen = false;
   let wasSolved = false;
-  const canUse = () => playback.canInteract && access().admitted && !access().storyPlaying && !model.snapshot(playback.elapsedMs).playing;
+  let reportedCompletions = 0;
+  function readState(clock) {
+    const state=model.snapshot(clock.elapsedMs,clock.reducedMotion);
+    if(state.completedStories>reportedCompletions) {
+      reportedCompletions=state.completedStories;
+      onComplete(state.completedStories);
+    }
+    return state;
+  }
+  const canExplore = () => playback.canInteract && access().admitted && !access().storyPlaying && !readState(playback.snapshot()).playing;
+  const canUse = () => canExplore() && access().canPlay;
 
   function render(snapshot) {
     const availability = access();
     if (availability.admitted) model.unlock(snapshot.elapsedMs);
-    const state = model.snapshot(snapshot.elapsedMs,snapshot.reducedMotion);
+    const state = readState(snapshot);
     const visible = availability.admitted && !availability.storyPlaying && snapshot.state !== 'start';
     controls.hidden = !visible;
     paper.hidden = !visible || !clueOpen;
     const enabled = snapshot.canInteract && visible && !state.playing;
     for (const button of notes) {
-      button.setAttribute('aria-disabled',String(!enabled || clueOpen || audio.status === 'loading'));
+      button.setAttribute('aria-disabled',String(!enabled || !access().canPlay || clueOpen || audio.status === 'loading'));
       button.dataset.active = String(state.note === button.dataset.horseNote);
     }
     open.setAttribute('aria-disabled',String(!enabled));
@@ -155,7 +168,7 @@ export function connectCarousel(scene, playback, audio, {access, onSolved}) {
   playback.subscribe(render);
 
   function putAway() {
-    if (!canUse()) return;
+    if (!canExplore()) return;
     clueOpen = false;
     model.inspect(playback.elapsedMs);
     playback.notify();
@@ -163,11 +176,11 @@ export function connectCarousel(scene, playback, audio, {access, onSolved}) {
   }
   for (const button of notes) button.addEventListener('click', () => {
     if (!canUse() || clueOpen || audio.status === 'loading') return;
-    model.play(button.dataset.horseNote,playback.elapsedMs);
+    play(() => model.play(button.dataset.horseNote,playback.elapsedMs));
     playback.notify();
   });
   open.addEventListener('click', () => {
-    if (!canUse()) return;
+    if (!canExplore()) return;
     if (clueOpen) {putAway();return;}
     clueOpen = true;
     model.inspect(playback.elapsedMs);
@@ -179,7 +192,7 @@ export function connectCarousel(scene, playback, audio, {access, onSolved}) {
     if (event.key === 'Escape' && clueOpen && !document.querySelector('#credits-dialog').open) putAway();
   });
   return {
-    snapshot: () => ({...model.snapshot(playback.elapsedMs,playback.reducedMotion),clueOpen}),
+    snapshot: () => ({...readState(playback.snapshot()),clueOpen}),
     restart:()=>{model.restart(playback.elapsedMs);clueOpen=false;}
   };
 }

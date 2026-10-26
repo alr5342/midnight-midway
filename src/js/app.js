@@ -10,6 +10,7 @@ import { connectCarousel } from './carousel.js';
 import { connectPrize } from './prize.js';
 import { connectEnding } from './ending.js';
 import { selectNarration } from './narration.js';
+import { Visit } from './visit.js';
 
 mountSceneArtwork();
 
@@ -27,7 +28,7 @@ const status = document.querySelector('#playback-status');
 const admission = document.querySelector('#admission');
 // Visit progress is independent of the booth's temporary rings/animation reset.
 // Reload constructs a fresh visit; no storage or cross-session state is used.
-const journey = { admitted: false };
+const journey = new Visit();
 let carousel = null;
 let prize = null;
 let ending = null;
@@ -53,41 +54,48 @@ const storyAudio = new StoryAudio(ambientAudio, { onStatus: value => {
 const ticketStory = connectTicketStory(document.querySelector('.scene'), playback, storyAudio, {
   bell: document.querySelector('#bell'), notice: storyNotice,
   onComplete: grantAdmission,
+  needsTicket: () => journey.tickets===0&&!journey.active.carousel&&!journey.active.prize&&journey.tokenAt===null,
   canInteract: () => !ending?.snapshot().claimed && !carousel?.snapshot().clueOpen && !carousel?.snapshot().playing && !prize?.snapshot().busy
 });
 carousel = connectCarousel(document.querySelector('.scene'), playback, storyAudio, {
-  access: () => ({admitted:journey.admitted,storyPlaying:ticketStory.snapshot().playing || Boolean(prize?.snapshot().busy) || Boolean(ending?.snapshot().claimed)}),
+  access: () => ({admitted:journey.issued>0,canPlay:journey.canPlay('carousel'),storyPlaying:ticketStory.snapshot().playing || Boolean(prize?.snapshot().busy) || Boolean(ending?.snapshot().claimed)}),
+  play: action => journey.play('carousel',playback.elapsedMs,action),
+  onComplete: stories => journey.complete('carousel',stories,playback.elapsedMs),
   onSolved: () => { stage.dataset.carouselPuzzle = 'solved'; }
 });
 prize = connectPrize(document.querySelector('.scene'),playback,storyAudio,{
-  access: () => ({rideCompleted:carousel.snapshot().completed,blocked:ticketStory.snapshot().playing || carousel.snapshot().playing || carousel.snapshot().clueOpen || Boolean(ending?.snapshot().claimed)})
+  access: () => ({admitted:journey.issued>0,canPlay:journey.canPlay('prize'),tokenAt:journey.tokenAt,blocked:ticketStory.snapshot().playing || carousel.snapshot().playing || carousel.snapshot().clueOpen || Boolean(ending?.snapshot().claimed)}),
+  play: action => journey.play('prize',playback.elapsedMs,action),
+  onComplete: stories => journey.complete('prize',stories,playback.elapsedMs)
 });
 ending=connectEnding(document.querySelector('.scene'),playback,ambientAudio,storyAudio,{
   access:()=>{
     const reward=prize.snapshot();
-    return {tokenAwarded:reward.tokenAwarded,tokenOffered:reward.tokenOpacity===1,
+    return {tokenAwarded:journey.tokenAt!==null,tokenOffered:reward.tokenOffered,
       blocked:ticketStory.snapshot().playing || carousel.snapshot().playing || carousel.snapshot().clueOpen || reward.busy};
   }
 });
 connectCredits(playback);
 const assets = connectAssetReadiness(document.querySelector('.scene'), enter, document.querySelector('#asset-notice'));
 
-function grantAdmission() {
-  if (journey.admitted) return;
-  journey.admitted = true;
+function grantAdmission(stories) {
+  journey.award(stories,playback.elapsedMs);
   renderJourney(playback.snapshot());
 }
 
 function journeySnapshot() {
-  return { admitted: journey.admitted, admissionTickets: journey.admitted ? 1 : 0, carouselUnlocked: journey.admitted,
-    prizeUnlocked: Boolean(carousel?.snapshot().completed), souvenirTokens: prize?.snapshot().tokenAwarded ? 1 : 0 };
+  return journey.snapshot();
 }
 
 function renderJourney(snapshot) {
-  const availability = journey.admitted ? 'unlocked' : 'locked';
+  const availability = journey.issued>0 ? 'unlocked' : 'locked';
   if (stage.dataset.carousel !== availability) stage.dataset.carousel = availability;
-  const hidden = !journey.admitted || snapshot.state === 'start' || Boolean(ending?.snapshot().claimed);
+  const hidden = journey.issued===0 || snapshot.state === 'start' || Boolean(ending?.snapshot().claimed);
   if (admission.hidden !== hidden) admission.hidden = hidden;
+  const count = `${journey.tickets} ticket${journey.tickets===1?'':'s'}`;
+  const label = admission.querySelector('span');
+  if(label.textContent!==count)label.textContent=count;
+  admission.setAttribute('aria-label',`Available admission: ${count}`);
 }
 
 function nextFrame() {
@@ -99,17 +107,15 @@ function nextFrame() {
 function renderNarration(clock) {
   const booth = ticketStory.snapshot(), ride = carousel.snapshot();
   const game = prize.snapshot(), finale = ending.snapshot();
-  // Current progression policy only. Future ticket spending/either-order play
-  // belongs here; local attraction copy does not assume its place in a queue.
-  const objective = !journey.admitted ? 'booth' : !ride.completed ? 'carousel' : !game.completed ? 'prize' : 'token';
+  const visit=journey.snapshot();
   const notice = [storyNotice, audioNotice].find(item => !item.hidden);
-  const warning = objective === 'prize' && game.assetFailure
+  const warning = visit.admitted&&game.assetFailure
     ? 'The game props could not load. Reload to try again.' : notice?.textContent || '';
-  const narration = selectNarration({clock, objective, booth, carousel: ride, prize: game, ending: finale, warning});
+  const narration = selectNarration({clock, visit, booth, carousel: ride, prize: game, ending: finale, warning});
   hint.hidden = narration.hidden;
   hint.dataset.owner = narration.owner;
   if (hint.textContent !== narration.text) hint.textContent = narration.text;
-  stage.dataset.activity = objective;
+  stage.dataset.activity = narration.owner;
 }
 
 playback.subscribe((snapshot) => {

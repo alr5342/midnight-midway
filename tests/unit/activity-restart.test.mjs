@@ -40,14 +40,14 @@ test('every legal losing pair recovers repeatedly; resets in flight and story ca
     const game=new PrizeGame();game.unlock(0);game.throwAt('left',0);
     if(at>=1000) {game.snapshot(650);game.throwAt('right',700);}
     game.restart(at);const state=game.snapshot(25000);
-    assert.equal(state.busy,false);assert.equal(state.bags,2);assert.deepEqual(state.down,[]);assert.equal(state.tokenAwarded,false);
+    assert.equal(state.busy,false);assert.equal(state.bags,2);assert.deepEqual(state.down,[]);assert.equal(state.completed,false);
   }
 });
 
-test('paused activity reset neither resumes time nor removes the earned token',()=>{
+test('paused activity reset neither resumes time nor removes completed prize history',()=>{
   let now=0;const clock=new Playback({now:()=>now}),game=new PrizeGame();clock.start();game.unlock(0);
   game.throwAt('left',0);game.snapshot(650);game.throwAt('right',700);game.snapshot(9350);
   now=10000;clock.pause();game.restart(clock.elapsedMs);now+=30000;
   assert.equal(clock.state,'paused');assert.equal(clock.elapsedMs,10000);
-  assert.equal(game.snapshot(clock.elapsedMs).tokenAwarded,true);assert.equal(game.snapshot(clock.elapsedMs).bags,2);
+  assert.equal(game.snapshot(clock.elapsedMs).completed,true);assert.equal(game.snapshot(clock.elapsedMs).bags,2);
 });

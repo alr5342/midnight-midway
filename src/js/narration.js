@@ -1,8 +1,7 @@
 // Attraction prose describes local states. Journey handoffs live separately
 // so changing attraction order does not change the puzzle/story narration.
 const copy = {
-  admission: 'Your ticket promises a ride. The carousel waits beyond the booth.',
-  prizeTransition: 'Beyond the carousel, the prize stall seems to be waiting for someone.',
+  admission: 'One ticket, one turn. The carousel and prize stall are waiting.',
   inspection: 'The ink kept the tune; the horses kept its voices.',
   token: 'Perhaps this place has one last thing to give.',
   tokenHint: 'The token waits for your hand.',
@@ -39,7 +38,7 @@ export function carouselNarration({playing, age, mistake, feedbackAge, waiting})
 export function prizeNarration({playing, storyAge, failed, returnAge, bags, waiting}) {
   if (playing) return storyAge < 4.5
     ? 'For a moment, the stall seems to remember its old crowd.'
-    : 'Something has been kept for the last visitor.';
+    : 'One old promise has been kept.';
   if (failed) return returnAge >= 12000
     ? 'The returned beanbags are yours to take.'
     : 'The stall is not finished with you. Something waits in the beanbag boxes.';
@@ -57,13 +56,10 @@ export function endingNarration(poseAge) {
   return 'Keep something of this night.';
 }
 
-function actedSince(activity, time) {
-  return [activity.feedbackAt, activity.inspectedAt].some(at => at != null && at >= time);
-}
-
 // One priority rule, one bottom-box writer in app.js. The coordinator supplies
-// the pending objective; the last completed object touched never chooses it.
-export function selectNarration({clock, objective, booth, carousel, prize, ending, warning = ''}) {
+// paid activities and visit milestones; optional exploration cannot choose a
+// completed activity's hints without actually starting its paid replay.
+export function selectNarration({clock, visit, booth, carousel, prize, ending, warning = ''}) {
   const message = (owner, text) => ({owner, text, hidden: false});
   if (clock.state === 'start' || ending.gone) return {owner: 'quiet', text: '', hidden: true};
   if (clock.state === 'paused') return message('paused', copy.paused);
@@ -74,22 +70,28 @@ export function selectNarration({clock, objective, booth, carousel, prize, endin
   if (prize.playing) return message('prize-story', prize.hint);
   if (carousel.clueOpen) return message('inspection', copy.inspection);
 
-  if (objective === 'booth') return message('booth', booth.hint);
-  if (objective === 'carousel') {
-    const handoff = booth.completed === 1 && clock.elapsedMs - booth.completedAt < 3200
-      && !actedSince(carousel, booth.completedAt);
-    return message('carousel', handoff ? copy.admission : carousel.hint);
+  const active = visit.active[visit.selected] ? visit.selected
+    : ['carousel', 'prize'].find(name => visit.active[name]);
+  if (active) return message(active, active === 'carousel' ? carousel.hint : prize.hint);
+  if (visit.souvenirTokens) {
+    if (!ending.ready) return message('notice', ending.assetFailure
+      ? 'The ending artwork could not load. Reload to try again.'
+      : 'The night is gathering its last memory…');
+    return message('token', clock.elapsedMs-visit.tokenAt >= 12000 ? copy.tokenHint : copy.token);
   }
-  if (objective === 'prize') {
-    const handoff = carousel.completedAt !== null && clock.elapsedMs - carousel.completedAt < 3200
-      && !actedSince(prize, carousel.completedAt);
-    return message('prize', handoff ? copy.prizeTransition : prize.hint);
+  if (!visit.admitted) return message('booth', booth.hint);
+  if (visit.admissionTickets === 0) {
+    if (booth.rings > 0) return message('booth', booth.hint);
+    const next = visit.completed.carousel ? 'The prize stall still waits.'
+      : visit.completed.prize ? 'The painted horses still wait.' : 'Another turn needs another ticket.';
+    return message('booth', `${next} The booth’s bell may offer another ticket.`);
   }
-  // The current game can still be replayed. While its earned token is out of
-  // the aiming space, guide that attempt; never invite an unavailable claim.
-  if (prize.tokenOpacity !== 1) return message('prize', prize.hint);
-  if (!ending.ready) return message('notice', ending.assetFailure
-    ? 'The ending artwork could not load. Reload to try again.'
-    : 'The night is gathering its last memory…');
-  return message('token', prize.returnAge >= 12000 ? copy.tokenHint : copy.token);
+  const recentlyAwarded = clock.elapsedMs-visit.lastAwardAt < 3200;
+  const actedAfterAward = [visit.lastPlayAt, carousel.inspectedAt].some(at => at != null && at >= visit.lastAwardAt);
+  if (recentlyAwarded && !actedAfterAward) return message('choice', visit.ticketsIssued === 1
+    ? copy.admission : 'Another ticket, kept against another turn.');
+  if (!visit.completed.carousel && visit.completed.prize) return message('carousel', carousel.hint);
+  if (!visit.completed.prize && visit.completed.carousel) return message('prize', prize.hint);
+  return message('choice', clock.elapsedMs-visit.lastAwardAt >= 24000
+    ? 'A ticket belongs to either attraction. The bell can offer another.' : copy.admission);
 }

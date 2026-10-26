@@ -1,5 +1,15 @@
 # Technical Specification
 
+## Current ticket and replay contract
+
+Each full eight-second booth story issues one ticket, exactly once per completion; tickets stack. Both attractions unlock after the first issue, independent of each other's completion. The first accepted horse note or prize throw opens a paid activity and consumes one ticket. Reading the paper is free. Wrong notes, repeated failed two-bag rounds and returned-bag retries stay within that paid activity. Success after the full attraction story closes payment ownership; a new replay needs another ticket. Prize replay begins at bag pickup. Unfinished paid activities survive switching, booth visits, Pause/Credits and interruptions. Rejected/blocked input and renders do not change the balance. Keep zero visible after admission, in the existing compact badge.
+
+The visit ledger owns balance, payments, per-attraction completed-story counters and one souvenir award. Settle completions before processing new input so a just-finished replay cannot reuse its old payment. Only full completion of both attraction stories awards the token, in either order; the prize game no longer independently awards it. Paint the original token at the existing stall location even if the carousel finishes last. Retain its earned state through replays, hiding it during prize aiming and restoring it at round rest. Existing claim, eight-second wheel-last disappearance, quiet hold and fresh Revisit remain.
+
+The single narration writer uses current paid activity/milestones. Offer either attraction, explain one ticket per turn, and direct empty-balance players back to the bell without prescribing order or puzzle solutions. Preserve existing local puzzle/story prose except the prize story's final line now closes its promise without prematurely promising the souvenir. Pending paid input owns its hints; explicit stories/inspection and master Pause retain priority. All ages use shared active time. [Scope and focused acceptance](docs/design/TICKET-SYSTEM.md).
+
+Earlier sequential/single-admission checkpoint statements below are historical and superseded by this contract.
+
 ## Current narration revision
 
 Approved from 56c010d: install the proposed atmospheric copy with the exact revised carousel discovery, prize-stall transition and waiting-token lines. Attraction-local prose is independent of order; the coordinator alone selects the current objective and transition. Keep existing admission → carousel → prize gating and all existing replay, award, puzzle/audio/artwork behavior. Future stackable tickets, spending and either-order attractions are recorded for later implementation only.

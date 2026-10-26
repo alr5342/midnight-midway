@@ -1,5 +1,13 @@
 # Implementation Plan
 
+## Current checkpoint: tickets and either-order replay
+
+Authorized from 498e831: implement the recorded stackable-ticket direction. Centralize issuance/payment/milestones in one visit ledger; connect accepted attraction input to one payment lasting until story success; retain free recovery within an unfinished paid activity. Make both attractions available after admission, award one original stall token after both full stories, update the existing count badge and order-independent narration. Preserve artwork, puzzles, story timing and ending. [Scope, rules and tests](docs/design/TICKET-SYSTEM.md).
+
+Verify stacking, both orders, no premature/duplicate token, depleted balance, earning while an activity is unfinished, wrong inputs, failed-round pickup, paid replays, switching paid activities, the exact completion boundary, Pause/Credits, interruptions, touch/keyboard, reduced motion and fresh Revisit. Stop for local Developer review; no merge, push, deployment or Phase 1 packaging. Earlier sequential checkpoint statements below are historical.
+
+Complete for local review: 49 targeted unit tests and the focused three-route browser runner pass. Both orders, paid replays, free recovery, one token and unchanged ending are verified under a project-prefix URL. Phone-size captures were inspected; physical-device/peer review is pending. Evidence: tests/results/ticket-system/. Approved assets and Phase 1 ZIP remain unchanged.
+
 ## Current checkpoint: approved narration and bell focus
 
 From 56c010d, implement only the approved narration rewrite (including the three Developer edits), one-owner priority/state correction and lingering bell ring fix. Reuse all artwork, feedback, shared time and current progression. [Scope and verification](docs/design/NARRATION-REVISION.md). Test the actual failure cases: partial booth replay during later puzzles, completed horse/paper input, immediate clue inspection after admission, one-bag/failed recovery, story replay and waiting claim; verify Pause/Credits, reduced motion, phone layout and the existing ending.
