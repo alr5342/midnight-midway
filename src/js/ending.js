@@ -1,3 +1,5 @@
+import {endingNarration} from './narration.js';
+
 const smooth=value=>{const x=Math.max(0,Math.min(1,value));return x*x*(3-2*x);};
 // Approved ending-stage coordinates and feathered masks. The empty land is
 // always opaque; only copies of park pixels dissolve above it.
@@ -31,7 +33,7 @@ export class Ending {
       fog:.20*smooth(poseAge/2)*(1-smooth((poseAge-6.5)/3.5)),token,
       tokenOpacity:reducedMotion&&this.claimed?smooth(age/.5):1,
       storyLevel:this.claimed?1-smooth(poseAge/9.5):1,windLevel:this.claimed?1-smooth(poseAge/10):1,
-      hint:poseAge<3?'The night begins to forget its own lights.':poseAge<7?'Only the field remembers where they stood.':'One last light holds on.'};
+      hint:endingNarration(poseAge)};
   }
 }
 
@@ -55,7 +57,7 @@ function memoryOf(scene,prefix) {
   return copy;
 }
 
-export function connectEnding(scene,playback,ambient,audio,{access,hint}) {
+export function connectEnding(scene,playback,ambient,audio,{access}) {
   const model=new Ending(),stage=document.querySelector('#stage');
   const claim=document.querySelector('#claim-token'),revisit=document.querySelector('#revisit');
   const status=document.querySelector('#ending-status');
@@ -88,15 +90,12 @@ export function connectEnding(scene,playback,ambient,audio,{access,hint}) {
     claim.style.setProperty('--claim-glow',String(clock.reducedMotion ? .4 : .4+.12*Math.sin(clock.elapsedMs/1100)));
     revisit.hidden=!state.resting;
     stage.dataset.ending=String(state.claimed);
-    if(offered&&!ready)hint.textContent=assetFailure?'The memory could not load. Reload to try again.':'The night is gathering its last memory…';
     if(state.claimed) {
       if(!full)mountMemories();
       full.style.opacity=state.site;
       for(const [name,memory] of memories)memory.style.opacity=state[name];
       fog.style.opacity=state.fog;light.style.opacity=state.wheel*.3*smooth((state.age*10/endingDuration-6)/2);
       token.style.left=`${state.token[0]}%`;token.style.top=`${state.token[1]}%`;token.style.width=`${state.token[2]}%`;token.style.opacity=state.tokenOpacity;
-      const narration=clock.state==='paused'?'Paused. Choose Play to continue.':state.hint;
-      if(hint.textContent!==narration)hint.textContent=narration;
       const summary=state.gone?'The midway has vanished. The brass keepsake and moonlit field remain.':state.hint;
       if(status.textContent!==summary)status.textContent=summary;
     }

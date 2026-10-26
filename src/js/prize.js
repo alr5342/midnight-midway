@@ -1,5 +1,6 @@
 import {mountPrizeArtwork} from './artwork.js';
 import {guidanceAt} from './guidance.js';
+import {prizeNarration} from './narration.js';
 
 const sides=['left','right','top'];
 const positions={left:[76,67.3],right:[90,67.3],top:[83,61.6]};
@@ -128,15 +129,13 @@ export class PrizeGame {
       }
     }
     const waiting=this.hintSince===null?0:time-this.hintSince;
-    let hint=waiting>=28000?'The brightest scuffs are low on the old tins.':waiting>=14000?'At the prize stall, the sign still promises a game.':'Beyond the carousel, the prize stall is stirring. A game waits beneath its lights.';
-    if(flight)hint='Something stirs behind the counter.';
-    else if(failed)hint=returnAge>=12000?'The beanbags have found their boxes again. Perhaps another try.':'The bags return to their little boxes, as if the stall is still expecting you.';
-    else if(this.bags===1)hint='One chance left; the shelf remembers every miss.';
-    if(playing)hint=storyAge<1?'A winning note, from an empty stall.':storyAge<4.5?'Even the prizes remember the hands that held them.':'Some nights leave something behind.';
-    else if(this.tokenAwarded&&this.bags===0&&!failed)hint='A small piece of a place the world forgot.';
+    // During the short throw, keep the pre-throw bag count in the prose.
+    // The existing flight/hit visuals and audio provide immediate feedback.
+    const hint = prizeNarration({playing, storyAge, failed, returnAge,
+      bags: flight ? this.bags + 1 : this.bags, waiting});
     return {unlocked:this.unlockedAt!==null,bags:this.bags,down:[...this.down],throwing:Boolean(flight),busy:Boolean(flight)||playing,
       failed,playing,storyAge,completed:this.completed,completedStories:this.completedStories,tokenAwarded:this.tokenAwarded,
-      pickupAvailable,bagReturn:pickupAvailable?{opacity:returned,y:reducedMotion||returned===1?0:-1.6*(1-returned)}:null,
+      feedbackAt:this.feedbackAt,returnAge,pickupAvailable,bagReturn:pickupAvailable?{opacity:returned,y:reducedMotion||returned===1?0:-1.6*(1-returned)}:null,
       guidance:guidanceAt(time,this.hintSince,reducedMotion,this.failedAttempts),
       phase:playing?storyAge<1?'win':storyAge<4.5?'haunted':'token':failed?'retry':this.tokenAwarded&&this.bags===0?'reward':'aim',
       canPos,flying,haunted,wakeLight,prizeY:reducedMotion?0:-.65*haunted,tokenOpacity,
@@ -146,7 +145,7 @@ export class PrizeGame {
   }
 }
 
-export function connectPrize(scene,playback,audio,{access,onActivity=()=>{}}) {
+export function connectPrize(scene,playback,audio,{access}) {
   const model=new PrizeGame(),art=mountPrizeArtwork(scene);
   const controls=document.querySelector('#prize-controls');
   const targets=[...controls.querySelectorAll('[data-can]')];
@@ -226,19 +225,16 @@ export function connectPrize(scene,playback,audio,{access,onActivity=()=>{}}) {
       })[0];
     }
     if(canUse()&&model.throwAt(side,playback.elapsedMs)) {
-      onActivity();
       playback.notify();
     }
   });
   retry.addEventListener('click',()=>{
     if(canUse()&&model.retry(playback.elapsedMs)) {
-      onActivity();
       playback.notify();targets[0].focus({preventScroll:true});
     }
   });
   return {
     snapshot:()=>({...model.snapshot(playback.elapsedMs,playback.reducedMotion),ready,assetFailure}),
-    hint:()=>assetFailure?'The game props could not load. Reload to try again.':model.snapshot(playback.elapsedMs).hint,
     restart:()=>model.restart(playback.elapsedMs)
   };
 }

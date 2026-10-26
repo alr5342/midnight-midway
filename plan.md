@@ -1,5 +1,13 @@
 # Implementation Plan
 
+## Current checkpoint: approved narration and bell focus
+
+From 56c010d, implement only the approved narration rewrite (including the three Developer edits), one-owner priority/state correction and lingering bell ring fix. Reuse all artwork, feedback, shared time and current progression. [Scope and verification](docs/design/NARRATION-REVISION.md). Test the actual failure cases: partial booth replay during later puzzles, completed horse/paper input, immediate clue inspection after admission, one-bag/failed recovery, story replay and waiting claim; verify Pause/Credits, reduced motion, phone layout and the existing ending.
+
+Complete for local review: all 40 targeted unit tests, the focused narration/touch journey and the existing three-cycle real-time ticket/audio regression pass. Approved media and Phase 1 ZIP are unchanged. Captures and machine output: tests/results/narration-revision/. These browser checks do not establish new physical-phone or peer approval.
+
+Stop for Developer review after this checkpoint; no deployment. The requested future design is stackable admission tickets, one ticket to use carousel or prize stall in either order, then the token after both. Those progression/replay changes are not implemented or authorized as part of this checkpoint. The preserved Phase 1 submission and public site remain unchanged.
+
 ## Current checkpoint: peer-playtest revisions, 2026-10-25
 
 Authorized from 810dea4: remove permanent restarts; recover failed rounds by picking up returned beanbags; increase environmental guidance when progress stalls; draw the pause symbol; shorten the existing disappearance to eight seconds; preserve exact state through Credits. Existing puzzles, stories, approved media and public Phase 1 submission remain intact. [Scope and results](docs/design/PEER-REVISION.md).

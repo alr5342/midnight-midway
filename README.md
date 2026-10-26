@@ -1,6 +1,8 @@
 # Midnight Midway
 
-Current local checkpoint, 2026-10-25: peer-playtest revisions remove the permanent restart controls. Failed rounds return the two beanbags to small counter compartments; picking one up resets only that attempt. Environmental glows grow with time spent without progress, without identifying puzzle answers. The pause icon uses drawn bars. Credits preserves the exact interaction and restores its previous playing/paused state; browser interruptions still require Play. The approved wheel-last disappearance now takes eight active seconds, followed by the existing two-second quiet hold. [Scope, findings and verification](docs/design/PEER-REVISION.md). Awaiting local Developer review; no deployment.
+Current local checkpoint: approved narration overhaul with the Developer's three wording changes. One bottom-box writer selects the pending objective, active story or explicit inspection; partial replays and completed objects cannot steal later hints. Handoffs yield immediately to the next interaction. The bell releases its lingering focus ring when its story starts, retains deliberate keyboard focus when revisited, and remains replayable. [Scope, copy ownership and verification](docs/design/NARRATION-REVISION.md). Current sequential progression and one admission ticket are unchanged; stackable/spendable tickets and either-order attractions are a later checkpoint. Awaiting local review; no deployment.
+
+Prior peer revisions remain: natural returned-bag pickup, gradual environmental glows, SVG pause icon, exact Credits recovery and an eight-second wheel-last ending plus two-second quiet hold. [Prior checks](docs/design/PEER-REVISION.md).
 
 The Developer reports two peer-playtest rounds, after the Phase 1 prototype and with the more complete journey. [Notes for the eventual debrief](docs/PLAYTEST-NOTES.md) preserve that chronology and distinguish supplied observations from missing session details.
 
@@ -30,6 +32,7 @@ From the project root:
 
 ```powershell
 node --test tests/unit/*.test.mjs
+node tests/browser/check-narration.mjs
 node tests/browser/check-peer-revision.mjs
 node tests/browser/check-ending.mjs
 node tools/check-secrets.mjs

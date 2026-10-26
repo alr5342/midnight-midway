@@ -9,6 +9,7 @@ import { connectTicketStory } from './ticket-story.js';
 import { connectCarousel } from './carousel.js';
 import { connectPrize } from './prize.js';
 import { connectEnding } from './ending.js';
+import { selectNarration } from './narration.js';
 
 mountSceneArtwork();
 
@@ -30,9 +31,6 @@ const journey = { admitted: false };
 let carousel = null;
 let prize = null;
 let ending = null;
-let currentActivity='booth';
-let rideNoticed=false;
-const selectActivity=name=>{currentActivity=name;};
 const audioNotice = document.querySelector('#audio-notice');
 let frame = null;
 let renderedState = null;
@@ -53,33 +51,28 @@ const storyAudio = new StoryAudio(ambientAudio, { onStatus: value => {
   storyNotice.textContent = value === 'unavailable' ? 'Some midway sounds could not load. Pause, then Play to retry.' : value === 'loading' ? 'Loading midway sounds…' : '';
 } });
 const ticketStory = connectTicketStory(document.querySelector('.scene'), playback, storyAudio, {
-  bell: document.querySelector('#bell'), hint, notice: storyNotice,
+  bell: document.querySelector('#bell'), notice: storyNotice,
   onComplete: grantAdmission,
-  onActivity:()=>selectActivity('booth'),
-  canInteract: () => !ending?.snapshot().claimed && !carousel?.snapshot().clueOpen && !carousel?.snapshot().playing && !prize?.snapshot().busy,
-  idleHint: () => currentActivity==='carousel'||carousel?.snapshot().clueOpen||carousel?.snapshot().playing ? carousel?.hint() : prize?.snapshot().unlocked ? prize.hint() : carousel?.hint()
+  canInteract: () => !ending?.snapshot().claimed && !carousel?.snapshot().clueOpen && !carousel?.snapshot().playing && !prize?.snapshot().busy
 });
 carousel = connectCarousel(document.querySelector('.scene'), playback, storyAudio, {
   access: () => ({admitted:journey.admitted,storyPlaying:ticketStory.snapshot().playing || Boolean(prize?.snapshot().busy) || Boolean(ending?.snapshot().claimed)}),
-  onSolved: () => { stage.dataset.carouselPuzzle = 'solved'; },
-  onActivity:()=>selectActivity('carousel')
+  onSolved: () => { stage.dataset.carouselPuzzle = 'solved'; }
 });
 prize = connectPrize(document.querySelector('.scene'),playback,storyAudio,{
-  access: () => ({rideCompleted:carousel.snapshot().completed,blocked:ticketStory.snapshot().playing || carousel.snapshot().playing || carousel.snapshot().clueOpen || Boolean(ending?.snapshot().claimed)}),
-  onActivity:()=>selectActivity('prize')
+  access: () => ({rideCompleted:carousel.snapshot().completed,blocked:ticketStory.snapshot().playing || carousel.snapshot().playing || carousel.snapshot().clueOpen || Boolean(ending?.snapshot().claimed)})
 });
 ending=connectEnding(document.querySelector('.scene'),playback,ambientAudio,storyAudio,{
   access:()=>{
     const reward=prize.snapshot();
     return {tokenAwarded:reward.tokenAwarded,tokenOffered:reward.tokenOpacity===1,
       blocked:ticketStory.snapshot().playing || carousel.snapshot().playing || carousel.snapshot().clueOpen || reward.busy};
-  },hint
+  }
 });
 connectCredits(playback);
 const assets = connectAssetReadiness(document.querySelector('.scene'), enter, document.querySelector('#asset-notice'));
 
 function grantAdmission() {
-  currentActivity=carousel?.snapshot().completed?'prize':'carousel';
   if (journey.admitted) return;
   journey.admitted = true;
   renderJourney(playback.snapshot());
@@ -91,7 +84,6 @@ function journeySnapshot() {
 }
 
 function renderJourney(snapshot) {
-  if(!rideNoticed&&carousel?.snapshot().completed) {rideNoticed=true;currentActivity='prize';}
   const availability = journey.admitted ? 'unlocked' : 'locked';
   if (stage.dataset.carousel !== availability) stage.dataset.carousel = availability;
   const hidden = !journey.admitted || snapshot.state === 'start' || Boolean(ending?.snapshot().claimed);
@@ -104,14 +96,29 @@ function nextFrame() {
   if(ending?.snapshot().resting)playback.finish();
 }
 
+function renderNarration(clock) {
+  const booth = ticketStory.snapshot(), ride = carousel.snapshot();
+  const game = prize.snapshot(), finale = ending.snapshot();
+  // Current progression policy only. Future ticket spending/either-order play
+  // belongs here; local attraction copy does not assume its place in a queue.
+  const objective = !journey.admitted ? 'booth' : !ride.completed ? 'carousel' : !game.completed ? 'prize' : 'token';
+  const notice = [storyNotice, audioNotice].find(item => !item.hidden);
+  const warning = objective === 'prize' && game.assetFailure
+    ? 'The game props could not load. Reload to try again.' : notice?.textContent || '';
+  const narration = selectNarration({clock, objective, booth, carousel: ride, prize: game, ending: finale, warning});
+  hint.hidden = narration.hidden;
+  hint.dataset.owner = narration.owner;
+  if (hint.textContent !== narration.text) hint.textContent = narration.text;
+  stage.dataset.activity = objective;
+}
+
 playback.subscribe((snapshot) => {
   renderJourney(snapshot);
   const finale=ending?.snapshot();
-  stage.dataset.activity=currentActivity;
+  renderNarration(snapshot);
   // A tab interruption during the quiet final hold must still offer explicit
   // Play; otherwise the hidden control would strand the Revisit timer.
   pause.hidden=snapshot.state==='start'||Boolean(finale?.resting)||Boolean(finale?.gone&&snapshot.state!=='paused');
-  hint.hidden=snapshot.state==='start'||Boolean(finale?.gone);
   document.querySelector('#credits-open').hidden=Boolean(finale?.claimed);
   if (renderedState !== snapshot.state || renderedMotion !== snapshot.reducedMotion) {
     stage.dataset.state = snapshot.state;

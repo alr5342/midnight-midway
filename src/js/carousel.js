@@ -1,5 +1,6 @@
 import {mountCarouselArtwork} from './artwork.js';
 import {guidanceAt} from './guidance.js';
+import {carouselNarration} from './narration.js';
 
 const sequence = ['left', 'right', 'center', 'left'];
 const rates = {left: 1, center: 2 ** (3 / 12), right: 2 ** (7 / 12)};
@@ -38,6 +39,7 @@ export class CarouselPuzzle {
     this.completed = false;
     this.musicStartedAt = null;
     this.lastCompletedPayoffAt = null;
+    this.completedAt = null;
     this.hintSince=null;
     this.bestProgress=0;
   }
@@ -76,7 +78,10 @@ export class CarouselPuzzle {
   snapshot(time, reducedMotion = false) {
     const age = this.payoffAt === null ? null : Math.max(0,(time-this.payoffAt)/1000);
     const playing = age !== null && age < 8;
-    if (age !== null && age >= 8) {this.completed = true;this.lastCompletedPayoffAt=this.payoffAt;}
+    if (age !== null && age >= 8) {
+      this.completed = true;this.lastCompletedPayoffAt=this.payoffAt;
+      if (this.completedAt === null) this.completedAt = this.payoffAt + 8000;
+    }
     const phase = age === null ? 'resting' : age < 1.2 ? 'lights' : age < 6 ? 'ride' : age < 8 ? 'settle' : 'idle';
     const envelope = age === null ? 0 : smooth((age-1.2)/1.3)*(1-.68*smooth((age-6)/2));
     // Small upward lifts avoid exposing cropped feet below the fixed railing.
@@ -96,13 +101,15 @@ export class CarouselPuzzle {
       }
     }
     const waiting = this.hintSince === null ? 0 : time - this.hintSince;
-    const hint = this.progress === 4 ? 'Beyond the carousel, the prize stall waits for its last player.' : feedback && this.mistake ? 'The memory breaks off before its end.' : waiting >= 24000 ? 'A few bars escaped the rain, down by the carousel.' : waiting >= 12000 ? 'The carousel horses kept their voices. Something nearby kept the tune.' : 'The carousel is silent, but its horses remember a song.';
-    const narration = playing ? age<1.2 ? 'A spark of an evening long ago.' : age<6 ? 'For a little while, the years lose their hold.' : 'The old rhythm has found its way home.' : hint;
-    return {progress:this.progress,solved:this.solved,completed:this.completed,playing,phase,horseY,light,note:feedback?this.note:null,mistake:feedback&&this.mistake,hint:narration,cues,musicCues:musicAt(time,this.musicStartedAt),guidance:guidanceAt(time,this.hintSince,reducedMotion)};
+    const hint = carouselNarration({playing, age, mistake: this.mistake,
+      feedbackAge: this.feedbackAt === null ? null : time - this.feedbackAt, waiting});
+    return {progress:this.progress,solved:this.solved,completed:this.completed,completedAt:this.completedAt,
+      feedbackAt:this.feedbackAt,inspectedAt:this.inspectedAt,playing,phase,horseY,light,
+      note:feedback?this.note:null,mistake:feedback&&this.mistake,hint,cues,musicCues:musicAt(time,this.musicStartedAt),guidance:guidanceAt(time,this.hintSince,reducedMotion)};
   }
 }
 
-export function connectCarousel(scene, playback, audio, {access, onSolved,onActivity=()=>{}}) {
+export function connectCarousel(scene, playback, audio, {access, onSolved}) {
   const model = new CarouselPuzzle();
   const controls = document.querySelector('#carousel-controls');
   const paper = document.querySelector('#music-clue');
@@ -156,14 +163,13 @@ export function connectCarousel(scene, playback, audio, {access, onSolved,onActi
   }
   for (const button of notes) button.addEventListener('click', () => {
     if (!canUse() || clueOpen || audio.status === 'loading') return;
-    if(model.play(button.dataset.horseNote,playback.elapsedMs))onActivity();
+    model.play(button.dataset.horseNote,playback.elapsedMs);
     playback.notify();
   });
   open.addEventListener('click', () => {
     if (!canUse()) return;
     if (clueOpen) {putAway();return;}
     clueOpen = true;
-    onActivity();
     model.inspect(playback.elapsedMs);
     playback.notify();
     close.focus({preventScroll:true});
@@ -174,7 +180,6 @@ export function connectCarousel(scene, playback, audio, {access, onSolved,onActi
   });
   return {
     snapshot: () => ({...model.snapshot(playback.elapsedMs,playback.reducedMotion),clueOpen}),
-    hint: () => clueOpen ? 'Whoever left this never came back for it.' : model.snapshot(playback.elapsedMs).hint,
     restart:()=>{model.restart(playback.elapsedMs);clueOpen=false;}
   };
 }

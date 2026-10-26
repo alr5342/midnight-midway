@@ -169,7 +169,7 @@ await hints.clock.install();
 await hints.locator('#enter').click();
 await hints.waitForFunction(()=>window.midwayDiagnostics.storyAudio().status==='ready'&&!document.querySelector('#hint').textContent.includes('Loading'));
 const first=await hints.locator('#hint').textContent();
-assert.match(first,/keep someone/,'Initial hint measurement must exclude loading status');
+assert.match(first,/late shift/,'Initial hint measurement must exclude loading status');
 await hints.clock.runFor(12100); const second=await hints.locator('#hint').textContent();
 await hints.locator('#playback').click();
 await hints.clock.runFor(30000);assert.equal(await hints.locator('#hint').textContent(),'Paused. Choose Play to continue.');
@@ -182,7 +182,9 @@ await hints.screenshot({path:`${output}/hints-small-phone.png`});
 const failed = await browser.newPage();
 await failed.route('**/assets/audio/story-stamp.wav',route=>route.fulfill({status:404,body:''}));
 await failed.goto('http://127.0.0.1:4173/?diagnostics');await failed.locator('#enter').click();
-await failed.waitForFunction(()=>window.midwayDiagnostics.storyAudio().status==='unavailable');
+// Audio state settles before the next shared render. Observe the actual
+// recovery message rather than racing that frame with an immediate assertion.
+await failed.waitForFunction(()=>window.midwayDiagnostics.storyAudio().status==='unavailable'&&document.querySelector('#hint').textContent.includes('could not load'));
 assert.match(await failed.locator('#hint').textContent(),/could not load/);
 assert.equal(await failed.locator('#story-notice').isVisible(),false);
 await failed.unroute('**/assets/audio/story-stamp.wav');
@@ -193,7 +195,7 @@ assert.equal(await failed.locator('#story-notice').isVisible(),false);
 const brokenArt=await browser.newPage();
 await brokenArt.route('**/assets/story/ghost-attendant-v3.png',route=>route.fulfill({status:404,body:''}));
 await brokenArt.goto('http://127.0.0.1:4173/?diagnostics');await brokenArt.locator('#enter').click();
-await brokenArt.waitForFunction(()=>window.midwayDiagnostics.story().assetFailure);
+await brokenArt.waitForFunction(()=>window.midwayDiagnostics.story().assetFailure&&document.querySelector('#hint').textContent.includes('artwork could not load'));
 await brokenArt.locator('#bell').dispatchEvent('click');
 assert.equal(await brokenArt.evaluate(()=>window.midwayDiagnostics.story().rings),0);
 assert.match(await brokenArt.locator('#hint').textContent(),/artwork could not load/);

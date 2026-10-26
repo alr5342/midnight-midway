@@ -1,5 +1,15 @@
 # Technical Specification
 
+## Current narration revision
+
+Approved from 56c010d: install the proposed atmospheric copy with the exact revised carousel discovery, prize-stall transition and waiting-token lines. Attraction-local prose is independent of order; the coordinator alone selects the current objective and transition. Keep existing admission → carousel → prize gating and all existing replay, award, puzzle/audio/artwork behavior. Future stackable tickets, spending and either-order attractions are recorded for later implementation only.
+
+The app owns the sole visible narration writer. Priority: start/final quiet hides text; Pause; claimed ending; actionable runtime warning; actual story playback; open sheet inspection; pending objective with any relevant first-completion handoff. A next-attraction note, inspection, throw or pickup immediately preempts its handoff. Completed-object taps and unfinished booth replay rings do not choose a new objective. Explicit story replays use their own copy, then return to the pending objective without repeating an obsolete handoff. Token prompts appear only when it is actually offered.
+
+Keep incorrect-note text readable for 3.2 active seconds, independently of the unchanged short glint/audio, and yield to new input. During throws retain pre-throw bag-count prose. One-bag aiming hints continue to strengthen; failure hints lead to returned-bag pickup. Story copy changes twice per eight-second sequence. All ages freeze with the existing clock through Pause/Credits; reduced motion changes poses, not narration. Narration stays silent in the final field/hold.
+
+Move focus from the bell to Play/Pause when its third ring locks scene input, and release any remaining bell focus at completion. Keep the bell available for replay and its normal outline when deliberately keyboard-focused again. Remove the now-invisible halo filter when no ring feedback or discovery glow is active; do not suppress focus styles globally. [Acceptance and observed evidence](docs/design/NARRATION-REVISION.md).
+
 ## Current peer-revision contract, 2026-10-25
 
 Preserve the approved connected journey, two-bag support rule, stories and existing artwork. No permanent activity/visit restart controls remain. Failed rounds visibly return the original bags to counter compartments; touch or keyboard pickup refills two bags and restores the three cans without clearing earned milestones. No automatic round reset and no visible Retry button. Before token claim, completed stories remain replayable; Revisit/refresh starts a fresh visit.
