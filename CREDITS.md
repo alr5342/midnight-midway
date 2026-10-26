@@ -1,73 +1,52 @@
-# Midnight Midway credits
+# Midnight Midway credits and asset sources
 
-Ending runtime promotion: assets/artwork/empty-field-v1.png is a byte-identical copy of the approved preview-only field, originally prepared with built-in OpenAI imagegen from the Developer-confirmed ChatGPT reference. Exact provenance/prompt: docs/design/EMPTY-FIELD-PROMPT.md. Existing token, masks and artwork are reused; no new generation, external asset or recording. Stall wake-up and token claim reuse the original synthesized prize-tin/prize-chime sounds. Audio master fades, cloned-pixel masks and token positioning are project code.
+Current Phase 2 application baseline: `614e44b`. Source/license audit updated 2026-10-26. Historical checkpoint-by-checkpoint credits are preserved [verbatim](docs/history/20261026-finalization/CREDITS.md). Current in-app Credits names the Developer, AI assistance and external sound creators/terms; it temporarily pauses and restores the previous activity mode, except after genuine browser interruptions.
 
-Prize-game runtime promotion: assets/story/prize-can-v1.png and prize-counter-v1.png are byte-identical copies of the approved preview candidates; assets/story/keepsake-token-v1.svg is the approved code-native brass token. Original reference and all earlier assets remain unchanged. Exact painted-prop prompts remain in docs/design/PRIZE-STAGING.md. assets/audio/prize-throw.wav, prize-tin.wav and prize-chime.wav are original deterministic code synthesis (no external recording), reproducible with node tools/prepare-prize-audio.mjs: mono PCM16, 22050 Hz, durations 0.42/0.85/2.4 seconds, peak amplitudes 0.28/0.4/0.3. Original noise seed, partial frequencies and envelopes are in that source. Existing credited CC0 arrival/departure sounds are reused for the haunted payoff. No new external asset, dependency or font.
+## Developer and assistance
 
-Prize-stall preview-only artwork: dev/previews/assets/prize-can-v1.png and prize-counter-v1.png were generated with built-in OpenAI imagegen using the existing ChatGPT-generated reference for style/lighting. Three separately placed tins reuse the can; the counter includes two painted cloth bags and a blank plaque. Clipped duplicate imagery handles foreground bags and plaque placement; exact sign lettering is original SVG code. No external assets, recording or font were added. Exact prompts, reference, scope and paths: [PRIZE-STAGING.md](docs/design/PRIZE-STAGING.md). Runtime artwork and approved ending remain unchanged.
-
-Carousel continuous tune refinement: original code-composed C-minor phrase (C4, G4, E-flat4, C4, F4, E-flat4, B-flat3, C4), one note every 1.5 active seconds on a 12-second cycle. Reuses carousel-box.wav at octave-lower pitch ratios; no new recording or external asset. Per-note gain 0.22 feeds the existing master gain 0.65, keeping the tune below interactive notes. Wind remains unchanged. Original sampler preparation/provenance is recorded below.
-
-Current painted props (2026-10-23): bell-painted-v1.png and music-paper-painted-v1.png were made with the built-in OpenAI image_gen tool, using the approved ChatGPT scene as the style/lighting reference. Blank paper and bell are genuinely transparent raster assets. Code adds exact notation, ground perspective and contact shadow; no generated text is used. Verbatim prompts and paths: [PAINTED-PROPS.md](docs/design/PAINTED-PROPS.md). Horse-left/center/right.png contain original scene pixels extracted through the approved masks with tools/prepare-horse-layers.mjs, not generated replacement horses. The existing hidden plate, railing and poles remain. Carousel payoff reuses the original synthesized music-box audio; no external sound was added.
-
-Earlier vector bell revision (retained as source history): assets/story/bell.svg is original project vector artwork, revised with worn bronze gradients, seeded patina texture, engraved carnival scallops, small scratches and muted lamplight highlights. No external image, font or recording was added. The bell sound and sway timing are unchanged.
-
-Carousel puzzle: assets/audio/carousel-box.wav is original code-generated additive synthesis, not an external sample. Reproduce with node tools/prepare-carousel-audio.mjs: mono PCM16, 22,050 Hz, 0.8 seconds, C5 fundamental (523.251 Hz), harmonic reed body, short tine attack and faded tail, peak 0.42. Horse notes use ratios 1, 2^(3/12), and 2^(7/12); mistakes add a lower octave accent from the same original tone. Clue inspection uses an existing magical arrival accent. No new external sound was downloaded. The redesigned ticket and music-sheet.svg are original project SVG artwork: aged paper gradients, deterministic texture, faded engraved ink and a Ferris-wheel vignette on the ticket. The ground scrap and inspection reuse the same sheet asset. Its four notes are C5, G5, E-flat5, C5; no visible labels/arrows or solution text are printed. An accessible image alternative names the musical pitches rather than horse positions. No external artwork/font was added. Playback uses the existing shared AudioContext and active-time cue scheduler.
-
-Revised preview-only field repair: dev/previews/assets/empty-field-v1.png was made with built-in imagegen by editing the Developer-confirmed ChatGPT reference. It removes park elements to reveal moonlit land for the ending staging; original files are unchanged. Exact prompt/provenance: docs/design/EMPTY-FIELD-PROMPT.md. Attraction inspection masks are original SVG code in the preview. No production assets or sounds were replaced.
-
-Preview-only addition, 2026-10-19: dev/previews/assets/keepsake-token-v1.svg is original project SVG artwork prepared with Codex: brass gradients, deterministic grain, embossed Ferris wheel/open gondolas, worn rim and “A NIGHT REMEMBERED” inscription. No external image/font or image-generation service was used for this candidate. Ending fog/darkness are original preview CSS. Neither candidate nor ending playback has been added to the published app; visual approval is pending.
-
-## Developer and AI assistance
-
-Peer-revision treatment (2026-10-25): the small wooden beanbag compartments and drawn pause icon are original project SVG code. Existing painted props, reference artwork and audio assets are reused unchanged; no new external assets were acquired.
-
-**Alex Rosemann** — Developer; concept selection, direction, design decisions, evaluation and testing. Name confirmed by the Developer on 2026-10-16. OpenAI Codex/ChatGPT assisted with implementation and artwork preparation. HTML/CSS/JavaScript and SVG props/effects are project code; no external runtime code library or font is used. Playwright is a development-only browser testing dependency, not bundled into the app.
+**Alex Rosemann** — Developer: concept selection, creative direction, design decisions, review and testing. Name confirmed 2026-10-16. OpenAI Codex/ChatGPT assisted with research, implementation, testing and artwork preparation. HTML/CSS/JavaScript, SVG props/masks/effects and original synthesized audio are project work created with that assistance. No external runtime code library or font is bundled.
 
 ## Reference and visual assets
 
-The Developer confirmed on 2026-10-16 that assets/sources/artwork/midnight-midway-concept.png is **AI-generated with ChatGPT**. It is the supplied source for the approved scene, not an unidentified third-party illustration. This provenance is based on the Developer's confirmation; no claim of an exclusive copyright or CC0 license for generated imagery is made.
+The Developer confirmed 2026-10-16 that `assets/sources/artwork/midnight-midway-concept.png` was **AI-generated with ChatGPT**. This is user-confirmed provenance, not an unidentified third-party illustration; no exclusive-copyright or CC0 claim is made for generated imagery.
 
-OpenAI image generation prepared the booth extraction/clean plate, hidden-surface repairs, localized gondola correction and versioned ghost/window assets. Original scene pixels and masks are retained as described in docs/artwork/ARTWORK.md, docs/artwork/REVIEW.md and docs/artwork/GONDOLA.md; exact prompts and revisions are retained in docs/artwork/ and docs/artwork/story/PROMPTS.md. Ghost v3 and the complete visual design are approved. Bell/ticket/stamp/sparks, masks and ambient SVG effects are original project code artwork.
-
-## Ambient sound
-
-“Short wind sound” by **remaxim**, OpenGameArt, released by its creator under **CC0 1.0**. Verified 2026-10-16.
-
-- Source and creator's CC0 declaration: https://opengameart.org/content/short-wind-sound
-- Original download: https://opengameart.org/sites/default/files/short%20wind%20sound.wav
-- License: https://creativecommons.org/publicdomain/zero/1.0/
-- Preserved source: assets/sources/audio/remaxim-short-wind-original.wav
-- App derivative: assets/audio/midway-wind-loop.wav
-- Source SHA-256: 4435F5AD1BAF171F21F876F778D0A8A7447BECEA0C4955BB2566E0C63AB20F41
-- Derivative SHA-256: AB2DDEA484CF4D6B5E0F966E39C0F4A8BD60A52336C678A47B6208400F12C5C0
-- Processing: mono 22,050 Hz PCM; 60 Hz high-pass and 1,800 Hz low-pass filtering; one-second tail/head crossfade for looping; peak normalized to 0.65; playback gain 0.30. Preparation code: tools/prepare-ambient-audio.mjs. Metrics: assets/audio/processing.json.
-
-CC0 allows copying, adaptation and redistribution without copyright attribution requirements. Credit is retained here for the assignment and creator recognition; no endorsement implied. The wind was the only external sound installed in P1.5.
-
-## Ticket-booth story sounds — P1.7/P1.8 runtime
-
-Verified 2026-10-16 against each creator's OpenGameArt item/license listing during P1.6. These same local files now play in the main app; no new external sound was introduced for P1.7/P1.8. Human balance/listening and physical-phone checks remain pending.
-
-| Source / creator | License and source | Local files and edits |
+| Material | Origin / treatment | Supporting sources |
 | --- | --- | --- |
-| Pleasing Bell Sound Effect — Julie Damsgaard / Spring Spring / Spring Enterprises | CC0; https://opengameart.org/content/pleasing-bell-sound-effect | Original assets/sources/audio/story-bell.wav from https://opengameart.org/sites/default/files/pleasing-bell.wav. Three mono 22,050 Hz PCM ring cues use pitch 0.85/1.0/1.15, short edge fades and peak normalization to 0.5. |
-| Magic Spell SFX — JaggedStone | CC0; https://opengameart.org/content/magic-spell-sfx | Original assets/sources/audio/jaggedstone-magical-original.ogg from https://opengameart.org/sites/default/files/magical_1_0.ogg. Arrival, stamp and departure WAV cues are trimmed, pitch-adjusted, faded and normalized. |
+| Scene, booth extraction/clean plate, hidden-surface repairs and corrected gondola | Supplied ChatGPT reference; localized built-in OpenAI image generation edits, source-pixel masks and foreground occlusion. | [Layer notes](docs/artwork/ARTWORK.md), [extraction review](docs/artwork/REVIEW.md), [gondola prompt/review](docs/artwork/GONDOLA.md). |
+| Ghost attendant and empty-window plate | Built-in OpenAI image generation; v3 approved. Previous sprites retained, not discarded. | [Exact story prompts](docs/artwork/story/PROMPTS.md), [storyboard](docs/artwork/story/STORYBOARD.md). |
+| Bell and blank music scrap | `assets/story/bell-painted-v1.png`, `music-paper-painted-v1.png`: built-in OpenAI image generation using the approved scene for texture/lighting. Notation/contact shadow/perspective added in project code. | [Exact painted-prop prompts](docs/design/PAINTED-PROPS.md). Earlier `bell.svg` retained as original vector-source history. |
+| Three carousel horses | Original scene pixels extracted through approved masks to transparent PNGs, not generated replacement horses. | `tools/prepare-horse-layers.mjs`, [static comparison](docs/design/CAROUSEL-PAYOFF-CHECKS.json). |
+| Prize cans/counter/bags | Built-in OpenAI image generation; runtime `assets/story/prize-can-v1.png` and `prize-counter-v1.png` are byte-identical to approved preview candidates. Exact sign lettering and wooden bag compartments are original SVG code. | [Exact prize staging prompts](docs/design/PRIZE-STAGING.md). |
+| Empty land behind disappearing park | `assets/artwork/empty-field-v1.png`: byte-identical promotion of approved preview field, edited from ChatGPT reference with built-in OpenAI image generation. | [Exact field prompt](docs/design/EMPTY-FIELD-PROMPT.md). |
+| Brass Ferris-wheel token, admission ticket, notation, stamp/sparks, masks, ambient effects and pause icon | Original SVG/CSS/JavaScript work; token has an engraved wheel, worn brass rim and “A NIGHT REMEMBERED” inscription. No external image/font used. | `assets/story/`, `assets/masks/`, `src/js/`, `src/css/`, [ending record](docs/design/ENDING-IMPLEMENTATION.md). |
 
-License deed: https://creativecommons.org/publicdomain/zero/1.0/. Exact derivative duration/pitch/peak metadata: assets/story/audio-manifest.json. Reproducible edits: tools/prepare-story-audio.mjs. Human listening review remains pending; machine decode/signal checks do not replace it.
+Preview candidates remain in `dev/previews/assets/`; those promoted above are used in the current app and are no longer merely proposals. Earlier records describe the authorization at the time, not the current release state.
 
-## Ticket-booth story visuals — approved P1.6
+## External audio — CC0
 
-Ghost attendant and empty-window plate: built-in image_gen, style/edit reference assets/artwork/ticket-booth.png; exact prompts in docs/artwork/story/PROMPTS.md. Versioned files are retained in assets/story/; approved originals remain unchanged. Bell, ticket, stamp, sparks and aperture mask are original code-native SVGs. Preparation/integration contract: docs/artwork/story/STORYBOARD.md. Ghost v3 and staging are approved.
+Creator item pages and the [CC0 1.0 deed](https://creativecommons.org/publicdomain/zero/1.0/) were verified before use on 2026-10-16 and rechecked 2026-10-26. CC0 permits copying/adaptation/distribution without copyright attribution conditions; attribution is retained for the assignment and creator recognition. No endorsement is implied.
 
-## Artwork and code
+| Recording / creator | Primary source and original download | Preserved source / derivative |
+| --- | --- | --- |
+| Short wind sound — **remaxim** | [Creator/CC0 page](https://opengameart.org/content/short-wind-sound), [original WAV](https://opengameart.org/sites/default/files/short%20wind%20sound.wav) | `assets/sources/audio/remaxim-short-wind-original.wav` → `assets/audio/midway-wind-loop.wav`. Mono 22,050 Hz PCM; 60 Hz high-pass/1,800 Hz low-pass; one-second seam crossfade; normalized peak 0.65, playback gain 0.30. |
+| Pleasing Bell Sound Effect — **Julie Damsgaard / Spring Spring / Spring Enterprises** | [Creator/CC0 page](https://opengameart.org/content/pleasing-bell-sound-effect), [original WAV](https://opengameart.org/sites/default/files/pleasing-bell.wav) | `assets/sources/audio/story-bell.wav` → three ring cues. Mono 22,050 Hz PCM, pitch factors 0.85/1.0/1.15, edge fades, normalized peak 0.5. |
+| Magic Spell SFX — **JaggedStone** | [Creator/CC0 page](https://opengameart.org/content/magic-spell-sfx), [recorded original download](https://opengameart.org/sites/default/files/magical_1_0.ogg) | `assets/sources/audio/jaggedstone-magical-original.ogg` → arrival/stamp/departure WAVs. Trimmed, pitch-adjusted, faded and normalized; cues also reused for later haunted moments. |
 
-Ghost revision: ghost-attendant-v2.png and ghost-attendant-v3.png were created with built-in image_gen edits using the previous version as the reference. v3 is the approved runtime character: obscured face, weathered uniform and narrow spectral silhouette. All prior sprites remain available; exact prompts are appended to docs/artwork/story/PROMPTS.md. The background, props and sounds were not regenerated.
+Reproducible processing: `tools/prepare-ambient-audio.mjs`, `tools/prepare-story-audio.mjs`. Exact derivative metadata: `assets/audio/processing.json`, `assets/story/audio-manifest.json`.
 
-Developer name and supplied-reference origin are now recorded above from the Developer's confirmation. AI-assisted artwork preparation and original SVG effect code are documented in research.md and docs/artwork/. No approved image or sound was changed during submission preparation.
+Wind SHA-256 values retained from acquisition/processing:
 
-The app now includes a keyboard-accessible Credits dialog with Developer, visual/code assistance and sound creator/source/license credits. It pauses the shared experience and requires explicit Play after closing. This source record includes detailed original/derivative processing beyond the concise in-app presentation.
+- Original: `4435F5AD1BAF171F21F876F778D0A8A7447BECEA0C4955BB2566E0C63AB20F41`
+- Derivative: `AB2DDEA484CF4D6B5E0F966E39C0F4A8BD60A52336C678A47B6208400F12C5C0`
 
-## Development tools
+## Original synthesized sound
 
-Playwright 1.63.0, Microsoft contributors: https://github.com/microsoft/playwright, Apache-2.0 license (verified in the installed package metadata/LICENSE). Used only to automate Chromium/Firefox/WebKit tests. The app does not bundle Playwright or the downloaded test browsers. No other external runtime code or font is included.
+- `assets/audio/carousel-box.wav`: original additive synthesis, not a sample of the booth bell. Mono PCM16, 22,050 Hz, 0.8 seconds, C5 fundamental 523.251 Hz, harmonic reed body/tine attack, faded tail, peak 0.42. Reproduce with `node tools/prepare-carousel-audio.mjs`. Interactive horses use minor-triad ratios 1, 2^(3/12), 2^(7/12); wrong notes add an octave-lower accent.
+- The quiet completed carousel tune is original code composition: C4, G4, E-flat4, C4, F4, E-flat4, B-flat3, C4, one note every 1.5 active seconds / 12-second cycle. Reuses the original tone at lower rates, gain 0.22 through the 0.65 story master. Source: `src/js/carousel.js` and `src/js/story-audio.js`.
+- `assets/audio/prize-throw.wav`, `prize-tin.wav`, `prize-chime.wav`: original deterministic synthesis, mono PCM16, 22,050 Hz; 0.42/0.85/2.4 seconds; peak 0.28/0.4/0.3. Source/seed/partials/envelopes: `tools/prepare-prize-audio.mjs`. The stall wake and token claim reuse these cues.
+
+Automated decode/signal/scheduling checks do not prove subjective sound balance. Previous Developer approvals are recorded, but final public Phase 2 listening/phone verification remains a release gate.
+
+## Development tools and sources
+
+Playwright **1.63.0**, Microsoft contributors, [official repository](https://github.com/microsoft/playwright), Apache-2.0 (installed package metadata and LICENSE checked). Used only for automated Chromium/Firefox/WebKit testing; neither Playwright nor its downloaded browsers is bundled in the app. Node.js runs the local server, tests and preparation/export tools; it is not a browser runtime dependency. Assignment template requirements remain in `brief.md`; exact development instructions are preserved in the project.

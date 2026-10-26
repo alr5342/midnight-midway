@@ -1,0 +1,1553 @@
+﻿commit 614e44beffa18869d09983d3fa406c0be6655e76
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-26T00:04:04-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-26T00:04:04-05:00
+
+    Add stackable tickets and either-order attraction replay
+
+ README.md                            |  16 ++--
+ docs/design/JOURNEY.md               |   2 +
+ docs/design/TICKET-SYSTEM.md         |  42 +++++++++
+ index.html                           |   2 +-
+ plan.md                              |   8 ++
+ research.md                          |   4 +
+ spec.md                              |  10 ++
+ src/js/app.js                        |  40 ++++----
+ src/js/carousel.js                   |  33 +++++--
+ src/js/narration.js                  |  52 ++++++-----
+ src/js/prize.js                      |  62 ++++++++-----
+ src/js/ticket-story.js               |   6 +-
+ src/js/visit.js                      |  60 ++++++++++++
+ tests/browser/check-tickets.mjs      | 157 ++++++++++++++++++++++++++++++++
+ tests/unit/activity-restart.test.mjs |   6 +-
+ tests/unit/narration.test.mjs        | 171 +++++++++++++++++------------------
+ tests/unit/prize.test.mjs            |  16 ++--
+ tests/unit/visit.test.mjs            |  65 +++++++++++++
+ 18 files changed, 568 insertions(+), 184 deletions(-)
+
+commit 498e831cb0c3e1e4def83e64f564ec9fc86d3cd2
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-25T23:40:47-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-25T23:40:47-05:00
+
+    Centralize approved narration and release completed bell focus
+
+ README.md                            |   5 +-
+ docs/design/JOURNEY.md               |   2 +
+ docs/design/NARRATION-REVISION.md    |  41 +++++++++++
+ plan.md                              |   8 +++
+ research.md                          |   4 ++
+ spec.md                              |  10 +++
+ src/js/app.js                        |  39 +++++-----
+ src/js/carousel.js                   |  21 +++---
+ src/js/ending.js                     |   9 ++-
+ src/js/narration.js                  |  95 +++++++++++++++++++++++++
+ src/js/prize.js                      |  18 ++---
+ src/js/ticket-story.js               |  38 ++++------
+ tests/browser/check-narration.mjs    | 133 +++++++++++++++++++++++++++++++++++
+ tests/browser/check-ticket-story.mjs |   8 ++-
+ tests/unit/carousel.test.mjs         |   4 +-
+ tests/unit/narration.test.mjs        | 114 ++++++++++++++++++++++++++++++
+ tests/unit/ticket-story.test.mjs     |   4 +-
+ 17 files changed, 482 insertions(+), 71 deletions(-)
+
+commit 56c010d352daf6ac495e7741d0fc239beaa9d197
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-25T23:01:59-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-25T23:01:59-05:00
+
+    Refine peer-playtest recovery and preserve Credits state
+
+ CREDITS.md                            |   2 +
+ README.md                             |  20 ++++---
+ docs/PLAYTEST-NOTES.md                |  20 +++++++
+ docs/design/JOURNEY.md                |   6 +-
+ docs/design/PEER-REVISION.md          |  37 ++++++++++++
+ index.html                            |  10 +---
+ plan.md                               |  10 ++++
+ research.md                           |   6 ++
+ spec.md                               |  12 ++++
+ src/css/app.css                       |   9 +--
+ src/js/ambient-audio.js               |  19 +++++-
+ src/js/app.js                         |  44 +++++++-------
+ src/js/artwork.js                     |   5 +-
+ src/js/carousel.js                    |  16 +++--
+ src/js/ending.js                      |  17 +++---
+ src/js/guidance.js                    |   9 +++
+ src/js/prize.js                       |  36 +++++++++---
+ src/js/ticket-story.js                |   6 +-
+ tests/browser/check-ending.mjs        |   8 +--
+ tests/browser/check-peer-revision.mjs | 108 ++++++++++++++++++++++++++++++++++
+ tests/unit/ambient-audio.test.mjs     |  20 +++++++
+ tests/unit/ending.test.mjs            |  12 ++--
+ tests/unit/guidance.test.mjs          |  34 +++++++++++
+ tests/unit/prize.test.mjs             |   2 +-
+ 24 files changed, 389 insertions(+), 79 deletions(-)
+
+commit 810dea43e1c8e592e03dde9e4efc315983ba4fd6
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-24T00:51:53-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-24T00:51:53-05:00
+
+    Fix touch recovery and add progress-safe activity restarts
+
+ README.md                                |   2 +-
+ docs/design/JOURNEY-RECOVERY.md          |  26 +++++++
+ docs/design/JOURNEY.md                   |   6 +-
+ index.html                               |   8 +-
+ plan.md                                  |   2 +-
+ research.md                              |   2 +
+ spec.md                                  |   2 +-
+ src/css/app.css                          |  15 +++-
+ src/js/app.js                            |  30 +++++++-
+ src/js/carousel.js                       |  25 +++++--
+ src/js/prize.js                          |  20 +++--
+ src/js/ticket-story.js                   |  16 ++--
+ tests/browser/check-journey-recovery.mjs | 124 +++++++++++++++++++++++++++++++
+ tests/browser/check-ticket-story.mjs     |   2 +-
+ tests/unit/activity-restart.test.mjs     |  53 +++++++++++++
+ tests/unit/prize.test.mjs                |   2 +-
+ 16 files changed, 306 insertions(+), 29 deletions(-)
+
+commit 15f2597d520f2b64bb0661f64f2786e028a1c585
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-23T19:04:14-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-23T19:04:14-05:00
+
+    Refine stall handoff and throws; implement memory ending
+
+ CREDITS.md                           |   2 +
+ README.md                            |   2 +-
+ assets/artwork/empty-field-v1.png    | Bin 0 -> 2454844 bytes
+ docs/design/ENDING-IMPLEMENTATION.md |  32 +++++++
+ docs/design/JOURNEY.md               |  12 ++-
+ docs/design/PRIZE-GAME.md            |   4 +-
+ index.html                           |   5 +-
+ plan.md                              |   2 +-
+ research.md                          |   2 +
+ spec.md                              |   2 +-
+ src/css/app.css                      |  15 ++++
+ src/js/ambient-audio.js              |   8 +-
+ src/js/app.js                        |  32 +++++--
+ src/js/artwork.js                    |   4 +
+ src/js/ending.js                     | 114 +++++++++++++++++++++++
+ src/js/playback.js                   |   8 ++
+ src/js/prize.js                      |  58 ++++++++----
+ src/js/story-audio.js                |   8 +-
+ tests/browser/check-ending.mjs       | 169 +++++++++++++++++++++++++++++++++++
+ tests/browser/check-prize.mjs        |  13 +--
+ tests/unit/ambient-audio.test.mjs    |   8 ++
+ tests/unit/ending.test.mjs           |  32 +++++++
+ tests/unit/prize.test.mjs            |  44 ++++++---
+ tests/unit/ticket-story.test.mjs     |  11 +++
+ 24 files changed, 532 insertions(+), 55 deletions(-)
+
+commit 6487dc4cc44ffa4850c2180854e0d29871dfd2b2
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-23T18:31:30-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-23T18:31:30-05:00
+
+    Show returned beanbags as the retry and replay affordance
+
+ docs/design/PRIZE-GAME.md     | 2 +-
+ src/js/prize.js               | 4 +++-
+ tests/browser/check-prize.mjs | 2 ++
+ 3 files changed, 6 insertions(+), 2 deletions(-)
+
+commit 4ee77da0dec77de607f925001b8661a27f49a0f6
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-23T18:29:36-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-23T18:29:36-05:00
+
+    Implement three-can game and haunted keepsake reveal
+
+ CREDITS.md                           |   2 +
+ README.md                            |   2 +
+ assets/audio/prize-chime.wav         | Bin 0 -> 105884 bytes
+ assets/audio/prize-throw.wav         | Bin 0 -> 18566 bytes
+ assets/audio/prize-tin.wav           | Bin 0 -> 37530 bytes
+ assets/story/keepsake-token-v1.svg   |  50 ++++++++++
+ assets/story/prize-can-v1.png        | Bin 0 -> 2441629 bytes
+ assets/story/prize-counter-v1.png    | Bin 0 -> 1967383 bytes
+ docs/design/JOURNEY.md               |  10 +-
+ docs/design/PRIZE-GAME.md            |  50 ++++++++++
+ docs/design/PRIZE-STAGING.md         |   4 +-
+ index.html                           |   8 ++
+ plan.md                              |   2 +
+ research.md                          |   2 +
+ spec.md                              |   2 +
+ src/css/app.css                      |  21 ++++
+ src/js/app.js                        |  18 ++--
+ src/js/artwork.js                    |  27 +++++
+ src/js/prize.js                      | 186 +++++++++++++++++++++++++++++++++++
+ src/js/story-audio.js                |   4 +-
+ tests/browser/check-carousel.mjs     |   2 +-
+ tests/browser/check-prize.mjs        | 149 ++++++++++++++++++++++++++++
+ tests/browser/check-ticket-story.mjs |   4 +-
+ tests/unit/prize.test.mjs            |  77 +++++++++++++++
+ tools/prepare-prize-audio.mjs        |  32 ++++++
+ 25 files changed, 637 insertions(+), 15 deletions(-)
+
+commit e1600937fbaba3d84c9bdfce06a781c6006a0499
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-23T18:12:56-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-23T18:12:56-05:00
+
+    Stage three-can prize stall for visual review
+
+ CREDITS.md                               |   2 +
+ README.md                                |   2 +
+ dev/previews/assets/prize-can-v1.png     | Bin 0 -> 2441629 bytes
+ dev/previews/assets/prize-counter-v1.png | Bin 0 -> 1967383 bytes
+ dev/previews/index.html                  |  30 ++++++++++++++
+ dev/previews/preview.css                 |  17 ++++++++
+ dev/previews/preview.js                  |  15 ++++++-
+ docs/design/JOURNEY.md                   |   8 +++-
+ docs/design/PRIZE-STAGING.md             |  37 +++++++++++++++++
+ plan.md                                  |   2 +
+ spec.md                                  |   2 +
+ tests/browser/check-prize-staging.mjs    |  69 +++++++++++++++++++++++++++++++
+ 12 files changed, 180 insertions(+), 4 deletions(-)
+
+commit 5bd5ff25d37d5339e7256dc81ec6afe1929f703b
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-23T17:51:39-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-23T17:51:39-05:00
+
+    Increase carousel bobbing and retain a quiet active-clock tune
+
+ CREDITS.md                              |  2 ++
+ README.md                               |  2 +-
+ docs/design/CAROUSEL-PAYOFF-CHECKS.json | 22 +++++++++++++++++++++-
+ docs/design/JOURNEY.md                  | 16 +++++++++++++---
+ plan.md                                 |  2 +-
+ research.md                             |  2 ++
+ spec.md                                 |  2 +-
+ src/js/carousel.js                      | 25 ++++++++++++++++++++++---
+ src/js/story-audio.js                   |  9 ++++++++-
+ tests/browser/check-carousel.mjs        | 21 +++++++++++++++++----
+ tests/unit/carousel.test.mjs            | 23 +++++++++++++++++++++--
+ tests/unit/ticket-story.test.mjs        | 19 +++++++++++++++++--
+ 12 files changed, 126 insertions(+), 19 deletions(-)
+
+commit ea3fa7d09476b2f3a8dae0a775491a88b9c3e89f
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-23T17:36:40-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-23T17:36:40-05:00
+
+    Paint midway props and add shared-clock carousel payoff
+
+ CREDITS.md                              |   4 +-
+ README.md                               |   2 +-
+ assets/artwork/horse-center.png         | Bin 0 -> 73090 bytes
+ assets/artwork/horse-left.png           | Bin 0 -> 64035 bytes
+ assets/artwork/horse-right.png          | Bin 0 -> 67362 bytes
+ assets/story/bell-painted-v1.png        | Bin 0 -> 1568209 bytes
+ assets/story/music-paper-painted-v1.png | Bin 0 -> 2822389 bytes
+ docs/design/CAROUSEL-PAYOFF-CHECKS.json |  88 ++++++++++++++++++++++++++++++++
+ docs/design/JOURNEY.md                  |  16 ++++++
+ docs/design/PAINTED-PROPS.md            |  18 +++++++
+ index.html                              |  13 ++---
+ plan.md                                 |   2 +-
+ research.md                             |   2 +
+ spec.md                                 |   8 ++-
+ src/css/app.css                         |  15 ++++--
+ src/css/scene.css                       |   5 +-
+ src/js/ambient-audio.js                 |   4 +-
+ src/js/app.js                           |   2 +-
+ src/js/artwork.js                       |  29 ++++++++++-
+ src/js/carousel.js                      |  58 +++++++++++++++------
+ src/js/ticket-story.js                  |   6 ++-
+ tests/browser/check-carousel.mjs        |  61 ++++++++++++++++++----
+ tests/browser/check-ticket-story.mjs    |   8 ++-
+ tests/unit/ambient-audio.test.mjs       |  15 ++++++
+ tests/unit/carousel.test.mjs            |  44 ++++++++++++++--
+ tools/prepare-horse-layers.mjs          |  61 ++++++++++++++++++++++
+ 26 files changed, 400 insertions(+), 61 deletions(-)
+
+commit 2765f8e18ed21b679e19f88e7be82d55176d91f6
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-23T17:01:54-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-23T17:01:54-05:00
+
+    Weather bell artwork and refine atmospheric narration
+
+ CREDITS.md                           |  2 ++
+ README.md                            |  2 +-
+ assets/story/bell.svg                | 26 ++++++++++++++++++++------
+ docs/design/JOURNEY.md               | 10 ++++++++++
+ index.html                           |  3 +--
+ plan.md                              |  2 +-
+ spec.md                              |  2 +-
+ src/css/app.css                      |  1 -
+ src/js/app.js                        |  2 +-
+ src/js/carousel.js                   |  4 ++--
+ src/js/ticket-story.js               | 23 +++++++++++++----------
+ tests/browser/check-carousel.mjs     |  6 +++---
+ tests/browser/check-ticket-story.mjs |  6 +++---
+ tests/unit/carousel.test.mjs         |  4 ++--
+ tests/unit/ticket-story.test.mjs     |  6 +++---
+ 15 files changed, 63 insertions(+), 36 deletions(-)
+
+commit a8463862ba849b1d1cfec12e96cde9413b033a96
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-19T18:01:58-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-19T18:01:58-05:00
+
+    Refine discovery hints, bell staging and illustrated paper clues
+
+ CREDITS.md                                  |   2 +-
+ README.md                                   |   2 +-
+ assets/story/music-sheet.svg                |  31 +++
+ assets/story/ticket.svg                     |  30 ++-
+ docs/design/ENVIRONMENTAL-PROPS-CHECKS.json | 371 ++++++++++++++++++++++++++++
+ docs/design/JOURNEY.md                      |  12 +
+ index.html                                  |  22 +-
+ plan.md                                     |   2 +-
+ research.md                                 |   2 +
+ spec.md                                     |   2 +-
+ src/css/app.css                             |  19 +-
+ src/css/scene.css                           |   2 +-
+ src/js/carousel.js                          |   7 +-
+ src/js/ticket-story.js                      |  16 +-
+ tests/browser/check-carousel.mjs            |  38 ++-
+ tests/browser/check-ticket-story.mjs        |  14 +-
+ tests/unit/carousel.test.mjs                |   4 +-
+ tests/unit/ticket-story.test.mjs            |  20 +-
+ 18 files changed, 534 insertions(+), 62 deletions(-)
+
+commit 5e4a04ce0acaf8da7ac58a141fc243db673ac447
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-19T17:45:51-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-19T17:45:51-05:00
+
+    Use horse touch targets and original carousel music-box tones
+
+ CREDITS.md                             |   2 +-
+ README.md                              |   2 +-
+ assets/audio/carousel-box.wav          | Bin 0 -> 35324 bytes
+ docs/design/CAROUSEL-HORSE-CHECKS.json | 191 +++++++++++++++++++++++++++++++++
+ docs/design/JOURNEY.md                 |  10 +-
+ index.html                             |  19 ++--
+ plan.md                                |   2 +-
+ research.md                            |   2 +-
+ spec.md                                |   2 +-
+ src/css/app.css                        |  19 ++--
+ src/js/carousel.js                     |   6 +-
+ src/js/story-audio.js                  |   8 +-
+ tests/browser/check-carousel.mjs       |  28 +++--
+ tests/unit/carousel.test.mjs           |  19 ++++
+ tools/prepare-carousel-audio.mjs       |  25 +++++
+ 15 files changed, 304 insertions(+), 31 deletions(-)
+
+commit 418a4aef0d2ecea60dae226ac7b0123c91bef499
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-19T17:28:06-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-19T17:28:06-05:00
+
+    Implement four-note carousel puzzle and inspectable music clue
+
+ CREDITS.md                           |   2 +
+ README.md                            |   2 +-
+ docs/design/CAROUSEL-CHECKS.json     |  39 +++++++++++
+ docs/design/JOURNEY.md               |  18 ++++-
+ index.html                           |  20 ++++++
+ plan.md                              |   2 +
+ research.md                          |   2 +
+ spec.md                              |   2 +
+ src/css/app.css                      |  14 ++++
+ src/js/app.js                        |  12 +++-
+ src/js/carousel.js                   | 117 ++++++++++++++++++++++++++++++++
+ src/js/story-audio.js                |  10 ++-
+ src/js/ticket-story.js               |  11 +--
+ tests/browser/check-carousel.mjs     | 127 +++++++++++++++++++++++++++++++++++
+ tests/browser/check-ticket-story.mjs |   2 +-
+ tests/unit/carousel.test.mjs         |  48 +++++++++++++
+ tests/unit/ticket-story.test.mjs     |  19 +++++-
+ 17 files changed, 433 insertions(+), 14 deletions(-)
+
+commit 0895f9c8926b84913a3c920905219f5280fcf220
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-19T17:12:30-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-19T17:12:30-05:00
+
+    Keep admission ticket and unlock carousel after booth story
+
+ README.md                                |  4 ++-
+ docs/design/ADMISSION-CHECKS.json        | 56 ++++++++++++++++++++++++++++++++
+ docs/design/JOURNEY.md                   | 22 ++++++++++---
+ index.html                               |  4 +++
+ plan.md                                  |  2 ++
+ research.md                              |  2 ++
+ spec.md                                  |  2 ++
+ src/css/app.css                          |  2 ++
+ src/js/app.js                            | 27 +++++++++++++--
+ src/js/ticket-story.js                   | 12 +++++--
+ tests/browser/check-submission-ready.mjs |  4 ++-
+ tests/browser/check-ticket-story.mjs     | 51 ++++++++++++++++++++++++++---
+ tests/unit/ticket-story.test.mjs         |  2 +-
+ 13 files changed, 175 insertions(+), 15 deletions(-)
+
+commit fe5a83937f5325f0fe579b66d8d49970b4e2ba26
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-19T17:01:10-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-19T17:01:10-05:00
+
+    Reveal empty field as staged midway attractions disappear
+
+ CREDITS.md                             |   2 ++
+ dev/previews/assets/empty-field-v1.png | Bin 0 -> 2454844 bytes
+ dev/previews/index.html                |  19 +++++++++++--------
+ dev/previews/preview.css               |  27 ++++++++++++++-------------
+ dev/previews/preview.js                |  29 ++++++++++++++++++++---------
+ docs/design/EMPTY-FIELD-PROMPT.md      |  11 +++++++++++
+ docs/design/JOURNEY.md                 |  20 ++++++++++++--------
+ plan.md                                |   2 ++
+ spec.md                                |   2 ++
+ tests/browser/check-ending-staging.mjs |  16 ++++++++++------
+ 10 files changed, 84 insertions(+), 44 deletions(-)
+
+commit ee0959b1f3d0134a9d7fe65a67293767b94be339
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-19T16:52:48-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-19T16:52:48-05:00
+
+    Stage memory token and disappearance poses for visual review
+
+ CREDITS.md                                |  2 +
+ README.md                                 |  2 +
+ dev/previews/assets/keepsake-token-v1.svg | 50 ++++++++++++++++++
+ dev/previews/index.html                   | 35 +++++++++++++
+ dev/previews/preview.css                  | 45 ++++++++++++++++
+ dev/previews/preview.js                   | 28 +++++++++-
+ docs/design/JOURNEY.md                    | 41 +++++++++++++++
+ plan.md                                   |  2 +
+ research.md                               |  2 +
+ spec.md                                   |  2 +
+ tests/browser/check-ending-staging.mjs    | 87 +++++++++++++++++++++++++++++++
+ 11 files changed, 295 insertions(+), 1 deletion(-)
+
+commit 840227d73e7eb1730539b14caaa0f1c4afff9801
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-19T16:27:27-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-19T16:27:27-05:00
+
+    Reorganize project and consolidate development previews
+
+ .gitignore                                         |   2 +
+ CREDITS.md                                         |  16 +-
+ README.md                                          |  39 +-
+ archive/README.md                                  |   9 +
+ .../development-source/artwork-review.html         |   0
+ .../development-source/artwork.css                 |   0
+ .../development-source/asset-readiness.js          |   0
+ .../development-source/carriage-review.html        |   0
+ .../development-source/comparison.html             |   0
+ .../development-source/credits.js                  |   0
+ .../development-source/reference}/.gitkeep         |   0
+ .../development-source/scene-review.html           |   0
+ .../development-source/story-review.html           |   0
+ .../development-source/styles.css                  |   0
+ .../development-source/ticket-story-assets.css     |   0
+ .../development-source/ticket-story-assets.js      |   0
+ {artwork-review => archive/reviews}/assembled.png  | Bin
+ .../reviews}/attractions-v3-final/assembled.png    | Bin
+ .../attractions-v3-final/attraction-displaced.png  | Bin
+ .../attractions-v3-final/attraction-pieces.png     | Bin
+ .../reviews}/attractions-v3-final/before.png       | Bin
+ .../reviews}/attractions-v3-final/comparison.png   | Bin
+ .../reviews}/attractions-v3-final/cutout.png       | Bin
+ .../reviews}/attractions-v3-final/displaced.png    | Bin
+ .../attractions-v3-final/full-scene-comparison.png | Bin
+ .../reviews}/attractions-v3-final/original.png     | Bin
+ .../reviews}/attractions-v3-final/phone-320.png    | Bin
+ .../reviews}/attractions-v3-final/phone-375.png    | Bin
+ .../reviews}/attractions-v3-final/phone-390.png    | Bin
+ .../reviews}/attractions-v3-final/plate.png        | Bin
+ .../reviews}/attractions-v3-verified/assembled.png | Bin
+ .../attraction-displaced.png                       | Bin
+ .../attractions-v3-verified/attraction-pieces.png  | Bin
+ .../reviews}/attractions-v3-verified/before.png    | Bin
+ .../attractions-v3-verified/comparison.png         | Bin
+ .../reviews}/attractions-v3-verified/cutout.png    | Bin
+ .../reviews}/attractions-v3-verified/displaced.png | Bin
+ .../full-scene-comparison.png                      | Bin
+ .../reviews}/attractions-v3-verified/original.png  | Bin
+ .../reviews}/attractions-v3-verified/phone-320.png | Bin
+ .../reviews}/attractions-v3-verified/phone-375.png | Bin
+ .../reviews}/attractions-v3-verified/phone-390.png | Bin
+ .../reviews}/attractions-v3-verified/plate.png     | Bin
+ .../reviews}/attractions-v3/assembled.png          | Bin
+ .../attractions-v3/attraction-displaced.png        | Bin
+ .../reviews}/attractions-v3/attraction-pieces.png  | Bin
+ .../reviews}/attractions-v3/before.png             | Bin
+ .../reviews}/attractions-v3/comparison.png         | Bin
+ .../reviews}/attractions-v3/cutout-detail.png      | Bin
+ .../reviews}/attractions-v3/cutout.png             | Bin
+ .../reviews}/attractions-v3/displaced.png          | Bin
+ .../attractions-v3/full-scene-comparison.png       | Bin
+ .../reviews}/attractions-v3/original.png           | Bin
+ .../reviews}/attractions-v3/phone-320.png          | Bin
+ .../reviews}/attractions-v3/phone-375.png          | Bin
+ .../reviews}/attractions-v3/phone-390.png          | Bin
+ .../reviews}/attractions-v3/plate.png              | Bin
+ .../reviews}/attractions-v3/source-detail.png      | Bin
+ .../reviews}/booth-refinement-v2/assembled.png     | Bin
+ .../reviews}/booth-refinement-v2/before.png        | Bin
+ .../reviews}/booth-refinement-v2/comparison.png    | Bin
+ .../reviews}/booth-refinement-v2/cutout.png        | Bin
+ .../reviews}/booth-refinement-v2/displaced.png     | Bin
+ .../reviews}/booth-refinement-v2/original.png      | Bin
+ .../reviews}/booth-refinement-v2/phone-320.png     | Bin
+ .../reviews}/booth-refinement-v2/phone-375.png     | Bin
+ .../reviews}/booth-refinement-v2/phone-390.png     | Bin
+ .../reviews}/booth-refinement-v2/plate.png         | Bin
+ .../reviews}/carriage-v4/after.png                 | Bin
+ .../reviews}/carriage-v4/before.png                | Bin
+ .../reviews}/carriage-v4/carriage-detail.png       | Bin
+ .../reviews}/carriage-v4/checks.json               |   0
+ .../reviews}/carriage-v4/comparison.png            | Bin
+ .../reviews}/carriage-v4/phone-320.png             | Bin
+ .../reviews}/carriage-v4/phone-375.png             | Bin
+ .../reviews}/carriage-v4/phone-390.png             | Bin
+ {artwork-review => archive/reviews}/cutout.png     | Bin
+ {artwork-review => archive/reviews}/displaced.png  | Bin
+ {artwork-review => archive/reviews}/original.png   | Bin
+ .../reviews}/p1-1-checked/checks.json              |   0
+ .../reviews}/p1-1-checked/paused.png               | Bin
+ .../reviews}/p1-1-checked/playing.png              | Bin
+ .../reviews}/p1-1-checked/start.png                | Bin
+ .../reviews}/p1-1-checked/viewport-320x568.png     | Bin
+ .../reviews}/p1-1-checked/viewport-375x667.png     | Bin
+ .../reviews}/p1-1-checked/viewport-390x844.png     | Bin
+ .../reviews}/p1-1-checked/viewport-844x390.png     | Bin
+ .../reviews}/p1-1-final/artwork-app.png            | Bin
+ .../p1-1-final/artwork-approved-review.png         | Bin
+ .../reviews}/p1-1-final/paused.png                 | Bin
+ .../reviews}/p1-1-final/playing.png                | Bin
+ .../reviews}/p1-1-final/start.png                  | Bin
+ .../reviews}/p1-1-final/viewport-320x568.png       | Bin
+ .../reviews}/p1-1-final/viewport-375x667.png       | Bin
+ .../reviews}/p1-1-final/viewport-390x844.png       | Bin
+ .../reviews}/p1-1-final/viewport-844x390.png       | Bin
+ .../reviews}/p1-1-verified/paused.png              | Bin
+ .../reviews}/p1-1-verified/playing.png             | Bin
+ .../reviews}/p1-1-verified/start.png               | Bin
+ .../reviews}/p1-1-verified/viewport-320x568.png    | Bin
+ .../reviews}/p1-1-verified/viewport-375x667.png    | Bin
+ .../reviews}/p1-1-verified/viewport-390x844.png    | Bin
+ .../reviews}/p1-1-verified/viewport-844x390.png    | Bin
+ .../reviews}/p1-1/paused.png                       | Bin
+ .../reviews}/p1-1/playing.png                      | Bin
+ {artwork-review => archive/reviews}/p1-1/start.png | Bin
+ .../reviews}/p1-2-alignment-playback/checks.json   |   0
+ .../reviews}/p1-2-alignment-playback/high.png      | Bin
+ .../reviews}/p1-2-alignment-playback/low.png       | Bin
+ .../p1-2-alignment-playback/paused-after.png       | Bin
+ .../p1-2-alignment-playback/paused-before.png      | Bin
+ .../reviews}/p1-2-alignment-shell/checks.json      |   0
+ .../reviews}/p1-2-alignment-shell/paused.png       | Bin
+ .../reviews}/p1-2-alignment-shell/playing.png      | Bin
+ .../reviews}/p1-2-alignment-shell/start.png        | Bin
+ .../p1-2-alignment-shell/viewport-320x568.png      | Bin
+ .../p1-2-alignment-shell/viewport-375x667.png      | Bin
+ .../p1-2-alignment-shell/viewport-390x844.png      | Bin
+ .../p1-2-alignment-shell/viewport-844x390.png      | Bin
+ .../reviews}/p1-2-alignment/aligned-phone.png      | Bin
+ .../p1-2-alignment/aligned-wheel-native.png        | Bin
+ .../reviews}/p1-2-alignment/alignment-checks.json  |   0
+ .../p1-2-alignment/source-bulb-centers.json        |   0
+ .../reviews}/p1-2-alignment/source-centers.png     | Bin
+ .../reviews}/p1-2-shell-final/checks.json          |   0
+ .../reviews}/p1-2-shell-final/paused.png           | Bin
+ .../reviews}/p1-2-shell-final/playing.png          | Bin
+ .../reviews}/p1-2-shell-final/start.png            | Bin
+ .../reviews}/p1-2-shell-final/viewport-320x568.png | Bin
+ .../reviews}/p1-2-shell-final/viewport-375x667.png | Bin
+ .../reviews}/p1-2-shell-final/viewport-390x844.png | Bin
+ .../reviews}/p1-2-shell-final/viewport-844x390.png | Bin
+ .../reviews}/p1-2-shell-regression/checks.json     |   0
+ .../reviews}/p1-2-shell-regression/paused.png      | Bin
+ .../reviews}/p1-2-shell-regression/playing.png     | Bin
+ .../reviews}/p1-2-shell-regression/start.png       | Bin
+ .../p1-2-shell-regression/viewport-320x568.png     | Bin
+ .../p1-2-shell-regression/viewport-375x667.png     | Bin
+ .../p1-2-shell-regression/viewport-390x844.png     | Bin
+ .../p1-2-shell-regression/viewport-844x390.png     | Bin
+ .../reviews}/p1-2-visible-shell/checks.json        |   0
+ .../reviews}/p1-2-visible-shell/paused.png         | Bin
+ .../reviews}/p1-2-visible-shell/playing.png        | Bin
+ .../reviews}/p1-2-visible-shell/start.png          | Bin
+ .../p1-2-visible-shell/viewport-320x568.png        | Bin
+ .../p1-2-visible-shell/viewport-375x667.png        | Bin
+ .../p1-2-visible-shell/viewport-390x844.png        | Bin
+ .../p1-2-visible-shell/viewport-844x390.png        | Bin
+ .../reviews}/p1-2-visible/checks.json              |   0
+ .../reviews}/p1-2-visible/high.png                 | Bin
+ .../reviews}/p1-2-visible/low.png                  | Bin
+ .../reviews}/p1-2-visible/paused-after.png         | Bin
+ .../reviews}/p1-2-visible/paused-before.png        | Bin
+ .../reviews}/p1-2/checks.json                      |   0
+ {artwork-review => archive/reviews}/p1-2/high.png  | Bin
+ {artwork-review => archive/reviews}/p1-2/low.png   | Bin
+ .../reviews}/p1-2/paused-after.png                 | Bin
+ .../reviews}/p1-2/paused-before.png                | Bin
+ .../reviews}/p1-3-functional/checks.json           |   0
+ .../reviews}/p1-3-functional/fog-left.png          | Bin
+ .../reviews}/p1-3-functional/fog-right.png         | Bin
+ .../reviews}/p1-3-functional/paused.png            | Bin
+ .../reviews}/p1-3-lighting-regression/checks.json  |   0
+ .../reviews}/p1-3-lighting-regression/high.png     | Bin
+ .../reviews}/p1-3-lighting-regression/low.png      | Bin
+ .../p1-3-lighting-regression/paused-after.png      | Bin
+ .../p1-3-lighting-regression/paused-before.png     | Bin
+ .../reviews}/p1-3-shell-regression/checks.json     |   0
+ .../reviews}/p1-3-shell-regression/paused.png      | Bin
+ .../reviews}/p1-3-shell-regression/playing.png     | Bin
+ .../reviews}/p1-3-shell-regression/start.png       | Bin
+ .../p1-3-shell-regression/viewport-320x568.png     | Bin
+ .../p1-3-shell-regression/viewport-375x667.png     | Bin
+ .../p1-3-shell-regression/viewport-390x844.png     | Bin
+ .../p1-3-shell-regression/viewport-844x390.png     | Bin
+ .../reviews}/p1-3-verified/paused-after.png        | Bin
+ .../reviews}/p1-3-verified/paused-before.png       | Bin
+ .../reviews}/p1-3/paused-after.png                 | Bin
+ .../reviews}/p1-3/paused-before.png                | Bin
+ .../reviews}/p1-4-fog-final/checks.json            |   0
+ .../reviews}/p1-4-fog-final/fog-left.png           | Bin
+ .../reviews}/p1-4-fog-final/fog-right.png          | Bin
+ .../reviews}/p1-4-fog-final/paused.png             | Bin
+ .../reviews}/p1-4-fog-regression/checks.json       |   0
+ .../reviews}/p1-4-fog-regression/fog-left.png      | Bin
+ .../reviews}/p1-4-fog-regression/fog-right.png     | Bin
+ .../reviews}/p1-4-fog-regression/paused.png        | Bin
+ .../reviews}/p1-4-shell-regression/checks.json     |   0
+ .../reviews}/p1-4-shell-regression/paused.png      | Bin
+ .../reviews}/p1-4-shell-regression/playing.png     | Bin
+ .../reviews}/p1-4-shell-regression/start.png       | Bin
+ .../p1-4-shell-regression/viewport-320x568.png     | Bin
+ .../p1-4-shell-regression/viewport-375x667.png     | Bin
+ .../p1-4-shell-regression/viewport-390x844.png     | Bin
+ .../p1-4-shell-regression/viewport-844x390.png     | Bin
+ .../reviews}/p1-4/checks.json                      |   0
+ .../reviews}/p1-4/flight-phone.png                 | Bin
+ .../reviews}/p1-5-bats-regression/checks.json      |   0
+ .../reviews}/p1-5-bats-regression/flight-phone.png | Bin
+ .../reviews}/p1-5-shell-final/checks.json          |   0
+ .../reviews}/p1-5-shell-final/paused.png           | Bin
+ .../reviews}/p1-5-shell-final/playing.png          | Bin
+ .../reviews}/p1-5-shell-final/start.png            | Bin
+ .../reviews}/p1-5-shell-final/viewport-320x568.png | Bin
+ .../reviews}/p1-5-shell-final/viewport-375x667.png | Bin
+ .../reviews}/p1-5-shell-final/viewport-390x844.png | Bin
+ .../reviews}/p1-5-shell-final/viewport-844x390.png | Bin
+ .../reviews}/p1-5-shell-regression/checks.json     |   0
+ .../reviews}/p1-5-shell-regression/paused.png      | Bin
+ .../reviews}/p1-5-shell-regression/playing.png     | Bin
+ .../reviews}/p1-5-shell-regression/start.png       | Bin
+ .../p1-5-shell-regression/viewport-320x568.png     | Bin
+ .../p1-5-shell-regression/viewport-375x667.png     | Bin
+ .../p1-5-shell-regression/viewport-390x844.png     | Bin
+ .../p1-5-shell-regression/viewport-844x390.png     | Bin
+ .../reviews}/p1-5/checks.json                      |   0
+ .../reviews}/p1-5/playing.png                      | Bin
+ .../reviews}/p1-6-ghost-v3/arrival.png             | Bin
+ .../reviews}/p1-6-ghost-v3/booth-detail.png        | Bin
+ .../reviews}/p1-6-ghost-v3/checks.json             |   0
+ .../reviews}/p1-6-ghost-v3/depart.png              | Bin
+ .../reviews}/p1-6-ghost-v3/idle.png                | Bin
+ .../reviews}/p1-6-ghost-v3/reset.png               | Bin
+ .../reviews}/p1-6-ghost-v3/scope-check.txt         | Bin
+ .../reviews}/p1-6-ghost-v3/stamp.png               | Bin
+ .../reviews}/p1-6-ghost-v3/ticket.png              | Bin
+ .../reviews}/p1-6-shell-regression/checks.json     |   0
+ .../reviews}/p1-6-shell-regression/paused.png      | Bin
+ .../reviews}/p1-6-shell-regression/playing.png     | Bin
+ .../reviews}/p1-6-shell-regression/start.png       | Bin
+ .../p1-6-shell-regression/viewport-320x568.png     | Bin
+ .../p1-6-shell-regression/viewport-375x667.png     | Bin
+ .../p1-6-shell-regression/viewport-390x844.png     | Bin
+ .../p1-6-shell-regression/viewport-844x390.png     | Bin
+ .../reviews}/p1-6/arrival.png                      | Bin
+ .../reviews}/p1-6/booth-detail.png                 | Bin
+ .../reviews}/p1-6/checks.json                      |   0
+ .../reviews}/p1-6/depart.png                       | Bin
+ {artwork-review => archive/reviews}/p1-6/idle.png  | Bin
+ {artwork-review => archive/reviews}/p1-6/reset.png | Bin
+ {artwork-review => archive/reviews}/p1-6/stamp.png | Bin
+ .../reviews}/p1-6/ticket.png                       | Bin
+ .../reviews}/p1-7-8-audio-final/checks.json        |   0
+ .../reviews}/p1-7-8-audio-final/playing.png        | Bin
+ .../reviews}/p1-7-8-bats/checks.json               |   0
+ .../reviews}/p1-7-8-bats/flight-phone.png          | Bin
+ .../reviews}/p1-7-8-final/checks.json              |   0
+ .../reviews}/p1-7-8-final/depart.png               | Bin
+ .../reviews}/p1-7-8-final/hints-small-phone.png    | Bin
+ .../reviews}/p1-7-8-final/reduced-stamp.png        | Bin
+ .../reviews}/p1-7-8-final/reset.png                | Bin
+ .../reviews}/p1-7-8-final/stamp.png                | Bin
+ .../reviews}/p1-7-8-final/ticket.png               | Bin
+ .../reviews}/p1-7-8-review/checks.json             |   0
+ .../reviews}/p1-7-8-review/depart.png              | Bin
+ .../reviews}/p1-7-8-review/hints-small-phone.png   | Bin
+ .../reviews}/p1-7-8-review/reduced-stamp.png       | Bin
+ .../reviews}/p1-7-8-review/reset.png               | Bin
+ .../reviews}/p1-7-8-review/stamp.png               | Bin
+ .../reviews}/p1-7-8-review/ticket.png              | Bin
+ .../reviews}/p1-7-8-shell-final/checks.json        |   0
+ .../reviews}/p1-7-8-shell-final/paused.png         | Bin
+ .../reviews}/p1-7-8-shell-final/playing.png        | Bin
+ .../reviews}/p1-7-8-shell-final/start.png          | Bin
+ .../p1-7-8-shell-final/viewport-320x568.png        | Bin
+ .../p1-7-8-shell-final/viewport-375x667.png        | Bin
+ .../p1-7-8-shell-final/viewport-390x844.png        | Bin
+ .../p1-7-8-shell-final/viewport-844x390.png        | Bin
+ .../reviews}/p1-7-8-shell/checks.json              |   0
+ .../reviews}/p1-7-8-shell/paused.png               | Bin
+ .../reviews}/p1-7-8-shell/playing.png              | Bin
+ .../reviews}/p1-7-8-shell/start.png                | Bin
+ .../reviews}/p1-7-8-shell/viewport-320x568.png     | Bin
+ .../reviews}/p1-7-8-shell/viewport-375x667.png     | Bin
+ .../reviews}/p1-7-8-shell/viewport-390x844.png     | Bin
+ .../reviews}/p1-7-8-shell/viewport-844x390.png     | Bin
+ .../reviews}/p1-7-8-verified/checks.json           |   0
+ .../reviews}/p1-7-8-verified/depart.png            | Bin
+ .../reviews}/p1-7-8-verified/hints-small-phone.png | Bin
+ .../reviews}/p1-7-8-verified/reduced-stamp.png     | Bin
+ .../reviews}/p1-7-8-verified/reset.png             | Bin
+ .../reviews}/p1-7-8-verified/stamp.png             | Bin
+ .../reviews}/p1-7-8-verified/ticket.png            | Bin
+ .../reviews}/p1-7-8/checks.json                    |   0
+ .../reviews}/p1-7-8/depart.png                     | Bin
+ .../reviews}/p1-7-8/hints-small-phone.png          | Bin
+ .../reviews}/p1-7-8/reduced-stamp.png              | Bin
+ .../reviews}/p1-7-8/reset.png                      | Bin
+ .../reviews}/p1-7-8/stamp.png                      | Bin
+ .../reviews}/p1-7-8/ticket.png                     | Bin
+ .../chromium-credits-280x568.png                   | Bin
+ .../chromium-credits-320x568.png                   | Bin
+ .../chromium-credits-375x667.png                   | Bin
+ .../chromium-credits-390x844.png                   | Bin
+ .../chromium-credits-844x390.png                   | Bin
+ .../firefox-credits-280x568.png                    | Bin
+ .../firefox-credits-320x568.png                    | Bin
+ .../firefox-credits-375x667.png                    | Bin
+ .../firefox-credits-390x844.png                    | Bin
+ .../firefox-credits-844x390.png                    | Bin
+ .../chromium-credits-280x568.png                   | Bin
+ .../chromium-credits-320x568.png                   | Bin
+ .../chromium-credits-375x667.png                   | Bin
+ .../chromium-credits-390x844.png                   | Bin
+ .../chromium-credits-844x390.png                   | Bin
+ .../chromium-credits-280x568.png                   | Bin
+ .../chromium-credits-320x568.png                   | Bin
+ .../chromium-credits-375x667.png                   | Bin
+ .../chromium-credits-390x844.png                   | Bin
+ .../chromium-credits-844x390.png                   | Bin
+ .../reviews}/p1-9-final/checks.json                |   0
+ .../p1-9-final/chromium-credits-280x568.png        | Bin
+ .../p1-9-final/chromium-credits-320x568.png        | Bin
+ .../p1-9-final/chromium-credits-375x667.png        | Bin
+ .../p1-9-final/chromium-credits-390x844.png        | Bin
+ .../p1-9-final/chromium-credits-844x390.png        | Bin
+ .../p1-9-final/firefox-credits-280x568.png         | Bin
+ .../p1-9-final/firefox-credits-320x568.png         | Bin
+ .../p1-9-final/firefox-credits-375x667.png         | Bin
+ .../p1-9-final/firefox-credits-390x844.png         | Bin
+ .../p1-9-final/firefox-credits-844x390.png         | Bin
+ .../reviews}/p1-9-final/webkit-credits-280x568.png | Bin
+ .../reviews}/p1-9-final/webkit-credits-320x568.png | Bin
+ .../reviews}/p1-9-final/webkit-credits-375x667.png | Bin
+ .../reviews}/p1-9-final/webkit-credits-390x844.png | Bin
+ .../reviews}/p1-9-final/webkit-credits-844x390.png | Bin
+ .../reviews}/p1-9-shell/checks.json                |   0
+ .../reviews}/p1-9-shell/paused.png                 | Bin
+ .../reviews}/p1-9-shell/playing.png                | Bin
+ .../reviews}/p1-9-shell/start.png                  | Bin
+ .../reviews}/p1-9-shell/viewport-320x568.png       | Bin
+ .../reviews}/p1-9-shell/viewport-375x667.png       | Bin
+ .../reviews}/p1-9-shell/viewport-390x844.png       | Bin
+ .../reviews}/p1-9-shell/viewport-844x390.png       | Bin
+ .../reviews}/p1-9-story/checks.json                |   0
+ .../reviews}/p1-9-story/depart.png                 | Bin
+ .../reviews}/p1-9-story/hints-small-phone.png      | Bin
+ .../reviews}/p1-9-story/reduced-stamp.png          | Bin
+ .../reviews}/p1-9-story/reset.png                  | Bin
+ .../reviews}/p1-9-story/stamp.png                  | Bin
+ .../reviews}/p1-9-story/ticket.png                 | Bin
+ .../p1-9-verified/chromium-credits-280x568.png     | Bin
+ .../p1-9-verified/chromium-credits-320x568.png     | Bin
+ .../p1-9-verified/chromium-credits-375x667.png     | Bin
+ .../p1-9-verified/chromium-credits-390x844.png     | Bin
+ .../p1-9-verified/chromium-credits-844x390.png     | Bin
+ .../p1-9-verified/firefox-credits-280x568.png      | Bin
+ .../p1-9-verified/firefox-credits-320x568.png      | Bin
+ .../p1-9-verified/firefox-credits-375x667.png      | Bin
+ .../p1-9-verified/firefox-credits-390x844.png      | Bin
+ .../p1-9-verified/firefox-credits-844x390.png      | Bin
+ .../webkit-startup-failure.json                    |   0
+ .../reviews}/pages-live/checks.json                |   0
+ .../reviews}/pages-live/rest-phone.png             | Bin
+ .../reviews}/pages-live/stamp-paused-phone.png     | Bin
+ .../reviews}/pages-live/start-phone.png            | Bin
+ {artwork-review => archive/reviews}/phone-320.png  | Bin
+ {artwork-review => archive/reviews}/phone-375.png  | Bin
+ {artwork-review => archive/reviews}/phone-390.png  | Bin
+ {artwork-review => archive/reviews}/plate.png      | Bin
+ .../reviews}/submission-candidate/checks.json      |   0
+ .../chromium-credits-280x568.png                   | Bin
+ .../chromium-credits-320x568.png                   | Bin
+ .../chromium-credits-375x667.png                   | Bin
+ .../chromium-credits-390x844.png                   | Bin
+ .../chromium-credits-844x390.png                   | Bin
+ .../firefox-credits-280x568.png                    | Bin
+ .../firefox-credits-320x568.png                    | Bin
+ .../firefox-credits-375x667.png                    | Bin
+ .../firefox-credits-390x844.png                    | Bin
+ .../firefox-credits-844x390.png                    | Bin
+ .../webkit-credits-280x568.png                     | Bin
+ .../webkit-credits-320x568.png                     | Bin
+ .../webkit-credits-375x667.png                     | Bin
+ .../webkit-credits-390x844.png                     | Bin
+ .../webkit-credits-844x390.png                     | Bin
+ artwork.js                                         |  28 --
+ .../{ => artwork}/attractions-hidden-plate-v1.png  | Bin
+ assets/{ => artwork}/gondola-style-v2.png          | Bin
+ assets/{ => artwork}/midway-clean-plate.png        | Bin
+ assets/{ => artwork}/ticket-booth.png              | Bin
+ assets/{ => masks}/attraction-repair-mask.svg      |   0
+ assets/{ => masks}/fixed-trim-mask.svg             |   0
+ assets/{ => masks}/gondola-patch-mask.svg          |   0
+ assets/{ => masks}/horse-center-mask.svg           |   0
+ assets/{ => masks}/horse-left-mask.svg             |   0
+ assets/{ => masks}/horse-right-mask.svg            |   0
+ assets/{ => masks}/prize-pair-mask.svg             |   0
+ .../sources/artwork}/midnight-midway-concept.png   | Bin
+ .../audio/jaggedstone-magical-original.ogg         | Bin
+ .../sources}/audio/remaxim-short-wind-original.wav | Bin
+ assets/{ => sources}/audio/story-bell.wav          | Bin
+ dev/previews/index.html                            |  89 +++++
+ dev/previews/preview.css                           |  10 +
+ dev/previews/preview.js                            |  46 +++
+ docs/DEPLOYMENT.md                                 |   2 +-
+ docs/FILE-MAP.json                                 | 428 ++++++++++++++++++++
+ docs/GITHUB-PAGES.md                               |   6 +-
+ docs/ORGANIZATION-CHECKS.json                      | 434 +++++++++++++++++++++
+ docs/PHASE-1-AUDIT.md                              |   6 +-
+ docs/PHONE-VERIFICATION.md                         |   2 +-
+ docs/PROJECT-STRUCTURE.md                          |  76 ++++
+ docs/SUBMISSION.md                                 |   8 +-
+ {assets => docs/artwork}/ARTWORK.md                |   6 +-
+ {assets => docs/artwork}/ATTRACTIONS-PROMPT.md     |   2 +-
+ {assets => docs/artwork}/GONDOLA.md                |  10 +-
+ {assets => docs/artwork}/PROMPTS.md                |   0
+ {assets => docs/artwork}/REVIEW.md                 |  10 +-
+ {assets => docs/artwork}/story/PROMPTS.md          |   0
+ {assets => docs/artwork}/story/STORYBOARD.md       |   2 +-
+ index.html                                         |  15 +-
+ plan.md                                            |  94 +++--
+ preview.js                                         |  22 --
+ research.md                                        |  32 +-
+ spec.md                                            |  10 +-
+ app.css => src/css/app.css                         |   0
+ src/css/scene.css                                  | 107 +++++
+ ambient-audio.js => src/js/ambient-audio.js        |   2 +-
+ app.js => src/js/app.js                            |  62 ++-
+ src/js/artwork.js                                  |  58 +++
+ bats.js => src/js/bats.js                          |   0
+ fog.js => src/js/fog.js                            |   0
+ lighting.js => src/js/lighting.js                  |   0
+ playback.js => src/js/playback.js                  |   0
+ story-audio.js => src/js/story-audio.js            |   2 +-
+ ticket-story.js => src/js/ticket-story.js          |   2 +-
+ tests/artwork-regions.mjs                          |  14 -
+ tests/browser/artwork-regions.mjs                  |  14 +
+ tests/{ => browser}/check-audio.mjs                |   5 +-
+ tests/{ => browser}/check-bats.mjs                 |   2 +-
+ tests/{ => browser}/check-carriage.mjs             |   6 +-
+ tests/{ => browser}/check-fog.mjs                  |   2 +-
+ tests/{ => browser}/check-light-alignment.mjs      |   8 +-
+ tests/{ => browser}/check-lighting.mjs             |   4 +-
+ tests/{ => browser}/check-live-pages.mjs           |   2 +-
+ tests/browser/check-organization.mjs               | 121 ++++++
+ tests/{ => browser}/check-shell.mjs                |   9 +-
+ tests/{ => browser}/check-story-assets.mjs         |  13 +-
+ tests/{ => browser}/check-submission-ready.mjs     |  11 +-
+ tests/{ => browser}/check-ticket-story.mjs         |   7 +-
+ tests/{ => browser}/visual-check.mjs               |   8 +-
+ tests/helpers/legacy-paths.mjs                     |  16 +
+ tests/run-regressions.mjs                          |  42 ++
+ tests/{ => unit}/ambient-audio.test.mjs            |   2 +-
+ tests/{ => unit}/bats.test.mjs                     |   8 +-
+ tests/{ => unit}/fog.test.mjs                      |   6 +-
+ tests/{ => unit}/lighting.test.mjs                 |   4 +-
+ tests/{ => unit}/playback.test.mjs                 |   2 +-
+ tests/{ => unit}/ticket-story.test.mjs             |   6 +-
+ tools/build-artwork-masks.mjs                      |   2 +-
+ tools/check-secrets.mjs                            |   2 +-
+ tools/export-git-log.mjs                           |   7 +-
+ tools/inspect-startup-failures.mjs                 |   2 +-
+ tools/inspect-wheel-lights.mjs                     |  12 +-
+ tools/package-phase1.mjs                           |   8 +-
+ tools/prepare-ambient-audio.mjs                    |   2 +-
+ tools/prepare-story-audio.mjs                      |   4 +-
+ 457 files changed, 1733 insertions(+), 255 deletions(-)
+
+commit 4f7ed1bbcb8e08c9171002c49d8a80450350e252
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-16T18:40:21-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-16T18:40:21-05:00
+
+    Record approved phone review and prepare verified Phase 1 submission
+
+ .gitignore                                         |   1 +
+ README.md                                          |   6 +-
+ artwork-review/submission-candidate/checks.json    | 407 +++++++++++++++++++++
+ .../chromium-credits-280x568.png                   | Bin 0 -> 53424 bytes
+ .../chromium-credits-320x568.png                   | Bin 0 -> 63404 bytes
+ .../chromium-credits-375x667.png                   | Bin 0 -> 79508 bytes
+ .../chromium-credits-390x844.png                   | Bin 0 -> 80637 bytes
+ .../chromium-credits-844x390.png                   | Bin 0 -> 39908 bytes
+ .../firefox-credits-280x568.png                    | Bin 0 -> 60662 bytes
+ .../firefox-credits-320x568.png                    | Bin 0 -> 73622 bytes
+ .../firefox-credits-375x667.png                    | Bin 0 -> 92173 bytes
+ .../firefox-credits-390x844.png                    | Bin 0 -> 93355 bytes
+ .../firefox-credits-844x390.png                    | Bin 0 -> 39464 bytes
+ .../webkit-credits-280x568.png                     | Bin 0 -> 53635 bytes
+ .../webkit-credits-320x568.png                     | Bin 0 -> 65340 bytes
+ .../webkit-credits-375x667.png                     | Bin 0 -> 82211 bytes
+ .../webkit-credits-390x844.png                     | Bin 0 -> 84017 bytes
+ .../webkit-credits-844x390.png                     | Bin 0 -> 37398 bytes
+ docs/ARCHIVE-CANDIDATE-VERIFICATION.json           |  19 +
+ docs/DEPLOYMENT.md                                 |   4 +-
+ docs/GITHUB-PAGES.md                               |   2 +-
+ docs/PHASE-1-AUDIT.md                              |  28 +-
+ docs/PHONE-VERIFICATION.md                         |  40 +-
+ docs/SUBMISSION.md                                 |  27 ++
+ plan.md                                            |  26 +-
+ research.md                                        |   2 +-
+ spec.md                                            |  10 +-
+ tools/check-secrets.mjs                            |   2 +-
+ tools/package-phase1.mjs                           |  56 +++
+ tools/package-phase1.ps1                           |  12 +
+ 30 files changed, 583 insertions(+), 59 deletions(-)
+
+commit 834200ba34474fcd7ac7e858c0deb169d641696f
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-16T18:22:34-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-16T18:22:34-05:00
+
+    Preserve the existing transcript filename convention in deployment notes
+
+ plan.md | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+commit c547bb79d5c8829c7256721fa2630bef21a10aef
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-16T18:21:58-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-16T18:21:58-05:00
+
+    Record GitHub Pages deployment and public prototype verification
+
+ README.md                                        |   6 +-
+ artwork-review/pages-live/checks.json            | 230 +++++++++++++++++++++++
+ artwork-review/pages-live/rest-phone.png         | Bin 0 -> 524291 bytes
+ artwork-review/pages-live/stamp-paused-phone.png | Bin 0 -> 522683 bytes
+ artwork-review/pages-live/start-phone.png        | Bin 0 -> 356667 bytes
+ docs/DEPLOYMENT.md                               |  32 ++++
+ docs/GITHUB-PAGES.md                             |   2 +-
+ docs/PHASE-1-AUDIT.md                            |   8 +-
+ docs/PHONE-VERIFICATION.md                       |   4 +-
+ plan.md                                          |  18 +-
+ research.md                                      |   2 +-
+ spec.md                                          |   4 +-
+ tests/check-live-pages.mjs                       |  93 +++++++++
+ 13 files changed, 381 insertions(+), 18 deletions(-)
+
+commit 96cd9d56555b57d40a6a18fe0d671b38a00f1d82
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-16T18:03:47-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-16T18:03:47-05:00
+
+    Clarify project-scoped Git commands for the publishing handoff
+
+ docs/GITHUB-PAGES.md | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
+
+commit b5cc4e3cec6ab04045769e7c6db34aaeec9b2e5c
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-16T18:02:26-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-16T18:02:26-05:00
+
+    Prepare Phase 1 credits, accessibility checks and GitHub Pages handoff
+
+ .gitattributes                                     |  10 +
+ .nojekyll                                          |   0
+ CREDITS.md                                         |  24 +-
+ README.md                                          |  11 +-
+ app.css                                            |   8 +
+ app.js                                             |   5 +
+ .../chromium-credits-280x568.png                   | Bin 0 -> 53424 bytes
+ .../chromium-credits-320x568.png                   | Bin 0 -> 63404 bytes
+ .../chromium-credits-375x667.png                   | Bin 0 -> 79508 bytes
+ .../chromium-credits-390x844.png                   | Bin 0 -> 80637 bytes
+ .../chromium-credits-844x390.png                   | Bin 0 -> 39908 bytes
+ .../firefox-credits-280x568.png                    | Bin 0 -> 60662 bytes
+ .../firefox-credits-320x568.png                    | Bin 0 -> 73622 bytes
+ .../firefox-credits-375x667.png                    | Bin 0 -> 92173 bytes
+ .../firefox-credits-390x844.png                    | Bin 0 -> 93355 bytes
+ .../firefox-credits-844x390.png                    | Bin 0 -> 39464 bytes
+ .../chromium-credits-280x568.png                   | Bin 0 -> 53424 bytes
+ .../chromium-credits-320x568.png                   | Bin 0 -> 63404 bytes
+ .../chromium-credits-375x667.png                   | Bin 0 -> 79508 bytes
+ .../chromium-credits-390x844.png                   | Bin 0 -> 80637 bytes
+ .../chromium-credits-844x390.png                   | Bin 0 -> 39908 bytes
+ .../chromium-credits-280x568.png                   | Bin 0 -> 53424 bytes
+ .../chromium-credits-320x568.png                   | Bin 0 -> 63404 bytes
+ .../chromium-credits-375x667.png                   | Bin 0 -> 79508 bytes
+ .../chromium-credits-390x844.png                   | Bin 0 -> 80637 bytes
+ .../chromium-credits-844x390.png                   | Bin 0 -> 39908 bytes
+ artwork-review/p1-9-final/checks.json              | 407 +++++++++++++++++++++
+ .../p1-9-final/chromium-credits-280x568.png        | Bin 0 -> 53424 bytes
+ .../p1-9-final/chromium-credits-320x568.png        | Bin 0 -> 63404 bytes
+ .../p1-9-final/chromium-credits-375x667.png        | Bin 0 -> 79508 bytes
+ .../p1-9-final/chromium-credits-390x844.png        | Bin 0 -> 80637 bytes
+ .../p1-9-final/chromium-credits-844x390.png        | Bin 0 -> 39908 bytes
+ .../p1-9-final/firefox-credits-280x568.png         | Bin 0 -> 60662 bytes
+ .../p1-9-final/firefox-credits-320x568.png         | Bin 0 -> 73622 bytes
+ .../p1-9-final/firefox-credits-375x667.png         | Bin 0 -> 92173 bytes
+ .../p1-9-final/firefox-credits-390x844.png         | Bin 0 -> 93355 bytes
+ .../p1-9-final/firefox-credits-844x390.png         | Bin 0 -> 39464 bytes
+ .../p1-9-final/webkit-credits-280x568.png          | Bin 0 -> 53635 bytes
+ .../p1-9-final/webkit-credits-320x568.png          | Bin 0 -> 65340 bytes
+ .../p1-9-final/webkit-credits-375x667.png          | Bin 0 -> 82211 bytes
+ .../p1-9-final/webkit-credits-390x844.png          | Bin 0 -> 84017 bytes
+ .../p1-9-final/webkit-credits-844x390.png          | Bin 0 -> 37398 bytes
+ artwork-review/p1-9-shell/checks.json              |  65 ++++
+ artwork-review/p1-9-shell/paused.png               | Bin 0 -> 525613 bytes
+ artwork-review/p1-9-shell/playing.png              | Bin 0 -> 524049 bytes
+ artwork-review/p1-9-shell/start.png                | Bin 0 -> 348940 bytes
+ artwork-review/p1-9-shell/viewport-320x568.png     | Bin 0 -> 367629 bytes
+ artwork-review/p1-9-shell/viewport-375x667.png     | Bin 0 -> 488710 bytes
+ artwork-review/p1-9-shell/viewport-390x844.png     | Bin 0 -> 523803 bytes
+ artwork-review/p1-9-shell/viewport-844x390.png     | Bin 0 -> 177851 bytes
+ artwork-review/p1-9-story/checks.json              |  31 ++
+ artwork-review/p1-9-story/depart.png               | Bin 0 -> 521576 bytes
+ artwork-review/p1-9-story/hints-small-phone.png    | Bin 0 -> 359830 bytes
+ artwork-review/p1-9-story/reduced-stamp.png        | Bin 0 -> 522080 bytes
+ artwork-review/p1-9-story/reset.png                | Bin 0 -> 523164 bytes
+ artwork-review/p1-9-story/stamp.png                | Bin 0 -> 522013 bytes
+ artwork-review/p1-9-story/ticket.png               | Bin 0 -> 522463 bytes
+ .../p1-9-verified/chromium-credits-280x568.png     | Bin 0 -> 53424 bytes
+ .../p1-9-verified/chromium-credits-320x568.png     | Bin 0 -> 63404 bytes
+ .../p1-9-verified/chromium-credits-375x667.png     | Bin 0 -> 79508 bytes
+ .../p1-9-verified/chromium-credits-390x844.png     | Bin 0 -> 80637 bytes
+ .../p1-9-verified/chromium-credits-844x390.png     | Bin 0 -> 39908 bytes
+ .../p1-9-verified/firefox-credits-280x568.png      | Bin 0 -> 60662 bytes
+ .../p1-9-verified/firefox-credits-320x568.png      | Bin 0 -> 73622 bytes
+ .../p1-9-verified/firefox-credits-375x667.png      | Bin 0 -> 92173 bytes
+ .../p1-9-verified/firefox-credits-390x844.png      | Bin 0 -> 93355 bytes
+ .../p1-9-verified/firefox-credits-844x390.png      | Bin 0 -> 39464 bytes
+ .../webkit-startup-failure.json                    |  44 +++
+ asset-readiness.js                                 |  31 ++
+ credits.js                                         |  24 ++
+ docs/GITHUB-PAGES.md                               |  40 ++
+ docs/PHASE-1-AUDIT.md                              |  98 ++---
+ docs/PHONE-VERIFICATION.md                         |  27 ++
+ index.html                                         |  15 +-
+ plan.md                                            |  33 +-
+ research.md                                        |  12 +-
+ serve.mjs                                          |  44 ++-
+ spec.md                                            |  12 +-
+ tests/check-submission-ready.mjs                   | 136 +++++++
+ tools/export-git-log.mjs                           |   9 +
+ tools/inspect-startup-failures.mjs                 |  15 +
+ 81 files changed, 1011 insertions(+), 90 deletions(-)
+
+commit fd52572129d49cd3cdc3f63ab87bd016db2ce4d9
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-16T17:38:06-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-16T17:38:06-05:00
+
+    Record approved Phase 1 prototype and existing development evidence
+
+ .gitignore                                         |  15 ++
+ AGENTS.md                                          |  38 ++++
+ CLAUDE.md                                          |   1 +
+ CREDITS.md                                         |  39 ++++
+ README.md                                          |  23 +++
+ ambient-audio.js                                   |  97 +++++++++
+ app.css                                            |  39 ++++
+ app.js                                             |  94 +++++++++
+ artwork-review.html                                |  34 ++++
+ artwork-review/assembled.png                       | Bin 0 -> 527461 bytes
+ artwork-review/attractions-v3-final/assembled.png  | Bin 0 -> 522357 bytes
+ .../attractions-v3-final/attraction-displaced.png  | Bin 0 -> 529517 bytes
+ .../attractions-v3-final/attraction-pieces.png     | Bin 0 -> 22337 bytes
+ artwork-review/attractions-v3-final/before.png     | Bin 0 -> 527461 bytes
+ artwork-review/attractions-v3-final/comparison.png | Bin 0 -> 1130113 bytes
+ artwork-review/attractions-v3-final/cutout.png     | Bin 0 -> 78610 bytes
+ artwork-review/attractions-v3-final/displaced.png  | Bin 0 -> 524785 bytes
+ .../attractions-v3-final/full-scene-comparison.png | Bin 0 -> 632444 bytes
+ artwork-review/attractions-v3-final/original.png   | Bin 0 -> 530589 bytes
+ artwork-review/attractions-v3-final/phone-320.png  | Bin 0 -> 355009 bytes
+ artwork-review/attractions-v3-final/phone-375.png  | Bin 0 -> 473356 bytes
+ artwork-review/attractions-v3-final/phone-390.png  | Bin 0 -> 507442 bytes
+ artwork-review/attractions-v3-final/plate.png      | Bin 0 -> 524664 bytes
+ .../attractions-v3-verified/assembled.png          | Bin 0 -> 521811 bytes
+ .../attraction-displaced.png                       | Bin 0 -> 529590 bytes
+ .../attractions-v3-verified/attraction-pieces.png  | Bin 0 -> 22999 bytes
+ artwork-review/attractions-v3-verified/before.png  | Bin 0 -> 527461 bytes
+ .../attractions-v3-verified/comparison.png         | Bin 0 -> 1130113 bytes
+ artwork-review/attractions-v3-verified/cutout.png  | Bin 0 -> 78610 bytes
+ .../attractions-v3-verified/displaced.png          | Bin 0 -> 524785 bytes
+ .../full-scene-comparison.png                      | Bin 0 -> 632288 bytes
+ .../attractions-v3-verified/original.png           | Bin 0 -> 530589 bytes
+ .../attractions-v3-verified/phone-320.png          | Bin 0 -> 354756 bytes
+ .../attractions-v3-verified/phone-375.png          | Bin 0 -> 472869 bytes
+ .../attractions-v3-verified/phone-390.png          | Bin 0 -> 506899 bytes
+ artwork-review/attractions-v3-verified/plate.png   | Bin 0 -> 524664 bytes
+ artwork-review/attractions-v3/assembled.png        | Bin 0 -> 521530 bytes
+ .../attractions-v3/attraction-displaced.png        | Bin 0 -> 528687 bytes
+ .../attractions-v3/attraction-pieces.png           | Bin 0 -> 2993 bytes
+ artwork-review/attractions-v3/before.png           | Bin 0 -> 527461 bytes
+ artwork-review/attractions-v3/comparison.png       | Bin 0 -> 1130113 bytes
+ artwork-review/attractions-v3/cutout-detail.png    | Bin 0 -> 245245 bytes
+ artwork-review/attractions-v3/cutout.png           | Bin 0 -> 78610 bytes
+ artwork-review/attractions-v3/displaced.png        | Bin 0 -> 524785 bytes
+ .../attractions-v3/full-scene-comparison.png       | Bin 0 -> 612111 bytes
+ artwork-review/attractions-v3/original.png         | Bin 0 -> 530589 bytes
+ artwork-review/attractions-v3/phone-320.png        | Bin 0 -> 354650 bytes
+ artwork-review/attractions-v3/phone-375.png        | Bin 0 -> 472733 bytes
+ artwork-review/attractions-v3/phone-390.png        | Bin 0 -> 506629 bytes
+ artwork-review/attractions-v3/plate.png            | Bin 0 -> 524664 bytes
+ artwork-review/attractions-v3/source-detail.png    | Bin 0 -> 1105720 bytes
+ artwork-review/booth-refinement-v2/assembled.png   | Bin 0 -> 528593 bytes
+ artwork-review/booth-refinement-v2/before.png      | Bin 0 -> 527461 bytes
+ artwork-review/booth-refinement-v2/comparison.png  | Bin 0 -> 1130113 bytes
+ artwork-review/booth-refinement-v2/cutout.png      | Bin 0 -> 78610 bytes
+ artwork-review/booth-refinement-v2/displaced.png   | Bin 0 -> 524785 bytes
+ artwork-review/booth-refinement-v2/original.png    | Bin 0 -> 530589 bytes
+ artwork-review/booth-refinement-v2/phone-320.png   | Bin 0 -> 357876 bytes
+ artwork-review/booth-refinement-v2/phone-375.png   | Bin 0 -> 475588 bytes
+ artwork-review/booth-refinement-v2/phone-390.png   | Bin 0 -> 509266 bytes
+ artwork-review/booth-refinement-v2/plate.png       | Bin 0 -> 524664 bytes
+ artwork-review/carriage-v4/after.png               | Bin 0 -> 520359 bytes
+ artwork-review/carriage-v4/before.png              | Bin 0 -> 520580 bytes
+ artwork-review/carriage-v4/carriage-detail.png     | Bin 0 -> 64536 bytes
+ artwork-review/carriage-v4/checks.json             |   7 +
+ artwork-review/carriage-v4/comparison.png          | Bin 0 -> 572417 bytes
+ artwork-review/carriage-v4/phone-320.png           | Bin 0 -> 324965 bytes
+ artwork-review/carriage-v4/phone-375.png           | Bin 0 -> 443218 bytes
+ artwork-review/carriage-v4/phone-390.png           | Bin 0 -> 476544 bytes
+ artwork-review/cutout.png                          | Bin 0 -> 78610 bytes
+ artwork-review/displaced.png                       | Bin 0 -> 524785 bytes
+ artwork-review/original.png                        | Bin 0 -> 530589 bytes
+ artwork-review/p1-1-checked/checks.json            |  65 ++++++
+ artwork-review/p1-1-checked/paused.png             | Bin 0 -> 528215 bytes
+ artwork-review/p1-1-checked/playing.png            | Bin 0 -> 527464 bytes
+ artwork-review/p1-1-checked/start.png              | Bin 0 -> 352160 bytes
+ artwork-review/p1-1-checked/viewport-320x568.png   | Bin 0 -> 371276 bytes
+ artwork-review/p1-1-checked/viewport-375x667.png   | Bin 0 -> 492403 bytes
+ artwork-review/p1-1-checked/viewport-390x844.png   | Bin 0 -> 527464 bytes
+ artwork-review/p1-1-checked/viewport-844x390.png   | Bin 0 -> 181788 bytes
+ artwork-review/p1-1-final/artwork-app.png          | Bin 0 -> 482286 bytes
+ .../p1-1-final/artwork-approved-review.png         | Bin 0 -> 482288 bytes
+ artwork-review/p1-1-final/paused.png               | Bin 0 -> 528215 bytes
+ artwork-review/p1-1-final/playing.png              | Bin 0 -> 527464 bytes
+ artwork-review/p1-1-final/start.png                | Bin 0 -> 352160 bytes
+ artwork-review/p1-1-final/viewport-320x568.png     | Bin 0 -> 371276 bytes
+ artwork-review/p1-1-final/viewport-375x667.png     | Bin 0 -> 492403 bytes
+ artwork-review/p1-1-final/viewport-390x844.png     | Bin 0 -> 527464 bytes
+ artwork-review/p1-1-final/viewport-844x390.png     | Bin 0 -> 181788 bytes
+ artwork-review/p1-1-verified/paused.png            | Bin 0 -> 528215 bytes
+ artwork-review/p1-1-verified/playing.png           | Bin 0 -> 527464 bytes
+ artwork-review/p1-1-verified/start.png             | Bin 0 -> 352160 bytes
+ artwork-review/p1-1-verified/viewport-320x568.png  | Bin 0 -> 371276 bytes
+ artwork-review/p1-1-verified/viewport-375x667.png  | Bin 0 -> 492403 bytes
+ artwork-review/p1-1-verified/viewport-390x844.png  | Bin 0 -> 527464 bytes
+ artwork-review/p1-1-verified/viewport-844x390.png  | Bin 0 -> 181788 bytes
+ artwork-review/p1-1/paused.png                     | Bin 0 -> 528215 bytes
+ artwork-review/p1-1/playing.png                    | Bin 0 -> 527464 bytes
+ artwork-review/p1-1/start.png                      | Bin 0 -> 352160 bytes
+ artwork-review/p1-2-alignment-playback/checks.json |  25 +++
+ artwork-review/p1-2-alignment-playback/high.png    | Bin 0 -> 529460 bytes
+ artwork-review/p1-2-alignment-playback/low.png     | Bin 0 -> 528683 bytes
+ .../p1-2-alignment-playback/paused-after.png       | Bin 0 -> 527670 bytes
+ .../p1-2-alignment-playback/paused-before.png      | Bin 0 -> 527670 bytes
+ artwork-review/p1-2-alignment-shell/checks.json    |  65 ++++++
+ artwork-review/p1-2-alignment-shell/paused.png     | Bin 0 -> 528886 bytes
+ artwork-review/p1-2-alignment-shell/playing.png    | Bin 0 -> 527995 bytes
+ artwork-review/p1-2-alignment-shell/start.png      | Bin 0 -> 352160 bytes
+ .../p1-2-alignment-shell/viewport-320x568.png      | Bin 0 -> 371937 bytes
+ .../p1-2-alignment-shell/viewport-375x667.png      | Bin 0 -> 493292 bytes
+ .../p1-2-alignment-shell/viewport-390x844.png      | Bin 0 -> 528410 bytes
+ .../p1-2-alignment-shell/viewport-844x390.png      | Bin 0 -> 182486 bytes
+ artwork-review/p1-2-alignment/aligned-phone.png    | Bin 0 -> 528248 bytes
+ .../p1-2-alignment/aligned-wheel-native.png        | Bin 0 -> 756197 bytes
+ .../p1-2-alignment/alignment-checks.json           |  10 +
+ .../p1-2-alignment/source-bulb-centers.json        |   1 +
+ artwork-review/p1-2-alignment/source-centers.png   | Bin 0 -> 1170968 bytes
+ artwork-review/p1-2-shell-final/checks.json        |  65 ++++++
+ artwork-review/p1-2-shell-final/paused.png         | Bin 0 -> 528614 bytes
+ artwork-review/p1-2-shell-final/playing.png        | Bin 0 -> 527722 bytes
+ artwork-review/p1-2-shell-final/start.png          | Bin 0 -> 352160 bytes
+ .../p1-2-shell-final/viewport-320x568.png          | Bin 0 -> 371496 bytes
+ .../p1-2-shell-final/viewport-375x667.png          | Bin 0 -> 492774 bytes
+ .../p1-2-shell-final/viewport-390x844.png          | Bin 0 -> 527767 bytes
+ .../p1-2-shell-final/viewport-844x390.png          | Bin 0 -> 182205 bytes
+ artwork-review/p1-2-shell-regression/checks.json   |  65 ++++++
+ artwork-review/p1-2-shell-regression/paused.png    | Bin 0 -> 528614 bytes
+ artwork-review/p1-2-shell-regression/playing.png   | Bin 0 -> 527722 bytes
+ artwork-review/p1-2-shell-regression/start.png     | Bin 0 -> 352160 bytes
+ .../p1-2-shell-regression/viewport-320x568.png     | Bin 0 -> 371497 bytes
+ .../p1-2-shell-regression/viewport-375x667.png     | Bin 0 -> 492775 bytes
+ .../p1-2-shell-regression/viewport-390x844.png     | Bin 0 -> 527766 bytes
+ .../p1-2-shell-regression/viewport-844x390.png     | Bin 0 -> 182205 bytes
+ artwork-review/p1-2-visible-shell/checks.json      |  65 ++++++
+ artwork-review/p1-2-visible-shell/paused.png       | Bin 0 -> 528851 bytes
+ artwork-review/p1-2-visible-shell/playing.png      | Bin 0 -> 527969 bytes
+ artwork-review/p1-2-visible-shell/start.png        | Bin 0 -> 352160 bytes
+ .../p1-2-visible-shell/viewport-320x568.png        | Bin 0 -> 371882 bytes
+ .../p1-2-visible-shell/viewport-375x667.png        | Bin 0 -> 493393 bytes
+ .../p1-2-visible-shell/viewport-390x844.png        | Bin 0 -> 528429 bytes
+ .../p1-2-visible-shell/viewport-844x390.png        | Bin 0 -> 182477 bytes
+ artwork-review/p1-2-visible/checks.json            |  25 +++
+ artwork-review/p1-2-visible/high.png               | Bin 0 -> 529479 bytes
+ artwork-review/p1-2-visible/low.png                | Bin 0 -> 528666 bytes
+ artwork-review/p1-2-visible/paused-after.png       | Bin 0 -> 527674 bytes
+ artwork-review/p1-2-visible/paused-before.png      | Bin 0 -> 527674 bytes
+ artwork-review/p1-2/checks.json                    |  20 ++
+ artwork-review/p1-2/high.png                       | Bin 0 -> 528702 bytes
+ artwork-review/p1-2/low.png                        | Bin 0 -> 528572 bytes
+ artwork-review/p1-2/paused-after.png               | Bin 0 -> 527051 bytes
+ artwork-review/p1-2/paused-before.png              | Bin 0 -> 527051 bytes
+ artwork-review/p1-3-functional/checks.json         |  21 ++
+ artwork-review/p1-3-functional/fog-left.png        | Bin 0 -> 529256 bytes
+ artwork-review/p1-3-functional/fog-right.png       | Bin 0 -> 529377 bytes
+ artwork-review/p1-3-functional/paused.png          | Bin 0 -> 529287 bytes
+ .../p1-3-lighting-regression/checks.json           |  25 +++
+ artwork-review/p1-3-lighting-regression/high.png   | Bin 0 -> 529566 bytes
+ artwork-review/p1-3-lighting-regression/low.png    | Bin 0 -> 528796 bytes
+ .../p1-3-lighting-regression/paused-after.png      | Bin 0 -> 527720 bytes
+ .../p1-3-lighting-regression/paused-before.png     | Bin 0 -> 527720 bytes
+ artwork-review/p1-3-shell-regression/checks.json   |  65 ++++++
+ artwork-review/p1-3-shell-regression/paused.png    | Bin 0 -> 528917 bytes
+ artwork-review/p1-3-shell-regression/playing.png   | Bin 0 -> 528031 bytes
+ artwork-review/p1-3-shell-regression/start.png     | Bin 0 -> 352160 bytes
+ .../p1-3-shell-regression/viewport-320x568.png     | Bin 0 -> 371778 bytes
+ .../p1-3-shell-regression/viewport-375x667.png     | Bin 0 -> 493285 bytes
+ .../p1-3-shell-regression/viewport-390x844.png     | Bin 0 -> 528454 bytes
+ .../p1-3-shell-regression/viewport-844x390.png     | Bin 0 -> 182402 bytes
+ artwork-review/p1-3-verified/paused-after.png      | Bin 0 -> 532355 bytes
+ artwork-review/p1-3-verified/paused-before.png     | Bin 0 -> 532354 bytes
+ artwork-review/p1-3/paused-after.png               | Bin 0 -> 527682 bytes
+ artwork-review/p1-3/paused-before.png              | Bin 0 -> 527566 bytes
+ artwork-review/p1-4-fog-final/checks.json          |  21 ++
+ artwork-review/p1-4-fog-final/fog-left.png         | Bin 0 -> 529225 bytes
+ artwork-review/p1-4-fog-final/fog-right.png        | Bin 0 -> 529346 bytes
+ artwork-review/p1-4-fog-final/paused.png           | Bin 0 -> 529277 bytes
+ artwork-review/p1-4-fog-regression/checks.json     |  21 ++
+ artwork-review/p1-4-fog-regression/fog-left.png    | Bin 0 -> 529232 bytes
+ artwork-review/p1-4-fog-regression/fog-right.png   | Bin 0 -> 529353 bytes
+ artwork-review/p1-4-fog-regression/paused.png      | Bin 0 -> 529328 bytes
+ artwork-review/p1-4-shell-regression/checks.json   |  65 ++++++
+ artwork-review/p1-4-shell-regression/paused.png    | Bin 0 -> 528917 bytes
+ artwork-review/p1-4-shell-regression/playing.png   | Bin 0 -> 528031 bytes
+ artwork-review/p1-4-shell-regression/start.png     | Bin 0 -> 352160 bytes
+ .../p1-4-shell-regression/viewport-320x568.png     | Bin 0 -> 371719 bytes
+ .../p1-4-shell-regression/viewport-375x667.png     | Bin 0 -> 493241 bytes
+ .../p1-4-shell-regression/viewport-390x844.png     | Bin 0 -> 528419 bytes
+ .../p1-4-shell-regression/viewport-844x390.png     | Bin 0 -> 182411 bytes
+ artwork-review/p1-4/checks.json                    |  18 ++
+ artwork-review/p1-4/flight-phone.png               | Bin 0 -> 527775 bytes
+ artwork-review/p1-5-bats-regression/checks.json    |  18 ++
+ .../p1-5-bats-regression/flight-phone.png          | Bin 0 -> 527784 bytes
+ artwork-review/p1-5-shell-final/checks.json        |  65 ++++++
+ artwork-review/p1-5-shell-final/paused.png         | Bin 0 -> 528917 bytes
+ artwork-review/p1-5-shell-final/playing.png        | Bin 0 -> 528031 bytes
+ artwork-review/p1-5-shell-final/start.png          | Bin 0 -> 352160 bytes
+ .../p1-5-shell-final/viewport-320x568.png          | Bin 0 -> 371780 bytes
+ .../p1-5-shell-final/viewport-375x667.png          | Bin 0 -> 493343 bytes
+ .../p1-5-shell-final/viewport-390x844.png          | Bin 0 -> 528431 bytes
+ .../p1-5-shell-final/viewport-844x390.png          | Bin 0 -> 182360 bytes
+ artwork-review/p1-5-shell-regression/checks.json   |  65 ++++++
+ artwork-review/p1-5-shell-regression/paused.png    | Bin 0 -> 528917 bytes
+ artwork-review/p1-5-shell-regression/playing.png   | Bin 0 -> 528031 bytes
+ artwork-review/p1-5-shell-regression/start.png     | Bin 0 -> 352160 bytes
+ .../p1-5-shell-regression/viewport-320x568.png     | Bin 0 -> 371728 bytes
+ .../p1-5-shell-regression/viewport-375x667.png     | Bin 0 -> 493305 bytes
+ .../p1-5-shell-regression/viewport-390x844.png     | Bin 0 -> 528462 bytes
+ .../p1-5-shell-regression/viewport-844x390.png     | Bin 0 -> 182424 bytes
+ artwork-review/p1-5/checks.json                    |  24 +++
+ artwork-review/p1-5/playing.png                    | Bin 0 -> 527915 bytes
+ artwork-review/p1-6-ghost-v3/arrival.png           | Bin 0 -> 484125 bytes
+ artwork-review/p1-6-ghost-v3/booth-detail.png      | Bin 0 -> 181319 bytes
+ artwork-review/p1-6-ghost-v3/checks.json           |  49 +++++
+ artwork-review/p1-6-ghost-v3/depart.png            | Bin 0 -> 483522 bytes
+ artwork-review/p1-6-ghost-v3/idle.png              | Bin 0 -> 484085 bytes
+ artwork-review/p1-6-ghost-v3/reset.png             | Bin 0 -> 484085 bytes
+ artwork-review/p1-6-ghost-v3/scope-check.txt       | Bin 0 -> 136 bytes
+ artwork-review/p1-6-ghost-v3/stamp.png             | Bin 0 -> 484480 bytes
+ artwork-review/p1-6-ghost-v3/ticket.png            | Bin 0 -> 484154 bytes
+ artwork-review/p1-6-shell-regression/checks.json   |  65 ++++++
+ artwork-review/p1-6-shell-regression/paused.png    | Bin 0 -> 528917 bytes
+ artwork-review/p1-6-shell-regression/playing.png   | Bin 0 -> 528031 bytes
+ artwork-review/p1-6-shell-regression/start.png     | Bin 0 -> 352160 bytes
+ .../p1-6-shell-regression/viewport-320x568.png     | Bin 0 -> 371777 bytes
+ .../p1-6-shell-regression/viewport-375x667.png     | Bin 0 -> 493271 bytes
+ .../p1-6-shell-regression/viewport-390x844.png     | Bin 0 -> 528438 bytes
+ .../p1-6-shell-regression/viewport-844x390.png     | Bin 0 -> 182412 bytes
+ artwork-review/p1-6/arrival.png                    | Bin 0 -> 484284 bytes
+ artwork-review/p1-6/booth-detail.png               | Bin 0 -> 181921 bytes
+ artwork-review/p1-6/checks.json                    |  49 +++++
+ artwork-review/p1-6/depart.png                     | Bin 0 -> 483604 bytes
+ artwork-review/p1-6/idle.png                       | Bin 0 -> 484085 bytes
+ artwork-review/p1-6/reset.png                      | Bin 0 -> 484085 bytes
+ artwork-review/p1-6/stamp.png                      | Bin 0 -> 484652 bytes
+ artwork-review/p1-6/ticket.png                     | Bin 0 -> 484318 bytes
+ artwork-review/p1-7-8-audio-final/checks.json      |  24 +++
+ artwork-review/p1-7-8-audio-final/playing.png      | Bin 0 -> 527540 bytes
+ artwork-review/p1-7-8-bats/checks.json             |  18 ++
+ artwork-review/p1-7-8-bats/flight-phone.png        | Bin 0 -> 527415 bytes
+ artwork-review/p1-7-8-final/checks.json            |  31 +++
+ artwork-review/p1-7-8-final/depart.png             | Bin 0 -> 525821 bytes
+ artwork-review/p1-7-8-final/hints-small-phone.png  | Bin 0 -> 364478 bytes
+ artwork-review/p1-7-8-final/reduced-stamp.png      | Bin 0 -> 525750 bytes
+ artwork-review/p1-7-8-final/reset.png              | Bin 0 -> 526684 bytes
+ artwork-review/p1-7-8-final/stamp.png              | Bin 0 -> 525522 bytes
+ artwork-review/p1-7-8-final/ticket.png             | Bin 0 -> 525964 bytes
+ artwork-review/p1-7-8-review/checks.json           |  31 +++
+ artwork-review/p1-7-8-review/depart.png            | Bin 0 -> 525789 bytes
+ artwork-review/p1-7-8-review/hints-small-phone.png | Bin 0 -> 364478 bytes
+ artwork-review/p1-7-8-review/reduced-stamp.png     | Bin 0 -> 525750 bytes
+ artwork-review/p1-7-8-review/reset.png             | Bin 0 -> 526673 bytes
+ artwork-review/p1-7-8-review/stamp.png             | Bin 0 -> 525612 bytes
+ artwork-review/p1-7-8-review/ticket.png            | Bin 0 -> 525921 bytes
+ artwork-review/p1-7-8-shell-final/checks.json      |  65 ++++++
+ artwork-review/p1-7-8-shell-final/paused.png       | Bin 0 -> 529185 bytes
+ artwork-review/p1-7-8-shell-final/playing.png      | Bin 0 -> 527657 bytes
+ artwork-review/p1-7-8-shell-final/start.png        | Bin 0 -> 352160 bytes
+ .../p1-7-8-shell-final/viewport-320x568.png        | Bin 0 -> 371420 bytes
+ .../p1-7-8-shell-final/viewport-375x667.png        | Bin 0 -> 492696 bytes
+ .../p1-7-8-shell-final/viewport-390x844.png        | Bin 0 -> 528078 bytes
+ .../p1-7-8-shell-final/viewport-844x390.png        | Bin 0 -> 182679 bytes
+ artwork-review/p1-7-8-shell/checks.json            |  65 ++++++
+ artwork-review/p1-7-8-shell/paused.png             | Bin 0 -> 529173 bytes
+ artwork-review/p1-7-8-shell/playing.png            | Bin 0 -> 527657 bytes
+ artwork-review/p1-7-8-shell/start.png              | Bin 0 -> 352160 bytes
+ artwork-review/p1-7-8-shell/viewport-320x568.png   | Bin 0 -> 371432 bytes
+ artwork-review/p1-7-8-shell/viewport-375x667.png   | Bin 0 -> 492690 bytes
+ artwork-review/p1-7-8-shell/viewport-390x844.png   | Bin 0 -> 528053 bytes
+ artwork-review/p1-7-8-shell/viewport-844x390.png   | Bin 0 -> 182692 bytes
+ artwork-review/p1-7-8-verified/checks.json         |  31 +++
+ artwork-review/p1-7-8-verified/depart.png          | Bin 0 -> 525833 bytes
+ .../p1-7-8-verified/hints-small-phone.png          | Bin 0 -> 364478 bytes
+ artwork-review/p1-7-8-verified/reduced-stamp.png   | Bin 0 -> 525750 bytes
+ artwork-review/p1-7-8-verified/reset.png           | Bin 0 -> 526640 bytes
+ artwork-review/p1-7-8-verified/stamp.png           | Bin 0 -> 525574 bytes
+ artwork-review/p1-7-8-verified/ticket.png          | Bin 0 -> 525931 bytes
+ artwork-review/p1-7-8/checks.json                  |  29 +++
+ artwork-review/p1-7-8/depart.png                   | Bin 0 -> 525771 bytes
+ artwork-review/p1-7-8/hints-small-phone.png        | Bin 0 -> 364478 bytes
+ artwork-review/p1-7-8/reduced-stamp.png            | Bin 0 -> 525750 bytes
+ artwork-review/p1-7-8/reset.png                    | Bin 0 -> 526585 bytes
+ artwork-review/p1-7-8/stamp.png                    | Bin 0 -> 525549 bytes
+ artwork-review/p1-7-8/ticket.png                   | Bin 0 -> 526031 bytes
+ artwork-review/phone-320.png                       | Bin 0 -> 358724 bytes
+ artwork-review/phone-375.png                       | Bin 0 -> 474550 bytes
+ artwork-review/phone-390.png                       | Bin 0 -> 508728 bytes
+ artwork-review/plate.png                           | Bin 0 -> 524664 bytes
+ artwork.css                                        |  42 ++++
+ artwork.js                                         |  28 +++
+ assets/ARTWORK.md                                  |  31 +++
+ assets/ATTRACTIONS-PROMPT.md                       |  10 +
+ assets/GONDOLA.md                                  |  27 +++
+ assets/PROMPTS.md                                  |  12 ++
+ assets/REVIEW.md                                   |  35 ++++
+ assets/attraction-repair-mask.svg                  |   8 +
+ assets/attractions-hidden-plate-v1.png             | Bin 0 -> 2453935 bytes
+ assets/audio/midway-wind-loop.wav                  | Bin 0 -> 142722 bytes
+ assets/audio/processing.json                       |  10 +
+ assets/audio/story-arrival.wav                     | Bin 0 -> 52964 bytes
+ assets/audio/story-bell.wav                        | Bin 0 -> 109392 bytes
+ assets/audio/story-departure.wav                   | Bin 0 -> 52964 bytes
+ assets/audio/story-ring-1.wav                      | Bin 0 -> 32176 bytes
+ assets/audio/story-ring-2.wav                      | Bin 0 -> 27356 bytes
+ assets/audio/story-ring-3.wav                      | Bin 0 -> 23794 bytes
+ assets/audio/story-stamp.wav                       | Bin 0 -> 39734 bytes
+ assets/fixed-trim-mask.svg                         |  10 +
+ assets/gondola-patch-mask.svg                      |   5 +
+ assets/gondola-style-v2.png                        | Bin 0 -> 2438834 bytes
+ assets/horse-center-mask.svg                       |   3 +
+ assets/horse-left-mask.svg                         |   4 +
+ assets/horse-right-mask.svg                        |   3 +
+ assets/midway-clean-plate.png                      | Bin 0 -> 2539613 bytes
+ assets/prize-pair-mask.svg                         |   5 +
+ assets/story/PROMPTS.md                            |  24 +++
+ assets/story/STORYBOARD.md                         |  35 ++++
+ assets/story/audio-manifest.json                   |  44 ++++
+ assets/story/bell.svg                              |   8 +
+ assets/story/booth-empty-interior-v1.png           | Bin 0 -> 682058 bytes
+ assets/story/booth-window-mask.svg                 |   1 +
+ assets/story/ghost-attendant-v1.png                | Bin 0 -> 2471352 bytes
+ assets/story/ghost-attendant-v2.png                | Bin 0 -> 2644213 bytes
+ assets/story/ghost-attendant-v3.png                | Bin 0 -> 2575705 bytes
+ assets/story/sparks.svg                            |   3 +
+ assets/story/stamp.svg                             |   6 +
+ assets/story/ticket.svg                            |   8 +
+ assets/ticket-booth.png                            | Bin 0 -> 685998 bytes
+ bats.js                                            |  41 ++++
+ brief.md                                           |  71 +++++++
+ carriage-review.html                               |  28 +++
+ comparison.html                                    |  27 +++
+ docs/PHASE-1-AUDIT.md                              |  48 +++++
+ docs/history/20261016-144916/plan.md               |  61 ++++++
+ docs/history/20261016-144916/research.md           |  33 +++
+ docs/history/20261016-144916/spec.md               |  34 ++++
+ docs/history/20261016-145826/README.md             |  13 ++
+ docs/history/20261016-145826/artwork-hashes.json   |  74 +++++++
+ .../check-shell-artwork-attempt.mjs                | 121 +++++++++++
+ docs/history/20261016-145826/index.html            |  34 ++++
+ docs/history/20261016-145826/plan.md               |  82 ++++++++
+ docs/history/20261016-145826/research.md           |  70 +++++++
+ docs/history/20261016-145826/spec.md               |  80 ++++++++
+ docs/history/20261016-151003/app.css               |  31 +++
+ docs/history/20261016-151003/app.js                |  70 +++++++
+ docs/history/20261016-151003/plan.md               |  97 +++++++++
+ docs/history/20261016-151003/research.md           |  78 +++++++
+ docs/history/20261016-151003/spec.md               |  86 ++++++++
+ docs/history/20261016-153242/check-lighting.mjs    |  96 +++++++++
+ docs/history/20261016-153242/lighting.js           |  47 +++++
+ docs/history/20261016-153242/lighting.test.mjs     |  29 +++
+ docs/history/20261016-153242/plan.md               | 113 +++++++++++
+ docs/history/20261016-153242/research.md           |  80 ++++++++
+ docs/history/20261016-153242/spec.md               |  92 +++++++++
+ docs/history/20261016-153817/lighting.js           |  52 +++++
+ docs/history/20261016-153817/plan.md               | 121 +++++++++++
+ docs/history/20261016-153817/research.md           |  82 ++++++++
+ docs/history/20261016-153817/spec.md               |  94 +++++++++
+ docs/history/20261016-154736/README.md             |  23 +++
+ docs/history/20261016-154736/app.css               |  32 +++
+ docs/history/20261016-154736/app.js                |  73 +++++++
+ .../check-fog-screenshot-attempt.mjs               |  95 +++++++++
+ docs/history/20261016-154736/plan.md               | 134 ++++++++++++
+ docs/history/20261016-154736/research.md           |  84 ++++++++
+ docs/history/20261016-154736/spec.md               |  96 +++++++++
+ docs/history/20261016-155710/README.md             |  25 +++
+ docs/history/20261016-155710/app.css               |  33 +++
+ docs/history/20261016-155710/app.js                |  75 +++++++
+ docs/history/20261016-155710/plan.md               | 160 +++++++++++++++
+ docs/history/20261016-155710/research.md           |  90 ++++++++
+ docs/history/20261016-155710/spec.md               | 104 ++++++++++
+ docs/history/20261016-160301/README.md             |  27 +++
+ docs/history/20261016-160301/app.css               |  34 ++++
+ docs/history/20261016-160301/app.js                |  77 +++++++
+ docs/history/20261016-160301/index.html            |  38 ++++
+ docs/history/20261016-160301/plan.md               | 176 ++++++++++++++++
+ docs/history/20261016-160301/research.md           |  92 +++++++++
+ docs/history/20261016-160301/serve.mjs             |  22 ++
+ docs/history/20261016-160301/spec.md               | 110 ++++++++++
+ docs/history/20261016-163002/CREDITS.md            |  22 ++
+ docs/history/20261016-163002/README.md             |  29 +++
+ docs/history/20261016-163002/plan.md               | 194 ++++++++++++++++++
+ docs/history/20261016-163002/research.md           |  95 +++++++++
+ docs/history/20261016-163002/spec.md               | 116 +++++++++++
+ docs/history/20261016-ghost-v2/PROMPTS.md          |  12 ++
+ docs/history/20261016-ghost-v2/STORYBOARD.md       |  33 +++
+ .../20261016-ghost-v2/check-story-assets.mjs       |  54 +++++
+ docs/history/20261016-ghost-v2/plan.md             | 207 +++++++++++++++++++
+ .../20261016-ghost-v2/protected-hashes.json        |  98 +++++++++
+ .../20261016-ghost-v2/ticket-story-assets.js       |  27 +++
+ docs/history/20261016-p1-7-8/CREDITS.md            |  39 ++++
+ docs/history/20261016-p1-7-8/README.md             |  31 +++
+ docs/history/20261016-p1-7-8/STORYBOARD.md         |  33 +++
+ docs/history/20261016-p1-7-8/ambient-audio.js      |  97 +++++++++
+ docs/history/20261016-p1-7-8/app.css               |  35 ++++
+ docs/history/20261016-p1-7-8/app.js                |  83 ++++++++
+ docs/history/20261016-p1-7-8/check-audio.mjs       | 106 ++++++++++
+ docs/history/20261016-p1-7-8/check-shell.mjs       |  93 +++++++++
+ docs/history/20261016-p1-7-8/index.html            |  39 ++++
+ docs/history/20261016-p1-7-8/plan.md               | 213 +++++++++++++++++++
+ docs/history/20261016-p1-7-8/playback.js           |  65 ++++++
+ docs/history/20261016-p1-7-8/research.md           |  98 +++++++++
+ docs/history/20261016-p1-7-8/spec.md               | 122 +++++++++++
+ docs/history/20261016-p1-9/CREDITS.md              |  39 ++++
+ docs/history/20261016-p1-9/PHASE-1-AUDIT.md        |  48 +++++
+ docs/history/20261016-p1-9/README.md               |  23 +++
+ docs/history/20261016-p1-9/app.css                 |  39 ++++
+ docs/history/20261016-p1-9/app.js                  |  94 +++++++++
+ docs/history/20261016-p1-9/index.html              |  45 ++++
+ docs/history/20261016-p1-9/plan.md                 | 226 +++++++++++++++++++++
+ docs/history/20261016-p1-9/research.md             | 106 ++++++++++
+ docs/history/20261016-p1-9/serve.mjs               |  22 ++
+ docs/history/20261016-p1-9/spec.md                 | 130 ++++++++++++
+ docs/history/20261016-p1-9/ticket-story.js         | 116 +++++++++++
+ fog.js                                             |  45 ++++
+ index.html                                         |  45 ++++
+ lighting.js                                        |  53 +++++
+ plan.md                                            | 226 +++++++++++++++++++++
+ playback.js                                        |  65 ++++++
+ preview.js                                         |  22 ++
+ reference/.gitkeep                                 |   0
+ reference/audio/jaggedstone-magical-original.ogg   | Bin 0 -> 59071 bytes
+ reference/audio/remaxim-short-wind-original.wav    | Bin 0 -> 747196 bytes
+ reference/midnight-midway-concept.png              | Bin 0 -> 2750448 bytes
+ research.md                                        | 106 ++++++++++
+ scene-review.html                                  |  30 +++
+ serve.mjs                                          |  22 ++
+ spec.md                                            | 130 ++++++++++++
+ story-audio.js                                     |  77 +++++++
+ story-review.html                                  |  43 ++++
+ styles.css                                         |  37 ++++
+ tests/ambient-audio.test.mjs                       |  62 ++++++
+ tests/artwork-regions.mjs                          |  14 ++
+ tests/bats.test.mjs                                |  39 ++++
+ tests/check-audio.mjs                              | 108 ++++++++++
+ tests/check-bats.mjs                               |  69 +++++++
+ tests/check-carriage.mjs                           |  63 ++++++
+ tests/check-fog.mjs                                |  91 +++++++++
+ tests/check-light-alignment.mjs                    |  55 +++++
+ tests/check-lighting.mjs                           | 120 +++++++++++
+ tests/check-shell.mjs                              |  93 +++++++++
+ tests/check-story-assets.mjs                       |  54 +++++
+ tests/check-ticket-story.mjs                       | 170 ++++++++++++++++
+ tests/fog.test.mjs                                 |  29 +++
+ tests/lighting.test.mjs                            |  29 +++
+ tests/playback.test.mjs                            |  60 ++++++
+ tests/ticket-story.test.mjs                        |  99 +++++++++
+ tests/visual-check.mjs                             |  41 ++++
+ ticket-story-assets.css                            |  21 ++
+ ticket-story-assets.js                             |  27 +++
+ ticket-story.js                                    | 116 +++++++++++
+ tools/build-artwork-masks.mjs                      |  16 ++
+ tools/check-secrets.mjs                            |  26 +++
+ tools/inspect-wheel-lights.mjs                     |  46 +++++
+ tools/prepare-ambient-audio.mjs                    |  44 ++++
+ tools/prepare-story-audio.mjs                      |  37 ++++
+ transcripts/.gitkeep                               |   0
+ 455 files changed, 10864 insertions(+)

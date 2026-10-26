@@ -1,0 +1,73 @@
+{
+  "status": "passed",
+  "creditsPhases": [
+    "idle guidance",
+    "one bell ring",
+    "two bell rings",
+    "already paused bell state",
+    "ghost story",
+    "partial melody",
+    "open sheet inspection",
+    "carousel payoff",
+    "bag flight 280",
+    "between throws 280",
+    "failed round 280",
+    "bag flight 320",
+    "between throws 320",
+    "failed round 320",
+    "bag flight 390",
+    "between throws 390",
+    "failed round 390",
+    "bag flight 844",
+    "between throws 844",
+    "failed round 844",
+    "haunted prize story",
+    "waiting claim"
+  ],
+  "exactProgressPreserved": true,
+  "priorPlayingAndPausedRestored": true,
+  "escapePreservesInspection": true,
+  "rapidCreditsCycles": 8,
+  "externalInterruptionStillNeedsPlay": true,
+  "noPermanentRestartControls": true,
+  "svgPauseSymbol": true,
+  "progressiveGuidance": true,
+  "naturalBagPickupAndKeyboard": true,
+  "reducedMotion": true,
+  "eightSecondWheelLastEnding": true,
+  "finalSilence": true,
+  "approvedAssetBytesUnchanged": true,
+  "projectPrefixPaths": true,
+  "layouts": [
+    {
+      "width": 280,
+      "height": 568,
+      "pickupWorks": true,
+      "clueNotIntercepted": true
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "pickupWorks": true,
+      "clueNotIntercepted": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "pickupWorks": true,
+      "clueNotIntercepted": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "pickupWorks": true,
+      "clueNotIntercepted": true
+    }
+  ],
+  "errors": [],
+  "limits": [
+    "Desktop Chromium touch emulation; physical peer re-review pending",
+    "Playtest chronology is user-reported, not automated evidence of peer behavior",
+    "No deployment"
+  ]
+}

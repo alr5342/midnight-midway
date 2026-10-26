@@ -1,0 +1,252 @@
+[
+  {
+    "label": "entered",
+    "clock": {
+      "state": "exploring",
+      "elapsedMs": 32,
+      "canInteract": true,
+      "reducedMotion": false,
+      "scheduledFrames": 1
+    },
+    "ambient": {
+      "status": "playing",
+      "contextState": "running",
+      "activeSources": 1,
+      "duration": 3.2353125
+    },
+    "story": {
+      "status": "ready",
+      "activeSources": 0,
+      "startedSources": 0,
+      "decodedCues": 10,
+      "sharedContext": true
+    },
+    "focus": "playback",
+    "modal": false
+  },
+  {
+    "label": "paused",
+    "clock": {
+      "state": "paused",
+      "elapsedMs": 32,
+      "canInteract": false,
+      "reducedMotion": false,
+      "scheduledFrames": 0
+    },
+    "ambient": {
+      "status": "paused",
+      "contextState": "suspended",
+      "activeSources": 0,
+      "duration": 3.2353125
+    },
+    "story": {
+      "status": "ready",
+      "activeSources": 0,
+      "startedSources": 0,
+      "decodedCues": 10,
+      "sharedContext": true
+    },
+    "focus": "playback",
+    "modal": false
+  },
+  {
+    "label": "escape 0",
+    "clock": {
+      "state": "paused",
+      "elapsedMs": 32,
+      "canInteract": false,
+      "reducedMotion": false,
+      "scheduledFrames": 0
+    },
+    "ambient": {
+      "status": "paused",
+      "contextState": "suspended",
+      "activeSources": 0,
+      "duration": 3.2353125
+    },
+    "story": {
+      "status": "ready",
+      "activeSources": 0,
+      "startedSources": 0,
+      "decodedCues": 10,
+      "sharedContext": true
+    },
+    "focus": "credits-open",
+    "modal": false
+  },
+  {
+    "label": "escape 1",
+    "clock": {
+      "state": "paused",
+      "elapsedMs": 32,
+      "canInteract": false,
+      "reducedMotion": false,
+      "scheduledFrames": 0
+    },
+    "ambient": {
+      "status": "paused",
+      "contextState": "suspended",
+      "activeSources": 0,
+      "duration": 3.2353125
+    },
+    "story": {
+      "status": "ready",
+      "activeSources": 0,
+      "startedSources": 0,
+      "decodedCues": 10,
+      "sharedContext": true
+    },
+    "focus": "credits-open",
+    "modal": false
+  },
+  {
+    "label": "escape 2",
+    "clock": {
+      "state": "paused",
+      "elapsedMs": 32,
+      "canInteract": false,
+      "reducedMotion": false,
+      "scheduledFrames": 0
+    },
+    "ambient": {
+      "status": "paused",
+      "contextState": "suspended",
+      "activeSources": 0,
+      "duration": 3.2353125
+    },
+    "story": {
+      "status": "ready",
+      "activeSources": 0,
+      "startedSources": 0,
+      "decodedCues": 10,
+      "sharedContext": true
+    },
+    "focus": "credits-open",
+    "modal": false
+  },
+  {
+    "label": "escape 3",
+    "clock": {
+      "state": "paused",
+      "elapsedMs": 32,
+      "canInteract": false,
+      "reducedMotion": false,
+      "scheduledFrames": 0
+    },
+    "ambient": {
+      "status": "paused",
+      "contextState": "suspended",
+      "activeSources": 0,
+      "duration": 3.2353125
+    },
+    "story": {
+      "status": "ready",
+      "activeSources": 0,
+      "startedSources": 0,
+      "decodedCues": 10,
+      "sharedContext": true
+    },
+    "focus": "credits-open",
+    "modal": false
+  },
+  {
+    "label": "escape 4",
+    "clock": {
+      "state": "paused",
+      "elapsedMs": 32,
+      "canInteract": false,
+      "reducedMotion": false,
+      "scheduledFrames": 0
+    },
+    "ambient": {
+      "status": "paused",
+      "contextState": "suspended",
+      "activeSources": 0,
+      "duration": 3.2353125
+    },
+    "story": {
+      "status": "ready",
+      "activeSources": 0,
+      "startedSources": 0,
+      "decodedCues": 10,
+      "sharedContext": true
+    },
+    "focus": "credits-open",
+    "modal": false
+  },
+  {
+    "label": "immediate Play key",
+    "clock": {
+      "state": "exploring",
+      "elapsedMs": 32,
+      "canInteract": true,
+      "reducedMotion": false,
+      "scheduledFrames": 1
+    },
+    "ambient": {
+      "status": "loading",
+      "contextState": "suspended",
+      "activeSources": 0,
+      "duration": 3.2353125
+    },
+    "story": {
+      "status": "ready",
+      "activeSources": 0,
+      "startedSources": 0,
+      "decodedCues": 10,
+      "sharedContext": true
+    },
+    "focus": "playback",
+    "modal": false
+  },
+  {
+    "label": "native wait after Play",
+    "clock": {
+      "state": "exploring",
+      "elapsedMs": 32,
+      "canInteract": true,
+      "reducedMotion": false,
+      "scheduledFrames": 1
+    },
+    "ambient": {
+      "status": "playing",
+      "contextState": "running",
+      "activeSources": 1,
+      "duration": 3.2353125
+    },
+    "story": {
+      "status": "ready",
+      "activeSources": 0,
+      "startedSources": 0,
+      "decodedCues": 10,
+      "sharedContext": true
+    },
+    "focus": "credits-open",
+    "modal": false
+  },
+  {
+    "label": "one active frame",
+    "clock": {
+      "state": "exploring",
+      "elapsedMs": 64,
+      "canInteract": true,
+      "reducedMotion": false,
+      "scheduledFrames": 1
+    },
+    "ambient": {
+      "status": "playing",
+      "contextState": "running",
+      "activeSources": 1,
+      "duration": 3.2353125
+    },
+    "story": {
+      "status": "ready",
+      "activeSources": 0,
+      "startedSources": 0,
+      "decodedCues": 10,
+      "sharedContext": true
+    },
+    "focus": "credits-open",
+    "modal": false
+  }
+]
