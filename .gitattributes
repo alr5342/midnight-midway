@@ -8,3 +8,7 @@
 *.png binary
 *.wav binary
 *.ogg binary
+# Preserve supplied protocol/transcript bytes in the GitHub submission ZIP.
+/debrief.md -text
+/transcripts/*.md -text
+/docs/transcripts/*.md -text

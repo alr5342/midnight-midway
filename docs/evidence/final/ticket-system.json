@@ -1,0 +1,93 @@
+{
+  "status": "passed",
+  "routes": [
+    {
+      "order": [
+        "carousel",
+        "prize"
+      ],
+      "issued": 4,
+      "spent": 4,
+      "bothReplays": true,
+      "retriesFree": true,
+      "revisitFresh": true
+    },
+    {
+      "order": [
+        "prize",
+        "carousel"
+      ],
+      "issued": 2,
+      "spent": 2,
+      "noPrematureToken": true,
+      "tokenAtStallAfterCarousel": true,
+      "reducedMotion": true
+    },
+    {
+      "order": [
+        "carousel",
+        "carousel replay",
+        "prize"
+      ],
+      "boundaryReplayCharged": true,
+      "unfinishedActivitiesSurviveSwitching": true
+    }
+  ],
+  "stackableTickets": true,
+  "acceptedActionsOnly": true,
+  "wrongNotesAndFailedRetriesFree": true,
+  "paperFree": true,
+  "bothAvailableAfterFirstTicket": true,
+  "zeroBalanceBoothRecovery": true,
+  "oneSouvenirAfterBothStories": true,
+  "originalTokenPosition": true,
+  "noDuplicateAwards": true,
+  "masterPlaybackAndCredits": [
+    "Credits: free paper before starting",
+    "Pause: paid melody at zero balance",
+    "Credits: paid melody",
+    "Credits: carousel story",
+    "Credits: paid bag flight",
+    "Pause: failed paid round",
+    "Credits: repeat failure at zero tickets",
+    "Credits: waiting earned token",
+    "Pause: claimed ending",
+    "Credits: prize-first story",
+    "Credits: two paid activities retained"
+  ],
+  "visibleUnobtrusiveBalance": true,
+  "phoneTouchAndKeyboard": true,
+  "layouts": [
+    {
+      "width": 280,
+      "height": 568,
+      "fits": true,
+      "noOverflow": true
+    },
+    {
+      "width": 320,
+      "height": 568,
+      "fits": true,
+      "noOverflow": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "fits": true,
+      "noOverflow": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "fits": true,
+      "noOverflow": true
+    }
+  ],
+  "approvedMediaUnchanged": true,
+  "projectPrefixPaths": true,
+  "errors": [],
+  "limits": [
+    "Desktop Chromium touch emulation; physical-phone review pending",
+    "No deployment or Phase 1 repackaging"
+  ]
+}

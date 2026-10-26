@@ -1,5 +1,7 @@
 # GitHub Pages — current release handoff
 
+> **Current final submission:** [FINAL-SUBMISSION.md](FINAL-SUBMISSION.md) supersedes the earlier handoff below. Final Safari phone/debrief evidence is now reviewed; the submission is GitHub's **Code → Download ZIP** on **main**, with original transcripts, source assets, current docs and tracked Git log. Current final tests include WebKit visual checks; audio/API and Firefox limits remain documented.
+
 Updated 2026-10-26 for Phase 2 review. Existing repository: [alr5342/midnight-midway](https://github.com/alr5342/midnight-midway). Existing public HTTPS URL: https://alr5342.github.io/midnight-midway/. Pages source is **main / /(root)**. Do not recreate the repository, add another origin or rewrite history.
 
 **Phase 2 published with Developer authorization, 2026-10-26.** Development history was merged into main and pushed normally. Pages built merge `f46add2972288c72f82590dfa8ed46f1ef5fdf7e`, whose public journey and 53 runtime resources/11 WAVs passed focused Chromium verification. Subsequent evidence updates do not change its runtime. [Deployment record](PHASE-2-DEPLOYMENT.md). Prior Phase 1 history/archive remain preserved. Debrief, final-phone review and packaging remain separate; [submission gates](PHASE-2-AUDIT.md).

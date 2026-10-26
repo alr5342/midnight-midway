@@ -1,5 +1,9 @@
 # Peer-playtesting record
 
+## Additional evidence from the completed debrief
+
+The [completed transcript](../transcripts/debrief-2026-10-26_140247.md) adds a concrete account: a peer could not discover how to begin with only the in-app narration, asked for help and suggested bringing the bell forward with subtle movement. The Developer reports implementing that revision and having people try it on phones again, with easier discovery; narration was also revised. This establishes an observed initial discovery failure and reported retest, without inventing counts, timings or a wholly unaided successful session. Assistance after difficulty remains a limitation. The debrief and final Safari phone account are now reviewed; prior pending-debrief statements below are historical. [Current final audit](FINAL-SUBMISSION.md).
+
 Updated 2026-10-26 from the Developer's direct confirmation and the previously recorded feedback. These are summarized reports, not fabricated quotations or participant-level measurements. Automated tests are separate evidence.
 
 | Round | Date / version | What is established | What remains unknown |

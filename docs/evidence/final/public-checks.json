@@ -1,0 +1,236 @@
+{
+  "status": "passed",
+  "url": "https://alr5342.github.io/midnight-midway/",
+  "verifiedAt": "2026-10-26T19:45:08.187Z",
+  "localRevision": "548a6b405e897048ddc82b18b8f9858d7f459ce1",
+  "checks": [
+    "HTTPS entry, scene artwork and wind plus ten story/musical cues decode after Enter",
+    "Booth story replays without reload and stacks two tickets",
+    "One paid prize game: failed-round bag pickup is free; support-can win completes haunted story without an early token",
+    "Environmental music clue, horse melody and full carousel payoff; Credits retains partial melody/payment; carousel-last reveals one token",
+    "Deliberate claim, real-time disappearance with Play/Pause recovery, empty field/token, wheel gone, final silence and Revisit",
+    "All fetched runtime files, HTML, approved artwork and eleven WAVs match local bytes (text line endings normalized)",
+    "Fresh Revisit, normal public URL/reload, no exposed diagnostics or unexpected page/HTTP errors"
+  ],
+  "verifiedResources": [
+    {
+      "path": "src/css/app.css",
+      "sha256": "2d64e0e44fac581d4dbd171fcf41c63185cb0cd1ebcdf4ea6ba41fdc61d5319a"
+    },
+    {
+      "path": "src/css/scene.css",
+      "sha256": "8f0a9b273bac67a46d9dbed4f073e35e9d7683ecefbda44fd517911e812a03af"
+    },
+    {
+      "path": "assets/artwork/ticket-booth.png",
+      "sha256": "a79e2685a24b1225e0ee054c8bd0cb68c914a5c35c082122ccdfbbbeb6e7b893"
+    },
+    {
+      "path": "src/js/app.js",
+      "sha256": "d8d945414525cfdd1741e9003b801b6c8abde89f417448c6f4b2e641a5116876"
+    },
+    {
+      "path": "assets/story/ticket.svg",
+      "sha256": "85c8c7bb8f5b0cb73c14c809484eba60684f78e377d805f3adff8d0307cbc598"
+    },
+    {
+      "path": "assets/sources/artwork/midnight-midway-concept.png",
+      "sha256": "d124eff18224e90a5633614119733583598e7972fff36bda9ad46ffbcb7c3f80"
+    },
+    {
+      "path": "src/js/lighting.js",
+      "sha256": "40b1bf4d75af21f43cf4d9567ce339ef3906932cd4ab8d9cf2828d1ca3aea920"
+    },
+    {
+      "path": "src/js/story-audio.js",
+      "sha256": "685216bac702903788a9c67be94bccdc0d02eda73982a63f9e51b5d5cf86a3a1"
+    },
+    {
+      "path": "src/js/ticket-story.js",
+      "sha256": "1afab62f2868f7ab5e5a481777dfbf843c7936cdbadbdf7942dabc335350c6ec"
+    },
+    {
+      "path": "src/js/visit.js",
+      "sha256": "0069382761e2ddff7ce6b95b0d14ac3379ba68ca9ae152d3cb5f85a3fbcfe05a"
+    },
+    {
+      "path": "src/js/carousel.js",
+      "sha256": "c392c9ad3cb9abf55eb49c12b85eb4e4789980bfffa3befcdb95ae010a9181f3"
+    },
+    {
+      "path": "src/js/narration.js",
+      "sha256": "266c12b6db1dd7892f7adea9b0976ea544903e179b5d16085c5205329dcad871"
+    },
+    {
+      "path": "src/js/playback.js",
+      "sha256": "81ae8f868680efd9aef3f78ebe317836a28873068a052c78ddd7d4ac556170d0"
+    },
+    {
+      "path": "src/js/artwork.js",
+      "sha256": "9ec28802de3d8c966466dfb42bdaed0cdf8437a9a102e9f6d65e71be36daba06"
+    },
+    {
+      "path": "src/js/bats.js",
+      "sha256": "6a89be3df6090abeed1f665317c4e71ecf6eff536b7899b65d666cb5fba405ab"
+    },
+    {
+      "path": "src/js/fog.js",
+      "sha256": "3a3f3627e1a11cf2dd9d1c6fa89a722ac8175f9553cfa12b69c309d590f7a288"
+    },
+    {
+      "path": "src/js/ambient-audio.js",
+      "sha256": "a61f1b5b66141f262faff8fddef1b2b62b9a62935c6e710d4db5dd5ccebb1f1d"
+    },
+    {
+      "path": "src/js/prize.js",
+      "sha256": "d233f0447cff12d4fcbee081bd4730de13c5185051aa6212a089970dc0c7bd1b"
+    },
+    {
+      "path": "src/js/ending.js",
+      "sha256": "e3aa66366950fab1c448e9f6c443de9bdf77b9f2d0d53e3b5e4b8ff7ae1a7a75"
+    },
+    {
+      "path": "assets/artwork/midway-clean-plate.png",
+      "sha256": "6a0a62d9870bb5f20b3edf0324f39fb6776ee9038a5dae4e8b8d80ca3a61d77b"
+    },
+    {
+      "path": "src/js/guidance.js",
+      "sha256": "3aab83930c493a50033150f0645ffdcc5fd6a06d16e18fd7dba7b5aaed6a3b39"
+    },
+    {
+      "path": "assets/masks/gondola-patch-mask.svg",
+      "sha256": "da337803666dbb6398664196a6d41be9705370794685f19e27d07345354deddf"
+    },
+    {
+      "path": "assets/masks/prize-pair-mask.svg",
+      "sha256": "f565af776b842fc2f9f2f07f3559cc266e2b5f0e8d3e05838e42eb6959666733"
+    },
+    {
+      "path": "assets/masks/fixed-trim-mask.svg",
+      "sha256": "370e291e657cb1cc6edb39d49ad8a3c233757fd474ee878fe3f043baa26cf496"
+    },
+    {
+      "path": "assets/masks/attraction-repair-mask.svg",
+      "sha256": "01ef968362b0d303c38e7dad1a3bd66b4268958ff1a9a3d25e588511dce0ddf0"
+    },
+    {
+      "path": "assets/story/sparks.svg",
+      "sha256": "18268b2bfe35341abb9207617b6cdd7241a99d132431d7839b4e7dba3b39d50d"
+    },
+    {
+      "path": "assets/artwork/horse-right.png",
+      "sha256": "82f8d3008e28a0232af4f7bfd9d24b624e8c4d2d9a6713eab2ffa825bb97ca2c"
+    },
+    {
+      "path": "assets/story/keepsake-token-v1.svg",
+      "sha256": "683f851774fe66add92575ad8057626804f5b787aaa0be9bb23079c7d5a6c784"
+    },
+    {
+      "path": "assets/story/prize-counter-v1.png",
+      "sha256": "b3ffb0d8ddb537cc878ba2b19c7b3c1051c763d55a24c3afa41edefb4a9fcd86"
+    },
+    {
+      "path": "assets/story/booth-window-mask.svg",
+      "sha256": "55264a6706cfa353c797de6eb18ede6601e5d51bfdfa18f5a9bf0dff81c496b4"
+    },
+    {
+      "path": "assets/artwork/gondola-style-v2.png",
+      "sha256": "b7cf5ac4043710119603abe93e6454ab35d93a2c9bc579808b03a1b42b4948d6"
+    },
+    {
+      "path": "assets/artwork/attractions-hidden-plate-v1.png",
+      "sha256": "c473b467d1250b1a59e04a68106adb086755cdf4eb6e46111ae7a7d96e2fc345"
+    },
+    {
+      "path": "assets/story/prize-can-v1.png",
+      "sha256": "9c59f95deb9cb6758899795fdf088538d3a21110ddbe6f942e4d807692b1bf7d"
+    },
+    {
+      "path": "assets/story/booth-empty-interior-v1.png",
+      "sha256": "f0f82ce42ca6e629be5e5bad88322ea9abac011832ac8624b266d8a48c816d5c"
+    },
+    {
+      "path": "assets/artwork/horse-center.png",
+      "sha256": "a8d94bc3a96579b248b89146b7b6463d6fe90d7eed0dadd0ab686a382ad28778"
+    },
+    {
+      "path": "assets/story/stamp.svg",
+      "sha256": "6d7c1929098b9d8d0eeec44bba33e63f6c5691994fc4e05768b7b118abf0c606"
+    },
+    {
+      "path": "assets/artwork/horse-left.png",
+      "sha256": "b0fe7db8457fc097f3443f02f87d5bf1c4787769869b25e8a706c658ff884ac6"
+    },
+    {
+      "path": "assets/story/ghost-attendant-v3.png",
+      "sha256": "59a5057433657c18374f90483dbd7bc94e3b1957f75ddad9956e27b2fa62c075"
+    },
+    {
+      "path": "assets/artwork/empty-field-v1.png",
+      "sha256": "fa1b30a66071b059ea231b0f46a464a63815d544d03836386c5a2679fb1cb85b"
+    },
+    {
+      "path": "assets/story/music-paper-painted-v1.png",
+      "sha256": "285491b1e90147501e4f78348d65696b4c4221f61a355ddb57f7686c71fb12a8"
+    },
+    {
+      "path": "assets/story/bell-painted-v1.png",
+      "sha256": "b573819d0159de450d9a5de3cd89667afcf8f029491dc561c1e60931e461cae3"
+    },
+    {
+      "path": "assets/audio/story-arrival.wav",
+      "sha256": "df5b24d1f8865e44513ef9969e4a797e2c7100fc1ae765e47e130ba8db20ce71"
+    },
+    {
+      "path": "assets/audio/story-departure.wav",
+      "sha256": "3bc3110bd67a4934c884c7e758ad5d1679fff2c551a72dbfef7cd30d061df394"
+    },
+    {
+      "path": "assets/audio/story-ring-3.wav",
+      "sha256": "32e11d2dd8a12247ad7d4e2a4a7aada73443084b2f892f659aed6f0abf95231b"
+    },
+    {
+      "path": "assets/audio/carousel-box.wav",
+      "sha256": "cf1832ed054a7a1f60895dd5bf1f81c64d8d8dd063677530c6996f3e2e7685fe"
+    },
+    {
+      "path": "assets/audio/prize-tin.wav",
+      "sha256": "06ece00ea516e156a4daa5aa18ac98192fdcf89c2d74cc5dc6768fea4e1c7135"
+    },
+    {
+      "path": "assets/audio/prize-chime.wav",
+      "sha256": "10d1a4a6e8888a0f43910bfc1bcd21647151db197943529d0af5a99ee8f222e4"
+    },
+    {
+      "path": "assets/audio/story-ring-1.wav",
+      "sha256": "6609bd0c9b19a09db117a102df15c87c0d478e23d724698a2f8a1f839b414ef9"
+    },
+    {
+      "path": "assets/audio/prize-throw.wav",
+      "sha256": "67e0a138e30ccc886a42c555381e175d3038644caa21ee5778850a7591061407"
+    },
+    {
+      "path": "assets/audio/story-ring-2.wav",
+      "sha256": "7371f84c65b22357268b0840d5f20f873bd75b08391b1a200188d3a5bc94636a"
+    },
+    {
+      "path": "assets/audio/story-stamp.wav",
+      "sha256": "da9802ca772f36a65c9bbde4ebefc3420ee37487443d7d21078add745b14acbc"
+    },
+    {
+      "path": "assets/audio/midway-wind-loop.wav",
+      "sha256": "ab2ddea484cf4d6b5e0f966e39c0f4a8bd60a52336c678a47b6208400f12c5c0"
+    },
+    {
+      "path": "index.html",
+      "sha256": "9aef66d6ad7bb03e66c3887198f5ee89e532ebd4568e2ceae69dd5b8795c0e4b"
+    }
+  ],
+  "errors": [],
+  "limits": [
+    "Desktop Chromium touch emulation with real active time; final physical-phone verification pending",
+    "Firefox Playwright page creation previously failed before navigation; WebKit was not reached",
+    "Decode/source/scheduling checks do not establish subjective sound balance",
+    "No debrief work or final ZIP in this checkpoint"
+  ]
+}

@@ -1,5 +1,13 @@
 # Phase 2 assignment audit
 
+## Final submission follow-up, 2026-10-26
+
+The current assessment is [FINAL-SUBMISSION.md](FINAL-SUBMISSION.md), with [fresh test evidence](evidence/final/README.md). The completed debrief protocol/transcript and both development exports are present; the Developer confirmed these are all intended conversation materials. The debrief reports a final public Safari phone playthrough with tickets, either order and disappearance, recorded in [PHASE-2-PHONE-VERIFICATION.md](PHASE-2-PHONE-VERIFICATION.md). Phone model/OS and personally unperformed reduced-motion/stamp-beat checks are not invented.
+
+Fresh results: 61 unit tests, 92 syntax checks, current ticket routes, full Chromium audit and public runtime-file/journey checks pass. WebKit visual/keyboard/layout/reduced-motion checks also pass; its Windows build lacks Web Audio. Firefox fails inside Playwright before game navigation. Historical checkpoint tests retain superseded contracts and are inventoried, not passed by assumption. Peer assistance remains explicit; debrief adds the initial in-app-only discovery attempt, observed difficulty and revised-bell retest.
+
+The final task tracks the exact supplied transcript/protocol bytes, refreshes the ZIP-visible Git log and verifies the actual GitHub ZIP and extracted runtime after push. No game/artwork or creative change. The detailed publication-stage audit below is preserved as history; pending-phone/debrief/WebKit-not-reached statements there are superseded by this follow-up and the linked final report.
+
 Updated **2026-10-26**. Authority: [exact assignment brief](../brief.md). Approved runtime baseline `614e44beffa18869d09983d3fa406c0be6655e76` is now merged into `main` and published, with artwork/puzzles/stories unchanged. The Developer explicitly accepted testing so far and authorized publication despite documented engine coverage limits. [Release record](PHASE-2-DEPLOYMENT.md). Phase 1 materials remain intact; no debrief edits or ZIP work.
 
 **Result: Phase 2 is published and its focused public verification passes; final submission remains incomplete.** Pages built merge `f46add2`; the real-time public touch journey and 53 runtime-file comparisons (11 WAVs) passed. Original harness failures are resolved in Chromium. Firefox failed inside Playwright before navigation; WebKit was not reached, and no fresh Safari/iPhone pass is claimed. Physical-phone verification, supplied debrief and final ZIP remain open.

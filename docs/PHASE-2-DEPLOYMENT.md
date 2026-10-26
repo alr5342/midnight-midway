@@ -1,5 +1,7 @@
 # Phase 2 publication — 2026-10-26
 
+> Historical publication-stage record. The later [final audit](FINAL-SUBMISSION.md) reviews the completed debrief/final Safari phone report and direct GitHub submission ZIP. Statements below about those being future work describe the original publication checkpoint.
+
 The Developer explicitly approved committing the remaining reviewed work, preserving and merging development history into `main`, and updating the existing `alr5342/midnight-midway` GitHub Pages site. This supersedes the prior hold on publication; it does not authorize new creative features, debrief edits or ZIP packaging.
 
 Repository: https://github.com/alr5342/midnight-midway

@@ -1,5 +1,7 @@
 # Phase 2 evidence index
 
+> Preserved earlier audit/publication-stage evidence. [Final audit evidence](../final/README.md) and the [finished-phone account](../../PHASE-2-PHONE-VERIFICATION.md) are current; older pending-debrief/phone statements below describe their original checkpoint.
+
 Updated 2026-10-26; approved application baseline `614e44b`, now published from main. This directory is tracked so the eventual GitHub source ZIP includes selected evidence. Fresh `tests/results/` output remains ignored. Public verification is recorded below; no final archive or completed supplied debrief is implied.
 
 ## Current observed checks

@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-26",
+  "currentRuntimeAndPreviewFilesScanned": 21,
+  "staticReferencesChecked": 107,
+  "dynamicReferencesCoveredByBrowserChecks": 14,
+  "missingReferences": [],
+  "debrief": {
+    "path": "transcripts/debrief-2026-10-26_140247.md",
+    "developerMessages": 23,
+    "agentMessages": 23,
+    "declaredDeveloperMessages": 23,
+    "declaredAgentMessages": 23,
+    "closingAndSavePresent": true,
+    "duration": "46 minutes 5 seconds",
+    "fullTextReviewed": true
+  },
+  "transcriptsConfirmedCompleteByDeveloper": true
+}

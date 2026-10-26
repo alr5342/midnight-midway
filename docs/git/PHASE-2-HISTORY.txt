@@ -1,4 +1,33 @@
-﻿commit f46add2972288c72f82590dfa8ed46f1ef5fdf7e
+Midnight Midway — exported Git history
+Revision: 548a6b405e897048ddc82b18b8f9858d7f459ce1
+Exported: 2026-10-26T19:49:37.801Z
+
+commit 548a6b405e897048ddc82b18b8f9858d7f459ce1
+Author:     Alex Rosemann <arosemann@gmail.com>
+AuthorDate: 2026-10-26T13:08:53-05:00
+Commit:     Alex Rosemann <arosemann@gmail.com>
+CommitDate: 2026-10-26T13:08:53-05:00
+
+    Record verified Phase 2 GitHub Pages deployment
+
+ README.md                                          |   8 +-
+ docs/GITHUB-PAGES.md                               |   2 +-
+ docs/PHASE-2-AUDIT.md                              |  23 +-
+ docs/PHASE-2-DEPLOYMENT.md                         |  14 +-
+ docs/evidence/phase2/README.md                     |   5 +-
+ docs/evidence/phase2/manifest.json                 |  40 ++++
+ docs/evidence/phase2/publication/checks.json       | 236 +++++++++++++++++++++
+ .../phase2/publication/empty-field-phone.png       | Bin 0 -> 459968 bytes
+ docs/evidence/phase2/publication/pages-build.json  |  17 ++
+ docs/evidence/phase2/publication/start-phone.png   | Bin 0 -> 361545 bytes
+ .../phase2/publication/waiting-token-phone.png     | Bin 0 -> 521498 bytes
+ docs/evidence/phase2/static-verification.json      |  16 +-
+ docs/git/PHASE-2-HISTORY.txt                       |  58 ++++-
+ plan.md                                            |   6 +-
+ spec.md                                            |   2 +-
+ 15 files changed, 399 insertions(+), 28 deletions(-)
+
+commit f46add2972288c72f82590dfa8ed46f1ef5fdf7e
 Merge: 4f7ed1b 3f9c165
 Author:     Alex Rosemann <arosemann@gmail.com>
 AuthorDate: 2026-10-26T12:57:56-05:00

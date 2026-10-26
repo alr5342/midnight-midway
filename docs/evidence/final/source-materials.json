@@ -1,0 +1,36 @@
+{
+  "date": "2026-10-26",
+  "files": [
+    {
+      "file": "debrief.md",
+      "bytes": 24962,
+      "sha256": "39503519df979bbad1030b4088f69b2edd409612246be7041b47179c37c6970d"
+    },
+    {
+      "file": "transcripts/debrief-2026-10-26_140247.md",
+      "bytes": 23123,
+      "sha256": "0b2363711602f039fde35c3b4635b5160874c597d2a5ab245f37b52af7b04cde"
+    },
+    {
+      "file": "docs/transcripts/midnight-midway-phase1-submission-carousel-and-playtest-revisions-conversation-2026-10-26_141334.md",
+      "bytes": 97470992,
+      "sha256": "4ba68906bf48b51a0e015902b1059afaf427b6cc12c04ca379d72ede99691620"
+    },
+    {
+      "file": "docs/transcripts/midnight-midway-visual-design-and-layered-artwork-conversation-2026-10-26_141121.md",
+      "bytes": 33772353,
+      "sha256": "d9e205a841ed9464ce19a85e10b025c993661d2defb7129522bf9aefb9e69015"
+    },
+    {
+      "file": "submissions/midnight-midway-phase1-20261016184044-final.zip",
+      "bytes": 145951359,
+      "sha256": "4c3d9bc0f40726dc2de73d8e2fbe9afe802a8dc8418f2d7b3f850edfdd1a6aa3"
+    }
+  ],
+  "developerConfirmedAllIntendedConversations": true,
+  "notes": [
+    "Original protocol and supplied transcript bytes remain unchanged.",
+    "Existing Phase 1 archive is preserved locally, excluded as a redundant nested generated delivery.",
+    "Development exports are ordinary Git blobs below 100 MiB; no LFS pointer substitution."
+  ]
+}

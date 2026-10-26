@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-26",
+  "firefox": {
+    "command": "TEST_BROWSERS=firefox node tests/browser/check-phase2-audit.mjs",
+    "exitCode": 1,
+    "error": "browser.newPage: Cannot read properties of undefined (reading '_page')",
+    "stage": "page creation before navigation; game not loaded"
+  },
+  "webkit": {
+    "command": "TEST_BROWSERS=webkit node tests/browser/check-phase2-audit.mjs",
+    "exitCode": 0,
+    "status": "visual/keyboard/layout/reduced-motion passed; Web Audio unavailable in installed build"
+  },
+  "chromium": {
+    "command": "TEST_BROWSERS=chromium node tests/browser/check-phase2-audit.mjs",
+    "exitCode": 0,
+    "status": "full audit passed"
+  },
+  "sourceAvailability": {
+    "wind": "Creator page accessible, CC0 confirmed",
+    "bell": "Creator page accessible, CC0 and producer confirmed",
+    "magic": "Final web fetch timed out twice; preserved earlier source/license verification remains in CREDITS.md; no changed asset or terms inferred"
+  },
+  "phone": "Final public Safari playthrough is user-reported in completed debrief; see PHASE-2-PHONE-VERIFICATION.md"
+}

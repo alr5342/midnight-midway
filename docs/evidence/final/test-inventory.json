@@ -1,0 +1,204 @@
+{
+  "date": "2026-10-26",
+  "unitCommand": "node --test tests/unit/*.test.mjs",
+  "unitTestsPassed": 61,
+  "syntaxChecksPassed": 92,
+  "syntaxFiles": [
+    "archive/development-source/asset-readiness.js",
+    "archive/development-source/credits.js",
+    "archive/development-source/ticket-story-assets.js",
+    "dev/previews/preview.js",
+    "docs/history/20261016-145826/check-shell-artwork-attempt.mjs",
+    "docs/history/20261016-151003/app.js",
+    "docs/history/20261016-153242/check-lighting.mjs",
+    "docs/history/20261016-153242/lighting.js",
+    "docs/history/20261016-153242/lighting.test.mjs",
+    "docs/history/20261016-153817/lighting.js",
+    "docs/history/20261016-154736/app.js",
+    "docs/history/20261016-154736/check-fog-screenshot-attempt.mjs",
+    "docs/history/20261016-155710/app.js",
+    "docs/history/20261016-160301/app.js",
+    "docs/history/20261016-160301/serve.mjs",
+    "docs/history/20261016-ghost-v2/check-story-assets.mjs",
+    "docs/history/20261016-ghost-v2/ticket-story-assets.js",
+    "docs/history/20261016-p1-7-8/ambient-audio.js",
+    "docs/history/20261016-p1-7-8/app.js",
+    "docs/history/20261016-p1-7-8/check-audio.mjs",
+    "docs/history/20261016-p1-7-8/check-shell.mjs",
+    "docs/history/20261016-p1-7-8/playback.js",
+    "docs/history/20261016-p1-9/app.js",
+    "docs/history/20261016-p1-9/serve.mjs",
+    "docs/history/20261016-p1-9/ticket-story.js",
+    "serve.mjs",
+    "src/js/ambient-audio.js",
+    "src/js/app.js",
+    "src/js/artwork.js",
+    "src/js/bats.js",
+    "src/js/carousel.js",
+    "src/js/ending.js",
+    "src/js/fog.js",
+    "src/js/guidance.js",
+    "src/js/lighting.js",
+    "src/js/narration.js",
+    "src/js/playback.js",
+    "src/js/prize.js",
+    "src/js/story-audio.js",
+    "src/js/ticket-story.js",
+    "src/js/visit.js",
+    "tests/browser/artwork-regions.mjs",
+    "tests/browser/check-audio.mjs",
+    "tests/browser/check-bats.mjs",
+    "tests/browser/check-carousel.mjs",
+    "tests/browser/check-carriage.mjs",
+    "tests/browser/check-ending-staging.mjs",
+    "tests/browser/check-ending.mjs",
+    "tests/browser/check-fog.mjs",
+    "tests/browser/check-journey-recovery.mjs",
+    "tests/browser/check-light-alignment.mjs",
+    "tests/browser/check-lighting.mjs",
+    "tests/browser/check-live-pages.mjs",
+    "tests/browser/check-narration.mjs",
+    "tests/browser/check-organization.mjs",
+    "tests/browser/check-peer-revision.mjs",
+    "tests/browser/check-phase2-audit.mjs",
+    "tests/browser/check-phase2-live.mjs",
+    "tests/browser/check-prize-staging.mjs",
+    "tests/browser/check-prize.mjs",
+    "tests/browser/check-shell.mjs",
+    "tests/browser/check-story-assets.mjs",
+    "tests/browser/check-submission-ready.mjs",
+    "tests/browser/check-ticket-story.mjs",
+    "tests/browser/check-tickets.mjs",
+    "tests/browser/visual-check.mjs",
+    "tests/helpers/legacy-paths.mjs",
+    "tests/run-regressions.mjs",
+    "tests/unit/activity-restart.test.mjs",
+    "tests/unit/ambient-audio.test.mjs",
+    "tests/unit/bats.test.mjs",
+    "tests/unit/carousel.test.mjs",
+    "tests/unit/ending.test.mjs",
+    "tests/unit/fog.test.mjs",
+    "tests/unit/guidance.test.mjs",
+    "tests/unit/lighting.test.mjs",
+    "tests/unit/narration.test.mjs",
+    "tests/unit/playback.test.mjs",
+    "tests/unit/prize.test.mjs",
+    "tests/unit/ticket-story.test.mjs",
+    "tests/unit/visit.test.mjs",
+    "tools/build-artwork-masks.mjs",
+    "tools/check-secrets.mjs",
+    "tools/export-git-log.mjs",
+    "tools/inspect-startup-failures.mjs",
+    "tools/inspect-wheel-lights.mjs",
+    "tools/package-phase1.mjs",
+    "tools/prepare-ambient-audio.mjs",
+    "tools/prepare-carousel-audio.mjs",
+    "tools/prepare-horse-layers.mjs",
+    "tools/prepare-prize-audio.mjs",
+    "tools/prepare-story-audio.mjs"
+  ],
+  "browserRunners": [
+    {
+      "file": "tests/browser/artwork-regions.mjs",
+      "classification": "historical helper, not executable test"
+    },
+    {
+      "file": "tests/browser/check-audio.mjs",
+      "classification": "historical checkpoint runner; assertions may encode superseded behavior"
+    },
+    {
+      "file": "tests/browser/check-bats.mjs",
+      "classification": "historical checkpoint runner; assertions may encode superseded behavior"
+    },
+    {
+      "file": "tests/browser/check-carousel.mjs",
+      "classification": "historical checkpoint runner; assertions may encode superseded behavior"
+    },
+    {
+      "file": "tests/browser/check-carriage.mjs",
+      "classification": "historical checkpoint runner; assertions may encode superseded behavior"
+    },
+    {
+      "file": "tests/browser/check-ending-staging.mjs",
+      "classification": "historical checkpoint runner; assertions may encode superseded behavior"
+    },
+    {
+      "file": "tests/browser/check-ending.mjs",
+      "classification": "historical checkpoint runner; assertions may encode superseded behavior"
+    },
+    {
+      "file": "tests/browser/check-fog.mjs",
+      "classification": "historical checkpoint runner; assertions may encode superseded behavior"
+    },
+    {
+      "file": "tests/browser/check-journey-recovery.mjs",
+      "classification": "historical checkpoint runner; assertions may encode superseded behavior"
+    },
+    {
+      "file": "tests/browser/check-light-alignment.mjs",
+      "classification": "historical checkpoint runner; assertions may encode superseded behavior"
+    },
+    {
+      "file": "tests/browser/check-lighting.mjs",
+      "classification": "historical checkpoint runner; assertions may encode superseded behavior"
+    },
+    {
+      "file": "tests/browser/check-live-pages.mjs",
+      "classification": "historical checkpoint runner; assertions may encode superseded behavior"
+    },
+    {
+      "file": "tests/browser/check-narration.mjs",
+      "classification": "historical checkpoint runner; assertions may encode superseded behavior"
+    },
+    {
+      "file": "tests/browser/check-organization.mjs",
+      "classification": "historical checkpoint runner; assertions may encode superseded behavior",
+      "reason": "Requires original before-inventory fixture and unchanged Phase 1 modules, superseded by later approved development"
+    },
+    {
+      "file": "tests/browser/check-peer-revision.mjs",
+      "classification": "historical checkpoint runner; assertions may encode superseded behavior"
+    },
+    {
+      "file": "tests/browser/check-phase2-audit.mjs",
+      "classification": "current acceptance runner"
+    },
+    {
+      "file": "tests/browser/check-phase2-live.mjs",
+      "classification": "current acceptance runner"
+    },
+    {
+      "file": "tests/browser/check-prize-staging.mjs",
+      "classification": "historical checkpoint runner; assertions may encode superseded behavior"
+    },
+    {
+      "file": "tests/browser/check-prize.mjs",
+      "classification": "historical checkpoint runner; assertions may encode superseded behavior"
+    },
+    {
+      "file": "tests/browser/check-shell.mjs",
+      "classification": "historical checkpoint runner; assertions may encode superseded behavior"
+    },
+    {
+      "file": "tests/browser/check-story-assets.mjs",
+      "classification": "historical checkpoint runner; assertions may encode superseded behavior"
+    },
+    {
+      "file": "tests/browser/check-submission-ready.mjs",
+      "classification": "historical checkpoint runner; assertions may encode superseded behavior"
+    },
+    {
+      "file": "tests/browser/check-ticket-story.mjs",
+      "classification": "historical checkpoint runner; assertions may encode superseded behavior"
+    },
+    {
+      "file": "tests/browser/check-tickets.mjs",
+      "classification": "current acceptance runner"
+    },
+    {
+      "file": "tests/browser/visual-check.mjs",
+      "classification": "historical checkpoint runner; assertions may encode superseded behavior"
+    }
+  ],
+  "note": "All current executable acceptance suites are exercised separately. Historical checkpoint scripts are preserved as evidence, not silently relabelled as passes or rewritten to weaken their old assertions."
+}

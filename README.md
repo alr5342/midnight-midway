@@ -1,5 +1,7 @@
 # The Midnight Midway
 
+> **Current final submission status, 2026-10-26:** see [Final audit and GitHub ZIP instructions](docs/FINAL-SUBMISSION.md). The completed debrief, both development exports and final Safari phone report have now been reviewed. Current unit/integration/Chromium and WebKit visual checks pass within the documented engine limits. The publication-stage pending-phone/debrief statements below are historical; the linked final report supersedes them. Runtime/artwork are unchanged.
+
 A phone-sized illustrated Halloween midway: ring for admission, spend tickets on a musical carousel or a two-beanbag can game, then claim a brass keepsake as the park disappears. Spooky, playful, ages 10+, unbranded. Ferris wheel and carousel stay stationary; layered artwork, lighting, fog, sound and staggered horse movement create the atmosphere.
 
 **Phase 2 published and public-browser verified, 2026-10-26.** Full public journey verified at merge `f46add2`, with runtime unchanged from approved application baseline `614e44b`; later evidence updates change documentation only. [Deployment and verification record](docs/PHASE-2-DEPLOYMENT.md). Final physical-phone verification, supplied debrief and final ZIP remain separate checkpoints. [Requirements audit and remaining gates](docs/PHASE-2-AUDIT.md).

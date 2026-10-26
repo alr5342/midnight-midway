@@ -1,5 +1,7 @@
 # Midnight Midway — current specification
 
+> **Final submission update, 2026-10-26:** the behavior below is unchanged. The completed debrief transcript and final Safari phone account are now reviewed; original protocol/transcripts are included with the Git log and actual GitHub source-ZIP verification. [Current final evidence and limitations](docs/FINAL-SUBMISSION.md) supersede earlier pending-release statements below. The protocol is not an answer sheet and remains unmodified.
+
 Updated 2026-10-26. Approved application baseline: `614e44b`, now merged into `main` and published without runtime or creative changes. [Deployment and public verification](docs/PHASE-2-DEPLOYMENT.md) record the actual release. Fixed assignment requirements: [brief.md](brief.md). Final submission evidence and outstanding phone/debrief/archive gates: [Phase 2 audit](docs/PHASE-2-AUDIT.md).
 
 ## Goal and constraints

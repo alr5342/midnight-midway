@@ -1,5 +1,7 @@
 # Midnight Midway — research and consequential decisions
 
+> **Finalization decision, 2026-10-26:** the supplied debrief protocol stays unchanged; its completed 46-minute-5-second transcript is the deliverable. That transcript supplies the previously missing finished-version Safari phone account. Two original development exports were confirmed by the Developer as all intended conversation materials. Track these exact bytes and the readable Git log so GitHub's source ZIP includes them; verify the actual downloaded/extracted archive. [Final evidence/limits](docs/FINAL-SUBMISSION.md). Earlier deferred-debrief statements below describe the preceding publication checkpoint.
+
 Updated 2026-10-26 for Phase 2 audit. Current app baseline `614e44b`. [Current specification](spec.md) defines behavior; [audit](docs/PHASE-2-AUDIT.md) separates evidence from unresolved requirements. The Developer retains creative control and approves consequential choices before implementation.
 
 ## Visual approach

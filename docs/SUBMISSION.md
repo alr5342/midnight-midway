@@ -1,5 +1,7 @@
 # Phase 1 submission record
 
+> Preserved historical Phase 1 record. Current final delivery uses [the complete GitHub source ZIP](FINAL-SUBMISSION.md), including the completed debrief and development exports. The original Phase 1 ZIP/sidecars remain unchanged locally; a redundant nested archive is not included in the source ZIP.
+
 Preservation note, 2026-10-19: the existing final ZIP, verification sidecar, staging and extracted projects remain unchanged at revision 4f7ed1b with their original folder structure. The separate chore/project-structure cleanup updates only the active checkout and future export/package paths. The live site was not replaced. The packaging description below uses current tool paths; frozen submission manifests retain their original paths.
 
 Live app: https://alr5342.github.io/midnight-midway/

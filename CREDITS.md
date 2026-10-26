@@ -1,5 +1,7 @@
 # Midnight Midway credits and asset sources
 
+> Final audit update, 2026-10-26: source/provenance records below remain unchanged. The completed debrief now records the Developer's combined-sound listening review and finished public Safari phone playthrough with Enter-started sound. [Reported observations and unperformed device checks](docs/PHASE-2-PHONE-VERIFICATION.md) supersede earlier pending-phone/listening statements below.
+
 Current Phase 2 application baseline: `614e44b`. Source/license audit updated 2026-10-26. Historical checkpoint-by-checkpoint credits are preserved [verbatim](docs/history/20261026-finalization/CREDITS.md). Current in-app Credits names the Developer, AI assistance and external sound creators/terms; it temporarily pauses and restores the previous activity mode, except after genuine browser interruptions.
 
 ## Developer and assistance

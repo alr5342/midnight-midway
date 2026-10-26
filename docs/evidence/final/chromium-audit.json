@@ -1,0 +1,702 @@
+{
+  "checkedAt": "2026-10-26T19:38:42.601Z",
+  "status": "passed",
+  "results": [
+    {
+      "browser": "chromium",
+      "version": "153.0.8010.12",
+      "status": "passed",
+      "audioAvailable": true,
+      "audioVerified": true,
+      "keyboardJourney": true,
+      "initialAndLiveReducedMotion": true,
+      "creditsFocusAndExactResume": true,
+      "pausedCreditsRemainPaused": true,
+      "playPauseFreezesModelsAndAudio": true,
+      "endingAndFreshRevisit": true,
+      "projectPrefix": "/midnight-midway/",
+      "caseSensitiveRequests": 53,
+      "contrastRatios": {
+        "#hint": 13.87704310481596,
+        "#credits-open": 14.14392819220168,
+        "#credits-dialog": 16.837111997248407,
+        "#credits-close": 9.517833173798111,
+        "#enter": 9.517833173798111,
+        "#admission": 15.078675105916625
+      },
+      "layouts": [
+        {
+          "phase": "standing cans",
+          "width": 390,
+          "height": 844,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            {
+              "selector": "#playback",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#bell",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#credits-open",
+              "visible": true,
+              "width": 64,
+              "height": 44
+            },
+            {
+              "selector": "#music-open",
+              "visible": true,
+              "width": 64,
+              "height": 52
+            },
+            {
+              "selector": "[data-horse-note=left]",
+              "visible": true,
+              "width": 54.59375,
+              "height": 55.421875
+            },
+            {
+              "selector": "[data-horse-note=center]",
+              "visible": true,
+              "width": 54.59375,
+              "height": 55.421875
+            },
+            {
+              "selector": "[data-horse-note=right]",
+              "visible": true,
+              "width": 54.59375,
+              "height": 55.421875
+            },
+            {
+              "selector": "[data-can=top]",
+              "visible": true,
+              "width": 46.796875,
+              "height": 44
+            },
+            {
+              "selector": "[data-can=left]",
+              "visible": true,
+              "width": 46.796875,
+              "height": 44
+            },
+            {
+              "selector": "[data-can=right]",
+              "visible": true,
+              "width": 46.796875,
+              "height": 44
+            }
+          ]
+        },
+        {
+          "phase": "standing cans",
+          "width": 375,
+          "height": 667,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            {
+              "selector": "#playback",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#bell",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#credits-open",
+              "visible": true,
+              "width": 64,
+              "height": 44
+            },
+            {
+              "selector": "#music-open",
+              "visible": true,
+              "width": 64,
+              "height": 52
+            },
+            {
+              "selector": "[data-horse-note=left]",
+              "visible": true,
+              "width": 52.5,
+              "height": 53.296875
+            },
+            {
+              "selector": "[data-horse-note=center]",
+              "visible": true,
+              "width": 52.5,
+              "height": 53.296875
+            },
+            {
+              "selector": "[data-horse-note=right]",
+              "visible": true,
+              "width": 52.5,
+              "height": 53.296875
+            },
+            {
+              "selector": "[data-can=top]",
+              "visible": true,
+              "width": 45,
+              "height": 44
+            },
+            {
+              "selector": "[data-can=left]",
+              "visible": true,
+              "width": 45,
+              "height": 44
+            },
+            {
+              "selector": "[data-can=right]",
+              "visible": true,
+              "width": 45,
+              "height": 44
+            }
+          ]
+        },
+        {
+          "phase": "standing cans",
+          "width": 320,
+          "height": 568,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            {
+              "selector": "#playback",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#bell",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#credits-open",
+              "visible": true,
+              "width": 64,
+              "height": 44
+            },
+            {
+              "selector": "#music-open",
+              "visible": true,
+              "width": 64,
+              "height": 52
+            },
+            {
+              "selector": "[data-horse-note=left]",
+              "visible": true,
+              "width": 44.75,
+              "height": 45.4375
+            },
+            {
+              "selector": "[data-horse-note=center]",
+              "visible": true,
+              "width": 44.75,
+              "height": 45.4375
+            },
+            {
+              "selector": "[data-horse-note=right]",
+              "visible": true,
+              "width": 44.75,
+              "height": 45.4375
+            },
+            {
+              "selector": "[data-can=top]",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "[data-can=left]",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "[data-can=right]",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            }
+          ]
+        },
+        {
+          "phase": "standing cans",
+          "width": 280,
+          "height": 568,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            {
+              "selector": "#playback",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#bell",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#credits-open",
+              "visible": true,
+              "width": 64,
+              "height": 44
+            },
+            {
+              "selector": "#music-open",
+              "visible": true,
+              "width": 64,
+              "height": 52
+            },
+            {
+              "selector": "[data-horse-note=left]",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "[data-horse-note=center]",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "[data-horse-note=right]",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "[data-can=top]",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "[data-can=left]",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "[data-can=right]",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            }
+          ]
+        },
+        {
+          "phase": "standing cans",
+          "width": 844,
+          "height": 390,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            {
+              "selector": "#playback",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#bell",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#credits-open",
+              "visible": true,
+              "width": 64,
+              "height": 44
+            },
+            {
+              "selector": "#music-open",
+              "visible": true,
+              "width": 64,
+              "height": 52
+            },
+            {
+              "selector": "[data-horse-note=left]",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "[data-horse-note=center]",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "[data-horse-note=right]",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "[data-can=top]",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "[data-can=left]",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "[data-can=right]",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            }
+          ]
+        },
+        {
+          "phase": "waiting token",
+          "width": 390,
+          "height": 844,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            {
+              "selector": "#playback",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#bell",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#credits-open",
+              "visible": true,
+              "width": 64,
+              "height": 44
+            },
+            {
+              "selector": "#music-open",
+              "visible": true,
+              "width": 64,
+              "height": 52
+            },
+            {
+              "selector": "[data-horse-note=left]",
+              "visible": true,
+              "width": 54.59375,
+              "height": 55.421875
+            },
+            {
+              "selector": "[data-horse-note=center]",
+              "visible": true,
+              "width": 54.59375,
+              "height": 55.421875
+            },
+            {
+              "selector": "[data-horse-note=right]",
+              "visible": true,
+              "width": 54.59375,
+              "height": 55.421875
+            },
+            {
+              "selector": "#prize-retry",
+              "visible": true,
+              "width": 46.796875,
+              "height": 44
+            },
+            {
+              "selector": "#claim-token",
+              "visible": true,
+              "width": 46.796875,
+              "height": 55.421875
+            }
+          ]
+        },
+        {
+          "phase": "waiting token",
+          "width": 375,
+          "height": 667,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            {
+              "selector": "#playback",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#bell",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#credits-open",
+              "visible": true,
+              "width": 64,
+              "height": 44
+            },
+            {
+              "selector": "#music-open",
+              "visible": true,
+              "width": 64,
+              "height": 52
+            },
+            {
+              "selector": "[data-horse-note=left]",
+              "visible": true,
+              "width": 52.5,
+              "height": 53.296875
+            },
+            {
+              "selector": "[data-horse-note=center]",
+              "visible": true,
+              "width": 52.5,
+              "height": 53.296875
+            },
+            {
+              "selector": "[data-horse-note=right]",
+              "visible": true,
+              "width": 52.5,
+              "height": 53.296875
+            },
+            {
+              "selector": "#prize-retry",
+              "visible": true,
+              "width": 45,
+              "height": 44
+            },
+            {
+              "selector": "#claim-token",
+              "visible": true,
+              "width": 45,
+              "height": 53.296875
+            }
+          ]
+        },
+        {
+          "phase": "waiting token",
+          "width": 320,
+          "height": 568,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            {
+              "selector": "#playback",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#bell",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#credits-open",
+              "visible": true,
+              "width": 64,
+              "height": 44
+            },
+            {
+              "selector": "#music-open",
+              "visible": true,
+              "width": 64,
+              "height": 52
+            },
+            {
+              "selector": "[data-horse-note=left]",
+              "visible": true,
+              "width": 44.75,
+              "height": 45.4375
+            },
+            {
+              "selector": "[data-horse-note=center]",
+              "visible": true,
+              "width": 44.75,
+              "height": 45.4375
+            },
+            {
+              "selector": "[data-horse-note=right]",
+              "visible": true,
+              "width": 44.75,
+              "height": 45.4375
+            },
+            {
+              "selector": "#prize-retry",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#claim-token",
+              "visible": true,
+              "width": 44,
+              "height": 45.4375
+            }
+          ]
+        },
+        {
+          "phase": "waiting token",
+          "width": 280,
+          "height": 568,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            {
+              "selector": "#playback",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#bell",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#credits-open",
+              "visible": true,
+              "width": 64,
+              "height": 44
+            },
+            {
+              "selector": "#music-open",
+              "visible": true,
+              "width": 64,
+              "height": 52
+            },
+            {
+              "selector": "[data-horse-note=left]",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "[data-horse-note=center]",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "[data-horse-note=right]",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#prize-retry",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#claim-token",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            }
+          ]
+        },
+        {
+          "phase": "waiting token",
+          "width": 844,
+          "height": 390,
+          "overflow": false,
+          "fits": true,
+          "targets": [
+            {
+              "selector": "#playback",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#bell",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#credits-open",
+              "visible": true,
+              "width": 64,
+              "height": 44
+            },
+            {
+              "selector": "#music-open",
+              "visible": true,
+              "width": 64,
+              "height": 52
+            },
+            {
+              "selector": "[data-horse-note=left]",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "[data-horse-note=center]",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "[data-horse-note=right]",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#prize-retry",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            },
+            {
+              "selector": "#claim-token",
+              "visible": true,
+              "width": 44,
+              "height": 44
+            }
+          ]
+        }
+      ],
+      "missingAssetGates": [
+        "assets/artwork/midway-clean-plate.png",
+        "src/css/scene.css"
+      ],
+      "errors": []
+    }
+  ],
+  "limits": [
+    "Desktop engine automation, not physical-phone or assistive-technology user testing",
+    "No public Phase 2 deployment checked",
+    "WebKit without Web Audio cannot verify Safari/iPhone audio; no audio pass claimed",
+    "Contrast checks cover sampled text panels, not every artwork pixel"
+  ]
+}

@@ -1,5 +1,9 @@
 # Midnight Midway — development and release plan
 
+## Final submission checkpoint, 2026-10-26
+
+Completed debrief and final Safari phone evidence are reviewed. The two intended development exports are preserved unchanged and included; current tests/reference checks pass with explicit Firefox/WebKit limits. Refresh the tracked Git log, commit/push the approved materials, verify the actual downloaded GitHub ZIP against the committed inventory, and exercise the extracted game. Record the actual archive result in [FINAL-SUBMISSION.md](docs/FINAL-SUBMISSION.md). No gameplay/artwork changes or extra features. The publication-stage plan below is retained as history; its phone/debrief deferrals are superseded by this checkpoint.
+
 Updated 2026-10-26. Approved runtime `614e44b` is merged into `main` and published; full public verification passed at merge `f46add2`. [Deployment evidence](docs/PHASE-2-DEPLOYMENT.md). The Developer accepted existing testing/known browser coverage limits and authorized publication, without another extensive audit. No creative changes, debrief work or packaging in the publication checkpoint. Stop for review before remaining submission work.
 
 ## Completed development
